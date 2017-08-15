@@ -10,6 +10,8 @@ class CustomersFeatureTest extends TestCase
     /** @test */
     public function it_can_update_the_customers_password()
     {
+        $customer = factory(Customer::class)->create();
+
         $data = [
             'name' => $this->faker->name,
             'email' => $this->faker->email,
@@ -17,9 +19,9 @@ class CustomersFeatureTest extends TestCase
         ];
 
         $this->actingAs($this->employee, 'admin')
-            ->put(route('customers.update', $this->customer->id), $data)
+            ->put(route('customers.update', $customer->id), $data)
             ->assertStatus(302)
-            ->assertRedirect(route('customers.edit', $this->customer->id));
+            ->assertRedirect(route('customers.edit', $customer->id));
     }
 
     /** @test */
@@ -35,24 +37,28 @@ class CustomersFeatureTest extends TestCase
     /** @test */
     public function it_can_show_the_customer()
     {
+        $customer = factory(Customer::class)->create();
+
         $this->actingAs($this->employee, 'admin')
-            ->get(route('customers.show', $this->customer->id))
+            ->get(route('customers.show', $customer->id))
             ->assertViewHas(['customer'])
-            ->assertSeeText($this->customer->name);
+            ->assertSeeText($customer->name);
     }
     
     /** @test */
     public function it_can_update_the_customer()
     {
+        $customer = factory(Customer::class)->create();
+
         $data = [
             'name' => $this->faker->name,
             'email' => $this->faker->email
         ];
 
         $this->actingAs($this->employee, 'admin')
-            ->put(route('customers.update', $this->customer->id), $data)
+            ->put(route('customers.update', $customer->id), $data)
             ->assertStatus(302)
-            ->assertRedirect(route('customers.edit', $this->customer->id));
+            ->assertRedirect(route('customers.edit', $customer->id));
 
         $this->assertDatabaseHas('customers', $data);
     }

@@ -3,8 +3,9 @@
 namespace Tests\Unit\Provinces;
 
 use App\Provinces\Exceptions\ProvinceNotFoundException;
+use App\Provinces\Province;
 use App\Provinces\Repositories\ProvinceRepository;
-use Jsdecena\MCPro\Models\Province;
+use App\Cities\City;
 use Tests\TestCase;
 
 class ProvincesUnitTest extends TestCase
@@ -22,8 +23,8 @@ class ProvincesUnitTest extends TestCase
     /** @test */
     public function it_can_show_the_province()
     {
+        $province = factory(Province::class)->create();
         $provinceRepo = new ProvinceRepository(new Province);
-        $province = Province::find(1);
         $found = $provinceRepo->findProvinceById($province->id);
 
         $this->assertEquals($province->name, $found->name);
@@ -32,12 +33,16 @@ class ProvincesUnitTest extends TestCase
     /** @test */
     public function it_can_list_all_the_cities_within_the_province()
     {
-        $provinceRepo = new ProvinceRepository(new Province);
-        $cities = $provinceRepo->listCities(Province::find(1));
+        $province = factory(Province::class)->create();
+        $provinceRepo = new ProvinceRepository($province);
 
-        foreach ($cities as $city) {
-            $this->assertDatabaseHas('cities', $city->toArray());
-        }
+        $city = new City(['name' => $this->faker->city]);
+        $city->province()->associate($province);
+        $province->cities()->save($city);
+        $cities = $provinceRepo->listCities();
+
+        $this->assertCount(1, $cities);
+
     }
     
     /** @test */

@@ -9,16 +9,13 @@ use App\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Addresses\Transformations\AddressTransformable;
 use App\Base\BaseRepository;
 use App\Cities\Repositories\CityRepository;
-use App\Countries\Repositories\CountryRepository;
 use App\Customers\Customer;
-use App\Customers\Repositories\CustomerRepository;
 use App\Customers\Transformations\CustomerTransformable;
 use App\Provinces\Repositories\ProvinceRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
-use Jsdecena\MCPro\Models\City;
-use Jsdecena\MCPro\Models\Country;
-use Jsdecena\MCPro\Models\Province;
+use Illuminate\Support\Collection;
+use App\Cities\City;
 
 class AddressRepository extends BaseRepository implements AddressRepositoryInterface
 {
@@ -30,6 +27,7 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
      */
     public function __construct(Address $address)
     {
+        parent::__construct($address);
         $this->model = $address;
     }
 
@@ -37,22 +35,44 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
      * Create the address
      *
      * @param array $params
-     * @param Customer $customer
      * @return Address
      */
-    public function createAddress(array $params, Customer $customer) : Address
+    public function createAddress(array $params) : Address
     {
         try {
 
-            $collection = collect($params)->except('_token');
-            $address = new Address($collection->all());
-            $this->attachToCustomer($address, $customer);
+            $exceptions = [
+                '_token',
+                'customer_id',
+                'city_id',
+                'country_id',
+                'province_id'
+            ];
+
+            $address = new Address(collect($params)->except($exceptions)->all());
+
+            if (isset($params['city_id'])) {
+                $cityRepo = new CityRepository(new City);
+                $city = $cityRepo->findCityById($params['city_id']);
+                $address->city()->associate($city->id);
+
+                $province = $city->province()->first();
+                $address->province()->associate($province->id);
+
+                $country = $province->country()->first();
+                $address->country()->associate($country->id);
+            }
+
+            if (isset($params['customer_id'])) {
+                $address->customer()->associate($params['customer_id']);
+            }
+
             $address->save();
 
-            return $this->find($address->id);
+            return $address;
 
         } catch (QueryException $e) {
-            throw new AddressInvalidArgumentException($e->getMessage());
+            throw new AddressInvalidArgumentException('Address creation error', 500, $e);
         }
     }
 
@@ -69,13 +89,11 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
 
     /**
      * @param array $update
-     * @return Address
+     * @return bool
      */
-    public function updateAddress(array $update): Address
+    public function updateAddress(array $update): bool
     {
-        $this->update($update, $this->model->id);
-
-        return $this->findAddressById($this->model->id);
+        return $this->model->update($update);
     }
 
     /**
@@ -92,15 +110,11 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
      *
      * @param string $order
      * @param string $sort
-     * @return array
+     * @return array|\Illuminate\Support\Collection
      */
-    public function listAddress(string $order = 'id', string $sort = 'desc') : array
+    public function listAddress(string $order = 'id', string $sort = 'desc') : Collection
     {
-        $list = $this->model->orderBy($order, $sort)->get();
-
-        return collect($list)->map(function (Address $address) {
-            return $this->transformAddress($address);
-        })->all();
+        return collect($this->model->orderBy($order, $sort)->get());
     }
 
     /**
@@ -112,7 +126,7 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
     public function findAddressById(int $id) : Address
     {
         try {
-            return $this->transformAddress($this->findOneOrFail($id));
+            return $this->findOneOrFail($id);
         } catch (ModelNotFoundException $e) {
             throw new AddressNotFoundException($e->getMessage());
         }

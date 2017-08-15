@@ -5,10 +5,10 @@ namespace App\Addresses\Transformations;
 use App\Addresses\Address;
 use App\Cities\Repositories\CityRepository;
 use App\Countries\Repositories\CountryRepository;
+use App\Provinces\Province;
 use App\Provinces\Repositories\ProvinceRepository;
-use Jsdecena\MCPro\Models\City;
-use Jsdecena\MCPro\Models\Country;
-use Jsdecena\MCPro\Models\Province;
+use App\Cities\City;
+use App\Countries\Country;
 
 trait AddressTransformable
 {

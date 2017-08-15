@@ -4,10 +4,11 @@ namespace App\Provinces\Repositories;
 
 use App\Base\BaseRepository;
 use App\Provinces\Exceptions\ProvinceNotFoundException;
+use App\Provinces\Province;
 use App\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Jsdecena\MCPro\Models\Province;
 
 class ProvinceRepository extends BaseRepository implements ProvinceRepositoryInterface
 {
@@ -17,6 +18,7 @@ class ProvinceRepository extends BaseRepository implements ProvinceRepositoryInt
      */
     public function __construct(Province $province)
     {
+        parent::__construct($province);
         $this->model = $province;
     }
 
@@ -37,12 +39,11 @@ class ProvinceRepository extends BaseRepository implements ProvinceRepositoryInt
     /**
      * List all the cities
      *
-     * @param Province $province
      * @return mixed
      */
-    public function listCities(Province $province)
+    public function listCities() : Collection
     {
-        return $province->cities;
+        return $this->model->cities;
     }
 
     /**

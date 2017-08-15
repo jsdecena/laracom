@@ -4,7 +4,7 @@ namespace Tests\Unit\Cities;
 
 use App\Cities\Exceptions\CityNotFoundException;
 use App\Cities\Repositories\CityRepository;
-use Jsdecena\MCPro\Models\City;
+use App\Cities\City;
 use Tests\TestCase;
 
 class CityUnitTest extends TestCase 
@@ -12,10 +12,13 @@ class CityUnitTest extends TestCase
     /** @test */
     public function it_can_update_the_city()
     {
-        $city = new CityRepository($this->city);
-        $ct = $city->updateCity(['name' => 'Manila']);
+        $city = factory(City::class)->create();
+        $cityRepo = new CityRepository($city);
 
-        $this->assertEquals($ct->name, $this->city->name);
+        $update = ['name' => 'Manila'];
+        $cityRepo->updateCity($update);
+
+        $this->assertEquals($update['name'], $city->name);
 
     }
     
@@ -31,9 +34,10 @@ class CityUnitTest extends TestCase
     /** @test */
     public function it_can_find_the_city()
     {
+        $city = factory(City::class)->create();
         $cityRepo = new CityRepository(new City);
-        $city = $cityRepo->findCityById($this->city->id);
+        $found = $cityRepo->findCityById($city->id);
 
-        $this->assertEquals($this->city->name, $city->name);
+        $this->assertEquals($city->name, $found->name);
     }
 }

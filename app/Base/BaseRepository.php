@@ -3,7 +3,7 @@
 namespace App\Base;
 
 use App\Base\Interfaces\BaseRepositoryInterface;
-use Illuminate\Contracts\Container\Container;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -16,11 +16,11 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     /**
      * BaseRepository constructor.
-     * @param Container $app
+     * @param Model $model
      */
-    public function __construct(Container $app)
+    public function __construct(Model $model)
     {
-        $this->model = $app->make($this->model);
+        $this->model = $model;
     }
 
     /**

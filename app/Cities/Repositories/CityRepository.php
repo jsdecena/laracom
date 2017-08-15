@@ -5,14 +5,14 @@ namespace App\Cities\Repositories;
 use App\Base\BaseRepository;
 use App\Cities\Exceptions\CityNotFoundException;
 use App\Cities\Repositories\Interfaces\CityRepositoryInterface;
-use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Jsdecena\MCPro\Models\City;
+use App\Cities\City;
 
 class CityRepository extends BaseRepository implements CityRepositoryInterface
 {
     public function __construct(City $city)
     {
+        parent::__construct($city);
         $this->model = $city;
     }
 

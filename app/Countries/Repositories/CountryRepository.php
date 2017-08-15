@@ -9,7 +9,7 @@ use App\Countries\Repositories\Interfaces\CountryRepositoryInterface;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
-use Jsdecena\MCPro\Models\Country;
+use App\Countries\Country;
 
 class CountryRepository extends BaseRepository implements CountryRepositoryInterface
 {
@@ -19,6 +19,7 @@ class CountryRepository extends BaseRepository implements CountryRepositoryInter
      */
     public function __construct(Country $country)
     {
+        parent::__construct($country);
         $this->model = $country;
     }
 

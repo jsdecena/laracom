@@ -3,8 +3,11 @@
 namespace App\Addresses;
 
 use App\Customers\Customer;
+use App\Provinces\Province;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Cities\City;
+use App\Countries\Country;
 
 class Address extends Model
 {
@@ -20,10 +23,6 @@ class Address extends Model
         'address_1',
         'address_2',
         'zip',
-        'city_id',
-        'province_id',
-        'country_id',
-        'customer_id',
         'status'
     ];
 
@@ -39,5 +38,20 @@ class Address extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
     }
 }

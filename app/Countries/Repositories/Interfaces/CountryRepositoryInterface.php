@@ -3,7 +3,7 @@
 namespace App\Countries\Repositories\Interfaces;
 
 use App\Base\Interfaces\BaseRepositoryInterface;
-use Jsdecena\MCPro\Models\Country;
+use App\Countries\Country;
 
 interface CountryRepositoryInterface extends BaseRepositoryInterface
 {

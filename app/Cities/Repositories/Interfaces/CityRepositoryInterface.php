@@ -3,7 +3,7 @@
 namespace App\Cities\Repositories\Interfaces;
 
 use App\Base\Interfaces\BaseRepositoryInterface;
-use Jsdecena\MCPro\Models\City;
+use App\Cities\City;
 
 interface CityRepositoryInterface extends BaseRepositoryInterface
 {

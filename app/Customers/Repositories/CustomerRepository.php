@@ -21,6 +21,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      */
     public function __construct(Customer $customer)
     {
+        parent::__construct($customer);
         $this->model = $customer;
     }
 
@@ -112,12 +113,11 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
     /**
      * Find the address attached to the customer
      *
-     * @param Customer $customer
      * @return mixed
      */
-    public function findAddresses(Customer $customer) : Collection
+    public function findAddresses() : Collection
     {
-        return collect($customer->address)->map(function (Address $address){
+        return collect($this->model->address()->get())->map(function (Address $address){
             return $this->transformAddress($address);
         });
     }

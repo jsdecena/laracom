@@ -2,13 +2,15 @@
 
 namespace Tests\Unit\Orders;
 
-use App\OrderDetails\Exceptions\OrderDetailInvalidArgumentException;
+use App\Addresses\Address;
+use App\Couriers\Courier;
+use App\Customers\Customer;
 use App\Orders\Exceptions\OrderInvalidArgumentException;
 use App\Orders\Exceptions\OrderNotFoundException;
 use App\Orders\Order;
 use App\Orders\Repositories\OrderRepository;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
+use App\OrderStatuses\OrderStatus;
+use App\PaymentMethods\PaymentMethod;
 use Tests\TestCase;
 
 class OrderUnitTest extends TestCase
@@ -26,17 +28,23 @@ class OrderUnitTest extends TestCase
     /** @test */
     public function it_can_list_all_the_orders()
     {
+        $customer = factory(Customer::class)->create();
+        $courier = factory(Courier::class)->create();
+        $address = factory(Address::class)->create();
+        $orderStatus = factory(OrderStatus::class)->create();
+        $paymentMethod = factory(PaymentMethod::class)->create();
+
         $data = [
             'reference' => $this->faker->uuid,
-            'courier_id' => $this->courier->id,
-            'customer_id' => $this->customer->id,
-            'address_id' => $this->address->id,
-            'order_status_id' => $this->orderStatus->id,
-            'payment_method_id' => $this->paymentMethod->id,
+            'courier_id' => $courier->id,
+            'customer_id' => $customer->id,
+            'address_id' => $address->id,
+            'order_status_id' => $orderStatus->id,
+            'payment_method_id' => $paymentMethod->id,
             'discounts' => 10.50,
             'total_products' =>  100,
-            'total' => 100.00,
             'tax' => 10.00,
+            'total' => 100.00,
             'total_paid' => 100,
             'invoice' => null,
         ];
@@ -48,11 +56,6 @@ class OrderUnitTest extends TestCase
 
         foreach ($lists as $found) {
             $this->assertEquals($data['reference'], $found->reference);
-            $this->assertEquals($this->courier->id, $found->courier->id);
-            $this->assertEquals($this->customer->id, $found->customer->id);
-            $this->assertEquals($this->address->id, $found->address->id);
-            $this->assertEquals($this->orderStatus->id, $found->orderStatus->id);
-            $this->assertEquals($this->paymentMethod->id, $found->paymentMethod->id);
             $this->assertEquals($data['discounts'], $found->discounts);
             $this->assertEquals($data['total_products'], $found->total_products);
             $this->assertEquals($data['total_paid'], $found->total_paid);
@@ -73,17 +76,23 @@ class OrderUnitTest extends TestCase
     /** @test */
     public function it_can_get_the_order()
     {
+        $customer = factory(Customer::class)->create();
+        $courier = factory(Courier::class)->create();
+        $address = factory(Address::class)->create();
+        $orderStatus = factory(OrderStatus::class)->create();
+        $paymentMethod = factory(PaymentMethod::class)->create();
+
         $data = [
             'reference' => $this->faker->uuid,
-            'courier_id' => $this->courier->id,
-            'customer_id' => $this->customer->id,
-            'address_id' => $this->address->id,
-            'order_status_id' => $this->orderStatus->id,
-            'payment_method_id' => $this->paymentMethod->id,
+            'courier_id' => $courier->id,
+            'customer_id' => $customer->id,
+            'address_id' => $address->id,
+            'order_status_id' => $orderStatus->id,
+            'payment_method_id' => $paymentMethod->id,
             'discounts' => 10.50,
             'total_products' =>  100,
-            'total' => 100.00,
             'tax' => 10.00,
+            'total' => 100.00,
             'total_paid' => 100,
             'invoice' => null,
         ];
@@ -94,11 +103,6 @@ class OrderUnitTest extends TestCase
         $found = $orderRepo->findOrderById($created->id);
 
         $this->assertEquals($data['reference'], $found->reference);
-        $this->assertEquals($this->courier->id, $found->courier->id);
-        $this->assertEquals($this->customer->id, $found->customer->id);
-        $this->assertEquals($this->address->id, $found->address->id);
-        $this->assertEquals($this->orderStatus->id, $found->orderStatus->id);
-        $this->assertEquals($this->paymentMethod->id, $found->paymentMethod->id);
         $this->assertEquals($data['discounts'], $found->discounts);
         $this->assertEquals($data['total_products'], $found->total_products);
         $this->assertEquals($data['total_paid'], $found->total_paid);
@@ -112,29 +116,30 @@ class OrderUnitTest extends TestCase
 
         $orderRepo = new OrderRepository($order);
 
+        $customer = factory(Customer::class)->create();
+        $courier = factory(Courier::class)->create();
+        $address = factory(Address::class)->create();
+        $orderStatus = factory(OrderStatus::class)->create();
+        $paymentMethod = factory(PaymentMethod::class)->create();
+
         $update = [
             'reference' => $this->faker->uuid,
-            'courier_id' => $this->courier->id,
-            'customer_id' => $this->customer->id,
-            'address_id' => $this->address->id,
-            'order_status_id' => $this->orderStatus->id,
-            'payment_method_id' => $this->paymentMethod->id,
-            'discounts' => 5.50,
-            'total_products' =>  90.00,
-            'total' => 100.00,
+            'courier_id' => $courier->id,
+            'customer_id' => $customer->id,
+            'address_id' => $address->id,
+            'order_status_id' => $orderStatus->id,
+            'payment_method_id' => $paymentMethod->id,
+            'discounts' => 10.50,
+            'total_products' =>  100,
             'tax' => 10.00,
-            'total_paid' => 100.00,
+            'total' => 100.00,
+            'total_paid' => 100,
             'invoice' => null,
         ];
 
         $updated = $orderRepo->updateOrder($update);
 
         $this->assertEquals($update['reference'], $updated->reference);
-        $this->assertEquals($update['courier_id'], $this->courier->id);
-        $this->assertEquals($update['customer_id'], $this->customer->id);
-        $this->assertEquals($update['address_id'], $this->address->id);
-        $this->assertEquals($update['order_status_id'], $this->orderStatus->id);
-        $this->assertEquals($update['payment_method_id'], $this->paymentMethod->id);
         $this->assertEquals($update['discounts'], $updated->discounts);
         $this->assertEquals($update['total_products'], $updated->total_products);
         $this->assertEquals($update['total_paid'], $updated->total_paid);
@@ -146,13 +151,21 @@ class OrderUnitTest extends TestCase
     {
         $this->expectException(OrderInvalidArgumentException::class);
 
+        $customer = factory(Customer::class)->create();
+        $courier = factory(Courier::class)->create();
+        $address = factory(Address::class)->create();
+        $orderStatus = factory(OrderStatus::class)->create();
+        $paymentMethod = factory(PaymentMethod::class)->create();
+
         $data = [
             'reference' => $this->faker->uuid,
-            'courier_id' => $this->courier->id,
-            'customer_id' => $this->customer->id,
-            'address_id' => $this->address->id,
-            'order_status_id' => $this->orderStatus->id,
-            'payment_method_id' => $this->paymentMethod->id,
+            'courier_id' => $courier->id,
+            'customer_id' => $customer->id,
+            'address_id' => $address->id,
+            'order_status_id' => $orderStatus->id,
+            'payment_method_id' => $paymentMethod->id,
+            'discounts' => 10.50,
+            'total_products' =>  100,
             'invoice' => null,
         ];
 
@@ -165,16 +178,21 @@ class OrderUnitTest extends TestCase
     {
         $this->expectException(OrderInvalidArgumentException::class);
 
+        $courier = factory(Courier::class)->create();
+        $address = factory(Address::class)->create();
+        $orderStatus = factory(OrderStatus::class)->create();
+        $paymentMethod = factory(PaymentMethod::class)->create();
+
         $data = [
             'reference' => $this->faker->uuid,
-            'customer_id' => $this->customer->id,
-            'address_id' => $this->address->id,
-            'order_status_id' => $this->orderStatus->id,
-            'payment_method_id' => $this->paymentMethod->id,
+            'courier_id' => $courier->id,
+            'address_id' => $address->id,
+            'order_status_id' => $orderStatus->id,
+            'payment_method_id' => $paymentMethod->id,
             'discounts' => 10.50,
             'total_products' =>  100,
-            'total' => 100.00,
             'tax' => 10.00,
+            'total' => 100.00,
             'total_paid' => 100,
             'invoice' => null,
         ];
@@ -186,17 +204,23 @@ class OrderUnitTest extends TestCase
     /** @test */
     public function it_can_create_an_order()
     {
+        $customer = factory(Customer::class)->create();
+        $courier = factory(Courier::class)->create();
+        $address = factory(Address::class)->create();
+        $orderStatus = factory(OrderStatus::class)->create();
+        $paymentMethod = factory(PaymentMethod::class)->create();
+
         $data = [
             'reference' => $this->faker->uuid,
-            'courier_id' => $this->courier->id,
-            'customer_id' => $this->customer->id,
-            'address_id' => $this->address->id,
-            'order_status_id' => $this->orderStatus->id,
-            'payment_method_id' => $this->paymentMethod->id,
+            'courier_id' => $courier->id,
+            'customer_id' => $customer->id,
+            'address_id' => $address->id,
+            'order_status_id' => $orderStatus->id,
+            'payment_method_id' => $paymentMethod->id,
             'discounts' => 10.50,
             'total_products' =>  100,
-            'total' => 100.00,
             'tax' => 10.00,
+            'total' => 100.00,
             'total_paid' => 100,
             'invoice' => null,
         ];
@@ -205,11 +229,9 @@ class OrderUnitTest extends TestCase
         $created = $orderRepo->createOrder($data);
 
         $this->assertEquals($data['reference'], $created->reference);
-        $this->assertEquals($data['courier_id'], $this->courier->id);
-        $this->assertEquals($data['customer_id'], $this->customer->id);
-        $this->assertEquals($data['address_id'], $this->address->id);
-        $this->assertEquals($data['order_status_id'], $this->orderStatus->id);
-        $this->assertEquals($data['payment_method_id'], $this->paymentMethod->id);
+        $this->assertEquals($data['courier_id'], $courier->id);
+        $this->assertEquals($data['customer_id'], $customer->id);
+        $this->assertEquals($data['address_id'], $address->id);
         $this->assertEquals($data['discounts'], $created->discounts);
         $this->assertEquals($data['total_products'], $created->total_products);
         $this->assertEquals($data['total_paid'], $created->total_paid);

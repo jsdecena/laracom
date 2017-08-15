@@ -2,10 +2,15 @@
 
 namespace Tests\Unit\OrderDetails;
 
+use App\Addresses\Address;
+use App\Couriers\Courier;
+use App\Customers\Customer;
 use App\OrderDetails\OrderProduct;
 use App\OrderDetails\Repositories\OrderProductRepository;
 use App\Orders\Order;
 use App\Orders\Repositories\OrderRepository;
+use App\OrderStatuses\OrderStatus;
+use App\PaymentMethods\PaymentMethod;
 use App\Products\Product;
 use App\Products\Repositories\ProductRepository;
 use Tests\TestCase;
@@ -15,13 +20,19 @@ class OrderDetailsUnitTest extends TestCase
     /** @test */
     public function it_can_show_all_the_products_attached_to_an_order()
     {
+        $customer = factory(Customer::class)->create();
+        $courier = factory(Courier::class)->create();
+        $address = factory(Address::class)->create();
+        $orderStatus = factory(OrderStatus::class)->create();
+        $paymentMethod = factory(PaymentMethod::class)->create();
+
         $data = [
             'reference' => $this->faker->uuid,
-            'courier_id' => $this->courier->id,
-            'customer_id' => $this->customer->id,
-            'address_id' => $this->address->id,
-            'order_status_id' => $this->orderStatus->id,
-            'payment_method_id' => $this->paymentMethod->id,
+            'courier_id' => $courier->id,
+            'customer_id' => $customer->id,
+            'address_id' => $address->id,
+            'order_status_id' => $orderStatus->id,
+            'payment_method_id' => $paymentMethod->id,
             'discounts' => 10.50,
             'total_products' =>  100,
             'tax' => 10.00,
@@ -65,17 +76,23 @@ class OrderDetailsUnitTest extends TestCase
     /** @test */
     public function it_can_create_an_order_detail()
     {
+        $customer = factory(Customer::class)->create();
+        $courier = factory(Courier::class)->create();
+        $address = factory(Address::class)->create();
+        $orderStatus = factory(OrderStatus::class)->create();
+        $paymentMethod = factory(PaymentMethod::class)->create();
+
         $data = [
             'reference' => $this->faker->uuid,
-            'courier_id' => $this->courier->id,
-            'customer_id' => $this->customer->id,
-            'address_id' => $this->address->id,
-            'order_status_id' => $this->orderStatus->id,
-            'payment_method_id' => $this->paymentMethod->id,
+            'courier_id' => $courier->id,
+            'customer_id' => $customer->id,
+            'address_id' => $address->id,
+            'order_status_id' => $orderStatus->id,
+            'payment_method_id' => $paymentMethod->id,
             'discounts' => 10.50,
             'total_products' =>  100,
-            'total' => 100.00,
             'tax' => 10.00,
+            'total' => 100.00,
             'total_paid' => 100,
             'invoice' => null,
         ];
