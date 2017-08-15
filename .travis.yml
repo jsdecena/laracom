@@ -1,14 +1,13 @@
 language: php
 
 php:
-  - 5.6
   - 7.0
   - 7.1
 
 before_script:
   - cp .env.testing .env
   - composer self-update
-  - composer install --no-interaction
+  - composer update --no-interaction
 
 script:
   - vendor/bin/phpunit --coverage-text --colors
