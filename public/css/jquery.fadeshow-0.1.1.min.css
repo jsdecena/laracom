@@ -1,0 +1,51 @@
+/* 
+ * FadeShow jQuery Plugin
+ * Made by Erik Terwan
+ * 3 February 2015
+ * 
+ * This plugin is provided as-is and released under the terms of the MIT license.
+ */
+div.fadeShow-container {
+	position:relative;
+	width:100%;
+	height:100%;
+	background:#FFF;
+}
+div.fadeShow-container div.image {
+	position:absolute;
+	width:100%;
+	height:100%;
+	background-position:center center;
+	 background-attachment:fixed;
+	background-size: cover; display:block;
+	background-repeat:no-repeat;
+	transition:opacity 1.5s ease-in-out;
+	-moz-transition:opacity 1.5s ease-in-out;
+	-webkit-transition:opacity 1.5s ease-in-out;
+	opacity:0
+}
+div.fadeShow-container div.image.fillHeight {
+	background-size:cover; display:block;
+}
+div.fadeShow-container div.image.active {
+	z-index:3;
+	opacity:1
+}
+div.fadeShow-container div.image.inactive {
+	z-index:2;
+	opacity:0
+}
+div.fadeShow-container div.image img {
+	width:100px;
+	display:none
+}
+.background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+.over-bg{ background-color:rgba(255,255,255,0.4); position: fixed; width:100%; height:100%}
+main[role="slider-container"]{ position:relative; z-index:5}
