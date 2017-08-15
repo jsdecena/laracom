@@ -7,7 +7,8 @@ php:
 before_script:
   - cp .env.testing .env
   - composer self-update
-  - composer update --no-interaction
+  - composer install --no-interaction
+  - composer dump-autoload
 
 script:
   - vendor/bin/phpunit --coverage-text --colors
