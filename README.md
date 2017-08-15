@@ -1,6 +1,6 @@
-### FirstTwelve E-Commerce Application
+### Laravel E-Commerce Application
 
-### Framework Used : Laravel 5.3
+### Framework Used : Laravel 5.4
 
 ### Development environment : [Homestead](https://laravel.com/docs/5.3/homestead)
 
@@ -26,17 +26,8 @@
 
 - Go to `~/Homestead` and run `bash init.sh` for unix/linux and `init.bat` for windows
 
-- Edit the `Homestead.yml` file in `~/.homestead` directory
-
-- Change the value in **Homestead.yml** file for the `sites` key with `firstwelve.dev` ( by default it is `homestead.app` )
-
 - Then run `vagrant up --provision`
 
 - Wait until the provisioning is finished then you can go to [http://192.168.10.10](http://192.168.10.10)
 
-- **OPTIONAL** You can also set the IP and name to `/etc/hosts` like this `192.168.10.10 firstwelve.dev` so you can go to [http://firstwelve.dev](http://firstwelve.dev)
-
-### Deployment
-
-- Run in the terminal `envoy run deploy --branch=develop` for deployment in development server or
-- Run in the terminal `envoy run deploy --branch=master` for deployment in production server
+- **OPTIONAL** You can also set the IP and name to `/etc/hosts` like this `192.168.10.10 homestead.app` so you can go to [http://homestead.app](http://homestead.app)
