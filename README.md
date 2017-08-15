@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jsdecena/laracom.svg?branch=master)](https://travis-ci.org/jsdecena/laracom)
+
 ### Laravel E-Commerce Application
 
 ### Framework Used : Laravel 5.4
