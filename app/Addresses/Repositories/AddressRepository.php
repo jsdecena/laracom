@@ -59,7 +59,7 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
      */
     public function attachToCustomer(Address $address, Customer $customer)
     {
-        $customer->address()->save($address);
+        $customer->addresses()->save($address);
     }
 
     /**

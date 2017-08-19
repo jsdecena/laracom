@@ -104,7 +104,7 @@
                                     </table>
                                 </div>
                             @else
-                                <p class="alert alert-danger"><a href="#">No address found. You need to create an address first here.</a></p>
+                                <p class="alert alert-danger"><a href="{{ route('customer.address.create', [$customer->id]) }}">No address found. You need to create an address first here.</a></p>
                             @endif
                         </div>
                         @if(!collect($addresses)->isEmpty())

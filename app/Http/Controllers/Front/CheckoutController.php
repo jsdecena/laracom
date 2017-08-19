@@ -82,6 +82,7 @@ class CheckoutController extends Controller
         });
 
         return view('front.checkout', [
+            'customer' => $customer,
             'products' => $items,
             'subtotal' => $this->cartRepo->getSubTotal(),
             'tax' => $this->cartRepo->getTax(),
