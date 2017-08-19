@@ -26,7 +26,7 @@ class CountryController extends Controller
         $list = $this->countryRepo->listCountries('created_at', 'desc');
 
         return view('admin.countries.list', [
-            'countries' => $this->countryRepo->paginateArrayResults($list, 10)
+            'countries' => $this->countryRepo->paginateArrayResults($list->all(), 10)
         ]);
     }
 
