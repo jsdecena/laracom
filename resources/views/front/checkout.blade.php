@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container product-in-cart-list">
-        @if(!empty($products) && !collect($products)->isEmpty())
+        @if($products)
             <form action="{{ route('checkout.store') }}" method="post" class="form-horizontal">
                 {{ csrf_field() }}
                 <div class="row">
@@ -71,7 +71,7 @@
                         </table>
                         <hr>
                         <div class="row">
-                            @if($addresses)
+                            @if($addresses->count()>0)
                                 <div class="col-md-12">
                                     <h2><i class="fa fa-map-marker"></i> Delivery address</h2>
                                     <table class="table table-striped">

@@ -566,3 +566,7 @@ a:hover img {
 .customer-order-list .tab-pane {
     padding-top: 15px;
 }
+
+.product-list {
+    min-height: 400px;
+}
