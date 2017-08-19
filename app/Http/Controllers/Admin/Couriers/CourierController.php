@@ -6,6 +6,7 @@ use App\Countries\Repositories\CountryRepository;
 use App\Couriers\Repositories\CourierRepository;
 use App\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
 use App\Couriers\Requests\CreateCourierRequest;
+use App\Couriers\Requests\UpdateCourierRequest;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -67,11 +68,11 @@ class CourierController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UpdateCourierRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCourierRequest $request, $id)
     {
         $courier = $this->courierRepo->findCourierById($id);
 

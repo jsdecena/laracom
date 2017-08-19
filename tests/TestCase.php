@@ -51,6 +51,7 @@ abstract class TestCase extends BaseTestCase
         $this->employee = factory(Employee::class)->create();
         $this->product = factory(Product::class)->create();
         $this->category = factory(Category::class)->create();
+        $this->customer = factory(Customer::class)->create();
 
         $courierData = [
             'name' => $this->faker->word,

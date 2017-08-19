@@ -2,20 +2,10 @@
 
 namespace App\Cart\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Base\BaseFormRequest;
 
-class AddToCartRequest extends FormRequest
+class AddToCartRequest extends BaseFormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,6 +14,7 @@ class AddToCartRequest extends FormRequest
     public function rules()
     {
         return [
+            'product' => ['required', 'integer'],
             'quantity' => ['required']
         ];
     }

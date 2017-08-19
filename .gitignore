@@ -13,3 +13,4 @@ composer.lock
 yarn.lock
 /build
 Envoy.blade.php
+/coverage

@@ -10,6 +10,15 @@ use Tests\TestCase;
 class CityUnitTest extends TestCase 
 {
     /** @test */
+    public function it_can_list_all_the_cities()
+    {
+        $city = factory(City::class)->create();
+        $cityRepo = new CityRepository($city);
+
+        $this->assertCount(1, $cityRepo->listCities());
+    }
+    
+    /** @test */
     public function it_can_update_the_city()
     {
         $city = factory(City::class)->create();

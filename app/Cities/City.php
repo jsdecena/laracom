@@ -28,9 +28,4 @@ class City extends Model
     {
     	return $this->belongsTo(Province::class);
     }
-
-    public function barangays()
-    {
-    	return $this->hasMany('Jsdecena\MCPro\Models\Barangay');
-    }
 }
