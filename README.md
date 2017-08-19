@@ -28,6 +28,22 @@
 
 - Go to `~/Homestead` and run `bash init.sh` for unix/linux and `init.bat` for windows
 
+- Create the project with `cd ~ && composer create-project jsdecena/laracom`
+
+- Modify your `Homestead.yml` file in `~/.homestead` folder with
+
+```
+folders:
+    - map: ~/Code
+      to: /home/vagrant/Code
+
+sites:
+    - map: homestead.app
+      to: /home/vagrant/Code/laracom/public
+```
+
+Just make sure you have `Code` folder in your home directory. If you have other workspace folder, change the Code with your folder.
+
 - Then run `vagrant up --provision`
 
 - Wait until the provisioning is finished then you can go to [http://192.168.10.10](http://192.168.10.10)
