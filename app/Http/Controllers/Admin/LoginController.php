@@ -45,7 +45,9 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
-        if (auth()->guard('admin')->attempt($request->only('email', 'password'))) {
+        $details = $request->only('email', 'password');
+        $details['status'] = 1;
+        if (auth()->guard('admin')->attempt($details)) {
             return $this->sendLoginResponse($request);
         }
 

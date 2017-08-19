@@ -30,13 +30,14 @@
             <a href="{{ url('admin') }}">{{ config('app.name') }}</a>
         </div>
         <!-- /.login-logo -->
+        @include('layouts.errors-and-messages')
         <div class="login-box-body">
             <p class="login-box-msg">Sign in to start your session</p>
 
             <form action="{{ route('admin.login') }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-group has-feedback">
-                    <input name="email" type="email" class="form-control" placeholder="Email">
+                    <input name="email" type="email" class="form-control" placeholder="Email" value="{{ old('email') }}">
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
