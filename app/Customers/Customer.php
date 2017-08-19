@@ -3,6 +3,7 @@
 namespace App\Customers;
 
 use App\Addresses\Address;
+use App\Orders\Order;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -35,8 +36,19 @@ class Customer extends Authenticatable
 
     protected $dates = ['deleted_at'];
 
-    public function address()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function addresses()
     {
         return $this->hasMany(Address::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

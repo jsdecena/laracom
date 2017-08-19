@@ -17,7 +17,7 @@ interface CustomerRepositoryInterface extends BaseRepositoryInterface
 
     public function findCustomerById(int $id) : Customer;
 
-    public function deleteCustomer(Customer $customer) : bool;
+    public function deleteCustomer() : bool;
 
     public function attachAddress(Address $address) : Address;
 

@@ -56,21 +56,14 @@ class CustomerUnitTest extends TestCase
     /** @test */
     public function it_can_soft_delete_a_customer()
     {
-        $data = [
-            'name' => $this->faker->name,
-            'email' => $this->faker->email,
-            'password' => 'secret'
-        ];
+        $customer = factory(Customer::class)->create();
 
-        $customer = new CustomerRepository(new Customer);
-        $created = $customer->createCustomer($data);
+        $customerRepo = new CustomerRepository($customer);
+        $delete = $customerRepo->deleteCustomer();
 
-        $deleted = $customer->deleteCustomer($created);
-        $this->assertTrue($deleted);
+        $this->assertTrue($delete);
 
-        $collection = collect($data)->except('password');
-
-        $this->assertDatabaseHas('customers', $collection->all());
+        $this->assertDatabaseHas('customers', $customer->toArray());
     }
 
     /** @test */

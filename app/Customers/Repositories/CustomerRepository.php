@@ -97,12 +97,11 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
     /**
      * Delete a customer
      *
-     * @param Customer $customer
      * @return bool
      */
-    public function deleteCustomer(Customer $customer) : bool
+    public function deleteCustomer() : bool
     {
-        return $this->delete($customer->id);
+        return $this->model->delete();
     }
 
     /**
@@ -111,7 +110,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      */
     public function attachAddress(Address $address) : Address
     {
-        return $this->model->address()->save($address);
+        return $this->model->addresses()->save($address);
     }
 
     /**
@@ -121,7 +120,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      */
     public function findAddresses() : Collection
     {
-        return collect($this->model->address()->get())->map(function (Address $address){
+        return collect($this->model->addresses()->get())->map(function (Address $address){
             return $this->transformAddress($address);
         });
     }

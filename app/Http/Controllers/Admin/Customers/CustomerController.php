@@ -66,7 +66,7 @@ class CustomerController extends Controller
         
         return view('admin.customers.show', [
             'customer' => $customer,
-            'addresses' => $customer->address
+            'addresses' => $customer->addresses
         ]);
     }
 

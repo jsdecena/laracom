@@ -10,7 +10,7 @@ class CustomerAddressesTableSeeder extends Seeder
     {
         factory(Customer::class, 3)->create()->each(function ($customer) {
             factory(Address::class, 3)->make()->each(function($address) use ($customer) {
-                $customer->address()->save($address);
+                $customer->addresses()->save($address);
             });
         });
     }
