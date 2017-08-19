@@ -7,6 +7,7 @@ use App\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Couriers\Courier;
 use App\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
 use App\Customers\Customer;
+use App\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Orders\Order;
 use App\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\OrderStatuses\OrderStatus;
@@ -19,16 +20,19 @@ class OrderController extends Controller
     private $orderRepo;
     private $courierRepo;
     private $addressRepo;
+    private $customerRepo;
 
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         CourierRepositoryInterface $courierRepository,
-        AddressRepositoryInterface $addressRepository
+        AddressRepositoryInterface $addressRepository,
+        CustomerRepositoryInterface $customerRepository
     )
     {
         $this->orderRepo = $orderRepository;
         $this->courierRepo = $courierRepository;
         $this->addressRepo = $addressRepository;
+        $this->customerRepo = $customerRepository;
     }
 
     /**
@@ -75,11 +79,13 @@ class OrderController extends Controller
         $order = $this->orderRepo->findOrderById($id);
         $order->courier = $this->courierRepo->findCourierById($order->courier_id);
         $order->address = $this->addressRepo->findAddressById($order->address_id);
+        $customer = $this->customerRepo->findCustomerById($order->customer_id);
 
         $items = $this->orderRepo->findProducts($order);
         return view('admin.orders.show', [
             'order' => $order,
-            'items' => $items
+            'items' => $items,
+            'customer' => $customer
         ]);
     }
 

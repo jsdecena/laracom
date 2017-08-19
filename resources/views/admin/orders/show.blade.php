@@ -3,9 +3,17 @@
 @section('content')
     <!-- Main content -->
     <section class="content">
-
     @include('layouts.errors-and-messages')
     <!-- Default box -->
+        <div class="box">
+            <div class="box-header">
+                <h2>
+                    <a href="{{ route('admin.customers.show', $customer->id) }}">{{$customer->name}}</a> <br />
+                    <small>{{$customer->email}}</small>
+                </h2>
+            </div>
+        </div>
+
         @if($order)
             @if($order->total != $order->total_paid)
                 <p class="alert alert-danger">
