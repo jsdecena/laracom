@@ -32,17 +32,13 @@ class CustomerUnitTest extends TestCase
     {
         $cust = factory(Customer::class)->create();
         $address = factory(Address::class)->create();
+
         $customerRepo = new CustomerRepository($cust);
         $customerRepo->attachAddress($address);
 
         $lists = $customerRepo->findAddresses();
 
-        foreach ($lists as $list) {
-            $this->assertDatabaseHas('addresses', ['alias' => $list->alias]);
-            $this->assertDatabaseHas('addresses', ['province_id' => $list->province->id]);
-            $this->assertDatabaseHas('addresses', ['city_id' => $list->city->id]);
-            $this->assertDatabaseHas('addresses', ['country_id' => $list->country->id]);
-        }
+        $this->assertCount(1, $lists);
     }
     
     /** @test */

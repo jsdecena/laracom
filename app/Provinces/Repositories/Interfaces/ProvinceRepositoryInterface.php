@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface ProvinceRepositoryInterface extends BaseRepositoryInterface
 {
-    public function listProvinces(string $order = 'id', string $sort = 'desc') : array;
-
-    public function listCities() : Collection;
+    public function listProvinces(string $order = 'id', string $sort = 'desc') : Collection;
 
     public function findProvinceById(int $id) : Province;
 

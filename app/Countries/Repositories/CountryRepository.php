@@ -6,7 +6,7 @@ use App\Base\BaseRepository;
 use App\Countries\Exceptions\CountryInvalidArgumentException;
 use App\Countries\Exceptions\CountryNotFoundException;
 use App\Countries\Repositories\Interfaces\CountryRepositoryInterface;
-use Doctrine\Instantiator\Exception\InvalidArgumentException;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use App\Countries\Country;
@@ -28,14 +28,11 @@ class CountryRepository extends BaseRepository implements CountryRepositoryInter
      *
      * @param string $order
      * @param string $sort
-     * @return array
+     * @return Collection
      */
-    public function listCountries(string $order = 'id', string $sort = 'desc') : array
+    public function listCountries(string $order = 'id', string $sort = 'desc') : Collection
     {
-        $list = $this->model->where('id', '!=', 169)->where('status', 1)->orderBy($order, $sort)->get();
-        $ph = $this->model->where('id', 169)->first();
-
-        return collect($list)->prepend($ph)->all();
+        return $this->model->where('status', 1)->get();
     }
 
     /**

@@ -23,6 +23,10 @@ class Address extends Model
         'address_1',
         'address_2',
         'zip',
+        'city_id',
+        'province_id',
+        'country_id',
+        'customer_id',
         'status'
     ];
 

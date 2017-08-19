@@ -66,9 +66,7 @@ class AddressUnitTest extends TestCase
         $customerRepo = new CustomerRepository($customer);
         $lists = $customerRepo->findAddresses();
 
-        foreach ($lists as $list) {
-            $this->assertEquals($customer->id, $list->customer_id);
-        }
+        $this->assertCount(1, $lists);
     }
     
     /** @test */
@@ -122,21 +120,18 @@ class AddressUnitTest extends TestCase
             'city_id' => $city->id,
             'province_id' => $province->id,
             'country_id' => $country->id,
-            'customer_id' => $customer->id,
+            'customer' => $customer->id,
             'status' => 1
         ];
 
         $addressRepo = new AddressRepository(new Address);
         $address = $addressRepo->createAddress($params);
 
-        $created = $this->transformAddress($address);
-
-        $this->assertInstanceOf(Address::class, $created);
-        $this->assertEquals($params['alias'], $created->alias);
-        $this->assertEquals($params['address_1'], $created->address_1);
-        $this->assertEquals($params['address_2'], $created->address_2);
-        $this->assertEquals($params['zip'], $created->zip);
-        $this->assertEquals($params['status'], $created->status);
-        $this->assertEquals($customer->id, $created->customer_id);
+        $this->assertInstanceOf(Address::class, $address);
+        $this->assertEquals($params['alias'], $address->alias);
+        $this->assertEquals($params['address_1'], $address->address_1);
+        $this->assertEquals($params['address_2'], $address->address_2);
+        $this->assertEquals($params['zip'], $address->zip);
+        $this->assertEquals($params['status'], $address->status);
     }
 }

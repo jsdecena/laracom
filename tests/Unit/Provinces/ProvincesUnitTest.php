@@ -34,12 +34,11 @@ class ProvincesUnitTest extends TestCase
     public function it_can_list_all_the_cities_within_the_province()
     {
         $province = factory(Province::class)->create();
-        $provinceRepo = new ProvinceRepository($province);
 
         $city = new City(['name' => $this->faker->city]);
         $city->province()->associate($province);
         $province->cities()->save($city);
-        $cities = $provinceRepo->listCities();
+        $cities = $province->cities()->get();
 
         $this->assertCount(1, $cities);
 

@@ -7,8 +7,8 @@ use App\Provinces\Exceptions\ProvinceNotFoundException;
 use App\Provinces\Province;
 use App\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\Collection;
 
 class ProvinceRepository extends BaseRepository implements ProvinceRepositoryInterface
 {
@@ -27,23 +27,11 @@ class ProvinceRepository extends BaseRepository implements ProvinceRepositoryInt
      *
      * @param string $order
      * @param string $sort
-     * @return array
+     * @return Collection
      */
-    public function listProvinces(string $order = 'id', string $sort = 'desc') : array
+    public function listProvinces(string $order = 'id', string $sort = 'desc') : Collection
     {
-        $list = $this->model->orderBy($order, $sort)->get();
-
-        return collect($list)->all();
-    }
-
-    /**
-     * List all the cities
-     *
-     * @return mixed
-     */
-    public function listCities() : Collection
-    {
-        return $this->model->cities;
+        return $this->model->orderBy($order, $sort)->get();
     }
 
     /**

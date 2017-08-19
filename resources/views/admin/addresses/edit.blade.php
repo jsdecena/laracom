@@ -72,7 +72,7 @@
                     </div>
                     <div class="form-group">
                         <label for="zip">Zip Code </label>
-                        <input type="text" name="zip" id="zip" placeholder="Zip code" class="form-control" value="{{ old('zip') }}">
+                        <input type="text" name="zip" id="zip" placeholder="Zip code" class="form-control" value="{{ $address->zip ?: old('zip') }}">
                     </div>
                     <div class="form-group">
                         @include('admin.shared.status-select', ['status' => $address->status])

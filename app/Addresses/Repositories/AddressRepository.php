@@ -8,14 +8,11 @@ use App\Addresses\Exceptions\AddressNotFoundException;
 use App\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Addresses\Transformations\AddressTransformable;
 use App\Base\BaseRepository;
-use App\Cities\Repositories\CityRepository;
 use App\Customers\Customer;
 use App\Customers\Transformations\CustomerTransformable;
-use App\Provinces\Repositories\ProvinceRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
-use App\Cities\City;
 
 class AddressRepository extends BaseRepository implements AddressRepositoryInterface
 {
@@ -41,32 +38,10 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
     {
         try {
 
-            $exceptions = [
-                '_token',
-                'customer_id',
-                'city_id',
-                'country_id',
-                'province_id'
-            ];
-
-            $address = new Address(collect($params)->except($exceptions)->all());
-
-            if (isset($params['city_id'])) {
-                $cityRepo = new CityRepository(new City);
-                $city = $cityRepo->findCityById($params['city_id']);
-                $address->city()->associate($city->id);
-
-                $province = $city->province()->first();
-                $address->province()->associate($province->id);
-
-                $country = $province->country()->first();
-                $address->country()->associate($country->id);
+            $address = new Address($params);
+            if (isset($params['customer'])) {
+                $address->customer()->associate($params['customer']);
             }
-
-            if (isset($params['customer_id'])) {
-                $address->customer()->associate($params['customer_id']);
-            }
-
             $address->save();
 
             return $address;
@@ -102,6 +77,7 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
      */
     public function deleteAddress()
     {
+        $this->model->customer()->dissociate();
         return $this->model->delete();
     }
 
@@ -114,7 +90,7 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
      */
     public function listAddress(string $order = 'id', string $sort = 'desc') : Collection
     {
-        return collect($this->model->orderBy($order, $sort)->get());
+        return $this->model->orderBy($order, $sort)->get();
     }
 
     /**
@@ -139,7 +115,7 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
      */
     public function findCustomer() : Customer
     {
-        return $this->transformCustomer($this->model->customer);
+        return $this->model->customer;
     }
 
     /**

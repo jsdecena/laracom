@@ -5,6 +5,8 @@ namespace App\Addresses\Transformations;
 use App\Addresses\Address;
 use App\Cities\Repositories\CityRepository;
 use App\Countries\Repositories\CountryRepository;
+use App\Customers\Customer;
+use App\Customers\Repositories\CustomerRepository;
 use App\Provinces\Province;
 use App\Provinces\Repositories\ProvinceRepository;
 use App\Cities\City;
@@ -20,27 +22,30 @@ trait AddressTransformable
      */
     public function transformAddress(Address $address)
     {
-        $prop = new Address;
-        $prop->id = $address->id;
-        $prop->alias = $address->alias;
-        $prop->address_1 = $address->address_1;
-        $prop->address_2 = $address->address_2;
-        $prop->zip = $address->zip;
+        $obj = new Address;
+        $obj->id = $address->id;
+        $obj->alias = $address->alias;
+        $obj->address_1 = $address->address_1;
+        $obj->address_2 = $address->address_2;
+        $obj->zip = $address->zip;
 
         $cityRepo = new CityRepository(new City);
         $city = $cityRepo->findCityById($address->city_id);
-        $prop->city = $city;
+        $obj->city = $city->name;
 
         $provinceRepo = new ProvinceRepository(new Province);
         $province = $provinceRepo->findProvinceById($address->province_id);
-        $prop->province = $province;
+        $obj->province = $province->name;
 
         $countryRepo = new CountryRepository(new Country);
-        $prop->country = $countryRepo->findCountryById($address->country_id);
+        $country = $countryRepo->findCountryById($address->country_id);
+        $obj->country = $country->name;
 
-        $prop->customer_id = $address->customer_id;
-        $prop->status = $address->status;
+        $customerRepo = new CustomerRepository(new Customer);
+        $customer = $customerRepo->findCustomerById($address->customer_id);
+        $obj->customer = $customer->name;
+        $obj->status = $address->status;
 
-        return $prop;
+        return $obj;
     }
 }

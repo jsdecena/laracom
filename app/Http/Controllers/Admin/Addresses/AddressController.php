@@ -6,6 +6,10 @@ use App\Addresses\Repositories\AddressRepository;
 use App\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Addresses\Requests\CreateAddressRequest;
 use App\Addresses\Requests\UpdateAddressRequest;
+use App\Addresses\Transformations\AddressTransformable;
+use App\Cities\City;
+use App\Cities\Repositories\Interfaces\CityRepositoryInterface;
+use App\Countries\Repositories\CountryRepository;
 use App\Countries\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Http\Controllers\Controller;
@@ -13,22 +17,27 @@ use App\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
 
 class AddressController extends Controller
 {
+    use AddressTransformable;
+
     private $addressRepo;
     private $customerRepo;
     private $countryRepo;
     private $provinceRepo;
+    private $cityRepo;
 
     public function __construct(
         AddressRepositoryInterface $addressRepository,
         CustomerRepositoryInterface $customerRepository,
         CountryRepositoryInterface $countryRepository,
-        ProvinceRepositoryInterface $provinceRepository
+        ProvinceRepositoryInterface $provinceRepository,
+        CityRepositoryInterface $cityRepository
     )
     {
         $this->addressRepo = $addressRepository;
         $this->customerRepo = $customerRepository;
         $this->countryRepo = $countryRepository;
         $this->provinceRepo = $provinceRepository;
+        $this->cityRepo = $cityRepository;
     }
     /**
      * Display a listing of the resource.
@@ -37,11 +46,9 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $list = $this->addressRepo->listAddress('created_at', 'desc');
+        $lists = $this->addressRepo->listAddress('created_at', 'desc')->all();
 
-        return view('admin.addresses.list', [
-            'addresses' => $this->addressRepo->paginateArrayResults($list, 10)
-        ]);
+        return view('admin.addresses.list', ['addresses' => $this->addressRepo->paginateArrayResults($lists)]);
     }
 
     /**
@@ -51,14 +58,18 @@ class AddressController extends Controller
      */
     public function create()
     {
-        $ph = $this->countryRepo->findCountryById(169);
-        $prov = $this->provinceRepo->findProvinceById(1);
+        $countries = $this->countryRepo->listCountries();
+        $philippines = $countries->find(['id' => env('COUNTRY_ID')])->first();
+        $countries->prepend($philippines);
+
+        $country = $this->countryRepo->findCountryById($philippines->id);
         $customers = $this->customerRepo->listCustomers();
+
         return view('admin.addresses.create', [
             'customers' => $customers,
-            'countries' => $this->countryRepo->listCountries(),
-            'provinces' => $this->countryRepo->findProvinces($ph),
-            'cities' => $this->provinceRepo->listCities($prov)
+            'countries' => $countries,
+            'provinces' => $country->provinces,
+            'cities' => City::all()
         ]);
     }
 
@@ -70,8 +81,7 @@ class AddressController extends Controller
      */
     public function store(CreateAddressRequest $request)
     {
-        $customer = $this->customerRepo->findCustomerById($request->input('customer_id'));
-        $this->addressRepo->createAddress($request->except('customer'), $customer);
+        $this->addressRepo->createAddress($request->except('_token', '_method'));
 
         $request->session()->flash('message', 'Creation successful');
         return redirect()->route('addresses.index');
@@ -96,19 +106,23 @@ class AddressController extends Controller
      */
     public function edit(int $id)
     {
+        $countries = $this->countryRepo->listCountries();
+        $philippines = $countries->find(['id' => env('COUNTRY_ID')])->first();
+
+        $countryRepo = new CountryRepository($philippines);
+
         $address = $this->addressRepo->findAddressById($id);
-        $ph = $this->countryRepo->findCountryById($address->country->id);
-        $prov = $this->provinceRepo->findProvinceById($address->province->id);
-        $customer = $this->addressRepo->findCustomer($address);
+        $addressRepo = new AddressRepository($address);
+        $customer = $addressRepo->findCustomer();
 
         return view('admin.addresses.edit', [
             'address' => $address,
-            'countries' => $this->countryRepo->listCountries(),
+            'countries' => $countries,
             'countryId' => $address->country->id,
-            'provinces' => $this->countryRepo->findProvinces($ph),
+            'provinces' => $countryRepo->findProvinces(),
             'provinceId' => $address->province->id,
-            'cities' => $this->provinceRepo->listCities($prov),
-            'cityId' => $address->city->id,
+            'cities' => $this->cityRepo->listCities(),
+            'cityId' => $address->city_id,
             'customers' => $this->customerRepo->listCustomers(),
             'customerId' => $customer->id
         ]);
@@ -140,6 +154,11 @@ class AddressController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $address = $this->addressRepo->findAddressById($id);
+        $delete = new AddressRepository($address);
+        $delete->deleteAddress();
+
+        request()->session()->flash('message', 'Delete successful');
+        return redirect()->route('addresses.index');
     }
 }

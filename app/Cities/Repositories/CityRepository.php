@@ -16,6 +16,11 @@ class CityRepository extends BaseRepository implements CityRepositoryInterface
         $this->model = $city;
     }
 
+    public function listCities()
+    {
+        return $this->model->get();
+    }
+
     /**
      * @param int $id
      * @return City

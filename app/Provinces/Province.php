@@ -2,6 +2,8 @@
 
 namespace App\Provinces;
 
+use App\Cities\City;
+use App\Countries\Country;
 use Illuminate\Database\Eloquent\Model;
 
 class Province extends Model
@@ -25,11 +27,11 @@ class Province extends Model
 
     public function country()
     {
-    	return $this->belongsTo('App\Countries\Country');
+    	return $this->belongsTo(Country::class);
     }
 
     public function cities()
     {
-    	return $this->hasMany('App\Cities\City');
+    	return $this->hasMany(City::class);
     }    
 }

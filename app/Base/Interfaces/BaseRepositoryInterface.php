@@ -20,8 +20,6 @@ interface BaseRepositoryInterface
 
     public function findOneByOrFail(array $data);
 
-    public function getPaginatedResults(int $paginated = 25, string $orderBy = 'id', string $sortBy = 'desc');
-
     public function paginateArrayResults(array $data, int $perPage = 50);
 
     public function delete(int $id);

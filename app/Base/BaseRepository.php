@@ -101,18 +101,6 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param int $paginated
-     * @param string $orderBy
-     * @param string $sortBy
-     * @return mixed
-     * @deprecated Use @paginateArrayResults
-     */
-    public function getPaginatedResults(int $paginated = 25, string $orderBy = 'id', string $sortBy = 'DESC')
-    {
-        return $this->model->orderBy($orderBy, $sortBy)->paginate($paginated);
-    }
-
-    /**
      * @param array $data
      * @param int $perPage
      * @return LengthAwarePaginator
