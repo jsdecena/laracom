@@ -130,7 +130,10 @@ class CheckoutController extends Controller
 
             try {
 
-                $response = $this->paypal->createPayment(route('checkout.execute', $request->except('_token')), route('checkout.cancel'));
+                $response = $this->paypal->createPayment(
+                    route('checkout.execute', $request->except('_token')),
+                    route('checkout.cancel')
+                );
 
                 if ($response) {
                     $redirectUrl = $response->links[1]->href;
@@ -138,7 +141,8 @@ class CheckoutController extends Controller
                 }
 
             } catch (PayPalConnectionException $e) {
-                throw new PaypalRequestError($e->getData());
+
+                throw new PaypalRequestError($e->getMessage());
             }
         }
     }

@@ -46,7 +46,8 @@ class PaypalExpress
                 'log.FileName' => storage_path('logs/paypal.log'),
                 'log.LogLevel' => env('APP_LOG_LEVEL'),
                 'cache.enabled' => true,
-                'cache.FileName' => storage_path('logs/paypal.cache')
+                'cache.FileName' => storage_path('logs/paypal.cache'),
+                'http.CURLOPT_SSLVERSION' => CURL_SSLVERSION_TLSv1
             )
         );
 
@@ -133,7 +134,7 @@ class PaypalExpress
         $this->transactions = $transaction;
     }
 
-    public function createPayment(string $returnUrl = '', string $cancelUrl = '')
+    public function createPayment(string $returnUrl, string $cancelUrl)
     {
         // ### Payment
         // A Payment Resource; create one using
