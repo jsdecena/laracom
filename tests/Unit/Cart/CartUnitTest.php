@@ -10,6 +10,18 @@ use Tests\TestCase;
 class CartUnitTest extends TestCase
 {
     /** @test */
+    public function it_can_clear_out_your_cart()
+    {
+        $cartRepo = new CartRepository(new ShoppingCart);
+        $cartRepo->addToCart($this->product, 1);
+
+        $this->assertCount(1, $cartRepo->getCartItems());
+
+        $cartRepo->clearCart();
+        $this->assertCount(0, $cartRepo->getCartItems());
+    }
+    
+    /** @test */
     public function it_returns_all_the_items_in_the_cart()
     {
         $qty = 1;

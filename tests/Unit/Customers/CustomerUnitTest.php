@@ -4,13 +4,39 @@ namespace Tests\Unit\Customers;
 
 use App\Addresses\Address;
 use App\Customers\Customer;
+use App\Customers\Exceptions\CreateCustomerInvalidArgumentException;
 use App\Customers\Exceptions\CustomerNotFoundException;
+use App\Customers\Exceptions\UpdateCustomerInvalidArgumentException;
 use App\Customers\Repositories\CustomerRepository;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class CustomerUnitTest extends TestCase 
 {
+    /** @test */
+    public function it_errors_updating_the_customer_name_with_null_value()
+    {
+        $this->expectException(UpdateCustomerInvalidArgumentException::class);
+        $this->expectExceptionMessage('Cannot update customer');
+        $this->expectExceptionCode(500);
+
+        $cust = factory(Customer::class)->create();
+
+        $customer = new CustomerRepository($cust);
+        $customer->updateCustomer(['name' => null]);
+    }
+
+    /** @test */
+    public function it_errors_creating_the_customer()
+    {
+        $this->expectException(CreateCustomerInvalidArgumentException::class);
+        $this->expectExceptionMessage('Cannot create customer');
+        $this->expectExceptionCode(500);
+
+        $customer = new CustomerRepository(new Customer);
+        $customer->createCustomer([]);
+    }
+
     /** @test */
     public function it_can_update_customers_password()
     {

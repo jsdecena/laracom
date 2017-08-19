@@ -49,7 +49,7 @@ class CustomerController extends Controller
      */
     public function store(CreateCustomerRequest $request)
     {
-        $this->customerRepo->createCustomer($request->all());
+        $this->customerRepo->createCustomer($request->except('_token', '_method'));
 
         return redirect()->route('admin.customers.index');
     }

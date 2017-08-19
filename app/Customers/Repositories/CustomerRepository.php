@@ -55,7 +55,10 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
             $data = collect($params)->except('password')->all();
 
             $customer = new Customer($data);
-            $customer->password = bcrypt($params['password']);
+            if (isset($params['password'])) {
+                $customer->password = bcrypt($params['password']);
+            }
+
             $customer->save();
 
             return $customer;
@@ -75,7 +78,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
         try {
             return $this->model->update($params);
         } catch (QueryException $e) {
-            throw new UpdateCustomerInvalidArgumentException('Cannot update the customer', 500, $e);
+            throw new UpdateCustomerInvalidArgumentException('Cannot update customer', 500, $e);
         }
     }
 
@@ -90,7 +93,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
         try {
             return $this->findOneOrFail($id);
         } catch (ModelNotFoundException $e) {
-            throw new CustomerNotFoundException('Cannot find the customer', $e);
+            throw new CustomerNotFoundException('Cannot find customer', $e);
         }
     }
 

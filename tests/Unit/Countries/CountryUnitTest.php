@@ -13,6 +13,29 @@ use Tests\TestCase;
 class CountryUnitTest extends TestCase
 {
     /** @test */
+    public function it_can_create_the_country()
+    {
+        $data = [
+            'name' => $this->faker->unique()->country,
+            'iso' => $this->faker->unique()->countryISOAlpha3,
+            'iso3' => $this->faker->unique()->countryISOAlpha3,
+            'numcode' => $this->faker->randomDigit,
+            'phonecode' => $this->faker->randomDigit,
+            'status' => 1
+        ];
+
+        $countryRepo = new CountryRepository(new Country);
+        $country = $countryRepo->createCountry($data);
+
+        $this->assertEquals($data['name'], $country->name);
+        $this->assertEquals($data['iso'], $country->iso);
+        $this->assertEquals($data['iso3'], $country->iso3);
+        $this->assertEquals($data['numcode'], $country->numcode);
+        $this->assertEquals($data['phonecode'], $country->phonecode);
+        $this->assertEquals($data['status'], $country->status);
+    }
+    
+    /** @test */
     public function it_errors_when_updating_the_country()
     {
         $country = factory(Country::class)->create();
@@ -74,8 +97,10 @@ class CountryUnitTest extends TestCase
     /** @test */
     public function it_can_list_all_countries()
     {
-        $countries = factory(Country::class, 3)->create();
+        $country = factory(Country::class)->create();
 
-        $this->assertCount(3, $countries);
+        $countryRepo = new CountryRepository($country);
+
+        $this->assertCount(1, $countryRepo->listCountries());
     }
 }
