@@ -68,7 +68,7 @@ Route::get("category/{name}", 'Front\CategoryController@getCategory')->name('fro
 Route::get("{product}", 'Front\ProductController@getProduct')->name('front.get.product');
 
 Route::post('inquire', function (SendInquiryRequest $request) {
-    Mail::to(env('F12_INQUIRY_MAIL', 'firstwelve@gmail.com'))->send(new Inquiry($request));
+    Mail::to(env('INQUIRY_MAIL', 'firstwelve@gmail.com'))->send(new Inquiry($request));
     $request->session()->flash('message', 'Your message was successfully delivered! Please wait for us to get back to you. <3');
     return redirect()->route('home');
 })->name('inquiry.store');
