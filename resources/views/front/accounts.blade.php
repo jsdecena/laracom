@@ -89,7 +89,32 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="address">...</div>
+                        <div role="tabpanel" class="tab-pane" id="address">
+                            <table class="table">
+                                <thead>
+                                    <th>Alias</th>
+                                    <th>Address 1</th>
+                                    <th>Address 2</th>
+                                    <th>City</th>
+                                    <th>Province</th>
+                                    <th>Country</th>
+                                    <th>Zip</th>
+                                </thead>
+                                <tbody>
+                                    @foreach($addresses as $address)
+                                        <tr>
+                                            <td>{{$address->alias}}</td>
+                                            <td>{{$address->address_1}}</td>
+                                            <td>{{$address->address_1}}</td>
+                                            <td>{{$address->city_id}}</td>
+                                            <td>{{$address->province_id}}</td>
+                                            <td>{{$address->country_id}}</td>
+                                            <td>{{$address->zip}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                 </div>

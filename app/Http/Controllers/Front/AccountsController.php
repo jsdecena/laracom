@@ -40,9 +40,12 @@ class AccountsController extends Controller
             return $order;
         });
 
+        $addresses = $customer->addresses;
+
         return view('front.accounts', [
             'customer' => $customer,
-            'orders' => $order
+            'orders' => $order,
+            'addresses' => $addresses
         ]);
     }
 }
