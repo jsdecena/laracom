@@ -24,13 +24,12 @@ class PaypalExpress
     private $transactions = [];
     private $itemList;
     private $others;
-    private $orderDetail;
 
     public function __construct(
         $clientId,
         $clientSecret,
-        $mode = 'sandbox',
-        $url = 'https://api.sandbox.paypal.com'
+        $mode,
+        $url
     )
     {
         $apiContext = new ApiContext(

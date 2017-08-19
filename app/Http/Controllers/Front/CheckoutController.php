@@ -37,6 +37,7 @@ class CheckoutController extends Controller
     private $customerRepo;
     private $productRepo;
     private $orderRepo;
+    private $paypal;
 
     public function __construct(
         CartRepositoryInterface $cartRepository,
@@ -57,6 +58,13 @@ class CheckoutController extends Controller
         $this->customerRepo = $customerRepository;
         $this->productRepo =  $productRepository;
         $this->orderRepo = $orderRepository;
+        $this->paypal = new PaypalExpress(
+            config('paypal.client_id'),
+            config('paypal.client_secret'),
+            config('paypal.mode'),
+            config('paypal.api_url')
+
+        );
     }
 
     /**
@@ -75,7 +83,7 @@ class CheckoutController extends Controller
             return $item;
         });
 
-        $customer = $this->customerRepo->findCustomerById(Auth::id());
+        $customer = $this->customerRepo->findCustomerById(auth()->user()->id);
 
         $payments = collect($this->paymentRepo->listPaymentMethods())->filter(function (PaymentMethod $method){
             return $method->status == 1;
@@ -89,7 +97,7 @@ class CheckoutController extends Controller
             'total' => $this->cartRepo->getTotal(),
             'couriers' => $this->courierRepo->listCouriers(),
             'payments' => $payments,
-            'addresses' => $this->addressRepo->findCustomerAddresses($customer)
+            'addresses' => $customer->addresses
         ]);
     }
 
@@ -111,19 +119,18 @@ class CheckoutController extends Controller
 
         if ($method->slug == 'paypal') {
 
-            $paypal = new PaypalExpress(config('paypal.client_id'), config('paypal.client_secret'));
-            $paypal->setPayer();
-            $paypal->setItems($cartItems);
-            $paypal->setOtherFees(
+            $this->paypal->setPayer();
+            $this->paypal->setItems($cartItems);
+            $this->paypal->setOtherFees(
                 $this->cartRepo->getSubTotal(),
                 $this->cartRepo->getTax()
             );
-            $paypal->setAmount($this->cartRepo->getTotal());
-            $paypal->setTransactions();
+            $this->paypal->setAmount($this->cartRepo->getTotal());
+            $this->paypal->setTransactions();
 
             try {
 
-                $response = $paypal->createPayment(route('checkout.execute', $request->except('_token')), route('checkout.cancel'));
+                $response = $this->paypal->createPayment(route('checkout.execute', $request->except('_token')), route('checkout.cancel'));
 
                 if ($response) {
                     $redirectUrl = $response->links[1]->href;
@@ -144,8 +151,7 @@ class CheckoutController extends Controller
      */
     public function execute(Request $request)
     {
-        $paypal = new PaypalExpress(config('paypal.client_id'), config('paypal.client_secret'));
-        $apiContext = $paypal->getApiContext();
+        $apiContext = $this->paypal->getApiContext();
 
         $payment = Payment::get($request->input('paymentId'), $apiContext);
 

@@ -71,7 +71,7 @@
                         </table>
                         <hr>
                         <div class="row">
-                            @if(!empty($addresses))
+                            @if($addresses)
                                 <div class="col-md-12">
                                     <h2><i class="fa fa-map-marker"></i> Delivery address</h2>
                                     <table class="table table-striped">
@@ -140,7 +140,7 @@
                             </div>
                             <div class="col-md-6">
                                 <h2> <i class="fa fa-money"></i> Payment Method</h2>
-                                @if(!$payments->isEmpty())
+                                @if($payments)
                                     <table class="table">
                                         <thead>
                                         <th class="col-md-4">Name</th>
@@ -169,7 +169,7 @@
                         @endif
                     </div>
                 </div>
-                @if(!collect($addresses)->isEmpty())
+                @if($addresses)
                 <div class="row">
                     <div class="col-md-12">
                         <hr>

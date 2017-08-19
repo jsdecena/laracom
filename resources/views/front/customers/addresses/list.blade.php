@@ -1,8 +1,8 @@
-@extends('layouts.admin.app')
+@extends('layouts.front.app')
 
 @section('content')
     <!-- Main content -->
-    <section class="content">
+    <section class="content container">
     @include('layouts.errors-and-messages')
     <!-- Default box -->
         @if($addresses)
