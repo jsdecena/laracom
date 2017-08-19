@@ -69,7 +69,8 @@ class CustomerUnitTest extends TestCase
         $customer = new CustomerRepository(new Customer);
         $created = $customer->createCustomer($data);
 
-        $customer->deleteCustomer($created);
+        $deleted = $customer->deleteCustomer($created);
+        $this->assertTrue($deleted);
 
         $collection = collect($data)->except('password');
 
@@ -118,8 +119,8 @@ class CustomerUnitTest extends TestCase
 
         $updated = $customer->updateCustomer($update);
 
-        $this->assertInstanceOf(Customer::class, $updated);
-        $this->assertEquals($update['name'], $updated->name);
+        $this->assertTrue($updated);
+        $this->assertEquals($update['name'], $cust->name);
         $this->assertDatabaseHas('customers', $update);
     }
 

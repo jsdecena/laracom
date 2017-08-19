@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Products;
 
 use App\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
-use App\Products\Product;
 use App\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Products\Repositories\ProductRepository;
 use App\Products\Requests\CreateProductRequest;
@@ -139,6 +138,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        $product = $this->productRepo->findProductById($id);
+        $product->categories()->sync([]);
         $this->productRepo->delete($id);
 
         request()->session()->flash('message', 'Delete successful');

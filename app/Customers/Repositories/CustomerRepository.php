@@ -6,9 +6,12 @@ use App\Addresses\Address;
 use App\Addresses\Transformations\AddressTransformable;
 use App\Base\BaseRepository;
 use App\Customers\Customer;
+use App\Customers\Exceptions\CreateCustomerInvalidArgumentException;
 use App\Customers\Exceptions\CustomerNotFoundException;
+use App\Customers\Exceptions\UpdateCustomerInvalidArgumentException;
 use App\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 
 class CustomerRepository extends BaseRepository implements CustomerRepositoryInterface
@@ -47,32 +50,33 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      */
     public function createCustomer(array $params) : Customer
     {
-        $collection = collect($params);
+        try {
 
-        $customer = new Customer(($collection->except('password'))->toArray());
-        $customer->password = bcrypt($collection->only('password'));
-        $customer->save();
+            $data = collect($params)->except('password')->all();
 
-        return $customer;
+            $customer = new Customer($data);
+            $customer->password = bcrypt($params['password']);
+            $customer->save();
+
+            return $customer;
+        } catch (QueryException $e) {
+            throw new CreateCustomerInvalidArgumentException('Cannot create customer', 500, $e);
+        }
     }
 
     /**
      * Update the customer
      *
      * @param array $params
-     * @return Customer
+     * @return bool
      */
-    public function updateCustomer(array $params) : Customer
+    public function updateCustomer(array $params) : bool
     {
-        $this->model->update($params);
-
-        if (in_array('password', $params)) {
-            $this->model->password = $params['password'];
+        try {
+            return $this->model->update($params);
+        } catch (QueryException $e) {
+            throw new UpdateCustomerInvalidArgumentException('Cannot update the customer', 500, $e);
         }
-
-        $this->model->save();
-
-        return $this->findCustomerById($this->model->id);
     }
 
     /**
@@ -86,7 +90,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
         try {
             return $this->findOneOrFail($id);
         } catch (ModelNotFoundException $e) {
-            throw new CustomerNotFoundException;
+            throw new CustomerNotFoundException('Cannot find the customer', $e);
         }
     }
 

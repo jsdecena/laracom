@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'FirsTwelve') }}</title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -27,7 +27,7 @@
 <body class="hold-transition skin-purple login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ url('admin') }}"><b>Firs</b>Twelve</a>
+            <a href="{{ url('admin') }}">{{ config('app.name') }}</a>
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">

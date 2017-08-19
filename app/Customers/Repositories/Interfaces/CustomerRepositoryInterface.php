@@ -13,7 +13,7 @@ interface CustomerRepositoryInterface extends BaseRepositoryInterface
 
     public function createCustomer(array $params) : Customer;
 
-    public function updateCustomer(array $params) : Customer;
+    public function updateCustomer(array $params) : bool;
 
     public function findCustomerById(int $id) : Customer;
 

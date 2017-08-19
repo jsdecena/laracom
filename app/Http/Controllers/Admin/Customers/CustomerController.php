@@ -66,7 +66,7 @@ class CustomerController extends Controller
         
         return view('admin.customers.show', [
             'customer' => $customer,
-            'addresses' => $this->customerRepo->findAddresses($customer)
+            'addresses' => $customer->address
         ]);
     }
 
@@ -93,7 +93,13 @@ class CustomerController extends Controller
         $employee = $this->customerRepo->findCustomerById($id);
 
         $update = new CustomerRepository($employee);
-        $update->updateCustomer($request->all());
+        $data = $request->except('_method', '_token', 'password');
+
+        if ($request->has('password')){
+            $data['password'] = $request->input('password');
+        }
+
+        $update->updateCustomer($data);
 
         $request->session()->flash('message', 'Update successful');
         return redirect()->route('customers.edit', $id);

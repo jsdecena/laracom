@@ -23,6 +23,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
      */
     public function __construct(Category $category)
     {
+        parent::__construct($category);
         $this->model = $category;
     }
 

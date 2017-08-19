@@ -110,7 +110,9 @@ class CategoryController extends Controller
      */
     public function destroy(int $id)
     {
-        $this->categoryRepo->delete($id);
+        $category = $this->categoryRepo->findCategoryById($id);
+        $category->products()->sync([]);
+        $category->delete();
 
         request()->session()->flash('message', 'Delete successful');
         return redirect()->route('categories.index');
