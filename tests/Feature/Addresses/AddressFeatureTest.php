@@ -31,9 +31,9 @@ class AddressFeatureTest extends TestCase
         ];
 
         $this->actingAs($this->employee, 'admin')
-            ->post(route('addresses.store', $data))
+            ->post(route('admin.addresses.store', $data))
             ->assertStatus(302)
-            ->assertRedirect(route('addresses.index'))
+            ->assertRedirect(route('admin.addresses.index'))
             ->assertSessionHas('message');
     }
 }

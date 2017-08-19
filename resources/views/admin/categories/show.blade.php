@@ -36,7 +36,7 @@
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <div class="btn-group">
-                        <a href="{{ route('categories.index') }}" class="btn btn-default btn-sm">Back</a>
+                        <a href="{{ route('admin.categories.index') }}" class="btn btn-default btn-sm">Back</a>
                     </div>
                 </div>
             </div>

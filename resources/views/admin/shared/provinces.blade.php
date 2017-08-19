@@ -14,8 +14,8 @@
                 <td>@include('layouts.status', ['status' => $country['status']])</td>
                 <td>
                     <div class="btn-group">
-                        <a href="{{ route('countries.provinces.show', [$country, $province['id']]) }}" class="btn btn-default"><i class="fa fa-eye"></i> View</a>
-                        <a href="{{ route('countries.provinces.edit', [$country, $province['id']]) }}" class="btn btn-primary"><i class="fa fa-eye"></i> Edit</a>
+                        <a href="{{ route('admin.countries.provinces.show', [$country, $province['id']]) }}" class="btn btn-default"><i class="fa fa-eye"></i> View</a>
+                        <a href="{{ route('admin.countries.provinces.edit', [$country, $province['id']]) }}" class="btn btn-primary"><i class="fa fa-eye"></i> Edit</a>
                     </div>
                 </td>
             </tr>

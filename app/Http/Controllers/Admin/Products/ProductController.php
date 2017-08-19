@@ -61,7 +61,7 @@ class ProductController extends Controller
     {
         $this->productRepo->createProduct($request->all());
 
-        return redirect()->route('products.index');
+        return redirect()->route('admin.products.index');
     }
 
     /**
@@ -127,7 +127,7 @@ class ProductController extends Controller
         }
 
         $request->session()->flash('message', 'Update successful');
-        return redirect()->route('products.edit', $id);
+        return redirect()->route('admin.products.edit', $id);
     }
 
     /**
@@ -143,7 +143,7 @@ class ProductController extends Controller
         $this->productRepo->delete($id);
 
         request()->session()->flash('message', 'Delete successful');
-        return redirect()->route('products.index');
+        return redirect()->route('admin.products.index');
     }
 
     /**

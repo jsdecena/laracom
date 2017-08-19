@@ -52,7 +52,7 @@ class EmployeeController extends Controller
     {
         $this->employeeRepo->createEmployee($request->all());
 
-        return redirect()->route('employees.index');
+        return redirect()->route('admin.employees.index');
     }
 
     /**
@@ -94,7 +94,7 @@ class EmployeeController extends Controller
         $update->updateEmployee($request->all());
 
         $request->session()->flash('message', 'Update successful');
-        return redirect()->route('employees.edit', $id);
+        return redirect()->route('admin.employees.edit', $id);
     }
 
     /**
@@ -108,6 +108,6 @@ class EmployeeController extends Controller
         $this->employeeRepo->delete($id);
 
         request()->session()->flash('message', 'Delete successful');
-        return redirect()->route('employees.index');
+        return redirect()->route('admin.employees.index');
     }
 }

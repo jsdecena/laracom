@@ -11,7 +11,7 @@ class EmployeeFeatureTest extends TestCase
     public function it_errors_when_editing_an_employee_that_is_not_found()
     {
         $this->actingAs($this->employee, 'admin')
-            ->get(route('employees.edit', 999))
+            ->get(route('admin.employees.edit', 999))
             ->assertStatus(404);
     }
     
@@ -19,7 +19,7 @@ class EmployeeFeatureTest extends TestCase
     public function it_errors_when_looking_for_an_employee_that_is_not_found()
     {
         $this->actingAs($this->employee, 'admin')
-            ->get(route('employees.show', 999))
+            ->get(route('admin.employees.show', 999))
             ->assertStatus(404);
     }
     
@@ -29,7 +29,7 @@ class EmployeeFeatureTest extends TestCase
         $employee = factory(Employee::class)->create();
 
         $this->actingAs($this->employee, 'admin')
-            ->get(route('employees.index'))
+            ->get(route('admin.employees.index'))
             ->assertStatus(200)
             ->assertSee($employee->name);
     }
@@ -44,7 +44,7 @@ class EmployeeFeatureTest extends TestCase
         ];
 
         $this->actingAs($this->employee, 'admin')
-            ->post(route('employees.store'), $data)
+            ->post(route('admin.employees.store'), $data)
             ->assertStatus(302)
             ->assertSessionHas(['errors']);
     }
@@ -59,7 +59,7 @@ class EmployeeFeatureTest extends TestCase
         ];
 
         $this->actingAs($this->employee, 'admin')
-            ->post(route('employees.store'), $data)
+            ->post(route('admin.employees.store'), $data)
             ->assertStatus(302)
             ->assertSessionHas(['errors']);
     }
@@ -70,9 +70,9 @@ class EmployeeFeatureTest extends TestCase
         $employee = factory(Employee::class)->create();
 
         $this->actingAs($this->employee, 'admin')
-            ->delete(route('employees.destroy', $employee->id))
+            ->delete(route('admin.employees.destroy', $employee->id))
             ->assertStatus(302)
-            ->assertRedirect(route('employees.index'));
+            ->assertRedirect(route('admin.employees.index'));
 
         $this->assertDatabaseHas('employees', $employee->toArray());
     }
@@ -87,9 +87,9 @@ class EmployeeFeatureTest extends TestCase
         ];
 
         $this->actingAs($this->employee, 'admin')
-            ->put(route('employees.update', $this->employee->id), $update)
+            ->put(route('admin.employees.update', $this->employee->id), $update)
             ->assertStatus(302)
-            ->assertRedirect(route('employees.edit', $this->employee->id));
+            ->assertRedirect(route('admin.employees.edit', $this->employee->id));
 
         $collection = collect($update)->except('password');
         $this->assertDatabaseHas('employees', $collection->all());
@@ -104,9 +104,9 @@ class EmployeeFeatureTest extends TestCase
         ];
 
         $this->actingAs($this->employee, 'admin')
-            ->put(route('employees.update', $this->employee->id), $update)
+            ->put(route('admin.employees.update', $this->employee->id), $update)
             ->assertStatus(302)
-            ->assertRedirect(route('employees.edit', $this->employee->id));
+            ->assertRedirect(route('admin.employees.edit', $this->employee->id));
 
         $this->assertDatabaseHas('employees', $update);
     }
@@ -115,7 +115,7 @@ class EmployeeFeatureTest extends TestCase
     public function it_can_show_the_employee()
     {
         $this->actingAs($this->employee, 'admin')
-            ->get(route('employees.show', $this->employee->id))
+            ->get(route('admin.employees.show', $this->employee->id))
             ->assertStatus(200)
             ->assertViewHas('employee');
     }
@@ -130,9 +130,9 @@ class EmployeeFeatureTest extends TestCase
         ];
 
         $this->actingAs($this->employee, 'admin')
-            ->post(route('employees.store'), $data)
+            ->post(route('admin.employees.store'), $data)
             ->assertStatus(302)
-            ->assertRedirect(route('employees.index'));
+            ->assertRedirect(route('admin.employees.index'));
 
         $created = collect($data)->except('password');
 

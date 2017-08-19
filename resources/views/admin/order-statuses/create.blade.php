@@ -7,7 +7,7 @@
         @include('layouts.errors-and-messages')
         <!-- Default box -->
         <div class="box">
-            <form action="{{ route('order-statuses.store') }}" method="post">
+            <form action="{{ route('admin.order-statuses.store') }}" method="post">
             <div class="box-body">
                 <h2>Order Status</h2>
                 {{ csrf_field() }}
@@ -22,7 +22,7 @@
             </div>
             <!-- /.box-body -->
                 <div class="box-footer btn-group">
-                    <a href="{{ route('order-statuses.index') }}" class="btn btn-default">Back</a>
+                    <a href="{{ route('admin.order-statuses.index') }}" class="btn btn-default">Back</a>
                     <button type="submit" class="btn btn-primary">Create</button>
                 </div>
             </form>

@@ -25,7 +25,7 @@
                         <tbody>
                         @foreach ($addresses as $address)
                             <tr>
-                                <td><a href="{{ route('customers.show', $customer->id) }}">{{ $address->alias }}</a></td>
+                                <td><a href="{{ route('admin.customers.show', $customer->id) }}">{{ $address->alias }}</a></td>
                                 <td>{{ $address->address_1 }}</td>
                                 <td>{{ $address->country->name }}</td>
                                 <td>{{ $address->province->name }}</td>
@@ -33,11 +33,11 @@
                                 <td>{{ $address->zip }}</td>
                                 <td>@include('layouts.status', ['status' => $address->status])</td>
                                 <td>
-                                    <form action="{{ route('addresses.destroy', $address->id) }}" method="post" class="form-horizontal">
+                                    <form action="{{ route('admin.addresses.destroy', $address->id) }}" method="post" class="form-horizontal">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="_method" value="delete">
                                         <div class="btn-group">
-                                            <a href="{{ route('addresses.edit', $address->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                                            <a href="{{ route('admin.addresses.edit', $address->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
                                             <button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete</button>
                                         </div>
                                     </form>

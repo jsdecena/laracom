@@ -45,12 +45,12 @@
                             <td>{{ $address->country->name }}</td>
                             <td>@include('layouts.status', ['status' => $address->status])</td>
                             <td>
-                                <form action="{{ route('addresses.destroy', $address->id) }}" method="post" class="form-horizontal">
+                                <form action="{{ route('admin.addresses.destroy', $address->id) }}" method="post" class="form-horizontal">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="_method" value="delete">
                                     <div class="btn-group">
-                                        <a href="{{ route('customers.addresses.show', [$customer->id, $address->id]) }}" class="btn btn-default btn-sm"><i class="fa fa-eye"></i> Show</a>
-                                        <a href="{{ route('customers.addresses.edit', [$customer->id, $address->id]) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                                        <a href="{{ route('admin.customers.addresses.show', [$customer->id, $address->id]) }}" class="btn btn-default btn-sm"><i class="fa fa-eye"></i> Show</a>
+                                        <a href="{{ route('admin.customers.addresses.edit', [$customer->id, $address->id]) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
                                         <button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete</button>
                                     </div>
                                 </form>
@@ -63,7 +63,7 @@
             <!-- /.box-body -->
             <div class="box-footer">
                 <div class="btn-group">
-                    <a href="{{ route('customers.index') }}" class="btn btn-default btn-sm">Back</a>
+                    <a href="{{ route('admin.customers.index') }}" class="btn btn-default btn-sm">Back</a>
                 </div>
             </div>
         </div>

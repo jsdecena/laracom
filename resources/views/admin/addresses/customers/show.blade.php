@@ -36,7 +36,7 @@
             <!-- /.box-body -->
             <div class="box-footer">
                 <div class="btn-group">
-                    <a href="{{ route('customers.show', $customerId) }}" class="btn btn-default btn-sm">Back</a>
+                    <a href="{{ route('admin.customers.show', $customerId) }}" class="btn btn-default btn-sm">Back</a>
                 </div>
             </div>
         </div>

@@ -84,7 +84,7 @@ class AddressController extends Controller
         $this->addressRepo->createAddress($request->except('_token', '_method'));
 
         $request->session()->flash('message', 'Creation successful');
-        return redirect()->route('addresses.index');
+        return redirect()->route('admin.addresses.index');
     }
 
     /**
@@ -143,7 +143,7 @@ class AddressController extends Controller
         $update->updateAddress($request->except('_method', '_token'));
 
         $request->session()->flash('message', 'Update successful');
-        return redirect()->route('addresses.edit', $id);
+        return redirect()->route('admin.addresses.edit', $id);
     }
 
     /**
@@ -159,6 +159,6 @@ class AddressController extends Controller
         $delete->deleteAddress();
 
         request()->session()->flash('message', 'Delete successful');
-        return redirect()->route('addresses.index');
+        return redirect()->route('admin.addresses.index');
     }
 }

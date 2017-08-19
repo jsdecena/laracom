@@ -36,8 +36,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('products.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
-                    <li><a href="{{ route('products.create') }}"><i class="fa fa-plus"></i> Create</a></li>
+                    <li><a href="{{ route('admin.products.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
+                    <li><a href="{{ route('admin.products.create') }}"><i class="fa fa-plus"></i> Create</a></li>
                 </ul>
             </li>
             <li class="treeview @if(request()->segment(2) == 'categories') active @endif">
@@ -48,8 +48,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('categories.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
-                    <li><a href="{{ route('categories.create') }}"><i class="fa fa-plus"></i> Create</a></li>
+                    <li><a href="{{ route('admin.categories.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
+                    <li><a href="{{ route('admin.categories.create') }}"><i class="fa fa-plus"></i> Create</a></li>
                 </ul>
             </li>
             <li class="treeview @if(request()->segment(2) == 'customers' || request()->segment(2) == 'addresses') active @endif">
@@ -60,8 +60,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('customers.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
-                    <li><a href="{{ route('customers.create') }}"><i class="fa fa-plus"></i> Create</a></li>
+                    <li><a href="{{ route('admin.customers.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
+                    <li><a href="{{ route('admin.customers.create') }}"><i class="fa fa-plus"></i> Create</a></li>
                     <li class="@if(request()->segment(2) == 'addresses') active @endif">
                         <a href="#"><i class="fa fa-map-marker"></i> Addresses
                             <span class="pull-right-container">
@@ -69,8 +69,8 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="{{ route('addresses.index') }}"><i class="fa fa-circle-o"></i> List addresses</a></li>
-                            <li><a href="{{ route('addresses.create') }}"><i class="fa fa-plus"></i> Create</a></li>
+                            <li><a href="{{ route('admin.addresses.index') }}"><i class="fa fa-circle-o"></i> List addresses</a></li>
+                            <li><a href="{{ route('admin.addresses.create') }}"><i class="fa fa-plus"></i> Create</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -84,7 +84,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('orders.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
+                    <li><a href="{{ route('admin.orders.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
                 </ul>
             </li>
             <li class="treeview @if(request()->segment(2) == 'order-statuses') active @endif">
@@ -95,8 +95,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('order-statuses.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
-                    <li><a href="{{ route('order-statuses.create') }}"><i class="fa fa-plus"></i> Create</a></li>
+                    <li><a href="{{ route('admin.order-statuses.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
+                    <li><a href="{{ route('admin.order-statuses.create') }}"><i class="fa fa-plus"></i> Create</a></li>
                 </ul>
             </li>
             <li class="treeview @if(request()->segment(2) == 'payment-methods') active @endif">
@@ -107,8 +107,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('payment-methods.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
-                    <li><a href="{{ route('payment-methods.create') }}"><i class="fa fa-plus"></i> Create</a></li>
+                    <li><a href="{{ route('admin.payment-methods.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
+                    <li><a href="{{ route('admin.payment-methods.create') }}"><i class="fa fa-plus"></i> Create</a></li>
                 </ul>
             </li>
             <li class="header">DELIVERY</li>
@@ -120,8 +120,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('couriers.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
-                    <li><a href="{{ route('couriers.create') }}"><i class="fa fa-plus"></i> Create</a></li>
+                    <li><a href="{{ route('admin.couriers.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
+                    <li><a href="{{ route('admin.couriers.create') }}"><i class="fa fa-plus"></i> Create</a></li>
                 </ul>
             </li>
             <li class="header">OTHERS</li>
@@ -133,8 +133,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('employees.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
-                    <li><a href="{{ route('employees.create') }}"><i class="fa fa-plus"></i> Create</a></li>
+                    <li><a href="{{ route('admin.employees.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
+                    <li><a href="{{ route('admin.employees.create') }}"><i class="fa fa-plus"></i> Create</a></li>
                 </ul>
             </li>
             <li class="treeview @if(request()->segment(2) == 'countries' || request()->segment(2) == 'provinces') active @endif">
@@ -145,7 +145,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('countries.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
+                    <li><a href="{{ route('admin.countries.index') }}"><i class="fa fa-circle-o"></i> List</a></li>
                 </ul>
             </li>
             <li class="hidden treeview">

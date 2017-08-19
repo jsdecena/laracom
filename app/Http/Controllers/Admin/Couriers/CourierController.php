@@ -50,7 +50,7 @@ class CourierController extends Controller
         $this->courierRepo->createCourier($request->all());
 
         $request->session()->flash('message', 'Create successful');
-        return redirect()->route('couriers.index');
+        return redirect()->route('admin.couriers.index');
     }
 
     /**
@@ -79,7 +79,7 @@ class CourierController extends Controller
         $update->updateCourier($request->all());
 
         $request->session()->flash('message', 'Update successful');
-        return redirect()->route('couriers.edit', $id);
+        return redirect()->route('admin.couriers.edit', $id);
     }
 
     /**
@@ -94,10 +94,10 @@ class CourierController extends Controller
             $this->courierRepo->delete($id);
         } catch (QueryException $e) {
             request()->session()->flash('error', 'Sorry, we cannot delete this courier since an order used this before.');
-            return redirect()->route('couriers.index');
+            return redirect()->route('admin.couriers.index');
         }
 
         request()->session()->flash('message', 'Delete successful');
-        return redirect()->route('couriers.index');
+        return redirect()->route('admin.couriers.index');
     }
 }

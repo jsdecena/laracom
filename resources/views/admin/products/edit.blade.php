@@ -5,7 +5,7 @@
     <section class="content">
         @include('layouts.errors-and-messages')
         <div class="box">
-            <form action="{{ route('products.update', $product->id) }}" method="post" class="form" enctype="multipart/form-data">
+            <form action="{{ route('admin.products.update', $product->id) }}" method="post" class="form" enctype="multipart/form-data">
                 <div class="box-body">
                     <div class="row">
                         {{ csrf_field() }}
@@ -61,7 +61,7 @@
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <div class="btn-group">
-                        <a href="{{ route('products.index') }}" class="btn btn-default">Back</a>
+                        <a href="{{ route('admin.products.index') }}" class="btn btn-default">Back</a>
                         <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </div>

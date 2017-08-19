@@ -74,6 +74,6 @@ class CountryController extends Controller
         $update->updateCountry($request->except('_method', '_token'));
 
         $request->session()->flash('message', 'Update successful');
-        return redirect()->route('countries.edit', $id);
+        return redirect()->route('admin.countries.edit', $id);
     }
 }

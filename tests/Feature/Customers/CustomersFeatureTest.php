@@ -19,9 +19,9 @@ class CustomersFeatureTest extends TestCase
         ];
 
         $this->actingAs($this->employee, 'admin')
-            ->put(route('customers.update', $customer->id), $data)
+            ->put(route('admin.customers.update', $customer->id), $data)
             ->assertStatus(302)
-            ->assertRedirect(route('customers.edit', $customer->id));
+            ->assertRedirect(route('admin.customers.edit', $customer->id));
     }
 
     /** @test */
@@ -30,7 +30,7 @@ class CustomersFeatureTest extends TestCase
         factory(Customer::class, 20)->create();
 
         $this->actingAs($this->employee, 'admin')
-            ->get(route('customers.index'))
+            ->get(route('admin.customers.index'))
             ->assertViewHas(['customers']);
     }
     
@@ -40,7 +40,7 @@ class CustomersFeatureTest extends TestCase
         $customer = factory(Customer::class)->create();
 
         $this->actingAs($this->employee, 'admin')
-            ->get(route('customers.show', $customer->id))
+            ->get(route('admin.customers.show', $customer->id))
             ->assertViewHas(['customer'])
             ->assertSeeText($customer->name);
     }
@@ -56,9 +56,9 @@ class CustomersFeatureTest extends TestCase
         ];
 
         $this->actingAs($this->employee, 'admin')
-            ->put(route('customers.update', $customer->id), $data)
+            ->put(route('admin.customers.update', $customer->id), $data)
             ->assertStatus(302)
-            ->assertRedirect(route('customers.edit', $customer->id));
+            ->assertRedirect(route('admin.customers.edit', $customer->id));
 
         $this->assertDatabaseHas('customers', $data);
     }
@@ -73,9 +73,9 @@ class CustomersFeatureTest extends TestCase
         ];
 
         $this->actingAs($this->employee, 'admin')
-            ->post(route('customers.store'), $data)
+            ->post(route('admin.customers.store'), $data)
             ->assertStatus(302)
-            ->assertRedirect(route('customers.index'));
+            ->assertRedirect(route('admin.customers.index'));
 
         $created = collect($data)->except('password');
 
