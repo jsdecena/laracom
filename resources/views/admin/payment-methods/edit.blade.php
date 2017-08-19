@@ -7,7 +7,7 @@
         @include('layouts.errors-and-messages')
         <!-- Default box -->
         <div class="box">
-            <form action="{{ route('payment-methods.update', $paymentMethod->id) }}" method="post">
+            <form action="{{ route('admin.payment-methods.update', $paymentMethod->id) }}" method="post">
             <div class="box-body">
                 <h2> <i class="fa fa-flask"></i> Payment Method</h2>
                 {{ csrf_field() }}
@@ -64,7 +64,7 @@
             </div>
             <!-- /.box-body -->
                 <div class="box-footer btn-group">
-                    <a href="{{ route('payment-methods.index') }}" class="btn btn-default">Back</a>
+                    <a href="{{ route('admin.payment-methods.index') }}" class="btn btn-default">Back</a>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </div>
             </form>

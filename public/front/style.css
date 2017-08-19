@@ -63,7 +63,7 @@ p {
     margin-top: 0px;
 }
 a {
-    color: #222;
+    color: #d89522;
     cursor: pointer;
     text-decoration: none;
     transition: .3s;
@@ -561,4 +561,12 @@ input, input[type="text"], input[type="email"], textarea, select {
 
 a:hover img {
     border: 1px solid #d89522;
+}
+
+.customer-order-list .tab-pane {
+    padding-top: 15px;
+}
+
+.product-list {
+    min-height: 400px;
 }

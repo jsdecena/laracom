@@ -5,7 +5,7 @@
     <section class="content">
         @include('layouts.errors-and-messages')
         <div class="box">
-            <form action="{{ route('employees.store') }}" method="post" class="form">
+            <form action="{{ route('admin.employees.store') }}" method="post" class="form">
                 <div class="box-body">
                     {{ csrf_field() }}
                     <div class="form-group">
@@ -35,7 +35,7 @@
                 <div class="box-footer">
                     <div class="btn-group">
                         <div class="btn-group">
-                            <a href="{{ route('employees.index') }}" class="btn btn-default">Back</a>
+                            <a href="{{ route('admin.employees.index') }}" class="btn btn-default">Back</a>
                             <button type="submit" class="btn btn-primary">Create</button>
                         </div>
                     </div>

@@ -53,7 +53,7 @@ class PaymentMethodController extends Controller
         $this->paymentMethodRepo->createPaymentMethod($request->all());
 
         $request->session()->flash('message', 'Create successful');
-        return redirect()->route('payment-methods.index');
+        return redirect()->route('admin.payment-methods.index');
     }
 
     /**
@@ -84,7 +84,7 @@ class PaymentMethodController extends Controller
         $update->updatePaymentMethod($request->all());
 
         $request->session()->flash('message', 'Update successful');
-        return redirect()->route('payment-methods.edit', $id);
+        return redirect()->route('admin.payment-methods.edit', $id);
     }
 
     /**
@@ -99,10 +99,10 @@ class PaymentMethodController extends Controller
             $this->paymentMethodRepo->delete($id);
         } catch (QueryException $e) {
             request()->session()->flash('error', 'Sorry, we cannot delete this payment method since an order used this before.');
-            return redirect()->route('payment-methods.index');
+            return redirect()->route('admin.payment-methods.index');
         }
 
         request()->session()->flash('message', 'Delete successful');
-        return redirect()->route('payment-methods.index');
+        return redirect()->route('admin.payment-methods.index');
     }
 }

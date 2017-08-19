@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container product-in-cart-list">
-        @if(!empty($products) && !collect($products)->isEmpty())
+        @if($products)
             <form action="{{ route('checkout.store') }}" method="post" class="form-horizontal">
                 {{ csrf_field() }}
                 <div class="row">
@@ -71,7 +71,7 @@
                         </table>
                         <hr>
                         <div class="row">
-                            @if(!empty($addresses))
+                            @if($addresses->count()>0)
                                 <div class="col-md-12">
                                     <h2><i class="fa fa-map-marker"></i> Delivery address</h2>
                                     <table class="table table-striped">
@@ -104,7 +104,7 @@
                                     </table>
                                 </div>
                             @else
-                                <p class="alert alert-danger"><a href="#">No address found. You need to create an address first here.</a></p>
+                                <p class="alert alert-danger"><a href="{{ route('customer.address.create', [$customer->id]) }}">No address found. You need to create an address first here.</a></p>
                             @endif
                         </div>
                         @if(!collect($addresses)->isEmpty())
@@ -140,7 +140,7 @@
                             </div>
                             <div class="col-md-6">
                                 <h2> <i class="fa fa-money"></i> Payment Method</h2>
-                                @if(!$payments->isEmpty())
+                                @if($payments)
                                     <table class="table">
                                         <thead>
                                         <th class="col-md-4">Name</th>
@@ -169,7 +169,7 @@
                         @endif
                     </div>
                 </div>
-                @if(!collect($addresses)->isEmpty())
+                @if($addresses)
                 <div class="row">
                     <div class="col-md-12">
                         <hr>

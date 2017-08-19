@@ -33,7 +33,7 @@ Route::get('admin/logout', 'Admin\LoginController@logout')->name('admin.logout')
 /**
  * Admin routes
  */
-Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.' ], function () {
     Route::get('/', 'Admin\DashboardController@index')->name('dashboard');
     Route::resource('employees', 'Admin\EmployeeController');
     Route::resource('customers', 'Admin\Customers\CustomerController');
@@ -63,12 +63,13 @@ Route::post('checkout', 'Front\CheckoutController@store')->name('checkout.store'
 Route::get('checkout/execute', 'Front\CheckoutController@execute')->name('checkout.execute');
 Route::get('checkout/cancel', 'Front\CheckoutController@cancel')->name('checkout.cancel');
 Route::get('checkout/success', 'Front\CheckoutController@success')->name('checkout.success');
-#Route::post('paypal', 'Front\Payments\PaypalController@store')->name('paypal.store');
 Route::get("category/{name}", 'Front\CategoryController@getCategory')->name('front.category.slug');
 Route::get("{product}", 'Front\ProductController@getProduct')->name('front.get.product');
+Route::resource('customer', 'Front\CustomerController');
+Route::resource('customer.address', 'Front\CustomerAddressController');
 
 Route::post('inquire', function (SendInquiryRequest $request) {
-    Mail::to(env('F12_INQUIRY_MAIL', 'firstwelve@gmail.com'))->send(new Inquiry($request));
+    Mail::to(env('INQUIRY_MAIL'))->send(new Inquiry($request));
     $request->session()->flash('message', 'Your message was successfully delivered! Please wait for us to get back to you. <3');
     return redirect()->route('home');
 })->name('inquiry.store');

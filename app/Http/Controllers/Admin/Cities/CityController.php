@@ -53,6 +53,6 @@ class CityController extends Controller
         $update->updateCity($request->only('name'));
 
         $request->session()->flash('message', 'Update successful');
-        return redirect()->route('countries.provinces.cities.edit', [$countryId, $provinceId, $cityId]);
+        return redirect()->route('admin.countries.provinces.cities.edit', [$countryId, $provinceId, $cityId]);
     }
 }

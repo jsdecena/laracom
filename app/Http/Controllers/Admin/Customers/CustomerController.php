@@ -51,7 +51,7 @@ class CustomerController extends Controller
     {
         $this->customerRepo->createCustomer($request->all());
 
-        return redirect()->route('customers.index');
+        return redirect()->route('admin.customers.index');
     }
 
     /**
@@ -102,7 +102,7 @@ class CustomerController extends Controller
         $update->updateCustomer($data);
 
         $request->session()->flash('message', 'Update successful');
-        return redirect()->route('customers.edit', $id);
+        return redirect()->route('admin.customers.edit', $id);
     }
 
     /**
@@ -116,6 +116,6 @@ class CustomerController extends Controller
         $this->customerRepo->delete($id);
 
         request()->session()->flash('message', 'Delete successful');
-        return redirect()->route('customers.index');
+        return redirect()->route('admin.customers.index');
     }
 }

@@ -52,7 +52,7 @@ class CategoryController extends Controller
     {
         $this->categoryRepo->createCategory($request->all());
 
-        return redirect()->route('categories.index');
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -99,7 +99,7 @@ class CategoryController extends Controller
         $update->updateCategory($request->all());
 
         $request->session()->flash('message', 'Update successful');
-        return redirect()->route('categories.edit', $id);
+        return redirect()->route('admin.categories.edit', $id);
     }
 
     /**
@@ -115,7 +115,7 @@ class CategoryController extends Controller
         $category->delete();
 
         request()->session()->flash('message', 'Delete successful');
-        return redirect()->route('categories.index');
+        return redirect()->route('admin.categories.index');
     }
 
     /**

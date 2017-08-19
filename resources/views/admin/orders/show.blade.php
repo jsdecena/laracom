@@ -3,9 +3,17 @@
 @section('content')
     <!-- Main content -->
     <section class="content">
-
     @include('layouts.errors-and-messages')
     <!-- Default box -->
+        <div class="box">
+            <div class="box-header">
+                <h2>
+                    <a href="{{ route('admin.customers.show', $customer->id) }}">{{$customer->name}}</a> <br />
+                    <small>{{$customer->email}}</small>
+                </h2>
+            </div>
+        </div>
+
         @if($order)
             @if($order->total != $order->total_paid)
                 <p class="alert alert-danger">
@@ -58,7 +66,7 @@
                         <tbody>
                         <tr>
                             <td>{{ date('M d, Y h:i a', strtotime($order['created_at'])) }}</td>
-                            <td><a href="{{ route('customers.show', $order['customer']['id']) }}">{{ $order['customer']['name'] }}</a></td>
+                            <td><a href="{{ route('admin.customers.show', $order['customer']['id']) }}">{{ $order['customer']['name'] }}</a></td>
                             <td>{{ $order['courier']['name'] }}</td>
                             <td>{{ $order['paymentMethod']['name'] }}</td>
                             <td>{{ $order['orderStatus']['name'] }}</td>
@@ -151,7 +159,7 @@
             </div>
             <!-- /.box -->
             <div class="box-footer">
-                <a href="{{ route('orders.index') }}" class="btn btn-default">Back</a>
+                <a href="{{ route('admin.orders.index') }}" class="btn btn-default">Back</a>
             </div>
         @endif
 

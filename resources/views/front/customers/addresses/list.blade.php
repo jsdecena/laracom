@@ -1,8 +1,8 @@
-@extends('layouts.admin.app')
+@extends('layouts.front.app')
 
 @section('content')
     <!-- Main content -->
-    <section class="content">
+    <section class="content container">
     @include('layouts.errors-and-messages')
     <!-- Default box -->
         @if($addresses)
@@ -25,7 +25,7 @@
                         <tbody>
                         @foreach ($addresses as $address)
                             <tr>
-                                <td><a href="{{ route('admin.customers.show', $address->customer_id) }}">{{ $address->alias }}</a></td>
+                                <td><a href="{{ route('admin.customers.show', $customer->id) }}">{{ $address->alias }}</a></td>
                                 <td>{{ $address->address_1 }}</td>
                                 <td>{{ $address->country->name }}</td>
                                 <td>{{ $address->province->name }}</td>

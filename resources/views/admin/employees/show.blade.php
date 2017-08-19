@@ -27,7 +27,7 @@
             <!-- /.box-body -->
             <div class="box-footer">
                 <div class="btn-group">
-                    <a href="{{ route('employees.index') }}" class="btn btn-default btn-sm">Back</a>
+                    <a href="{{ route('admin.employees.index') }}" class="btn btn-default btn-sm">Back</a>
                 </div>
             </div>
         </div>

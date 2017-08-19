@@ -24,7 +24,7 @@
                         @foreach ($categories as $category)
                             <tr>
                                 <td>
-                                    <a href="{{ route('categories.show', $category->id) }}">{{ $category->name }}</a></td>
+                                    <a href="{{ route('admin.categories.show', $category->id) }}">{{ $category->name }}</a></td>
                                 <td>{{ str_limit($category->description, 100, ' ...') }}</td>
                                 <td>
                                     @if(isset($category->cover))
@@ -33,11 +33,11 @@
                                 </td>
                                 <td>@include('layouts.status', ['status' => $category->status])</td>
                                 <td>
-                                    <form action="{{ route('categories.destroy', $category->id) }}" method="post" class="form-horizontal">
+                                    <form action="{{ route('admin.categories.destroy', $category->id) }}" method="post" class="form-horizontal">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="_method" value="delete">
                                         <div class="btn-group">
-                                            <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                                            <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
                                             <button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete</button>
                                         </div>
                                     </form>

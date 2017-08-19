@@ -5,7 +5,7 @@
     <section class="content">
         @include('layouts.errors-and-messages')
         <div class="box">
-            <form action="{{ route('couriers.update', $courier->id) }}" method="post" class="form">
+            <form action="{{ route('admin.couriers.update', $courier->id) }}" method="post" class="form">
                 <div class="box-body">
                     {{ csrf_field() }}
                     <input type="hidden" name="_method" value="put">
@@ -38,7 +38,7 @@
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <div class="btn-group">
-                        <a href="{{ route('couriers.index') }}" class="btn btn-default">Back</a>
+                        <a href="{{ route('admin.couriers.index') }}" class="btn btn-default">Back</a>
                         <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </div>

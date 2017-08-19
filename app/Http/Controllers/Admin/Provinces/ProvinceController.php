@@ -65,6 +65,6 @@ class ProvinceController extends Controller
         $update->updateProvince($request->except('_method', '_token'));
 
         $request->session()->flash('message', 'Update successful');
-        return redirect()->route('countries.provinces.edit', [$countryId, $provinceId]);
+        return redirect()->route('admin.countries.provinces.edit', [$countryId, $provinceId]);
     }
 }

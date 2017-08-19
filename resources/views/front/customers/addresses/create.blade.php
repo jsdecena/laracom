@@ -1,21 +1,13 @@
-@extends('layouts.admin.app')
+@extends('layouts.front.app')
 
 @section('content')
     <!-- Main content -->
-    <section class="content">
+    <section class="container content">
         @include('layouts.errors-and-messages')
         <div class="box">
-            <form action="{{ route('admin.addresses.store') }}" method="post" class="form" enctype="multipart/form-data">
+            <form action="{{ route('customer.address.store', $customer->id) }}" method="post" class="form" enctype="multipart/form-data">
                 <div class="box-body">
                     {{ csrf_field() }}
-                    <div class="form-group">
-                        <label for="customer">Customers </label>
-                        <select name="customer" id="status" class="form-control">
-                            @foreach($customers as $customer)
-                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
                     <div class="form-group">
                         <label for="alias">Alias <span class="text-danger">*</span></label>
                         <input type="text" name="alias" id="alias" placeholder="Home or Office" class="form-control" value="{{ old('alias') }}">
@@ -77,33 +69,4 @@
 
     </section>
     <!-- /.content -->
-@endsection
-@section('js')
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#province_id').change(function () {
-
-                var provinceId = $(this).val();
-
-                $.ajax({
-                    url: '/api/v1/country/169/province/' + provinceId + '/city',
-                    contentType: 'json',
-                    success: function (data) {
-
-                        var html = '<label for="city_id">City </label>';
-                            html += '<select name="city_id" id="city_id" class="form-control">';
-                            $(data.data).each(function (idx, v) {
-                                html += '<option value="'+ v.id+'">'+ v.name +'</option>';
-                            });
-                            html += '</select>';
-
-                        $('#cities').html(html).show();
-                    },
-                    errors: function (data) {
-                        console.log(data);
-                    }
-                });
-            });
-        });
-    </script>
 @endsection

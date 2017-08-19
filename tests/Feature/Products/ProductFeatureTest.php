@@ -25,9 +25,9 @@ class ProductFeatureTest extends TestCase
         ];
 
         $this->actingAs($this->employee, 'admin')
-            ->put(route('products.update', $this->product->id), $params)
+            ->put(route('admin.products.update', $this->product->id), $params)
             ->assertSessionHas(['message'])
-            ->assertRedirect(route('products.edit', $this->product->id));
+            ->assertRedirect(route('admin.products.edit', $this->product->id));
     }
     
     /** @test */
@@ -56,8 +56,8 @@ class ProductFeatureTest extends TestCase
         ];
 
         $this->actingAs($this->employee, 'admin')
-            ->put(route('products.update', $this->product->id), $params)
+            ->put(route('admin.products.update', $this->product->id), $params)
             ->assertSessionHas(['message'])
-            ->assertRedirect(route('products.edit', $this->product->id));
+            ->assertRedirect(route('admin.products.edit', $this->product->id));
     }
 }

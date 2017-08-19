@@ -24,13 +24,12 @@ class PaypalExpress
     private $transactions = [];
     private $itemList;
     private $others;
-    private $orderDetail;
 
     public function __construct(
         $clientId,
         $clientSecret,
-        $mode = 'sandbox',
-        $url = 'https://api.sandbox.paypal.com'
+        $mode,
+        $url
     )
     {
         $apiContext = new ApiContext(
@@ -47,7 +46,8 @@ class PaypalExpress
                 'log.FileName' => storage_path('logs/paypal.log'),
                 'log.LogLevel' => env('APP_LOG_LEVEL'),
                 'cache.enabled' => true,
-                'cache.FileName' => storage_path('logs/paypal.cache')
+                'cache.FileName' => storage_path('logs/paypal.cache'),
+                'http.CURLOPT_SSLVERSION' => CURL_SSLVERSION_TLSv1
             )
         );
 
@@ -134,7 +134,7 @@ class PaypalExpress
         $this->transactions = $transaction;
     }
 
-    public function createPayment(string $returnUrl = '', string $cancelUrl = '')
+    public function createPayment(string $returnUrl, string $cancelUrl)
     {
         // ### Payment
         // A Payment Resource; create one using
