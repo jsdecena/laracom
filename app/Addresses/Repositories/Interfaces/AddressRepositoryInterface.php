@@ -22,6 +22,4 @@ interface AddressRepositoryInterface extends BaseRepositoryInterface
     public function findAddressById(int $id) : Address;
 
     public function findCustomer() : Customer;
-
-    public function findCustomerAddresses(Customer $customer);
 }
