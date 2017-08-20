@@ -117,17 +117,4 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
     {
         return $this->model->customer;
     }
-
-    /**
-     * Find customer's addresses
-     *
-     * @param Customer $customer
-     * @return mixed
-     */
-    public function findCustomerAddresses(Customer $customer)
-    {
-        return collect($customer->address)->map(function (Address $address) {
-            return $this->transformAddress($address);
-        })->all();
-    }
 }

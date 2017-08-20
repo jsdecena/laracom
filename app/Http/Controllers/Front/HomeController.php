@@ -24,9 +24,4 @@ class HomeController extends Controller
 
         return view('front.index', compact('newests', 'features'));
     }
-
-    public function landing()
-    {
-        return view('layouts.front.landing');
-    }
 }
