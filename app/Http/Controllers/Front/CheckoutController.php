@@ -14,17 +14,15 @@ use App\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\PaymentMethods\PaymentMethod;
 use App\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
 use App\PaymentMethods\Paypal\PaypalExpress;
+use App\PaymentMethods\Paypal\PaypalPayment;
 use App\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
-use App\Products\Product;
 use App\Products\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Products\Repositories\ProductRepository;
 use Exception;
 use Gloudemans\Shoppingcart\CartItem;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PayPal\Api\Payment;
-use PayPal\Api\PaymentExecution;
 use PayPal\Exception\PayPalConnectionException;
 use Ramsey\Uuid\Uuid;
 
@@ -74,30 +72,22 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        $productRepo = new ProductRepository(new Product);
+        $customer = $this->customerRepo->findCustomerById($this->loggedUser()->id);
 
-        $items = collect($this->cartRepo->getCartItems())->map(function (CartItem $item) use ($productRepo) {
-            $product = $productRepo->findProductById($item->id);
-            $item->product = $product;
-            $item->cover = $product->cover;
-            return $item;
-        });
-
-        $customer = $this->customerRepo->findCustomerById(auth()->user()->id);
-
-        $payments = collect($this->paymentRepo->listPaymentMethods())->filter(function (PaymentMethod $method){
-            return $method->status == 1;
-        });
+        $payments = $this->paymentRepo->listPaymentMethods()
+                        ->filter(function (PaymentMethod $method){
+                            return $method->status == 1;
+                    });
 
         return view('front.checkout', [
             'customer' => $customer,
-            'products' => $items,
+            'addresses' => $customer->addresses,
+            'products' => $this->getCartItems(),
             'subtotal' => $this->cartRepo->getSubTotal(),
             'tax' => $this->cartRepo->getTax(),
             'total' => $this->cartRepo->getTotal(),
             'couriers' => $this->courierRepo->listCouriers(),
-            'payments' => $payments,
-            'addresses' => $customer->addresses
+            'payments' => $payments
         ]);
     }
 
@@ -109,18 +99,12 @@ class CheckoutController extends Controller
      */
     public function store(CartCheckoutRequest $request)
     {
-        $cartItems = collect($this->cartRepo->getCartItems())->map(function (CartItem $item){
-            $product = $this->productRepo->findProductById($item->id);
-            $item->description = $product->description;
-            return $item;
-        });
-
         $method = $this->paymentRepo->findPaymentMethodById($request->input('payment'));
 
         if ($method->slug == 'paypal') {
 
             $this->paypal->setPayer();
-            $this->paypal->setItems($cartItems);
+            $this->paypal->setItems($this->getCartItems());
             $this->paypal->setOtherFees(
                 $this->cartRepo->getSubTotal(),
                 $this->cartRepo->getTax()
@@ -155,33 +139,33 @@ class CheckoutController extends Controller
      */
     public function execute(Request $request)
     {
-        $apiContext = $this->paypal->getApiContext();
-
-        $payment = Payment::get($request->input('paymentId'), $apiContext);
-
-        $execution = new PaymentExecution();
-        $execution->setPayerId($request->input('PayerID'));
-
         try {
 
-            if($payment->execute($execution, $apiContext)) {
+            $apiContext = $this->paypal->getApiContext();
 
-                foreach ($payment->getTransactions() as $t) {
-                    return $this->buildOrder([
-                        'reference' => Uuid::uuid4()->toString(),
-                        'courier_id' => $request->input('courier'),
-                        'customer_id' => Auth::id(),
-                        'address_id' => $request->input('address'),
-                        'order_status_id' => 1,
-                        'payment_method_id' => $request->input('payment'),
-                        'discounts' => 0,
-                        'total_products' =>  $this->cartRepo->getSubTotal(),
-                        'total' => $this->cartRepo->getTotal(),
-                        'total_paid' => $t->getAmount()->getTotal(),
-                        'tax' => $this->cartRepo->getTax()
-                    ]);
-                }
+            $payment = Payment::get($request->input('paymentId'), $apiContext);
+            $execution = $this->paypal->setPayerId($request->input('PayerID'));
+            $trans = $payment->execute($execution, $apiContext);
+
+            foreach ($trans->getTransactions() as $t) {
+                $order = $this->orderRepo->create([
+                    'reference' => Uuid::uuid4()->toString(),
+                    'courier_id' => $request->input('courier'),
+                    'customer_id' => Auth::id(),
+                    'address_id' => $request->input('address'),
+                    'order_status_id' => 1,
+                    'payment_method_id' => $request->input('payment'),
+                    'discounts' => 0,
+                    'total_products' =>  $this->cartRepo->getSubTotal(),
+                    'total' => $this->cartRepo->getTotal(),
+                    'total_paid' => $t->getAmount()->getTotal(),
+                    'tax' => $this->cartRepo->getTax()
+                ]);
+
+                $this->buildOrderDetails($order);
             }
+
+            return redirect()->route('checkout.success');
 
         } catch (PayPalConnectionException $e) {
             throw new PaypalRequestError($e->getData());
@@ -198,7 +182,7 @@ class CheckoutController extends Controller
      */
     public function cancel(Request $request)
     {
-        return view('front.checkout-cancel');
+        return view('front.checkout-cancel', ['data' => $request->all()]);
     }
 
     /**
@@ -212,18 +196,6 @@ class CheckoutController extends Controller
     }
 
     /**
-     * Build the order
-     *
-     * @param array $params
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    private function buildOrder(array $params)
-    {
-        $order = $this->orderRepo->createOrder($params);
-        return $this->buildOrderDetails($order);
-    }
-
-    /**
      * Build the order details
      *
      * @param Order $order
@@ -231,13 +203,12 @@ class CheckoutController extends Controller
      */
     private function buildOrderDetails(Order $order)
     {
-        foreach ($this->cartRepo->getCartItems() as $item) {
-
-            $product = $this->productRepo->find($item->id);
-
-            $orderDetailRepo = new OrderProductRepository(new OrderProduct);
-            $orderDetailRepo->createOrderDetail($order, $product, $item->qty);
-        }
+        $this->cartRepo->getCartItems()
+            ->each(function ($item) use ($order) {
+                $product = $this->productRepo->find($item->id);
+                $orderDetailRepo = new OrderProductRepository(new OrderProduct);
+                $orderDetailRepo->createOrderDetail($order, $product, $item->qty);
+        });
 
         return $this->clearCart();
     }
@@ -249,5 +220,22 @@ class CheckoutController extends Controller
     {
         $this->cartRepo->clearCart();
         return redirect()->route('checkout.success');
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getCartItems()
+    {
+        $productRepo = $this->productRepo;
+
+        return $this->cartRepo->getCartItems()
+                ->map(function (CartItem $item) use($productRepo) {
+                    $product = $productRepo->findProductById($item->id);
+                    $item->product = $product;
+                    $item->cover = $product->cover;
+                    $item->description = $product->description;
+                    return $item;
+                });
     }
 }

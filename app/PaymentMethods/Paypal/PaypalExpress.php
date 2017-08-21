@@ -10,6 +10,7 @@ use PayPal\Api\Item;
 use PayPal\Api\ItemList;
 use PayPal\Api\Payer;
 use PayPal\Api\Payment;
+use PayPal\Api\PaymentExecution;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 use PayPal\Exception\PayPalConnectionException;
@@ -158,8 +159,14 @@ class PaypalExpress
         }
     }
 
-    public function executePayment(string $paymentId)
+    /**
+     * @param string $payerID
+     * @return PaymentExecution
+     */
+    public function setPayerId(string $payerID)
     {
-        
+        $execution = new PaymentExecution();
+        $execution->setPayerId($payerID);
+        return $execution;
     }
 }
