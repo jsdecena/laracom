@@ -127,4 +127,12 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
             return $this->transformAddress($address);
         });
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findOrders() : \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->model->orders()->get();
+    }
 }

@@ -8,11 +8,53 @@ use App\Customers\Exceptions\CreateCustomerInvalidArgumentException;
 use App\Customers\Exceptions\CustomerNotFoundException;
 use App\Customers\Exceptions\UpdateCustomerInvalidArgumentException;
 use App\Customers\Repositories\CustomerRepository;
+use App\Customers\Transformations\CustomerTransformable;
+use App\Orders\Order;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class CustomerUnitTest extends TestCase 
 {
+    use CustomerTransformable;
+    
+    /** @test */
+    public function it_can_return_all_the_orders_of_the_customer()
+    {
+        $customer = factory(Customer::class)->create();
+
+        $order = factory(Order::class)->create([
+            'customer_id' => $customer->id
+        ]);
+
+        $repo = new CustomerRepository($customer);
+        $orders = $repo->findOrders();
+
+        $this->assertInstanceOf(Collection::class, $orders);
+
+        foreach ($orders as $o) {
+            $this->assertEquals($order->id, $o->id);
+            $this->assertEquals($customer->id, $o->customer_id);
+        }
+
+
+    }
+
+    /** @test */
+    public function it_can_transform_the_customer()
+    {
+        $customer = factory(Customer::class)->create();
+
+        $repo = new CustomerRepository($customer);
+
+        $customerFromDb = $repo->findCustomerById($customer->id);
+        $cust = $this->transformCustomer($customer);
+
+        $this->assertInternalType('string', $customerFromDb->status);
+        $this->assertInternalType('int', $cust->status);
+
+    }
+    
     /** @test */
     public function it_errors_updating_the_customer_name_with_null_value()
     {
