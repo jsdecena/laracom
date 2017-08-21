@@ -57,7 +57,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.' ], 
  */
 Route::get('cart/login', 'Auth\CartLoginController@showLoginForm')->name('cart.login');
 Route::post('cart/login', 'Auth\CartLoginController@login')->name('cart.login');
-Route::resource("cart", 'Front\CartController');
+Route::resource('cart', 'Front\CartController');
 Route::get('checkout', 'Front\CheckoutController@index')->name('checkout.index');
 Route::post('checkout', 'Front\CheckoutController@store')->name('checkout.store');
 Route::get('checkout/execute', 'Front\CheckoutController@execute')->name('checkout.execute');
