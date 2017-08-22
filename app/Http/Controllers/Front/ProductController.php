@@ -26,4 +26,9 @@ class ProductController extends Controller
             'product' =>  $this->productRepo->findProductBySlug(['slug' => $slug])
         ]);
     }
+
+    public function removeImage()
+    {
+        //
+    }
 }
