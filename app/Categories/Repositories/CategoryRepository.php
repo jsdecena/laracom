@@ -192,15 +192,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
      */
     public function findProductsInCategory(int $id)
     {
-        $products = [];
-        foreach ($this->all() as $category) {
-            if ($category->id == $id) {
-                $products[] = ($this->findCategoryById($id))->products;
-            }
-        }
-
-        return collect($products[0])->map(function (Product $product){
-            return $this->transformProduct($product);
-        });
+        $category = $this->findCategoryById($id);
+        return $category->products;
     }
 }
