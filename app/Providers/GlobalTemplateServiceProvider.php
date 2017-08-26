@@ -26,17 +26,20 @@ class GlobalTemplateServiceProvider extends ServiceProvider
             $view->with('categories', $this->getCategories());
             $view->with('cartCount', $this->getCartCount());
         });
+
+        view()->composer(['layouts.front.category-nav'], function ($view) {
+            $view->with('categories', $this->getCategories());
+        });
     }
 
     /**
      * Get all the categories
      *
-     * @return array
      */
     private function getCategories()
     {
         $categoryRepo = new CategoryRepository(new Category);
-        return $categoryRepo->listCategories();
+        return $categoryRepo->listCategories('name', 'asc', 1)->whereIn('parent_id', [1]);
     }
 
     private function getCartCount()

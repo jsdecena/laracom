@@ -102,7 +102,7 @@ class CategoryUnitTest extends TestCase
         $category = new CategoryRepository(new Category);
         $list = $category->listCategories();
 
-        $this->arrayHasKey(array_keys($list));
+        $this->arrayHasKey(array_keys($list->all()));
     }
 
     /** @test */

@@ -9,6 +9,14 @@
                 <div class="box-body">
                     {{ csrf_field() }}
                     <div class="form-group">
+                        <label for="parent">Parent Category</label>
+                        <select name="parent" id="parent" class="form-control">
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}">{{$category->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="name">Name <span class="text-danger">*</span></label>
                         <input type="text" name="name" id="name" placeholder="Name" class="form-control" value="{{ old('name') }}">
                     </div>
