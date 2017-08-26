@@ -12,5 +12,5 @@ interface ProvinceRepositoryInterface extends BaseRepositoryInterface
 
     public function findProvinceById(int $id) : Province;
 
-    public function updateProvince(array $params) : Province;
+    public function updateProvince(array $params) : bool;
 }

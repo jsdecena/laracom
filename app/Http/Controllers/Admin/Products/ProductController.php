@@ -8,13 +8,10 @@ use App\Products\Repositories\ProductRepository;
 use App\Products\Requests\CreateProductRequest;
 use App\Products\Requests\UpdateProductRequest;
 use App\Http\Controllers\Controller;
-use App\Tools\CurrencyTransformable;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    use CurrencyTransformable;
-
     private $productRepo;
     private $categoryRepo;
 

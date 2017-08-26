@@ -2,20 +2,10 @@
 
 namespace App\Products\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Base\BaseFormRequest;
 
-class CreateProductRequest extends FormRequest
+class CreateProductRequest extends BaseFormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *

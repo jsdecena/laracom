@@ -5,13 +5,9 @@ namespace App\Http\Controllers\Front;
 use App\Categories\Repositories\CategoryRepository;
 use App\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Products\Product;
-use App\Tools\CurrencyTransformable;
 
 class CategoryController extends Controller
 {
-    use CurrencyTransformable;
-
     private $categoryRepo;
 
     public function __construct(CategoryRepositoryInterface $categoryRepository)

@@ -16,12 +16,12 @@ use App\PaymentMethods\PaymentMethod;
 
 $factory->define(PaymentMethod::class, function (Faker\Generator $faker) {
 
-    $name = 'Paypal';
+    $name = $faker->company;
 
     return [
         'name' => $name,
         'slug' => str_slug($name),
-        'description' => 'Paypal payment',
+        'description' => $faker->sentence,
         'status' => 1
     ];
 });

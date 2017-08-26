@@ -3,10 +3,44 @@
 namespace Tests\Feature;
 
 use App\Categories\Category;
+use App\Products\Product;
+use App\Products\Repositories\ProductRepository;
 use Tests\TestCase;
 
 class ProductFeatureTest extends TestCase
 {
+    /** @test */
+    public function it_can_detach_all_the_categories()
+    {
+        $product = factory(Product::class)->create();
+        $categories = factory(Category::class, 4)->create();
+
+        $productRepo = new ProductRepository($product);
+
+        $ids = [];
+        foreach ($categories as $category) {
+            $ids[] = $category->id;
+        }
+
+        $productRepo->syncCategories($ids);
+
+        $this->assertCount(4, $productRepo->getCategories());
+
+        $productRepo->detachCategories($product);
+
+        $this->assertCount(0, $productRepo->getCategories());
+    }
+
+    /** @test */
+    public function it_errors_creating_the_product_when_the_required_fields_are_not_filled()
+    {
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->post(route('admin.products.store'), [])
+            ->assertStatus(302)
+            ->assertSessionHasErrors();
+    }
+
     /** @test */
     public function it_can_detach_the_categories_associated_with_the_product()
     {

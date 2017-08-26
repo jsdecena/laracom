@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Provinces;
 
-use App\Provinces\Exceptions\UpdateProvinceRequest;
 use App\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Provinces\Repositories\ProvinceRepository;
+use Illuminate\Http\Request;
 
 class ProvinceController extends Controller
 {
@@ -53,12 +53,12 @@ class ProvinceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateProvinceRequest $request
+     * @param  Request $request
      * @param int $provinceId
      * @param int $countryId
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProvinceRequest $request, int $countryId, int $provinceId)
+    public function update(Request $request, int $countryId, int $provinceId)
     {
         $province = $this->provinceRepo->findProvinceById($provinceId);
         $update = new ProvinceRepository($province);

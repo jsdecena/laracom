@@ -9,6 +9,7 @@ use App\Products\Product;
 use App\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Products\Transformations\ProductTransformable;
 use App\Tools\UploadableTrait;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 
@@ -22,6 +23,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      */
     public function __construct(Product $product)
     {
+        parent::__construct($product);
         $this->model = $product;
     }
 
@@ -135,6 +137,16 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function detachCategories(Product $product)
     {
         $product->categories()->detach();
+    }
+
+    /**
+     * Return the categories which the product is associated with
+     *
+     * @return Collection
+     */
+    public function getCategories() : Collection
+    {
+        return $this->model->categories()->get();
     }
 
     /**

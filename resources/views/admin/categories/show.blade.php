@@ -34,9 +34,10 @@
                         <table class="table">
                             <tbody>
                             <tr>
-                                <td class="col-md-4">Name</td>
-                                <td class="col-md-4">Description</td>
-                                <td class="col-md-4">Cover</td>
+                                <td class="col-md-3">Name</td>
+                                <td class="col-md-3">Description</td>
+                                <td class="col-md-3">Cover</td>
+                                <td class="col-md-3">Actions</td>
                             </tr>
                             </tbody>
                             <tbody>
@@ -45,6 +46,7 @@
                                         <td><a href="{{route('admin.categories.show', $cat->id)}}">{{ $cat->name }}</a></td>
                                         <td>{{ $cat->description }}</td>
                                         <td>{{ $cat->cover }}</td>
+                                        <td><a class="btn btn-primary" href="{{route('admin.categories.edit', $cat->id)}}"><i class="fa fa-edit"></i> Edit</a></td>
                                     </tr>
                                 @endforeach
                             </tbody>

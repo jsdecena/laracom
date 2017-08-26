@@ -4,6 +4,7 @@ namespace App\Products\Repositories\Interfaces;
 
 use App\Base\Interfaces\BaseRepositoryInterface;
 use App\Products\Product;
+use Illuminate\Database\Eloquent\Collection;
 
 interface ProductRepositoryInterface extends BaseRepositoryInterface
 {
@@ -18,6 +19,8 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
     public function deleteProduct(Product $product) : bool;
 
     public function detachCategories(Product $product);
+
+    public function getCategories() : Collection;
 
     public function syncCategories(array $params);
 
