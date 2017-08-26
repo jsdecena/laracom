@@ -63,7 +63,7 @@ Route::post('checkout', 'Front\CheckoutController@store')->name('checkout.store'
 Route::get('checkout/execute', 'Front\CheckoutController@execute')->name('checkout.execute');
 Route::get('checkout/cancel', 'Front\CheckoutController@cancel')->name('checkout.cancel');
 Route::get('checkout/success', 'Front\CheckoutController@success')->name('checkout.success');
-Route::get("category/{name}", 'Front\CategoryController@getCategory')->name('front.category.slug');
+Route::get("category/{slug}", 'Front\CategoryController@getCategory')->name('front.category.slug');
 Route::get("{product}", 'Front\ProductController@getProduct')->name('front.get.product');
 Route::resource('customer', 'Front\CustomerController');
 Route::resource('customer.address', 'Front\CustomerAddressController');

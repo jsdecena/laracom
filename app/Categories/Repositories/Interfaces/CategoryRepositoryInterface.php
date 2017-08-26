@@ -8,7 +8,7 @@ use App\Products\Product;
 
 interface CategoryRepositoryInterface extends BaseRepositoryInterface
 {
-    public function listCategories(string $order = 'id', string $sort = 'desc') : array;
+    public function listCategories(string $order = 'id', string $sort = 'desc', $except = []);
 
     public function createCategory(array $params) : Category;
 

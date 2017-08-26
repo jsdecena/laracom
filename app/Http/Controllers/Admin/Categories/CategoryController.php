@@ -25,10 +25,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $list = $this->categoryRepo->listCategories('created_at', 'desc');
+        $list = $this->categoryRepo->listCategories('created_at', 'desc', 1)->whereIn('parent_id', [1]);
 
         return view('admin.categories.list', [
-            'categories' => $this->categoryRepo->paginateArrayResults($list)
+            'categories' => $this->categoryRepo->paginateArrayResults($list->all())
         ]);
     }
 
@@ -39,7 +39,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.categories.create',[
+            'categories' => $this->categoryRepo->listCategories('name', 'asc')
+        ]);
     }
 
     /**
@@ -50,7 +52,7 @@ class CategoryController extends Controller
      */
     public function store(CreateCategoryRequest $request)
     {
-        $this->categoryRepo->createCategory($request->all());
+        $this->categoryRepo->createCategory($request->except('_token', '_method'));
 
         return redirect()->route('admin.categories.index');
     }
@@ -69,6 +71,7 @@ class CategoryController extends Controller
 
         return view('admin.categories.show', [
             'category' => $category,
+            'categories' => $category->children,
             'products' => $cat->findProducts()
         ]);
     }
@@ -81,7 +84,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.categories.edit', ['category' => $this->categoryRepo->findCategoryById($id)]);
+        return view('admin.categories.edit', [
+            'categories' => $this->categoryRepo->listCategories('name', 'asc', $id),
+            'category' => $this->categoryRepo->findCategoryById($id)
+        ]);
     }
 
     /**
@@ -96,7 +102,7 @@ class CategoryController extends Controller
         $category = $this->categoryRepo->findCategoryById($id);
 
         $update = new CategoryRepository($category);
-        $update->updateCategory($request->all());
+        $update->updateCategory($request->except('_token', '_method'));
 
         $request->session()->flash('message', 'Update successful');
         return redirect()->route('admin.categories.edit', $id);

@@ -27,7 +27,31 @@
                         </tbody>
                     </table>
                 </div>
-                @if(isset($products))
+                @if(!$categories->isEmpty())
+                <hr>
+                    <div class="box-body">
+                        <h2>Sub Categories</h2>
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td class="col-md-4">Name</td>
+                                <td class="col-md-4">Description</td>
+                                <td class="col-md-4">Cover</td>
+                            </tr>
+                            </tbody>
+                            <tbody>
+                                @foreach($categories as $cat)
+                                    <tr>
+                                        <td><a href="{{route('admin.categories.show', $cat->id)}}">{{ $cat->name }}</a></td>
+                                        <td>{{ $cat->description }}</td>
+                                        <td>{{ $cat->cover }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+                @if(!$products->isEmpty())
                     <div class="box-body">
                         <h2>Products</h2>
                         @include('admin.shared.products', ['products' => $products])

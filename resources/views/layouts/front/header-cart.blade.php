@@ -1,10 +1,6 @@
 <!-- Collect the nav links, forms, and other content for toggling -->
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav">
-        @foreach($categories as $category)
-            <li @if(request()->segment(2) == $category->slug) class="active" @endif><a href="{{ route('front.category.slug', $category->slug) }}">{{ $category->name }}</a></li>
-        @endforeach
-    </ul>
+    @include('layouts.front.category-nav')
     <ul  class="nav navbar-nav navbar-right">
         @if(Auth::check())
             <li><a href="{{ route('accounts') }}"><i class="fa fa-home"></i> My Account</a></li>

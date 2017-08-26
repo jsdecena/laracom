@@ -27,7 +27,7 @@
                             <div class="form-group">
                                 @if(isset($product->cover))
                                     <img src="{{ asset("uploads/$product->cover") }}" alt="" class="img-responsive"> <br />
-                                    <a onclick="return confirm('Are you sure?')" href="{{ route('product.remove.image', ['product' => $product->id, 'image' => substr($product->cover, 9)]) }}" class="btn btn-danger">Remove image?</a>
+                                    <a onclick="return confirm('Are you sure?')" href="{{ route('admin.product.remove.image', ['product' => $product->id, 'image' => substr($product->cover, 9)]) }}" class="btn btn-danger">Remove image?</a>
                                 @endif
                             </div>
                             <div class="form-group">

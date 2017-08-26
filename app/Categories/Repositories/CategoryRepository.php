@@ -32,13 +32,12 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
      *
      * @param string $order
      * @param string $sort
-     * @return array
+     * @param array $except
+     * @return \Illuminate\Support\Collection
      */
-    public function listCategories(string $order = 'id', string $sort = 'desc') : array
+    public function listCategories(string $order = 'id', string $sort = 'desc', $except = [])
     {
-        $list = $this->model->orderBy($order, $sort)->get();
-
-        return collect($list)->all();
+        return $this->model->orderBy($order, $sort)->get()->except($except);
     }
 
     /**
@@ -52,8 +51,10 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     {
         try {
 
-            $collection = collect($params)->except('_token');
-            $slug = str_slug($collection->get('name'));
+            $collection = collect($params);
+            if (isset($params['name'])) {
+                $slug = str_slug($params['name']);
+            }
 
             if (request()->hasFile('cover')) {
                 $file = request()->file('cover', 'products');
@@ -63,6 +64,12 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
             $merge = $collection->merge(compact('slug', 'cover'));
 
             $category = new Category($merge->all());
+
+            if (isset($params['parent'])){
+                $parent = $this->findCategoryById($params['parent']);
+                $category->parent()->associate($parent);
+            }
+
             $category->save();
             return $category;
 
@@ -89,6 +96,10 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         }
 
         $merge = $collection->merge(compact('slug', 'cover'));
+        if (isset($params['parent'])) {
+            $parent = $this->findCategoryById($params['parent']);
+            $category->parent()->associate($parent);
+        }
 
         $category->update($merge->all());
         return $category;

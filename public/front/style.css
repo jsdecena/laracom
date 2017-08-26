@@ -81,6 +81,14 @@ li.active a {
     color: #d89522;
     background: #eee;
 }
+ul.sidebar-menu li a {
+    display: block;
+    padding: 3px 10px;
+    margin: 3px 0;
+}
+ul.sidebar-category-sub li {
+    padding-left: 15px;
+}
 
 ul.navbar-nav > li.active > a {
     color: #d89522 !important;
@@ -569,4 +577,8 @@ a:hover img {
 
 .product-list {
     min-height: 400px;
+}
+
+.nav.navbar-nav .dropdown {
+    top:11px;
 }
