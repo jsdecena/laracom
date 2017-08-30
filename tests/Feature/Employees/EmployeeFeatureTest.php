@@ -80,16 +80,18 @@ class EmployeeFeatureTest extends TestCase
     /** @test */
     public function it_can_update_the_employees_password()
     {
+        $employee = factory(Employee::class)->create();
+
         $update = [
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->email,
+            'name' => $employee->name,
+            'email' => $employee->email,
             'password' => 'secret!!'
         ];
 
         $this->actingAs($this->employee, 'admin')
-            ->put(route('admin.employees.update', $this->employee->id), $update)
+            ->put(route('admin.employees.update', $employee->id), $update)
             ->assertStatus(302)
-            ->assertRedirect(route('admin.employees.edit', $this->employee->id));
+            ->assertRedirect(route('admin.employees.edit', $employee->id));
 
         $collection = collect($update)->except('password');
         $this->assertDatabaseHas('employees', $collection->all());

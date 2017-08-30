@@ -48,7 +48,7 @@ class OrderStatusController extends Controller
      */
     public function store(CreateOrderStatusRequest $request)
     {
-        $this->orderStatuses->createOrderStatus($request->all());
+        $this->orderStatuses->createOrderStatus($request->except('_token', '_method'));
         $request->session()->flash('message', 'Create successful');
         return redirect()->route('admin.order-statuses.index');
     }

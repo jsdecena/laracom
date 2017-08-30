@@ -206,4 +206,20 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         $category = $this->findCategoryById($id);
         return $category->products;
     }
+
+    /**
+     * @return mixed
+     */
+    public function findParentCategory()
+    {
+        return $this->model->parent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function findChildren()
+    {
+        return $this->model->children;
+    }
 }

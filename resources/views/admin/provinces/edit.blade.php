@@ -17,7 +17,7 @@
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <div class="btn-group">
-                        <a href="{{ route('admin.countries.provinces.show', [$countryId, $province->id]) }}" class="btn btn-default">Back</a>
+                        <a href="{{ route('admin.countries.show', $countryId) }}" class="btn btn-default">Back</a>
                         <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </div>

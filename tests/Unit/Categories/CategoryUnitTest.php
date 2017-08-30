@@ -11,6 +11,40 @@ use Tests\TestCase;
 class CategoryUnitTest extends TestCase
 {
     /** @test */
+    public function it_can_get_the_child_categories()
+    {
+        $parent = factory(Category::class)->create();
+
+        $child = factory(Category::class)->create([
+            'parent_id' => $parent->id
+        ]);
+
+        $categoryRepo = new CategoryRepository($parent);
+        $children = $categoryRepo->findChildren();
+
+        foreach ($children as $c) {
+            $this->assertInstanceOf(Category::class, $c);
+            $this->assertEquals($child->id, $c->id);
+        }
+    }
+    
+    /** @test */
+    public function it_can_get_the_parent_category()
+    {
+        $parent = factory(Category::class)->create();
+
+        $child = factory(Category::class)->create([
+            'parent_id' => $parent->id
+        ]);
+
+        $categoryRepo = new CategoryRepository($child);
+        $found = $categoryRepo->findParentCategory();
+
+        $this->assertInstanceOf(Category::class, $found);
+        $this->assertEquals($parent->id, $child->parent_id);
+    }
+
+    /** @test */
     public function it_can_return_products_in_the_category()
     {
         $category = new CategoryRepository($this->category);

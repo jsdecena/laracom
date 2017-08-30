@@ -53,12 +53,12 @@ class ProvinceRepository extends BaseRepository implements ProvinceRepositoryInt
      * Update the province
      *
      * @param array $params
-     * @return Province
+     * @return boolean
      */
-    public function updateProvince(array $params) : Province {
+    public function updateProvince(array $params) : bool
+    {
         try {
-            $this->update($params, $this->model->id);
-            return $this->findProvinceById($this->model->id);
+            return $this->model->update($params);
         } catch (InvalidArgumentException $e) {
             throw new ProvinceNotFoundException($e->getMessage());
         }

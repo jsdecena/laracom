@@ -19,8 +19,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $newests = $this->categoryRepo->findProductsInCategory(1);
-        $features = $this->categoryRepo->findProductsInCategory(2);
+        $newests = $this->categoryRepo->findProductsInCategory(2);
+        $features = $this->categoryRepo->findProductsInCategory(3);
 
         return view('front.index', compact('newests', 'features'));
     }
