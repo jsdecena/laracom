@@ -7,14 +7,15 @@ use App\OrderDetails\Exceptions\OrderDetailInvalidArgumentException;
 use App\OrderDetails\OrderProduct;
 use App\OrderDetails\Repositories\Interfaces\OrderDetailRepositoryInterface;
 use App\Orders\Order;
+use App\Orders\Repositories\OrderRepository;
 use App\Products\Product;
-use Illuminate\Database\QueryException;
+use App\Products\Repositories\ProductRepository;
 
 class OrderProductRepository extends BaseRepository implements OrderDetailRepositoryInterface
 {
     public function __construct(OrderProduct $orderDetail)
     {
-        $this->model = $orderDetail;
+        parent::__construct($orderDetail);
     }
 
     /**
@@ -28,7 +29,8 @@ class OrderProductRepository extends BaseRepository implements OrderDetailReposi
      */
     public function createOrderDetail(Order $order, Product $product, int $quantity)
     {
-        $order->products()->attach([$product->id => ['quantity' => $quantity]]);
-        return $order->products;
+        $orderRepo = new OrderRepository($order);
+        $orderRepo->associateProduct($product, $quantity);
+        return $orderRepo->findProducts($order);
     }
 }
