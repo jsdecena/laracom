@@ -11,10 +11,41 @@ use App\Orders\Order;
 use App\Orders\Repositories\OrderRepository;
 use App\OrderStatuses\OrderStatus;
 use App\PaymentMethods\PaymentMethod;
+use App\Products\Product;
 use Tests\TestCase;
 
 class OrderUnitTest extends TestCase
 {
+    /** @test */
+    public function it_can_update_the_product_quanity_upon_creation_of_order_details()
+    {
+        $product = factory(Product::class)->create();
+        $order = factory(Order::class)->create();
+
+        $orderRepo = new OrderRepository($order);
+        $orderRepo->associateProduct($product);
+
+        $this->assertEquals(9, $product->quantity);
+    }
+    
+    /** @test */
+    public function it_can_associate_the_product_in_the_order()
+    {
+        $product = factory(Product::class)->create();
+        $order = factory(Order::class)->create();
+
+        $orderRepo = new OrderRepository($order);
+        $orderRepo->associateProduct($product);
+
+        $products = $orderRepo->findProducts($order);
+
+        foreach ($products as $p) {
+            $this->assertEquals($product->name, $p->name);
+            $this->assertEquals($product->sku, $p->sku);
+            $this->assertEquals($product->description, $p->description);
+        }
+    }
+    
     /** @test */
     public function it_errors_when_updating_the_product_with_needed_fields_not_passed()
     {

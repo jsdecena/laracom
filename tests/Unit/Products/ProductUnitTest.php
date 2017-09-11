@@ -118,14 +118,15 @@ class ProductUnitTest extends TestCase
         $product = new ProductRepository($this->product);
         $updated = $product->updateProduct($params);
 
-        $this->assertEquals($params['sku'], $updated->sku);
-        $this->assertEquals($params['name'], $updated->name);
-        $this->assertEquals($params['slug'], $updated->slug);
-        $this->assertEquals($params['description'], $updated->description);
-        $this->assertEquals($params['cover'], $updated->cover);
-        $this->assertEquals($params['quantity'], $updated->quantity);
-        $this->assertEquals($params['price'], $updated->price);
-        $this->assertEquals($params['status'], $updated->status);
+        $this->assertTrue($updated);
+        $this->assertEquals($params['sku'], $this->product->sku);
+        $this->assertEquals($params['name'], $this->product->name);
+        $this->assertEquals($params['slug'], $this->product->slug);
+        $this->assertEquals($params['description'], $this->product->description);
+        $this->assertEquals($params['cover'], $this->product->cover);
+        $this->assertEquals($params['quantity'], $this->product->quantity);
+        $this->assertEquals($params['price'], $this->product->price);
+        $this->assertEquals($params['status'], $this->product->status);
 
         $this->assertDatabaseHas('products', $params);
     }

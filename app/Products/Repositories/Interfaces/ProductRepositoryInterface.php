@@ -10,7 +10,7 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
 {
     public function createProduct(array $data) : Product;
 
-    public function updateProduct(array $update) : Product;
+    public function updateProduct(array $params) : bool;
 
     public function findProductById(int $id) : Product;
 
