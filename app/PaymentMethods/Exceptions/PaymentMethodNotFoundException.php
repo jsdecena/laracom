@@ -2,15 +2,6 @@
 
 namespace App\PaymentMethods\Exceptions;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-class PaymentMethodNotFoundException extends NotFoundHttpException
+class PaymentMethodNotFoundException extends \Exception
 {
-    /**
-     * PaymentMethodNotFoundException constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct('Payment method not found.');
-    }
 }

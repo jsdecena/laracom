@@ -60,7 +60,7 @@
                 <div class="box-footer">
                     <div class="btn-group">
                         <input type="hidden" name="page" value="checkout">
-                        <a href="{{ route('admin.addresses.index') }}" class="btn btn-default">Back</a>
+                        <a href="{{ route('customer.address.index', $customer->id) }}" class="btn btn-default">Back</a>
                         <button type="submit" class="btn btn-primary">Create</button>
                     </div>
                 </div>

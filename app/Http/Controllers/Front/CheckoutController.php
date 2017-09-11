@@ -11,14 +11,13 @@ use App\OrderDetails\OrderProduct;
 use App\OrderDetails\Repositories\OrderProductRepository;
 use App\Orders\Order;
 use App\Orders\Repositories\Interfaces\OrderRepositoryInterface;
+use App\PaymentMethods\Exceptions\PaymentMethodNotFoundException;
 use App\PaymentMethods\PaymentMethod;
 use App\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
 use App\PaymentMethods\Paypal\PaypalExpress;
-use App\PaymentMethods\Paypal\PaypalPayment;
 use App\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
 use App\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use Exception;
-use Gloudemans\Shoppingcart\CartItem;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -81,7 +80,7 @@ class CheckoutController extends Controller
 
         return view('front.checkout', [
             'customer' => $customer,
-            'addresses' => $customer->addresses,
+            'addresses' => $customer->addresses()->where('status', 1)->get(),
             'products' => $this->getCartItems(),
             'subtotal' => $this->cartRepo->getSubTotal(),
             'tax' => $this->cartRepo->getTax(),
@@ -96,6 +95,7 @@ class CheckoutController extends Controller
      *
      * @param CartCheckoutRequest $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws PaymentMethodNotFoundException
      */
     public function store(CartCheckoutRequest $request)
     {
@@ -128,11 +128,13 @@ class CheckoutController extends Controller
 
                 throw new PaypalRequestError($e->getMessage());
             }
+        } else {
+            throw new PaymentMethodNotFoundException('Payment method unknown');
         }
     }
 
     /**
-     * Execute the paypal payment
+     * Execute the Paypal payment
      *
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
@@ -230,7 +232,7 @@ class CheckoutController extends Controller
         $productRepo = $this->productRepo;
 
         return $this->cartRepo->getCartItems()
-                ->map(function (CartItem $item) use($productRepo) {
+                ->map(function ($item) use($productRepo) {
                     $product = $productRepo->findProductById($item->id);
                     $item->product = $product;
                     $item->cover = $product->cover;

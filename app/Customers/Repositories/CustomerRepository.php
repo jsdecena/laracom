@@ -3,7 +3,6 @@
 namespace App\Customers\Repositories;
 
 use App\Addresses\Address;
-use App\Addresses\Transformations\AddressTransformable;
 use App\Base\BaseRepository;
 use App\Customers\Customer;
 use App\Customers\Exceptions\CreateCustomerInvalidArgumentException;
@@ -16,8 +15,6 @@ use Illuminate\Support\Collection;
 
 class CustomerRepository extends BaseRepository implements CustomerRepositoryInterface
 {
-    use AddressTransformable;
-
     /**
      * CustomerRepository constructor.
      * @param Customer $customer
@@ -25,7 +22,6 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
     public function __construct(Customer $customer)
     {
         parent::__construct($customer);
-        $this->model = $customer;
     }
 
     /**
@@ -33,13 +29,12 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      *
      * @param string $order
      * @param string $sort
-     * @return array
+     * @param array $columns
+     * @return \Illuminate\Support\Collection
      */
-    public function listCustomers(string $order = 'id', string $sort = 'desc') : array
+    public function listCustomers(string $order = 'id', string $sort = 'desc', array $columns = ['*']) : \Illuminate\Support\Collection
     {
-        $list = $this->model->orderBy($order, $sort)->get();
-
-        return collect($list)->all();
+        return $this->model->orderBy($order, $sort)->get($columns);
     }
 
     /**
@@ -123,9 +118,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      */
     public function findAddresses() : Collection
     {
-        return collect($this->model->addresses()->get())->map(function (Address $address){
-            return $this->transformAddress($address);
-        });
+        return $this->model->addresses;
     }
 
     /**

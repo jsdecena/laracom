@@ -5,11 +5,10 @@ namespace App\Customers\Repositories\Interfaces;
 use App\Addresses\Address;
 use App\Base\Interfaces\BaseRepositoryInterface;
 use App\Customers\Customer;
-use Illuminate\Support\Collection;
 
 interface CustomerRepositoryInterface extends BaseRepositoryInterface
 {
-    public function listCustomers(string $order = 'id', string $sort = 'desc') : array;
+    public function listCustomers(string $order = 'id', string $sort = 'desc', array $columns = ['*']) : \Illuminate\Support\Collection;
 
     public function createCustomer(array $params) : Customer;
 
@@ -21,7 +20,7 @@ interface CustomerRepositoryInterface extends BaseRepositoryInterface
 
     public function attachAddress(Address $address) : Address;
 
-    public function findAddresses() : Collection;
+    public function findAddresses() : \Illuminate\Support\Collection;
 
     public function findOrders() : \Illuminate\Database\Eloquent\Collection;
 }

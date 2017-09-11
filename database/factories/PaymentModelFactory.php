@@ -16,11 +16,9 @@ use App\PaymentMethods\PaymentMethod;
 
 $factory->define(PaymentMethod::class, function (Faker\Generator $faker) {
 
-    $name = $faker->company;
-
     return [
-        'name' => $name,
-        'slug' => str_slug($name),
+        'name' => 'Paypal',
+        'slug' => 'paypal',
         'description' => $faker->sentence,
         'status' => 1
     ];
