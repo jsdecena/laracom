@@ -11,6 +11,7 @@ use App\OrderDetails\OrderProduct;
 use App\OrderDetails\Repositories\OrderProductRepository;
 use App\Orders\Order;
 use App\Orders\Repositories\Interfaces\OrderRepositoryInterface;
+use App\PaymentMethods\Exceptions\PaymentMethodNotFoundException;
 use App\PaymentMethods\PaymentMethod;
 use App\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
 use App\PaymentMethods\Paypal\PaypalExpress;
@@ -94,6 +95,7 @@ class CheckoutController extends Controller
      *
      * @param CartCheckoutRequest $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws PaymentMethodNotFoundException
      */
     public function store(CartCheckoutRequest $request)
     {
@@ -126,11 +128,13 @@ class CheckoutController extends Controller
 
                 throw new PaypalRequestError($e->getMessage());
             }
+        } else {
+            throw new PaymentMethodNotFoundException('Payment method unknown');
         }
     }
 
     /**
-     * Execute the paypal payment
+     * Execute the Paypal payment
      *
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
