@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Admin\Customers;
 
+use App\Customers\Customer;
 use App\Customers\Repositories\CustomerRepository;
 use App\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Customers\Requests\CreateCustomerRequest;
 use App\Customers\Requests\UpdateCustomerRequest;
+use App\Customers\Transformations\CustomerTransformable;
 use App\Http\Controllers\Controller;
 
 class CustomerController extends Controller
 {
+    use CustomerTransformable;
+
     private $customerRepo;
 
     public function __construct(CustomerRepositoryInterface $customerRepository)
@@ -24,10 +28,12 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $list = $this->customerRepo->listCustomers('created_at', 'desc');
+        $list = $this->customerRepo->listCustomers('created_at', 'desc')->map(function (Customer $customer) {
+            return $this->transformCustomer($customer);
+        });
 
         return view('admin.customers.list', [
-            'customers' => $this->customerRepo->paginateArrayResults($list)
+            'customers' => $this->customerRepo->paginateArrayResults($list->toArray())
         ]);
     }
 

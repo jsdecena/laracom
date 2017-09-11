@@ -20,7 +20,7 @@ class PaymentMethodRepository extends BaseRepository implements PaymentMethodRep
      */
     public function __construct(PaymentMethod $paymentMethod)
     {
-        $this->model = $paymentMethod;
+        parent::__construct($paymentMethod);
     }
 
     /**
@@ -83,11 +83,12 @@ class PaymentMethodRepository extends BaseRepository implements PaymentMethodRep
      *
      * @param string $order
      * @param string $sort
+     * @param array $columns
      * @return Collection|mixed
      */
-    public function listPaymentMethods(string $order = 'id', string $sort = 'desc') : Collection
+    public function listPaymentMethods(string $order = 'id', string $sort = 'desc', array $columns = ['*']) : Collection
     {
-        return $this->model->orderBy($order, $sort)->get();
+        return $this->all($columns, $order, $sort);
     }
 
     /**

@@ -14,7 +14,7 @@ interface PaymentMethodRepositoryInterface extends BaseRepositoryInterface
 
     public function findPaymentMethodById(int $id) : PaymentMethod;
 
-    public function listPaymentMethods(string $order = 'id', string $sort = 'desc') : Collection;
+    public function listPaymentMethods(string $order = 'id', string $sort = 'desc', array $columns = ['*']) : Collection;
 
     public function getClientId() : string;
 

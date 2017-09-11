@@ -14,11 +14,9 @@ use App\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\PaymentMethods\PaymentMethod;
 use App\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
 use App\PaymentMethods\Paypal\PaypalExpress;
-use App\PaymentMethods\Paypal\PaypalPayment;
 use App\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
 use App\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use Exception;
-use Gloudemans\Shoppingcart\CartItem;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -81,7 +79,7 @@ class CheckoutController extends Controller
 
         return view('front.checkout', [
             'customer' => $customer,
-            'addresses' => $customer->addresses,
+            'addresses' => $customer->addresses()->where('status', 1)->get(),
             'products' => $this->getCartItems(),
             'subtotal' => $this->cartRepo->getSubTotal(),
             'tax' => $this->cartRepo->getTax(),
@@ -230,7 +228,7 @@ class CheckoutController extends Controller
         $productRepo = $this->productRepo;
 
         return $this->cartRepo->getCartItems()
-                ->map(function (CartItem $item) use($productRepo) {
+                ->map(function ($item) use($productRepo) {
                     $product = $productRepo->findProductById($item->id);
                     $item->product = $product;
                     $item->cover = $product->cover;

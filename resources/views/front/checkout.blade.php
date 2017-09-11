@@ -70,8 +70,8 @@
                             </tbody>
                         </table>
                         <hr>
-                        <div class="row">
-                            @if($addresses->count()>0)
+                        @if(count($addresses) > 0)
+                            <div class="row">
                                 <div class="col-md-12">
                                     <h2><i class="fa fa-map-marker"></i> Delivery address</h2>
                                     <table class="table table-striped">
@@ -103,73 +103,71 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            @else
-                                <p class="alert alert-danger"><a href="{{ route('customer.address.create', [$customer->id]) }}">No address found. You need to create an address first here.</a></p>
-                            @endif
-                        </div>
-                        @if(!collect($addresses)->isEmpty())
-                            <div class="row">
-                            <div class="col-md-6">
-                                <h2> <i class="fa fa-truck"></i> Courier</h2>
-                                @if(!$couriers->isEmpty())
-                                    <table class="table">
-                                    <thead>
-                                        <th class="col-md-3">Name</th>
-                                        <th class="col-md-3">Description</th>
-                                        <th class="col-md-3">Link</th>
-                                        <th class="col-md-3">Choose courier</th>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($couriers as $courier)
-                                        <tr>
-                                            <td>{{ $courier->name }}</td>
-                                            <td>{{ $courier->description }}</td>
-                                            <td>{{ $courier->url }}</td>
-                                            <td>
-                                                <label class="col-md-2 col-md-offset-3">
-                                                    <input type="radio" class="form-control" name="courier" value="{{ $courier->id }}" @if(old('courier') == $courier->id) checked="checked"  @endif>
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                @else
-                                    <p class="alert alert-danger">No courier set</p>
-                                @endif
                             </div>
-                            <div class="col-md-6">
-                                <h2> <i class="fa fa-money"></i> Payment Method</h2>
-                                @if($payments)
-                                    <table class="table">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h2> <i class="fa fa-truck"></i> Courier</h2>
+                                    @if(!$couriers->isEmpty())
+                                        <table class="table">
                                         <thead>
-                                        <th class="col-md-4">Name</th>
-                                        <th class="col-md-4">Description</th>
-                                        <th class="col-md-4">Choose payment</th>
+                                            <th class="col-md-3">Name</th>
+                                            <th class="col-md-3">Description</th>
+                                            <th class="col-md-3">Link</th>
+                                            <th class="col-md-3">Choose courier</th>
                                         </thead>
                                         <tbody>
-                                        @foreach($payments as $payment)
+                                            @foreach($couriers as $courier)
                                             <tr>
-                                                <td>{{ $payment->name }}</td>
-                                                <td>{{ $payment->description }}</td>
+                                                <td>{{ $courier->name }}</td>
+                                                <td>{{ $courier->description }}</td>
+                                                <td>{{ $courier->url }}</td>
                                                 <td>
                                                     <label class="col-md-2 col-md-offset-3">
-                                                        <input type="radio" class="form-control" name="payment" value="{{ $payment->id }}" @if(old('payment') == $payment->id) checked="checked"  @endif>
+                                                        <input type="radio" class="form-control" name="courier" value="{{ $courier->id }}" @if(old('courier') == $courier->id) checked="checked"  @endif>
                                                     </label>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                            @endforeach
                                         </tbody>
                                     </table>
-                                @else
-                                    <p class="alert alert-danger">No payment method set</p>
-                                @endif
+                                    @else
+                                        <p class="alert alert-danger">No courier set</p>
+                                    @endif
+                                </div>
+                                <div class="col-md-6">
+                                    <h2> <i class="fa fa-money"></i> Payment Method</h2>
+                                    @if($payments)
+                                        <table class="table">
+                                            <thead>
+                                            <th class="col-md-4">Name</th>
+                                            <th class="col-md-4">Description</th>
+                                            <th class="col-md-4">Choose payment</th>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($payments as $payment)
+                                                <tr>
+                                                    <td>{{ $payment->name }}</td>
+                                                    <td>{{ $payment->description }}</td>
+                                                    <td>
+                                                        <label class="col-md-2 col-md-offset-3">
+                                                            <input type="radio" class="form-control" name="payment" value="{{ $payment->id }}" @if(old('payment') == $payment->id) checked="checked"  @endif>
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    @else
+                                        <p class="alert alert-danger">No payment method set</p>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
+                        @else
+                            <p class="alert alert-danger"><a href="{{ route('customer.address.create', [$customer->id]) }}">No address found. You need to create an address first here.</a></p>
                         @endif
                     </div>
                 </div>
-                @if($addresses)
+                @if(count($addresses) > 0)
                 <div class="row">
                     <div class="col-md-12">
                         <hr>
