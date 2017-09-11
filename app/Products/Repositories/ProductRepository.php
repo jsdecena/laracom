@@ -24,7 +24,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function __construct(Product $product)
     {
         parent::__construct($product);
-        $this->model = $product;
     }
 
     /**
@@ -79,9 +78,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      * Update the product
      *
      * @param array $params
-     * @return Product
+     * @return bool
      */
-    public function updateProduct(array $params) : Product
+    public function updateProduct(array $params) : bool
     {
         try {
 
@@ -94,9 +93,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             }
 
             $merge = $collection->merge(compact('slug', 'cover'));
-
-            $this->update($merge->all(), $this->model->id);
-            return $this->find($this->model->id);
+            return $this->model->update($merge->all());
         } catch (QueryException $e) {
             throw new ProductInvalidArgumentException($e->getMessage());
         }

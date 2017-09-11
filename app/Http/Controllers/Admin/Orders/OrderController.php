@@ -5,13 +5,18 @@ namespace App\Http\Controllers\Admin\Orders;
 use App\Addresses\Address;
 use App\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Couriers\Courier;
+use App\Couriers\Repositories\CourierRepository;
 use App\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
 use App\Customers\Customer;
+use App\Customers\Repositories\CustomerRepository;
 use App\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Orders\Order;
 use App\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\OrderStatuses\OrderStatus;
+use App\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
+use App\OrderStatuses\Repositories\OrderStatusRepository;
 use App\PaymentMethods\PaymentMethod;
+use App\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -21,18 +26,24 @@ class OrderController extends Controller
     private $courierRepo;
     private $addressRepo;
     private $customerRepo;
+    private $orderStatusRepo;
+    private $paymentRepo;
 
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         CourierRepositoryInterface $courierRepository,
         AddressRepositoryInterface $addressRepository,
-        CustomerRepositoryInterface $customerRepository
+        CustomerRepositoryInterface $customerRepository,
+        OrderStatusRepositoryInterface $orderStatusRepository,
+        PaymentMethodRepositoryInterface $paymentMethodRepository
     )
     {
         $this->orderRepo = $orderRepository;
         $this->courierRepo = $courierRepository;
         $this->addressRepo = $addressRepository;
         $this->customerRepo = $customerRepository;
+        $this->orderStatusRepo = $orderStatusRepository;
+        $this->paymentRepo = $paymentMethodRepository;
     }
 
     /**
@@ -43,12 +54,15 @@ class OrderController extends Controller
     public function index()
     {
         $list = $this->orderRepo->listOrders('created_at', 'desc');
-        $list->map(function (Order $order) {
-            $order->courier = Courier::find($order->courier_id);
-            $order->customer = Customer::find($order->customer_id);
-            $order->address = Address::find($order->address_id);
-            $order->status = OrderStatus::find($order->order_status_id);
-            $order->payment = PaymentMethod::find($order->payment_method_id);
+
+        $courierRepo = new CourierRepository(new Courier());
+        $customerRepo = new CustomerRepository(new Customer());
+        $orderStatusRepo = new OrderStatusRepository(new OrderStatus());
+
+        $list->map(function (Order $order) use ($courierRepo, $customerRepo, $orderStatusRepo) {
+            $order->courier = $courierRepo->findCourierById($order->courier_id);
+            $order->customer = $customerRepo->findCustomerById($order->customer_id);
+            $order->status = $orderStatusRepo->findOrderStatusById($order->order_status_id);
             return $order;
         });
 
@@ -79,13 +93,13 @@ class OrderController extends Controller
         $order = $this->orderRepo->findOrderById($id);
         $order->courier = $this->courierRepo->findCourierById($order->courier_id);
         $order->address = $this->addressRepo->findAddressById($order->address_id);
-        $customer = $this->customerRepo->findCustomerById($order->customer_id);
 
-        $items = $this->orderRepo->findProducts($order);
         return view('admin.orders.show', [
             'order' => $order,
-            'items' => $items,
-            'customer' => $customer
+            'items' => $this->orderRepo->findProducts($order),
+            'customer' => $this->customerRepo->findCustomerById($order->customer_id),
+            'currentStatus' => $this->orderStatusRepo->findOrderStatusById($order->order_status_id),
+            'payment' => $this->paymentRepo->findPaymentMethodById($order->payment_method_id)
         ]);
     }
 
