@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Orders;
 
-use App\Addresses\Address;
 use App\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Couriers\Courier;
 use App\Couriers\Repositories\CourierRepository;
@@ -15,9 +14,7 @@ use App\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\OrderStatuses\OrderStatus;
 use App\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
 use App\OrderStatuses\Repositories\OrderStatusRepository;
-use App\PaymentMethods\PaymentMethod;
 use App\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
@@ -72,17 +69,6 @@ class OrderController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -104,36 +90,14 @@ class OrderController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Generate order invoice
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
-    public function edit($id)
+    public function generateInvoice()
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $pdf = app()->make('dompdf.wrapper');
+        $pdf->loadView('invoices.orders')->stream();
+        return $pdf->stream();
     }
 }

@@ -6,6 +6,7 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "barryvdh/laravel-dompdf": "^0.8.1",
         "gloudemans/shoppingcart": "^2.3",
         "guzzlehttp/guzzle": "^6.3",
         "jsdecena/mcpro": "^1.1",
