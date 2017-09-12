@@ -478,7 +478,11 @@ li.menubar-cart a {
     width: 390px;
     margin: 50px auto 0;
 }
-input, input[type="text"], input[type="email"], textarea, select {
+input,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea, select {
     border: 1px solid #d89522;
     background: #fff;
     border-radius: 3px !important;
