@@ -1,7 +1,7 @@
 {
     "name": "jsdecena/laracom",
     "description": "Laravel powered e-commerce",
-    "keywords": ["e-commerce", "laravel", "laracom", "laravel-ecommerce"],
+    "keywords": ["e-commerce", "ecommerce", "shopping-cart", "laravel", "laracom", "laravel-ecommerce", "shop", "laravel5", "framework", "package"],
     "license": "MIT",
     "type": "project",
     "require": {
