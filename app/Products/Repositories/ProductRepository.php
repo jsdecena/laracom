@@ -78,9 +78,10 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      * Update the product
      *
      * @param array $params
+     * @param int $id
      * @return bool
      */
-    public function updateProduct(array $params) : bool
+    public function updateProduct(array $params, int $id) : bool
     {
         try {
 
@@ -93,7 +94,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             }
 
             $merge = $collection->merge(compact('slug', 'cover'));
-            return $this->model->update($merge->all());
+            return $this->update($merge->all(), $id);
         } catch (QueryException $e) {
             throw new ProductInvalidArgumentException($e->getMessage());
         }

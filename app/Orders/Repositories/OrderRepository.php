@@ -110,6 +110,6 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         $productRepo = new ProductRepository($product);
 
         $quantity = $product->quantity - $qty;
-        $productRepo->updateProduct(compact('quantity'));
+        $productRepo->updateProduct(compact('quantity'), $product->id);
     }
 }

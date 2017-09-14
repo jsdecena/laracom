@@ -8,6 +8,7 @@ use App\Products\Repositories\ProductRepository;
 use App\Products\Requests\CreateProductRequest;
 use App\Products\Requests\UpdateProductRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -110,17 +111,13 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, int $id)
     {
         $product = $this->productRepo->findProductById($id);
-
-        $update = new ProductRepository($product);
-
-        $update->updateProduct($request->except('categories'));
+        $this->productRepo->updateProduct($request->except('categories', '_token', '_method'), $product->id);
 
         if ($request->has('categories')) {
             $collection = collect($request->input('categories'));
-            $categories = $collection->all();
-            $update->syncCategories($categories);
+            $product->categories()->sync($collection->all());
         } else {
-            $update->detachCategories($product);
+            $product->categories()->detach($product);
         }
 
         $request->session()->flash('message', 'Update successful');
@@ -137,10 +134,16 @@ class ProductController extends Controller
     {
         $product = $this->productRepo->findProductById($id);
         $product->categories()->sync([]);
-        $this->productRepo->delete($id);
+        try {
+            $this->productRepo->delete($id);
+        } catch (QueryException $e) {
+            request()->session()->flash('error', 'Ooops, the product (name: '. $product->name .' sku: '. $product->sku .')" has order. You cannot delete this.');
+            return redirect()->back();
+        }
+
 
         request()->session()->flash('message', 'Delete successful');
-        return redirect()->route('admin.products.index');
+        return redirect()->back();
     }
 
     /**

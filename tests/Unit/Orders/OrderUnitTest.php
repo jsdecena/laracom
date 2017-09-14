@@ -19,7 +19,7 @@ class OrderUnitTest extends TestCase
     /** @test */
     public function it_can_update_the_product_quanity_upon_creation_of_order_details()
     {
-        $product = factory(Product::class)->create();
+        $product = factory(Product::class)->create(['quantity' => 9]);
         $order = factory(Order::class)->create();
 
         $orderRepo = new OrderRepository($order);

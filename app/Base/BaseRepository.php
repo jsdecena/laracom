@@ -39,7 +39,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function update(array $attributes, int $id) : bool
     {
-        return $this->model->find($id)->update($attributes);
+        return $this->find($id)->update($attributes);
     }
 
     /**
