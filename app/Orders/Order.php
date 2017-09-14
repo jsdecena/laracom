@@ -9,9 +9,12 @@ use App\OrderStatuses\OrderStatus;
 use App\PaymentMethods\PaymentMethod;
 use App\Products\Product;
 use Illuminate\Database\Eloquent\Model;
+use Sofa\Eloquence\Eloquence;
 
 class Order extends Model
 {
+    use Eloquence;
+
     /**
      * The attributes that are mass assignable.
      *

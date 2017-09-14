@@ -24,6 +24,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     public function __construct(Order $order)
     {
         parent::__construct($order);
+        $this->model = $order;
     }
 
     /**
@@ -144,5 +145,21 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
 
         Mail::to($employee)
             ->send(new sendEmailNotificationToAdminMailable($this->findOrderById($this->model->id)));
+    }
+
+    /**
+     * @param string $text
+     * @return mixed
+     */
+    public function searchOrder(string $text) : Collection
+    {
+        return $this->model->search($text, [
+            'products.name',
+            'products.description',
+            'customer.name',
+            'paymentMethod.name',
+            'paymentMethod.description',
+            ]
+        )->get();
     }
 }

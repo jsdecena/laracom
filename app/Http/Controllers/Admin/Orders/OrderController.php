@@ -55,18 +55,22 @@ class OrderController extends Controller
     {
         $list = $this->orderRepo->listOrders('created_at', 'desc');
 
+        if (request()->has('q')) {
+            $list = $this->orderRepo->searchOrder(request()->input('q'));
+        }
+
         $courierRepo = new CourierRepository(new Courier());
         $customerRepo = new CustomerRepository(new Customer());
         $orderStatusRepo = new OrderStatusRepository(new OrderStatus());
 
-        $list->map(function (Order $order) use ($courierRepo, $customerRepo, $orderStatusRepo) {
+        $orders = $list->map(function (Order $order) use ($courierRepo, $customerRepo, $orderStatusRepo) {
             $order->courier = $courierRepo->findCourierById($order->courier_id);
             $order->customer = $customerRepo->findCustomerById($order->customer_id);
             $order->status = $orderStatusRepo->findOrderStatusById($order->order_status_id);
             return $order;
-        });
+        })->all();
 
-        $orders = $this->orderRepo->paginateArrayResults($list->all(), 25);
+        $orders = $this->orderRepo->paginateArrayResults($orders, 10);
 
         return view('admin.orders.list', ['orders' => $orders]);
     }

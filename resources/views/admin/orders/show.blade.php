@@ -11,7 +11,8 @@
                     <div class="col-md-6">
                         <h2>
                             <a href="{{ route('admin.customers.show', $customer->id) }}">{{$customer->name}}</a> <br />
-                            <small>{{$customer->email}}</small>
+                            <small>{{$customer->email}}</small> <br />
+                            <small>reference: <strong>{{$order->reference}}</strong></small>
                         </h2>
                     </div>
                     <div class="col-md-3 col-md-offset-3">
