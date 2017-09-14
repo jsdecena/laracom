@@ -141,7 +141,6 @@ ul.navbar-nav > li.active > a {
 .navbar-default {
     background-color: transparent !important;
     border: none;
-    padding-top: 20px;
 }
 
 ul.navbar-nav li a{

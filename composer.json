@@ -12,7 +12,8 @@
         "jsdecena/mcpro": "^1.1",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "paypal/rest-api-sdk-php": "*"
+        "paypal/rest-api-sdk-php": "*",
+        "sofa/eloquence": "^5.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

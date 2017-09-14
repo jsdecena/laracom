@@ -66,6 +66,7 @@ Route::get('checkout/execute', 'Front\CheckoutController@execute')->name('checko
 Route::get('checkout/cancel', 'Front\CheckoutController@cancel')->name('checkout.cancel');
 Route::get('checkout/success', 'Front\CheckoutController@success')->name('checkout.success');
 Route::get("category/{slug}", 'Front\CategoryController@getCategory')->name('front.category.slug');
+Route::get("search", 'Front\ProductController@search')->name('search.product');
 Route::get("{product}", 'Front\ProductController@getProduct')->name('front.get.product');
 Route::resource('customer', 'Front\CustomerController');
 Route::resource('customer.address', 'Front\CustomerAddressController');

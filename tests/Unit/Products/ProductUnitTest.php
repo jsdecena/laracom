@@ -13,6 +13,21 @@ use Tests\TestCase;
 class ProductUnitTest extends TestCase
 {
     /** @test */
+    public function it_can_search_the_product()
+    {
+        $products = factory(Product::class, 5)->create();
+
+        $name = str_limit($products->get(1)->name, 5);
+
+        $productRepo = new ProductRepository(new Product);
+        $results = $productRepo->searchProduct($name);
+
+        foreach ($results->toArray() as $result) {
+            $this->assertContains($name, $result->name);
+        }
+    }
+    
+    /** @test */
     public function it_can_delete_the_file_only_by_updating_the_database()
     {
         $product = new ProductRepository($this->product);
@@ -68,7 +83,7 @@ class ProductUnitTest extends TestCase
     public function it_can_list_all_the_products()
     {
         $product = new ProductRepository(new Product);
-        $list = $product->listProducts();
+        $list = $product->listProducts()->toArray();
 
         $this->arrayHasKey(array_keys($list));
     }

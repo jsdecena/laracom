@@ -24,24 +24,20 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function __construct(Product $product)
     {
         parent::__construct($product);
+        $this->model = $product;
     }
 
     /**
      * List all the products
      *
      * @param string $order
-     * @param bool $desc
-     * @return array
+     * @param string $sort
+     * @param array $columns
+     * @return Collection
      */
-    public function listProducts(string $order = 'id', bool $desc = false) : array
+    public function listProducts(string $order = 'id', string $sort = 'desc', array $columns = ['*']) : Collection
     {
-        $list = $this->all();
-
-        return collect($list)
-            ->sortBy($order, SORT_REGULAR, $desc)
-            ->map(function (Product $product) {
-            return $this->transformProduct($product);
-        })->all();
+        return $this->all($columns, $order, $sort);
     }
 
     /**
@@ -192,5 +188,14 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function uploadOneImage($image, $folder = 'products')
     {
         return $this->uploadOne($image, $folder);
+    }
+
+    /**
+     * @param string $text
+     * @return mixed
+     */
+    public function searchProduct(string $text) : Collection
+    {
+        return $this->model->search($text)->get();
     }
 }

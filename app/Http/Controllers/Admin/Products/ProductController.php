@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\Admin\Products;
 
 use App\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
+use App\Products\Product;
 use App\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Products\Repositories\ProductRepository;
 use App\Products\Requests\CreateProductRequest;
 use App\Products\Requests\UpdateProductRequest;
 use App\Http\Controllers\Controller;
+use App\Products\Transformations\ProductTransformable;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    use ProductTransformable;
+
     private $productRepo;
     private $categoryRepo;
 
@@ -32,10 +36,18 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $collection = $this->productRepo->listProducts('id', true);
+        $list = $this->productRepo->listProducts('id');
+
+        if (request()->has('q')) {
+            $list = $this->productRepo->searchProduct(request()->input('q'));
+        }
+
+        $products = $list->map(function (Product $item) {
+            return $this->transformProduct($item);
+        })->all();
 
         return view('admin.products.list', [
-            'products' => $this->productRepo->paginateArrayResults($collection, 10)
+            'products' => $this->productRepo->paginateArrayResults($products, 10)
         ]);
     }
 

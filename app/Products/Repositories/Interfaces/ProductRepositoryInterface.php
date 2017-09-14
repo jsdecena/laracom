@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface ProductRepositoryInterface extends BaseRepositoryInterface
 {
+    public function listProducts(string $order = 'id', string $sort = 'desc', array $columns = ['*']) : Collection;
+
     public function createProduct(array $data) : Product;
 
     public function updateProduct(array $params, int $id) : bool;
 
     public function findProductById(int $id) : Product;
-
-    public function listProducts(string $order = 'id', bool $desc = false) : array;
 
     public function deleteProduct(Product $product) : bool;
 
@@ -29,4 +29,6 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
     public function findProductBySlug(array $slug) : Product;
 
     public function uploadOneImage($image, $folder = 'products');
+
+    public function searchProduct(string $text) : Collection;
 }
