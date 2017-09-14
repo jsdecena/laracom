@@ -9,6 +9,7 @@
             <div class="box">
                 <div class="box-body">
                     <h2>Addresses</h2>
+                    @include('layouts.search', ['route' => route('admin.addresses.index')])
                     <table class="table">
                         <tbody>
                         <tr>
@@ -27,9 +28,9 @@
                             <tr>
                                 <td><a href="{{ route('admin.customers.show', $address->customer_id) }}">{{ $address->alias }}</a></td>
                                 <td>{{ $address->address_1 }}</td>
-                                <td>{{ $address->country->name }}</td>
-                                <td>{{ $address->province->name }}</td>
-                                <td>{{ $address->city->name }}</td>
+                                <td>{{ $address->country }}</td>
+                                <td>{{ $address->province }}</td>
+                                <td>{{ $address->city }}</td>
                                 <td>{{ $address->zip }}</td>
                                 <td>@include('layouts.status', ['status' => $address->status])</td>
                                 <td>
@@ -46,6 +47,13 @@
                         @endforeach
                         </tbody>
                     </table>
+                    @if($addresses instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-left">{{ $addresses->links() }}</div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
                 <!-- /.box-body -->
             </div>

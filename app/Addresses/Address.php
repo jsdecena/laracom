@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Cities\City;
 use App\Countries\Country;
+use Sofa\Eloquence\Eloquence;
 
 class Address extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Eloquence;
 
     /**
      * The attributes that are mass assignable.

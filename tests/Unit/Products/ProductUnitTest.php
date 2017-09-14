@@ -6,8 +6,6 @@ use App\Products\Exceptions\ProductInvalidArgumentException;
 use App\Products\Exceptions\ProductNotFoundException;
 use App\Products\Product;
 use App\Products\Repositories\ProductRepository;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class ProductUnitTest extends TestCase
@@ -17,7 +15,7 @@ class ProductUnitTest extends TestCase
     {
         $products = factory(Product::class, 5)->create();
 
-        $name = str_limit($products->get(1)->name, 5);
+        $name = str_limit($products->get(1)->name, 2);
 
         $productRepo = new ProductRepository(new Product);
         $results = $productRepo->searchProduct($name);

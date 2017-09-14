@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Addresses;
 
+use App\Addresses\Address;
 use App\Addresses\Repositories\AddressRepository;
 use App\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Addresses\Requests\CreateAddressRequest;
@@ -46,9 +47,17 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $lists = $this->addressRepo->listAddress('created_at', 'desc')->all();
+        $list = $this->addressRepo->listAddress('created_at', 'desc');
 
-        return view('admin.addresses.list', ['addresses' => $this->addressRepo->paginateArrayResults($lists)]);
+        if (request()->has('q')) {
+            $list = $this->addressRepo->searchAddress(request()->input('q'));
+        }
+
+        $addresses = $list->map(function (Address $address) {
+            return $this->transformAddress($address);
+        })->all();
+
+        return view('admin.addresses.list', ['addresses' => $this->addressRepo->paginateArrayResults($addresses)]);
     }
 
     /**
