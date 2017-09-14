@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Orders;
 
-use App\Addresses\Address;
 use App\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
+use App\Addresses\Transformations\AddressTransformable;
 use App\Couriers\Courier;
 use App\Couriers\Repositories\CourierRepository;
 use App\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
@@ -15,13 +15,13 @@ use App\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\OrderStatuses\OrderStatus;
 use App\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
 use App\OrderStatuses\Repositories\OrderStatusRepository;
-use App\PaymentMethods\PaymentMethod;
 use App\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
+    use AddressTransformable;
+
     private $orderRepo;
     private $courierRepo;
     private $addressRepo;
@@ -72,17 +72,6 @@ class OrderController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -104,36 +93,27 @@ class OrderController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Generate order invoice
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return mixed
      */
-    public function edit($id)
+    public function generateInvoice(int $id)
     {
-        //
-    }
+        $order = $this->orderRepo->findOrderById($id);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        $data = [
+            'order' => $order,
+            'products' => $order->products,
+            'customer' => $order->customer,
+            'courier' => $order->courier,
+            'address' => $this->transformAddress($order->address),
+            'status' => $order->orderStatus,
+            'payment' => $order->paymentMethod
+        ];
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $pdf = app()->make('dompdf.wrapper');
+        $pdf->loadView('invoices.orders', $data)->stream();
+        return $pdf->stream();
     }
 }

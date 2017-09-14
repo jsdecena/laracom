@@ -46,6 +46,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.' ], 
     Route::resource('countries', 'Admin\Countries\CountryController');
     Route::resource('countries.provinces', 'Admin\Provinces\ProvinceController');
     Route::resource('countries.provinces.cities', 'Admin\Cities\CityController');
+    Route::get('orders/{id}/invoice', 'Admin\Orders\OrderController@generateInvoice')
+        ->name('orders.invoice.generate');
     Route::resource('orders', 'Admin\Orders\OrderController');
     Route::resource('order-statuses', 'Admin\Orders\OrderStatusController');
     Route::resource('couriers', 'Admin\Couriers\CourierController');

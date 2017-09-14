@@ -3,6 +3,7 @@
 namespace App\Addresses;
 
 use App\Customers\Customer;
+use App\Orders\Order;
 use App\Provinces\Province;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -57,5 +58,10 @@ class Address extends Model
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }
