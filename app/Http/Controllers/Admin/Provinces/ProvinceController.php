@@ -26,7 +26,7 @@ class ProvinceController extends Controller
     public function show(int $countryId, int $provinceId)
     {
         $province = $this->provinceRepo->findProvinceById($provinceId);
-        $cities = $this->provinceRepo->listCities($province);
+        $cities = $this->provinceRepo->listCities($provinceId);
 
         return view('admin.provinces.show', [
             'province' => $province,
