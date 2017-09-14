@@ -2,6 +2,7 @@
 
 namespace App\Couriers;
 
+use App\Orders\Order;
 use Illuminate\Database\Eloquent\Model;
 
 class Courier extends Model
@@ -25,4 +26,9 @@ class Courier extends Model
      * @var array
      */
     protected $hidden = [];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

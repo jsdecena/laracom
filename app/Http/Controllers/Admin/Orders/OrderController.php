@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Orders;
 
 use App\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
+use App\Addresses\Transformations\AddressTransformable;
 use App\Couriers\Courier;
 use App\Couriers\Repositories\CourierRepository;
 use App\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
@@ -19,6 +20,8 @@ use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
+    use AddressTransformable;
+
     private $orderRepo;
     private $courierRepo;
     private $addressRepo;
@@ -92,12 +95,25 @@ class OrderController extends Controller
     /**
      * Generate order invoice
      *
+     * @param int $id
      * @return mixed
      */
-    public function generateInvoice()
+    public function generateInvoice(int $id)
     {
+        $order = $this->orderRepo->findOrderById($id);
+
+        $data = [
+            'order' => $order,
+            'products' => $order->products,
+            'customer' => $order->customer,
+            'courier' => $order->courier,
+            'address' => $this->transformAddress($order->address),
+            'status' => $order->orderStatus,
+            'payment' => $order->paymentMethod
+        ];
+
         $pdf = app()->make('dompdf.wrapper');
-        $pdf->loadView('invoices.orders')->stream();
+        $pdf->loadView('invoices.orders', $data)->stream();
         return $pdf->stream();
     }
 }

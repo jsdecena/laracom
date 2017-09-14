@@ -2,6 +2,7 @@
 
 namespace App\PaymentMethods;
 
+use App\Orders\Order;
 use Illuminate\Database\Eloquent\Model;
 
 class PaymentMethod extends Model
@@ -24,4 +25,9 @@ class PaymentMethod extends Model
      * @var array
      */
     protected $hidden = [];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

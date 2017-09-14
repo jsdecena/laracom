@@ -14,33 +14,77 @@
 </head>
 <body>
     <section class="row">
-        <div class="col-md-12">
-            <h1>{{config('app.name')}}</h1>
-        </div>
-    </section>
-    <section class="row">
         <div class="pull-left">
-            For: John Doe
+            Invoice to: {{$customer->name}} <br />
+            Deliver to: <strong>{{ $address->alias }} <br /></strong>
+            {{ $address->address_1 }} {{ $address->address_2 }} <br />
+            {{ $address->city }} {{ $address->province }} <br />
+            {{ $address->country }} {{ $address->zip }}
         </div>
         <div class="pull-right">
-            From: Jane Doe
+            From: {{config('app.name')}}
         </div>
     </section>
     <section class="row">
         <div class="col-md-12">
+            <h2>Details</h2>
             <table class="table table-striped" width="100%" border="0" cellspacing="0" cellpadding="0">
                 <thead>
                     <tr>
-                        <th>1</th>
-                        <th>2</th>
+                        <th>SKU</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
+                @foreach($products as $product)
                     <tr>
-                        <td>1</td>
-                        <td>2</td>
+                        <td>{{$product->sku}}</td>
+                        <td>{{$product->name}}</td>
+                        <td>{{$product->description}}</td>
+                        <td>{{$product->pivot->quantity}}</td>
+                        <td>{{$product->price}}</td>
+                        <td>{{number_format($product->price * $product->pivot->quantity, 2)}}</td>
                     </tr>
+                @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Subtotal:</td>
+                        <td>{{$order->total_products}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Discounts:</td>
+                        <td>{{$order->discounts}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Tax:</td>
+                        <td>{{$order->tax}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><strong>Total:</strong></td>
+                        <td><strong>{{$order->total}}</strong></td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </section>
