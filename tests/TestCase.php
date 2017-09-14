@@ -21,6 +21,7 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Faker\Factory as Faker;
 use App\Cities\City;
 use App\Countries\Country;
+use MyCountryTableSeeder;
 
 abstract class TestCase extends BaseTestCase
 {

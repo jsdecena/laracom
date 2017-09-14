@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class CitiesTableSeeder extends Seeder
+class MyCitiesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
