@@ -170,6 +170,7 @@ return [
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Sofa\Eloquence\ServiceProvider::class,
+        Jsdecena\MCPro\McproServiceProvider::class,
 
         /*
          * Application Service Providers...

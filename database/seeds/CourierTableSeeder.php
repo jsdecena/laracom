@@ -7,6 +7,9 @@ class CourierTableSeeder extends Seeder
 {
     public function run()
     {
-        factory(Courier::class)->create();
+        factory(Courier::class)->create([
+            'name' => 'Free Shipping',
+            'description' => 'Free Shipping'
+        ]);
     }
 }
