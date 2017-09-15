@@ -38,15 +38,15 @@
                                 @foreach ($orders as $order)
                                     <tr>
                                         <td>
-                                            <a data-toggle="modal" data-target="#order_modal_{{$order->id}}" title="Show order" href="javascript: void(0)">{{ date('M d, Y h:i a', strtotime($order->created_at)) }}</a>
+                                            <a data-toggle="modal" data-target="#order_modal_{{$order['id']}}" title="Show order" href="javascript: void(0)">{{ date('M d, Y h:i a', strtotime($order['created_at'])) }}</a>
                                             <!-- Button trigger modal -->
                                             <!-- Modal -->
-                                            <div class="modal fade" id="order_modal_{{$order->id}}" tabindex="-1" role="dialog" aria-labelledby="MyOrders">
+                                            <div class="modal fade" id="order_modal_{{$order['id']}}" tabindex="-1" role="dialog" aria-labelledby="MyOrders">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                            <h4 class="modal-title" id="myModalLabel">Reference #{{$order->reference}}</h4>
+                                                            <h4 class="modal-title" id="myModalLabel">Reference #{{$order['reference']}}</h4>
                                                         </div>
                                                         <div class="modal-body">
                                                             <table class="table">
@@ -60,13 +60,13 @@
                                                                     <tr>
                                                                         <td>
                                                                             <address>
-                                                                                <strong>{{$order->address->alias}}</strong><br />
-                                                                                {{$order->address->address_1}} {{$order->address->address_2}}<br>
+                                                                                <strong>{{$order['address']->alias}}</strong><br />
+                                                                                {{$order['address']->address_1}} {{$order['address']->address_2}}<br>
                                                                             </address>
                                                                         </td>
-                                                                        <td>{{$order->payment->name}}</td>
-                                                                        <td>{{$order->total}}</td>
-                                                                        <td>{{$order->status->name}}</td>
+                                                                        <td>{{$order['payment']->name}}</td>
+                                                                        <td>{{$order['total']}}</td>
+                                                                        <td>{{$order['status']->name}}</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -78,9 +78,9 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>{{ $order->courier->name }}</td>
-                                        <td><span class="label @if($order->total != $order->total_paid) label-danger @else label-success @endif">Php {{ $order->total }}</span></td>
-                                        <td><p class="text-center" style="color: #ffffff; background-color: {{ $order->status->color }}">{{ $order->status->name }}</p></td>
+                                        <td>{{ $order['courier']->name }}</td>
+                                        <td><span class="label @if($order['total'] != $order['total_paid']) label-danger @else label-success @endif">Php {{ $order['total'] }}</span></td>
+                                        <td><p class="text-center" style="color: #ffffff; background-color: {{ $order['status']->color }}">{{ $order['status']->name }}</p></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
