@@ -23,8 +23,8 @@
             </form>
             <div class="row">
                 <hr>
-                <a href="#">I forgot my password</a><br>
-                <a href="{{ url('/') }}" class="text-center">No account? Register here.</a>
+                <a href="{{route('password.request')}}">I forgot my password</a><br>
+                <a href="{{route('register')}}" class="text-center">No account? Register here.</a>
             </div>
         </div>
     </section>
