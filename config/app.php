@@ -171,6 +171,7 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         Sofa\Eloquence\ServiceProvider::class,
         Jsdecena\MCPro\McproServiceProvider::class,
+        Jsdecena\MailChimp\MailChimpServiceProvider::class,
 
         /*
          * Application Service Providers...

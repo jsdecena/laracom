@@ -10,6 +10,7 @@
         "gloudemans/shoppingcart": "^2.3",
         "guzzlehttp/guzzle": "^6.3",
         "jsdecena/mcpro": "^1.1",
+        "jsdecena/mailchimp": "~7.0",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "paypal/rest-api-sdk-php": "*",

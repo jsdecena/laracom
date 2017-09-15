@@ -1,3 +1,6 @@
+<hr />
+@include('mailchimp::mailchimp')
+
 <footer class="footer-section footer">
     <div class="container">
         <div class="row">

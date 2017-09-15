@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin\Products;
 use App\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Products\Product;
 use App\Products\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Products\Repositories\ProductRepository;
 use App\Products\Requests\CreateProductRequest;
 use App\Products\Requests\UpdateProductRequest;
 use App\Http\Controllers\Controller;

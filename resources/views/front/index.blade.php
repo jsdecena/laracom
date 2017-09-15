@@ -44,21 +44,4 @@
             </div>
         </section>
     @endif
-
-    <section class="subscribe-section t100">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <h3>Join 100,000 members already collaborating </h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    </p>
-                    <div class="form-field-section">
-                        <input type="email" class="newsletter-input subscribe-form-control" placeholder="Your email address">
-                        <button type="submit" class="btn btn-subscribe">Subscribe</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 @endsection
