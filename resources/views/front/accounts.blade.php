@@ -62,8 +62,6 @@
                                                                             <address>
                                                                                 <strong>{{$order->address->alias}}</strong><br />
                                                                                 {{$order->address->address_1}} {{$order->address->address_2}}<br>
-                                                                                San Francisco, CA 94103<br>
-                                                                                <abbr title="Phone">P:</abbr> (123) 456-7890
                                                                             </address>
                                                                         </td>
                                                                         <td>{{$order->payment->name}}</td>
@@ -75,7 +73,6 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Save changes</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -90,6 +87,11 @@
                             </table>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="address">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="{{route('customer.address.create', auth()->user()->id)}}" class="btn btn-primary">Create your address</a>
+                                </div>
+                            </div>
                             <table class="table">
                                 <thead>
                                     <th>Alias</th>
