@@ -3,15 +3,17 @@
 namespace App\Addresses;
 
 use App\Customers\Customer;
+use App\Orders\Order;
 use App\Provinces\Province;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Cities\City;
 use App\Countries\Country;
+use Sofa\Eloquence\Eloquence;
 
 class Address extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Eloquence;
 
     /**
      * The attributes that are mass assignable.
@@ -57,5 +59,10 @@ class Address extends Model
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

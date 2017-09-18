@@ -9,9 +9,10 @@ use App\Customers\Exceptions\CreateCustomerInvalidArgumentException;
 use App\Customers\Exceptions\CustomerNotFoundException;
 use App\Customers\Exceptions\UpdateCustomerInvalidArgumentException;
 use App\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Collection as Support;
 
 class CustomerRepository extends BaseRepository implements CustomerRepositoryInterface
 {
@@ -22,6 +23,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
     public function __construct(Customer $customer)
     {
         parent::__construct($customer);
+        $this->model = $customer;
     }
 
     /**
@@ -32,7 +34,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      * @param array $columns
      * @return \Illuminate\Support\Collection
      */
-    public function listCustomers(string $order = 'id', string $sort = 'desc', array $columns = ['*']) : \Illuminate\Support\Collection
+    public function listCustomers(string $order = 'id', string $sort = 'desc', array $columns = ['*']) : Support
     {
         return $this->model->orderBy($order, $sort)->get($columns);
     }
@@ -116,16 +118,25 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      *
      * @return mixed
      */
-    public function findAddresses() : Collection
+    public function findAddresses() : Support
     {
         return $this->model->addresses;
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection
      */
-    public function findOrders() : \Illuminate\Database\Eloquent\Collection
+    public function findOrders() : Collection
     {
         return $this->model->orders()->get();
+    }
+
+    /**
+     * @param string $text
+     * @return mixed
+     */
+    public function searchCustomer(string $text) : Collection
+    {
+        return $this->model->search($text, ['name' => 10, 'email' => 5])->get();
     }
 }

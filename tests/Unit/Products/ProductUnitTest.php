@@ -6,12 +6,25 @@ use App\Products\Exceptions\ProductInvalidArgumentException;
 use App\Products\Exceptions\ProductNotFoundException;
 use App\Products\Product;
 use App\Products\Repositories\ProductRepository;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class ProductUnitTest extends TestCase
 {
+    /** @test */
+    public function it_can_search_the_product()
+    {
+        $products = factory(Product::class, 5)->create();
+
+        $name = str_limit($products->get(1)->name, 2);
+
+        $productRepo = new ProductRepository(new Product);
+        $results = $productRepo->searchProduct($name);
+
+        foreach ($results->toArray() as $result) {
+            $this->assertContains($name, $result->name);
+        }
+    }
+    
     /** @test */
     public function it_can_delete_the_file_only_by_updating_the_database()
     {
@@ -43,7 +56,7 @@ class ProductUnitTest extends TestCase
         $this->expectException(ProductInvalidArgumentException::class);
 
         $product = new ProductRepository($this->product);
-        $product->updateProduct(['name' => null]);
+        $product->updateProduct(['name' => null], $this->product->id);
     }
     
     /** @test */
@@ -68,7 +81,7 @@ class ProductUnitTest extends TestCase
     public function it_can_list_all_the_products()
     {
         $product = new ProductRepository(new Product);
-        $list = $product->listProducts();
+        $list = $product->listProducts()->toArray();
 
         $this->arrayHasKey(array_keys($list));
     }
@@ -102,32 +115,26 @@ class ProductUnitTest extends TestCase
     /** @test */
     public function it_can_update_a_product()
     {
-        $product = 'apple';
+
+        $product = factory(Product::class)->create();
+
+        $productName = 'apple';
 
         $params = [
-            'sku' => $this->faker->numberBetween(1111111, 999999),
-            'name' => $product,
-            'slug' => str_slug($product),
+            'sku' => '11111',
+            'name' => $productName,
+            'slug' => str_slug($productName),
             'description' => $this->faker->paragraph,
             'cover' => null,
-            'quantity' => 10,
+            'quantity' => 11,
             'price' => 9.95,
             'status' => 1
         ];
 
-        $product = new ProductRepository($this->product);
-        $updated = $product->updateProduct($params);
+        $productRepo = new ProductRepository($product);
+        $updated = $productRepo->updateProduct($params, $product->id);
 
         $this->assertTrue($updated);
-        $this->assertEquals($params['sku'], $this->product->sku);
-        $this->assertEquals($params['name'], $this->product->name);
-        $this->assertEquals($params['slug'], $this->product->slug);
-        $this->assertEquals($params['description'], $this->product->description);
-        $this->assertEquals($params['cover'], $this->product->cover);
-        $this->assertEquals($params['quantity'], $this->product->quantity);
-        $this->assertEquals($params['price'], $this->product->price);
-        $this->assertEquals($params['status'], $this->product->status);
-
         $this->assertDatabaseHas('products', $params);
     }
 

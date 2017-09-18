@@ -86,11 +86,12 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
      *
      * @param string $order
      * @param string $sort
-     * @return array|\Illuminate\Support\Collection
+     * @param array $columns
+     * @return array|Collection
      */
-    public function listAddress(string $order = 'id', string $sort = 'desc') : Collection
+    public function listAddress(string $order = 'id', string $sort = 'desc', array $columns = ['*']) : Collection
     {
-        return $this->model->orderBy($order, $sort)->get();
+        return $this->all($columns, $order, $sort);
     }
 
     /**
@@ -116,5 +117,20 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
     public function findCustomer() : Customer
     {
         return $this->model->customer;
+    }
+
+    /**
+     * @param string $text
+     * @return mixed
+     */
+    public function searchAddress(string $text) : Collection
+    {
+        return $this->model->search($text, [
+            'address_1' => 10,
+            'address_2' => 5,
+            'province.name' => 5,
+            'city.name' => 5,
+            'country.name' => 5
+        ])->get();
     }
 }

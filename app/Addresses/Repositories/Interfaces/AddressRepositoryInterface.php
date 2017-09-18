@@ -17,9 +17,11 @@ interface AddressRepositoryInterface extends BaseRepositoryInterface
 
     public function deleteAddress();
 
-    public function listAddress(string $order = 'id', string $sort = 'desc') : Collection;
+    public function listAddress(string $order = 'id', string $sort = 'desc', array $columns = ['*']) : Collection;
 
     public function findAddressById(int $id) : Address;
 
     public function findCustomer() : Customer;
+
+    public function searchAddress(string $text) : Collection;
 }

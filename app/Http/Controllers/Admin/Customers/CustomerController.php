@@ -28,12 +28,19 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $list = $this->customerRepo->listCustomers('created_at', 'desc')->map(function (Customer $customer) {
+        $list = $this->customerRepo->listCustomers('created_at', 'desc');
+
+        if (request()->has('q')) {
+            $list = $this->customerRepo->searchCustomer(request()->input('q'));
+        }
+
+        $customers = $list->map(function (Customer $customer) {
             return $this->transformCustomer($customer);
-        });
+        })->all();
+
 
         return view('admin.customers.list', [
-            'customers' => $this->customerRepo->paginateArrayResults($list->toArray())
+            'customers' => $this->customerRepo->paginateArrayResults($customers)
         ]);
     }
 

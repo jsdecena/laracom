@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6">
-        <ul id="thumbnails" class="col-md-2 list-unstyled">
+        <ul id="thumbnails" class="col-md-4 list-unstyled">
             <li>
                 <a href="javascript: void(0)">
                     @if(isset($product->cover))
@@ -15,7 +15,7 @@
                 </a>
             </li>
         </ul>
-        <figure class="text-center product-cover-wrap col-md-10">
+        <figure class="text-center product-cover-wrap col-md-8">
             @if(isset($product->cover))
                 <img id="main-image" class="product-cover img-responsive"
                      src="{{ asset("uploads/$product->cover") }}?w=400"

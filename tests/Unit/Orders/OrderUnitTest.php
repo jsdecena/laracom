@@ -5,6 +5,9 @@ namespace Tests\Unit\Orders;
 use App\Addresses\Address;
 use App\Couriers\Courier;
 use App\Customers\Customer;
+use App\Events\OrderCreateEvent;
+use App\Mail\sendEmailNotificationToAdminMailable;
+use App\Mail\SendOrderToCustomerMailable;
 use App\Orders\Exceptions\OrderInvalidArgumentException;
 use App\Orders\Exceptions\OrderNotFoundException;
 use App\Orders\Order;
@@ -12,14 +15,48 @@ use App\Orders\Repositories\OrderRepository;
 use App\OrderStatuses\OrderStatus;
 use App\PaymentMethods\PaymentMethod;
 use App\Products\Product;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class OrderUnitTest extends TestCase
 {
     /** @test */
+    public function it_can_send_email_to_customer()
+    {
+        Mail::fake();
+
+        $customer = factory(Customer::class)->create();
+        $courier = factory(Courier::class)->create();
+        $address = factory(Address::class)->create();
+        $orderStatus = factory(OrderStatus::class)->create();
+        $paymentMethod = factory(PaymentMethod::class)->create();
+
+        $data = [
+            'reference' => $this->faker->uuid,
+            'courier_id' => $courier->id,
+            'customer_id' => $customer->id,
+            'address_id' => $address->id,
+            'order_status_id' => $orderStatus->id,
+            'payment_method_id' => $paymentMethod->id,
+            'discounts' => 10.50,
+            'total_products' =>  100,
+            'tax' => 10.00,
+            'total' => 100.00,
+            'total_paid' => 100,
+            'invoice' => null,
+        ];
+
+        $orderRepo = new OrderRepository(new Order);
+        $orderRepo->createOrder($data);
+
+        Mail::assertSent(SendOrderToCustomerMailable::class);
+        Mail::assertSent(sendEmailNotificationToAdminMailable::class);
+    }
+    
+    /** @test */
     public function it_can_update_the_product_quanity_upon_creation_of_order_details()
     {
-        $product = factory(Product::class)->create();
+        $product = factory(Product::class)->create(['quantity' => 9]);
         $order = factory(Order::class)->create();
 
         $orderRepo = new OrderRepository($order);
@@ -79,6 +116,8 @@ class OrderUnitTest extends TestCase
             'total_paid' => 100,
             'invoice' => null,
         ];
+
+        $this->expectsEvents(OrderCreateEvent::class);
 
         $orderRepo = new OrderRepository(new Order);
         $orderRepo->createOrder($data);

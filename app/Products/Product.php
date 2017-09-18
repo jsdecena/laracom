@@ -5,9 +5,14 @@ namespace App\Products;
 use App\Categories\Category;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Model;
+use Sofa\Eloquence\Eloquence;
 
 class Product extends Model implements Buyable
 {
+    use Eloquence;
+
+    protected $searchableColumns = ['name', 'description'];
+
     /**
      * The attributes that are mass assignable.
      *

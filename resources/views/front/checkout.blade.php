@@ -76,10 +76,10 @@
                                     <h2><i class="fa fa-map-marker"></i> Delivery address</h2>
                                     <table class="table table-striped">
                                         <thead>
-                                            <th class="col-md-2">Alias</th>
-                                            <th class="col-md-4">Address</th>
-                                            <th class="col-md-1">City</th>
-                                            <th class="col-md-1">Province</th>
+                                            <th class="col-md-1">Alias</th>
+                                            <th class="col-md-3">Address</th>
+                                            <th class="col-md-2">City</th>
+                                            <th class="col-md-2">Province</th>
                                             <th class="col-md-2">Country</th>
                                             <th class="col-md-1">Zip Code</th>
                                             <th class="col-md-1">Choose</th>
@@ -88,7 +88,7 @@
                                         @foreach($addresses as $address)
                                             <tr>
                                                 <td>{{ $address->alias }}</td>
-                                                <td>{{ $address->address_1 }} {{ $address->address_2 }}</td>
+                                                <td>{{ $address->address_1 }} <br /> {{ $address->address_2 }}</td>
                                                 <td>{{ $address->city->name }}</td>
                                                 <td>{{ $address->province->name }}</td>
                                                 <td>{{ $address->country->name }}</td>
@@ -110,17 +110,15 @@
                                     @if(!$couriers->isEmpty())
                                         <table class="table">
                                         <thead>
-                                            <th class="col-md-3">Name</th>
-                                            <th class="col-md-3">Description</th>
-                                            <th class="col-md-3">Link</th>
-                                            <th class="col-md-3">Choose courier</th>
+                                            <th class="col-md-4">Name</th>
+                                            <th class="col-md-4">Description</th>
+                                            <th class="col-md-4">Choose courier</th>
                                         </thead>
                                         <tbody>
                                             @foreach($couriers as $courier)
                                             <tr>
                                                 <td>{{ $courier->name }}</td>
                                                 <td>{{ $courier->description }}</td>
-                                                <td>{{ $courier->url }}</td>
                                                 <td>
                                                     <label class="col-md-2 col-md-offset-3">
                                                         <input type="radio" class="form-control" name="courier" value="{{ $courier->id }}" @if(old('courier') == $courier->id) checked="checked"  @endif>

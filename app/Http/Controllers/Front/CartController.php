@@ -4,14 +4,12 @@ namespace App\Http\Controllers\Front;
 
 use App\Cart\Requests\AddToCartRequest;
 use App\Carts\Repositories\Interfaces\CartRepositoryInterface;
-use App\Customers\Requests\CustomerLoginRequest;
 use App\Products\Product;
 use App\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Products\Repositories\ProductRepository;
 use Gloudemans\Shoppingcart\CartItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -36,11 +34,12 @@ class CartController extends Controller
     {
         $productRepo = new ProductRepository(new Product());
 
-        $items = collect($this->cartRepo->getCartItems())->map(function (CartItem $item) use ($productRepo) {
-            $product = $productRepo->findProductById($item->id);
-            $item->product = $product;
-            $item->cover = $product->cover;
-            return $item;
+        $items = collect($this->cartRepo->getCartItems())
+            ->map(function (CartItem $item) use ($productRepo) {
+                $product = $productRepo->findProductById($item->id);
+                $item->product = $product;
+                $item->cover = $product->cover;
+                return $item;
         });
 
         return view('front.carts.cart', [

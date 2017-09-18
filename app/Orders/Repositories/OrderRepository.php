@@ -3,6 +3,11 @@
 namespace App\Orders\Repositories;
 
 use App\Base\BaseRepository;
+use App\Employees\Employee;
+use App\Employees\Repositories\EmployeeRepository;
+use App\Events\OrderCreateEvent;
+use App\Mail\sendEmailNotificationToAdminMailable;
+use App\Mail\SendOrderToCustomerMailable;
 use App\Orders\Exceptions\OrderInvalidArgumentException;
 use App\Orders\Exceptions\OrderNotFoundException;
 use App\Orders\Order;
@@ -12,12 +17,14 @@ use App\Products\Repositories\ProductRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Mail;
 
 class OrderRepository extends BaseRepository implements OrderRepositoryInterface
 {
     public function __construct(Order $order)
     {
         parent::__construct($order);
+        $this->model = $order;
     }
 
     /**
@@ -30,7 +37,13 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     public function createOrder(array $params) : Order
     {
         try {
-            return $this->create($params);
+
+            $order = $this->create($params);
+
+            event(new OrderCreateEvent($order));
+
+            return $order;
+
         } catch (QueryException $e) {
             throw new OrderInvalidArgumentException($e->getMessage(), 500, $e);
         }
@@ -110,6 +123,43 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         $productRepo = new ProductRepository($product);
 
         $quantity = $product->quantity - $qty;
-        $productRepo->updateProduct(compact('quantity'));
+        $productRepo->updateProduct(compact('quantity'), $product->id);
+    }
+
+    /**
+     * Send email to customer
+     */
+    public function sendEmailToCustomer()
+    {
+        Mail::to($this->model->customer)
+            ->send(new SendOrderToCustomerMailable($this->findOrderById($this->model->id)));
+    }
+
+    /**
+     * Send email notification to the admin
+     */
+    public function sendEmailNotificationToAdmin()
+    {
+        $employeeRepo = new EmployeeRepository(new Employee);
+        $employee = $employeeRepo->findEmployeeById(1);
+
+        Mail::to($employee)
+            ->send(new sendEmailNotificationToAdminMailable($this->findOrderById($this->model->id)));
+    }
+
+    /**
+     * @param string $text
+     * @return mixed
+     */
+    public function searchOrder(string $text) : Collection
+    {
+        return $this->model->search($text, [
+            'products.name',
+            'products.description',
+            'customer.name',
+            'paymentMethod.name',
+            'paymentMethod.description',
+            ]
+        )->get();
     }
 }

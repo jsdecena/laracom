@@ -46,6 +46,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.' ], 
     Route::resource('countries', 'Admin\Countries\CountryController');
     Route::resource('countries.provinces', 'Admin\Provinces\ProvinceController');
     Route::resource('countries.provinces.cities', 'Admin\Cities\CityController');
+    Route::get('orders/{id}/invoice', 'Admin\Orders\OrderController@generateInvoice')
+        ->name('orders.invoice.generate');
     Route::resource('orders', 'Admin\Orders\OrderController');
     Route::resource('order-statuses', 'Admin\Orders\OrderStatusController');
     Route::resource('couriers', 'Admin\Couriers\CourierController');
@@ -64,6 +66,7 @@ Route::get('checkout/execute', 'Front\CheckoutController@execute')->name('checko
 Route::get('checkout/cancel', 'Front\CheckoutController@cancel')->name('checkout.cancel');
 Route::get('checkout/success', 'Front\CheckoutController@success')->name('checkout.success');
 Route::get("category/{slug}", 'Front\CategoryController@getCategory')->name('front.category.slug');
+Route::get("search", 'Front\ProductController@search')->name('search.product');
 Route::get("{product}", 'Front\ProductController@getProduct')->name('front.get.product');
 Route::resource('customer', 'Front\CustomerController');
 Route::resource('customer.address', 'Front\CustomerAddressController');

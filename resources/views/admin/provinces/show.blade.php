@@ -32,7 +32,7 @@
                     </table>
                 </div>
                 <div class="box-body">
-                    <h2>Cities</h2>
+                    <h2>Cities / Municipalities</h2>
                     @include('admin.shared.cities')
                 </div>
             <!-- /.box-body -->

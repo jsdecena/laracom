@@ -19,7 +19,6 @@ class ProvinceRepository extends BaseRepository implements ProvinceRepositoryInt
     public function __construct(Province $province)
     {
         parent::__construct($province);
-        $this->model = $province;
     }
 
     /**
@@ -27,11 +26,12 @@ class ProvinceRepository extends BaseRepository implements ProvinceRepositoryInt
      *
      * @param string $order
      * @param string $sort
+     * @param array $columns
      * @return Collection
      */
-    public function listProvinces(string $order = 'id', string $sort = 'desc') : Collection
+    public function listProvinces(string $order = 'id', string $sort = 'desc', array $columns = ['*']) : Collection
     {
-        return $this->model->orderBy($order, $sort)->get();
+        return $this->all($columns, $order, $sort);
     }
 
     /**
@@ -62,5 +62,14 @@ class ProvinceRepository extends BaseRepository implements ProvinceRepositoryInt
         } catch (InvalidArgumentException $e) {
             throw new ProvinceNotFoundException($e->getMessage());
         }
+    }
+
+    /**
+     * @param int $provinceId
+     * @return mixed
+     */
+    public function listCities(int $provinceId)
+    {
+        return $this->findProvinceById($provinceId)->cities;
     }
 }

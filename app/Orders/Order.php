@@ -2,11 +2,19 @@
 
 namespace App\Orders;
 
+use App\Addresses\Address;
+use App\Couriers\Courier;
+use App\Customers\Customer;
+use App\OrderStatuses\OrderStatus;
+use App\PaymentMethods\PaymentMethod;
 use App\Products\Product;
 use Illuminate\Database\Eloquent\Model;
+use Sofa\Eloquence\Eloquence;
 
 class Order extends Model
 {
+    use Eloquence;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -36,6 +44,32 @@ class Order extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class)->withPivot(['quantity']);
+        return $this->belongsToMany(Product::class)
+                    ->withPivot(['quantity']);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function courier()
+    {
+        return $this->belongsTo(Courier::class);
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
+
+    public function orderStatus()
+    {
+        return $this->belongsTo(OrderStatus::class);
+    }
+
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class);
     }
 }

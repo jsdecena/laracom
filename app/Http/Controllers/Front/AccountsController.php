@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Addresses\Address;
-use App\Couriers\Courier;
 use App\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
-use App\Customers\Customer;
+use App\Customers\Repositories\CustomerRepository;
 use App\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Orders\Order;
-use App\OrderStatuses\OrderStatus;
-use App\PaymentMethods\PaymentMethod;
+use App\Orders\Transformers\OrderTransformable;
 
 class AccountsController extends Controller
 {
+    use OrderTransformable;
+
     private $customerRepo;
     private $courierRepo;
 
@@ -30,21 +29,18 @@ class AccountsController extends Controller
     {
         $customer = $this->customerRepo->findCustomerById(auth()->user()->id);
 
-        $order = $customer->orders;
-        $order->map(function (Order $order) {
-            $order->courier = Courier::find($order->courier_id);
-            $order->customer = Customer::find($order->customer_id);
-            $order->address = Address::find($order->address_id);
-            $order->status = OrderStatus::find($order->order_status_id);
-            $order->payment = PaymentMethod::find($order->payment_method_id);
-            return $order;
+        $customerRepo = new CustomerRepository($customer);
+        $orders = $customerRepo->findOrders();
+
+        $orders->transform(function (Order $order) {
+            return $this->transformOrder($order);
         });
 
-        $addresses = $customer->addresses;
+        $addresses = $customerRepo->findAddresses();
 
         return view('front.accounts', [
             'customer' => $customer,
-            'orders' => $order,
+            'orders' => $this->customerRepo->paginateArrayResults($orders->toArray(), 3),
             'addresses' => $addresses
         ]);
     }

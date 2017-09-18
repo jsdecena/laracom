@@ -17,7 +17,7 @@
                                             </form>
                                         </li>
                                         <li>  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal_{{ $product->id }}"> <i class="fa fa-eye"></i> Quick View</button>
-                                        <li>  <a class="btn btn-default product-btn" href="{{ route('front.get.product', $product->slug) }}" role="button"> <i class="fa fa-link"></i> Go to product</a> </li>
+                                        <li>  <a class="btn btn-default product-btn" href="{{ route('front.get.product', str_slug($product->slug)) }}"> <i class="fa fa-link"></i> Go to product</a> </li>
                                     </ul>
                                 </div>
                             </div>
@@ -44,6 +44,13 @@
                 </div>
             </li>
         @endforeach
+        @if($products instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator)
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-left">{{ $products->links() }}</div>
+                </div>
+            </div>
+        @endif
     </ul>
 @else
     <p class="alert alert-warning">No products yet.</p>

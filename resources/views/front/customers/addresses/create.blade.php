@@ -6,6 +6,7 @@
         @include('layouts.errors-and-messages')
         <div class="box">
             <form action="{{ route('customer.address.store', $customer->id) }}" method="post" class="form" enctype="multipart/form-data">
+                <input type="hidden" name="status" value="1">
                 <div class="box-body">
                     {{ csrf_field() }}
                     <div class="form-group">
@@ -28,7 +29,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div id="province" class="form-group">
                         <label for="province_id">Province </label>
                         <select name="province_id" id="province_id" class="form-control">
                             @foreach($provinces as $province)
@@ -48,13 +49,6 @@
                         <label for="zip">Zip Code </label>
                         <input type="text" name="zip" id="zip" placeholder="Zip code" class="form-control" value="{{ old('zip') }}">
                     </div>
-                    <div class="form-group">
-                        <label for="status">Status </label>
-                        <select name="status" id="status" class="form-control">
-                            <option value="0">Disable</option>
-                            <option value="1">Enable</option>
-                        </select>
-                    </div>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
@@ -69,4 +63,42 @@
 
     </section>
     <!-- /.content -->
+@endsection
+@section('js')
+    <script type="text/javascript">
+
+        var countryIdSelector = '#country_id',
+            citySelector = '#city_id';
+
+        localStorage.setItem('countryId', $(countryIdSelector).val());
+
+        function getCities(provinceId) {
+
+            var countryId = localStorage.getItem('countryId');
+
+            $.ajax({
+                url: '/api/v1/country/'+countryId+'/province/' + provinceId + '/city',
+                success: function (data) {
+                    var options = '';
+                        $(data.data).each(function (idx, v) {
+                            options += "<option value='"+v.id+"'>"+ v.name +"</option>";
+                        });
+                    $(citySelector).html(options);
+                }
+            });
+        }
+
+        $(countryIdSelector).on('change', function () {
+            localStorage.setItem('countryId', $(this).val());
+            if($(this).val() != 169) {
+                $('#province, #cities').hide();
+            } else {
+                $('#province, #cities').show();
+            }
+        });
+
+        $('#province_id').on('change', function () {
+            getCities($(this).val());
+        });
+    </script>
 @endsection

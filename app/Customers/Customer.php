@@ -7,10 +7,11 @@ use App\Orders\Order;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Sofa\Eloquence\Eloquence;
 
 class Customer extends Authenticatable
 {
-    use Notifiable, SoftDeletes;
+    use Notifiable, SoftDeletes, Eloquence;
 
     /**
      * The attributes that are mass assignable.

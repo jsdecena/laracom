@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Orders;
 
-use App\Addresses\Address;
 use App\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
+use App\Addresses\Transformations\AddressTransformable;
 use App\Couriers\Courier;
 use App\Couriers\Repositories\CourierRepository;
 use App\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
@@ -15,13 +15,13 @@ use App\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\OrderStatuses\OrderStatus;
 use App\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
 use App\OrderStatuses\Repositories\OrderStatusRepository;
-use App\PaymentMethods\PaymentMethod;
 use App\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
+    use AddressTransformable;
+
     private $orderRepo;
     private $courierRepo;
     private $addressRepo;
@@ -55,31 +55,24 @@ class OrderController extends Controller
     {
         $list = $this->orderRepo->listOrders('created_at', 'desc');
 
+        if (request()->has('q')) {
+            $list = $this->orderRepo->searchOrder(request()->input('q'));
+        }
+
         $courierRepo = new CourierRepository(new Courier());
         $customerRepo = new CustomerRepository(new Customer());
         $orderStatusRepo = new OrderStatusRepository(new OrderStatus());
 
-        $list->map(function (Order $order) use ($courierRepo, $customerRepo, $orderStatusRepo) {
+        $orders = $list->map(function (Order $order) use ($courierRepo, $customerRepo, $orderStatusRepo) {
             $order->courier = $courierRepo->findCourierById($order->courier_id);
             $order->customer = $customerRepo->findCustomerById($order->customer_id);
             $order->status = $orderStatusRepo->findOrderStatusById($order->order_status_id);
             return $order;
-        });
+        })->all();
 
-        $orders = $this->orderRepo->paginateArrayResults($list->all(), 25);
+        $orders = $this->orderRepo->paginateArrayResults($orders, 10);
 
         return view('admin.orders.list', ['orders' => $orders]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -104,36 +97,27 @@ class OrderController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Generate order invoice
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return mixed
      */
-    public function edit($id)
+    public function generateInvoice(int $id)
     {
-        //
-    }
+        $order = $this->orderRepo->findOrderById($id);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        $data = [
+            'order' => $order,
+            'products' => $order->products,
+            'customer' => $order->customer,
+            'courier' => $order->courier,
+            'address' => $this->transformAddress($order->address),
+            'status' => $order->orderStatus,
+            'payment' => $order->paymentMethod
+        ];
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $pdf = app()->make('dompdf.wrapper');
+        $pdf->loadView('invoices.orders', $data)->stream();
+        return $pdf->stream();
     }
 }
