@@ -11,68 +11,74 @@
 |
 */
 
-use App\Customers\Requests\SendInquiryRequest;
-use App\Mail\Inquiry;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', 'Front\HomeController@index')->name('home');
-Route::get('logout', 'Auth\LoginController@logout');
-
-Auth::routes();
-
-Route::group(['middleware' => ['auth']], function () {
-    Route::get('accounts', 'Front\AccountsController@index')->name('accounts');
-});
-
-Route::get('admin/login', 'Admin\LoginController@showLoginForm');
-Route::post('admin/login', 'Admin\LoginController@login')->name('admin.login');
-Route::get('admin/logout', 'Admin\LoginController@logout')->name('admin.logout');
 
 /**
  * Admin routes
  */
+Route::namespace('Admin')->group(function () {
+    Route::get('admin/login', 'LoginController@showLoginForm');
+    Route::post('admin/login', 'LoginController@login')->name('admin.login');
+    Route::get('admin/logout', 'LoginController@logout')->name('admin.logout');
+});
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.' ], function () {
-    Route::get('/', 'Admin\DashboardController@index')->name('dashboard');
-    Route::resource('employees', 'Admin\EmployeeController');
-    Route::resource('customers', 'Admin\Customers\CustomerController');
-    Route::resource('customers.addresses', 'Admin\Customers\CustomerAddressController');
-    Route::get('remove-image-product', 'Admin\Products\ProductController@removeImage')->name('product.remove.image');
-    Route::resource('products', 'Admin\Products\ProductController');
-    Route::get('remove-image-category', 'Admin\Categories\CategoryController@removeImage')->name('category.remove.image');
-    Route::resource('categories', 'Admin\Categories\CategoryController');
-    Route::resource('addresses', 'Admin\Addresses\AddressController');
-    Route::resource('countries', 'Admin\Countries\CountryController');
-    Route::resource('countries.provinces', 'Admin\Provinces\ProvinceController');
-    Route::resource('countries.provinces.cities', 'Admin\Cities\CityController');
-    Route::get('orders/{id}/invoice', 'Admin\Orders\OrderController@generateInvoice')
-        ->name('orders.invoice.generate');
-    Route::resource('orders', 'Admin\Orders\OrderController');
-    Route::resource('order-statuses', 'Admin\Orders\OrderStatusController');
-    Route::resource('couriers', 'Admin\Couriers\CourierController');
-    Route::resource('payment-methods', 'Admin\PaymentMethods\PaymentMethodController');
+
+    Route::namespace('Admin')->group(function () {
+        Route::get('/', 'DashboardController@index')->name('dashboard');
+        Route::namespace('Customers')->group(function () {
+            Route::resource('customers', 'CustomerController');
+            Route::resource('customers.addresses', 'CustomerAddressController');
+        });
+        Route::namespace('Products')->group(function () {
+            Route::resource('products', 'ProductController');
+            Route::get('remove-image-product', 'ProductController@removeImage')->name('product.remove.image');
+        });
+        Route::namespace('Categories')->group(function () {
+            Route::resource('categories', 'CategoryController');
+            Route::get('remove-image-category', 'CategoryController@removeImage')->name('category.remove.image');
+        });
+        Route::namespace('Orders')->group(function () {
+            Route::resource('orders', 'OrderController');
+            Route::resource('order-statuses', 'OrderStatusController');
+            Route::get('orders/{id}/invoice', 'OrderController@generateInvoice')->name('orders.invoice.generate');
+        });
+        Route::resource('employees', 'EmployeeController');
+        Route::get('employees/{id}/profile', 'EmployeeController@getProfile')->name('employee.profile');
+        Route::put('employees/{id}/profile', 'EmployeeController@updateProfile')->name('employee.profile.update');
+        Route::resource('addresses', 'Addresses\AddressController');
+        Route::resource('countries', 'Countries\CountryController');
+        Route::resource('countries.provinces', 'Provinces\ProvinceController');
+        Route::resource('countries.provinces.cities', 'Cities\CityController');
+        Route::resource('couriers', 'Couriers\CourierController');
+        Route::resource('payment-methods', 'PaymentMethods\PaymentMethodController');
+    });
 });
 
 /**
  * Frontend routes
  */
-Route::get('cart/login', 'Auth\CartLoginController@showLoginForm')->name('cart.login');
-Route::post('cart/login', 'Auth\CartLoginController@login')->name('cart.login');
-Route::resource('cart', 'Front\CartController');
-Route::get('checkout', 'Front\CheckoutController@index')->name('checkout.index');
-Route::post('checkout', 'Front\CheckoutController@store')->name('checkout.store');
-Route::get('checkout/execute', 'Front\CheckoutController@execute')->name('checkout.execute');
-Route::get('checkout/cancel', 'Front\CheckoutController@cancel')->name('checkout.cancel');
-Route::get('checkout/success', 'Front\CheckoutController@success')->name('checkout.success');
-Route::get("category/{slug}", 'Front\CategoryController@getCategory')->name('front.category.slug');
-Route::get("search", 'Front\ProductController@search')->name('search.product');
-Route::get("{product}", 'Front\ProductController@getProduct')->name('front.get.product');
-Route::resource('customer', 'Front\CustomerController');
-Route::resource('customer.address', 'Front\CustomerAddressController');
+Auth::routes();
+Route::namespace('Auth')->group(function () {
+    Route::get('cart/login', 'CartLoginController@showLoginForm')->name('cart.login');
+    Route::post('cart/login', 'CartLoginController@login')->name('cart.login');
+    Route::get('logout', 'LoginController@logout');
+});
 
-Route::post('inquire', function (SendInquiryRequest $request) {
-    Mail::to(env('INQUIRY_MAIL'))->send(new Inquiry($request));
-    $request->session()->flash('message', 'Your message was successfully delivered! Please wait for us to get back to you. <3');
-    return redirect()->route('home');
-})->name('inquiry.store');
+Route::namespace('Front')->group(function () {
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('accounts', 'AccountsController@index')->name('accounts');
+    });
+    Route::resource('cart', 'CartController');
+    Route::resource('customer', 'CustomerController');
+    Route::resource('customer.address', 'CustomerAddressController');
+    Route::get('checkout', 'CheckoutController@index')->name('checkout.index');
+    Route::post('checkout', 'CheckoutController@store')->name('checkout.store');
+    Route::get('checkout/execute', 'CheckoutController@execute')->name('checkout.execute');
+    Route::get('checkout/cancel', 'CheckoutController@cancel')->name('checkout.cancel');
+    Route::get('checkout/success', 'CheckoutController@success')->name('checkout.success');
+    Route::get("category/{slug}", 'CategoryController@getCategory')->name('front.category.slug');
+    Route::get("search", 'ProductController@search')->name('search.product');
+    Route::get("{product}", 'ProductController@getProduct')->name('front.get.product');
+});

@@ -53,7 +53,7 @@
         <div class="body">
             <pre>
                 @if(config('app.debug'))
-                    dd($error);
+                    {{dd($error)}}
                 @endif
             </pre>
         </div>
