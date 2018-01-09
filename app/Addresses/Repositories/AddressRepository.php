@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
 
 class AddressRepository extends BaseRepository implements AddressRepositoryInterface
 {
-    use AddressTransformable, CustomerTransformable;
+    use AddressTransformable;
 
     /**
      * AddressRepository constructor.
