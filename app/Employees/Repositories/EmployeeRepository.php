@@ -39,7 +39,7 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
     {
         $collection = collect($params);
 
-        $employee = new Employee(($collection->except('password'))->toArray());
+        $employee = new Employee(($collection->except('password'))->all());
         $employee->password = bcrypt($collection->only('password'));
         $employee->save();
 
@@ -69,14 +69,19 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
      */
     public function updateEmployee(array $params) : bool
     {
-        $collection = collect($params)->except('password');
+        $fields = [
+            "name" => $params['name'],
+            "email" => $params['email']
+        ];
 
-        if (in_array('password', $params)) {
-            $this->model->password = $params['password'];
+        if (isset($params['password']) && !is_null($params['password'])) {
+            $fields = [
+                "name" => $params['name'],
+                "email" => $params['email'],
+                "password" => bcrypt($params['password'])
+            ];
         }
 
-        $this->update($collection->all(), $this->model->id);
-
-        return $this->model->save();
+        return $this->model->update($fields);
     }
 }

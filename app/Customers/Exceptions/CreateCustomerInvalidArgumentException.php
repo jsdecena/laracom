@@ -2,6 +2,6 @@
 
 namespace App\Customers\Exceptions;
 
-class CreateCustomerInvalidArgumentException extends \InvalidArgumentException
+class CreateCustomerInvalidArgumentException extends \Exception
 {
 }

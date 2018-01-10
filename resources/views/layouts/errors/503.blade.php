@@ -48,7 +48,14 @@
 <div class="flex-center position-ref full-height">
     <div class="content">
         <div class="title">
-            <p>Ooops, we are on maintenance.</p> Please check again later.
+            <p>Ooops, server error occurred.</p> Please check again later.
+        </div>
+        <div class="body">
+            <pre>
+                @if(config('app.debug'))
+                    {{dd($error)}}
+                @endif
+            </pre>
         </div>
     </div>
 </div>

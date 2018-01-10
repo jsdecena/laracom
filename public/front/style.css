@@ -585,3 +585,9 @@ a:hover img {
 .nav.navbar-nav .dropdown {
     top:11px;
 }
+.form-inline #search-btn {
+    border-top: 1px solid #d89522;
+    border-right: 1px solid #d89522;
+    border-bottom: 1px solid #d89522;
+    border-left: 1px solid #d8cab2;
+}

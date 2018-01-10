@@ -52,7 +52,7 @@ class Handler extends ExceptionHandler
         if ($exception instanceof NotFoundHttpException) {
             return response()->view('layouts.errors.404', [], 404);
         } elseif ($exception instanceof HttpException) {
-            return response()->view('layouts.errors.503', [], 500);
+            return response()->view('layouts.errors.503', ['error' => $exception->getTrace()], 500);
         }
 
         return parent::render($request, $exception);

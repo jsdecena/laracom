@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Employees\Employee;
 use App\Admins\Requests\CreateEmployeeRequest;
 use App\Admins\Requests\UpdateEmployeeRequest;
 use App\Employees\Repositories\EmployeeRepository;
@@ -11,8 +10,15 @@ use App\Http\Controllers\Controller;
 
 class EmployeeController extends Controller
 {
+    /**
+     * @var EmployeeRepositoryInterface
+     */
     private $employeeRepo;
 
+    /**
+     * EmployeeController constructor.
+     * @param EmployeeRepositoryInterface $employeeRepository
+     */
     public function __construct(EmployeeRepositoryInterface $employeeRepository)
     {
         $this->employeeRepo = $employeeRepository;
@@ -88,10 +94,7 @@ class EmployeeController extends Controller
      */
     public function update(UpdateEmployeeRequest $request, $id)
     {
-        $employee = $this->employeeRepo->findEmployeeById($id);
-
-        $update = new EmployeeRepository($employee);
-        $update->updateEmployee($request->all());
+        $this->updateEmployee($request, $id);
 
         $request->session()->flash('message', 'Update successful');
         return redirect()->route('admin.employees.edit', $id);
@@ -109,5 +112,40 @@ class EmployeeController extends Controller
 
         request()->session()->flash('message', 'Delete successful');
         return redirect()->route('admin.employees.index');
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getProfile($id)
+    {
+        $employee = $this->employeeRepo->findEmployeeById($id);
+        return view('admin.employees.profile', ['employee' => $employee]);
+    }
+
+    /**
+     * @param UpdateEmployeeRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateProfile(UpdateEmployeeRequest $request, $id)
+    {
+        $this->updateEmployee($request, $id);
+
+        $request->session()->flash('message', 'Update successful');
+        return redirect()->route('admin.employee.profile', $id);
+    }
+
+    /**
+     * @param UpdateEmployeeRequest $request
+     * @param $id
+     */
+    private function updateEmployee(UpdateEmployeeRequest $request, $id)
+    {
+        $employee = $this->employeeRepo->findEmployeeById($id);
+
+        $update = new EmployeeRepository($employee);
+        $update->updateEmployee($request->except('_token', '_method'));
     }
 }

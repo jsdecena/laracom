@@ -36,7 +36,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      */
     public function listCustomers(string $order = 'id', string $sort = 'desc', array $columns = ['*']) : Support
     {
-        return $this->model->orderBy($order, $sort)->get($columns);
+        return $this->all($columns, $order, $sort);
     }
 
     /**
@@ -44,6 +44,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      *
      * @param array $params
      * @return Customer
+     * @throws CreateCustomerInvalidArgumentException
      */
     public function createCustomer(array $params) : Customer
     {
@@ -60,7 +61,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
 
             return $customer;
         } catch (QueryException $e) {
-            throw new CreateCustomerInvalidArgumentException('Cannot create customer', 500, $e);
+            throw new CreateCustomerInvalidArgumentException($e->getMessage(), 500, $e);
         }
     }
 

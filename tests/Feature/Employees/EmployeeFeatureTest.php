@@ -8,6 +8,28 @@ use Tests\TestCase;
 class EmployeeFeatureTest extends TestCase
 {
     /** @test */
+    public function it_can_update_the_profile()
+    {
+        $data = ['name' => 'King Kong', 'email' => 'test@test.com'];
+
+        $this->actingAs($this->employee, 'admin')
+            ->put(route('admin.employee.profile.update', $this->employee->id), $data)
+            ->assertStatus(302)
+            ->assertSessionHas(['message' => 'Update successful']);
+    }
+
+    /** @test */
+    public function it_can_show_the_profile_of_the_logged_user()
+    {
+        $employee = factory(Employee::class)->create();
+
+        $this->actingAs($this->employee, 'admin')
+            ->get(route('admin.employee.profile', $employee->id))
+            ->assertStatus(200)
+            ->assertSee($employee->name);
+    }
+
+    /** @test */
     public function it_errors_when_editing_an_employee_that_is_not_found()
     {
         $this->actingAs($this->employee, 'admin')

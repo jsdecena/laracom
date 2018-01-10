@@ -72,7 +72,6 @@ class CustomerUnitTest extends TestCase
     public function it_errors_creating_the_customer()
     {
         $this->expectException(CreateCustomerInvalidArgumentException::class);
-        $this->expectExceptionMessage('Cannot create customer');
         $this->expectExceptionCode(500);
 
         $customer = new CustomerRepository(new Customer);

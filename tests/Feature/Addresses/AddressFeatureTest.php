@@ -13,31 +13,6 @@ use Tests\TestCase;
 class AddressFeatureTest extends TestCase 
 {
     /** @test */
-    public function it_can_return_the_owner_of_the_address()
-    {
-        $customer = factory(Customer::class)->create();
-        $address = factory(Address::class)->create(['customer_id' => $customer->id]);
-
-        $addressRepo = new AddressRepository($address);
-
-        $found = $addressRepo->findCustomer();
-
-        $this->assertEquals($customer->name, $found->name);
-    }
-
-    /** @test */
-    public function it_can_be_attached_to_a_customer()
-    {
-        $customer = factory(Customer::class)->create();
-        $address = factory(Address::class)->create();
-
-        $addressRepo = new AddressRepository($address);
-        $addressRepo->attachToCustomer($address, $customer);
-
-        $this->assertEquals($customer->name, $address->customer->name);
-    }
-    
-    /** @test */
     public function it_errors_updating_the_address()
     {
         $this->actingAs($this->employee, 'admin')
