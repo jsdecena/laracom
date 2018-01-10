@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
-use App\Cart\Requests\CartCheckoutRequest;
-use App\Carts\Repositories\Interfaces\CartRepositoryInterface;
-use App\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
-use App\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
-use App\OrderDetails\OrderProduct;
-use App\OrderDetails\Repositories\OrderProductRepository;
-use App\Orders\Order;
-use App\Orders\Repositories\Interfaces\OrderRepositoryInterface;
-use App\PaymentMethods\Exceptions\PaymentMethodNotFoundException;
-use App\PaymentMethods\PaymentMethod;
-use App\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
-use App\PaymentMethods\Paypal\PaypalExpress;
-use App\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
-use App\Products\Repositories\Interfaces\ProductRepositoryInterface;
+use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
+use App\Shop\Cart\Requests\CartCheckoutRequest;
+use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
+use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
+use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
+use App\Shop\OrderDetails\OrderProduct;
+use App\Shop\OrderDetails\Repositories\OrderProductRepository;
+use App\Shop\Orders\Order;
+use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
+use App\Shop\PaymentMethods\Exceptions\PaymentMethodNotFoundException;
+use App\Shop\PaymentMethods\PaymentMethod;
+use App\Shop\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
+use App\Shop\PaymentMethods\Paypal\PaypalExpress;
+use App\Shop\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
+use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use Exception;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

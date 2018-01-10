@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Products\Product;
-use App\Products\Repositories\Interfaces\ProductRepositoryInterface;
+use App\Shop\Products\Product;
+use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Products\Transformations\ProductTransformable;
+use App\Shop\Products\Transformations\ProductTransformable;
 
 class ProductController extends Controller
 {

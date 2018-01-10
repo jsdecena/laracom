@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\OrderStatuses\OrderStatus;
+use App\Shop\OrderStatuses\OrderStatus;
 
 $factory->define(OrderStatus::class, function (Faker\Generator $faker) {
 

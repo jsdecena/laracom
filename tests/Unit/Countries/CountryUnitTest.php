@@ -2,12 +2,12 @@
 
 namespace Tests\Unit\Countries;
 
-use App\Countries\Exceptions\CountryInvalidArgumentException;
-use App\Countries\Exceptions\CountryNotFoundException;
-use App\Countries\Repositories\CountryRepository;
-use App\Provinces\Province;
-use App\Provinces\Repositories\ProvinceRepository;
-use App\Countries\Country;
+use App\Shop\Countries\Exceptions\CountryInvalidArgumentException;
+use App\Shop\Countries\Exceptions\CountryNotFoundException;
+use App\Shop\Countries\Repositories\CountryRepository;
+use App\Shop\Provinces\Province;
+use App\Shop\Provinces\Repositories\ProvinceRepository;
+use App\Shop\Countries\Country;
 use Tests\TestCase;
 
 class CountryUnitTest extends TestCase

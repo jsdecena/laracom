@@ -2,16 +2,16 @@
 
 namespace Tests\Unit\Address;
 
-use App\Addresses\Address;
-use App\Addresses\Exceptions\AddressInvalidArgumentException;
-use App\Addresses\Exceptions\AddressNotFoundException;
-use App\Addresses\Repositories\AddressRepository;
-use App\Addresses\Transformations\AddressTransformable;
-use App\Customers\Customer;
-use App\Customers\Repositories\CustomerRepository;
-use App\Provinces\Province;
-use App\Cities\City;
-use App\Countries\Country;
+use App\Shop\Addresses\Address;
+use App\Shop\Addresses\Exceptions\AddressInvalidArgumentException;
+use App\Shop\Addresses\Exceptions\AddressNotFoundException;
+use App\Shop\Addresses\Repositories\AddressRepository;
+use App\Shop\Addresses\Transformations\AddressTransformable;
+use App\Shop\Customers\Customer;
+use App\Shop\Customers\Repositories\CustomerRepository;
+use App\Shop\Provinces\Province;
+use App\Shop\Cities\City;
+use App\Shop\Countries\Country;
 use Tests\TestCase;
 
 class AddressUnitTest extends TestCase

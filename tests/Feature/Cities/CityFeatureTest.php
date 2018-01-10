@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Cities\City;
-use App\Countries\Country;
-use App\Provinces\Province;
+use App\Shop\Cities\City;
+use App\Shop\Countries\Country;
+use App\Shop\Provinces\Province;
 use Tests\TestCase;
 
 class CityFeatureTest extends TestCase

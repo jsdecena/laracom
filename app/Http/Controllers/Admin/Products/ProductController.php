@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Products;
 
-use App\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
-use App\Products\Product;
-use App\Products\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Products\Requests\CreateProductRequest;
-use App\Products\Requests\UpdateProductRequest;
+use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
+use App\Shop\Products\Product;
+use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
+use App\Shop\Products\Requests\CreateProductRequest;
+use App\Shop\Products\Requests\UpdateProductRequest;
 use App\Http\Controllers\Controller;
-use App\Products\Transformations\ProductTransformable;
+use App\Shop\Products\Transformations\ProductTransformable;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -16,9 +16,20 @@ class ProductController extends Controller
 {
     use ProductTransformable;
 
+    /**
+     * @var ProductRepositoryInterface
+     */
     private $productRepo;
+    /**
+     * @var CategoryRepositoryInterface
+     */
     private $categoryRepo;
 
+    /**
+     * ProductController constructor.
+     * @param ProductRepositoryInterface $productRepository
+     * @param CategoryRepositoryInterface $categoryRepository
+     */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         CategoryRepositoryInterface $categoryRepository

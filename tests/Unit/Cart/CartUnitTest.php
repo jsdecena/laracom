@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Cart;
 
-use App\Carts\Exceptions\ProductInCartNotFoundException;
-use App\Carts\Repositories\CartRepository;
-use App\Carts\ShoppingCart;
+use App\Shop\Carts\Exceptions\ProductInCartNotFoundException;
+use App\Shop\Carts\Repositories\CartRepository;
+use App\Shop\Carts\ShoppingCart;
 use Tests\TestCase;
 
 class CartUnitTest extends TestCase

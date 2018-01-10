@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\PaymentMethod;
 
-use App\PaymentMethods\Exceptions\PaymentMethodInvalidArgumentException;
-use App\PaymentMethods\Exceptions\PaymentMethodNotFoundException;
-use App\PaymentMethods\PaymentMethod;
-use App\PaymentMethods\Repositories\PaymentMethodRepository;
+use App\Shop\PaymentMethods\Exceptions\PaymentMethodInvalidArgumentException;
+use App\Shop\PaymentMethods\Exceptions\PaymentMethodNotFoundException;
+use App\Shop\PaymentMethods\PaymentMethod;
+use App\Shop\PaymentMethods\Repositories\PaymentMethodRepository;
 use ErrorException;
 use Tests\TestCase;
 

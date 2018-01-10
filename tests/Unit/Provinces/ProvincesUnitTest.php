@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\Provinces;
 
-use App\Provinces\Exceptions\ProvinceNotFoundException;
-use App\Provinces\Province;
-use App\Provinces\Repositories\ProvinceRepository;
-use App\Cities\City;
+use App\Shop\Provinces\Exceptions\ProvinceNotFoundException;
+use App\Shop\Provinces\Province;
+use App\Shop\Provinces\Repositories\ProvinceRepository;
+use App\Shop\Cities\City;
 use Tests\TestCase;
 
 class ProvincesUnitTest extends TestCase

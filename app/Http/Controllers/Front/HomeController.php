@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
+use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller

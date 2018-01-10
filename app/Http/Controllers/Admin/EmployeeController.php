@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Admins\Requests\CreateEmployeeRequest;
-use App\Admins\Requests\UpdateEmployeeRequest;
-use App\Employees\Repositories\EmployeeRepository;
-use App\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
+use App\Shop\Admins\Requests\CreateEmployeeRequest;
+use App\Shop\Admins\Requests\UpdateEmployeeRequest;
+use App\Shop\Employees\Repositories\EmployeeRepository;
+use App\Shop\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
 use App\Http\Controllers\Controller;
 
 class EmployeeController extends Controller

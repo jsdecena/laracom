@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Orders\Order;
+use App\Shop\Orders\Order;
 
 $factory->define(Order::class, function (Faker\Generator $faker) {
 

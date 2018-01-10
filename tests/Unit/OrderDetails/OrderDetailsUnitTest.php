@@ -2,17 +2,17 @@
 
 namespace Tests\Unit\OrderDetails;
 
-use App\Addresses\Address;
-use App\Couriers\Courier;
-use App\Customers\Customer;
-use App\OrderDetails\OrderProduct;
-use App\OrderDetails\Repositories\OrderProductRepository;
-use App\Orders\Order;
-use App\Orders\Repositories\OrderRepository;
-use App\OrderStatuses\OrderStatus;
-use App\PaymentMethods\PaymentMethod;
-use App\Products\Product;
-use App\Products\Repositories\ProductRepository;
+use App\Shop\Addresses\Address;
+use App\Shop\Couriers\Courier;
+use App\Shop\Customers\Customer;
+use App\Shop\OrderDetails\OrderProduct;
+use App\Shop\OrderDetails\Repositories\OrderProductRepository;
+use App\Shop\Orders\Order;
+use App\Shop\Orders\Repositories\OrderRepository;
+use App\Shop\OrderStatuses\OrderStatus;
+use App\Shop\PaymentMethods\PaymentMethod;
+use App\Shop\Products\Product;
+use App\Shop\Products\Repositories\ProductRepository;
 use Tests\TestCase;
 
 class OrderDetailsUnitTest extends TestCase

@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\Categories;
 
-use App\Categories\Category;
-use App\Categories\Exceptions\CategoryInvalidArgumentException;
-use App\Categories\Exceptions\CategoryNotFoundException;
-use App\Categories\Repositories\CategoryRepository;
+use App\Shop\Categories\Category;
+use App\Shop\Categories\Exceptions\CategoryInvalidArgumentException;
+use App\Shop\Categories\Exceptions\CategoryNotFoundException;
+use App\Shop\Categories\Repositories\CategoryRepository;
 use Tests\TestCase;
 
 class CategoryUnitTest extends TestCase

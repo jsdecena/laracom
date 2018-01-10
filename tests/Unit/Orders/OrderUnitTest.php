@@ -2,19 +2,19 @@
 
 namespace Tests\Unit\Orders;
 
-use App\Addresses\Address;
-use App\Couriers\Courier;
-use App\Customers\Customer;
+use App\Shop\Addresses\Address;
+use App\Shop\Couriers\Courier;
+use App\Shop\Customers\Customer;
 use App\Events\OrderCreateEvent;
 use App\Mail\sendEmailNotificationToAdminMailable;
 use App\Mail\SendOrderToCustomerMailable;
-use App\Orders\Exceptions\OrderInvalidArgumentException;
-use App\Orders\Exceptions\OrderNotFoundException;
-use App\Orders\Order;
-use App\Orders\Repositories\OrderRepository;
-use App\OrderStatuses\OrderStatus;
-use App\PaymentMethods\PaymentMethod;
-use App\Products\Product;
+use App\Shop\Orders\Exceptions\OrderInvalidArgumentException;
+use App\Shop\Orders\Exceptions\OrderNotFoundException;
+use App\Shop\Orders\Order;
+use App\Shop\Orders\Repositories\OrderRepository;
+use App\Shop\OrderStatuses\OrderStatus;
+use App\Shop\PaymentMethods\PaymentMethod;
+use App\Shop\Products\Product;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 

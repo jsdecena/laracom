@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Carts\Repositories\CartRepository;
-use App\Carts\ShoppingCart;
-use App\Categories\Category;
-use App\Categories\Repositories\CategoryRepository;
+use App\Shop\Carts\Repositories\CartRepository;
+use App\Shop\Carts\ShoppingCart;
+use App\Shop\Categories\Category;
+use App\Shop\Categories\Repositories\CategoryRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 

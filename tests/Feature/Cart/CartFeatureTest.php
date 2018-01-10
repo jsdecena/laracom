@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Products\Product;
+use App\Shop\Products\Product;
 use Tests\TestCase;
 
 class CartFeatureTest extends TestCase 

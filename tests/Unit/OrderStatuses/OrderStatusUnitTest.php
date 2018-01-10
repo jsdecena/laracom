@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\OrderStatuses;
 
-use App\OrderStatuses\Exceptions\OrderStatusInvalidArgumentException;
-use App\OrderStatuses\Exceptions\OrderStatusNotFoundException;
-use App\OrderStatuses\OrderStatus;
-use App\OrderStatuses\Repositories\OrderStatusRepository;
+use App\Shop\OrderStatuses\Exceptions\OrderStatusInvalidArgumentException;
+use App\Shop\OrderStatuses\Exceptions\OrderStatusNotFoundException;
+use App\Shop\OrderStatuses\OrderStatus;
+use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
 use Tests\TestCase;
 
 class OrderStatusUnitTest extends TestCase

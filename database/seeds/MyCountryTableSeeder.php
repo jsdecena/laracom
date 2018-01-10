@@ -1,6 +1,6 @@
 <?php
 
-use App\Countries\Country;
+use App\Shop\Countries\Country;
 use Illuminate\Database\Seeder;
 
 class MyCountryTableSeeder extends Seeder

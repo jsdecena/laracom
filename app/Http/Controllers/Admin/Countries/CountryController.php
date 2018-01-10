@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Countries;
 
-use App\Countries\Repositories\CountryRepository;
-use App\Countries\Repositories\Interfaces\CountryRepositoryInterface;
-use App\Countries\Requests\UpdateCountryRequest;
+use App\Shop\Countries\Repositories\CountryRepository;
+use App\Shop\Countries\Repositories\Interfaces\CountryRepositoryInterface;
+use App\Shop\Countries\Requests\UpdateCountryRequest;
 use App\Http\Controllers\Controller;
 
 class CountryController extends Controller

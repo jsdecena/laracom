@@ -1,21 +1,11 @@
 <?php
 
-namespace App\Categories\Requests;
+namespace App\Shop\Categories\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Shop\Base\BaseFormRequest;
 
-class CreateCategoryRequest extends FormRequest
+class CreateCategoryRequest extends BaseFormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *

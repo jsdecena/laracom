@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Customers\Customer;
+use App\Shop\Customers\Customer;
 
 $factory->define(Customer::class, function (Faker\Generator $faker) {
     static $password;

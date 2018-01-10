@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Categories\Category;
+use App\Shop\Categories\Category;
 
 $factory->define(Category::class, function (Faker\Generator $faker) {
     $name = $faker->unique()->randomElement([

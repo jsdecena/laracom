@@ -2,25 +2,25 @@
 
 namespace Tests;
 
-use App\Addresses\Address;
-use App\Categories\Category;
-use App\Couriers\Courier;
-use App\Couriers\Repositories\CourierRepository;
-use App\Employees\Employee;
-use App\Customers\Customer;
-use App\OrderStatuses\OrderStatus;
-use App\OrderStatuses\Repositories\OrderStatusRepository;
-use App\PaymentMethods\PaymentMethod;
-use App\PaymentMethods\Repositories\PaymentMethodRepository;
-use App\Products\Product;
-use App\Provinces\Province;
+use App\Shop\Addresses\Address;
+use App\Shop\Categories\Category;
+use App\Shop\Couriers\Courier;
+use App\Shop\Couriers\Repositories\CourierRepository;
+use App\Shop\Employees\Employee;
+use App\Shop\Customers\Customer;
+use App\Shop\OrderStatuses\OrderStatus;
+use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
+use App\Shop\PaymentMethods\PaymentMethod;
+use App\Shop\PaymentMethods\Repositories\PaymentMethodRepository;
+use App\Shop\Products\Product;
+use App\Shop\Provinces\Province;
 use Gloudemans\Shoppingcart\Cart;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Faker\Factory as Faker;
-use App\Cities\City;
-use App\Countries\Country;
+use App\Shop\Cities\City;
+use App\Shop\Countries\Country;
 use MyCountryTableSeeder;
 
 abstract class TestCase extends BaseTestCase

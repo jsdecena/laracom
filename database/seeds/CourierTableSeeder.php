@@ -1,6 +1,6 @@
 <?php
 
-use App\Couriers\Courier;
+use App\Shop\Couriers\Courier;
 use Illuminate\Database\Seeder;
 
 class CourierTableSeeder extends Seeder

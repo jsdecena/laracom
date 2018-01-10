@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Categories\Category;
-use App\Products\Product;
-use App\Products\Repositories\ProductRepository;
+use App\Shop\Categories\Category;
+use App\Shop\Products\Product;
+use App\Shop\Products\Repositories\ProductRepository;
 use Tests\TestCase;
 
 class ProductFeatureTest extends TestCase

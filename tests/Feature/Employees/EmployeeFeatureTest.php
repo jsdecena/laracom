@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Employees;
 
-use App\Employees\Employee;
+use App\Shop\Employees\Employee;
 use Tests\TestCase;
 
 class EmployeeFeatureTest extends TestCase

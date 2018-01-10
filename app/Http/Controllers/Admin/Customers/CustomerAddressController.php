@@ -2,17 +2,32 @@
 
 namespace App\Http\Controllers\Admin\Customers;
 
-use App\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
-use App\Countries\Repositories\Interfaces\CountryRepositoryInterface;
+use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
+use App\Shop\Countries\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
+use App\Shop\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
 
 class CustomerAddressController extends Controller
 {
+    /**
+     * @var AddressRepositoryInterface
+     */
     private $addressRepo;
+    /**
+     * @var CountryRepositoryInterface
+     */
     private $countryRepo;
+    /**
+     * @var ProvinceRepositoryInterface
+     */
     private $provinceRepo;
 
+    /**
+     * CustomerAddressController constructor.
+     * @param AddressRepositoryInterface $addressRepository
+     * @param CountryRepositoryInterface $countryRepository
+     * @param ProvinceRepositoryInterface $provinceRepository
+     */
     public function __construct(
         AddressRepositoryInterface $addressRepository,
         CountryRepositoryInterface $countryRepository,
