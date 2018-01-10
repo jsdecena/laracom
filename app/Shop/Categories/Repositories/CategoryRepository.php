@@ -57,8 +57,10 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
             }
 
             if (request()->hasFile('cover')) {
-                $file = request()->file('cover', 'products');
-                $cover = $this->uploadOne($file, 'categories');
+                $cover = $this->uploadOne(
+                    request()->file('cover', 'products'),
+                    'categories'
+                );
             }
 
             $merge = $collection->merge(compact('slug', 'cover'));
@@ -91,8 +93,10 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         $slug = str_slug($collection->get('name'));
 
         if (request()->hasFile('cover')) {
-            $file = request()->file('cover', 'products');
-            $cover = $this->uploadOne($file, 'categories');
+            $cover = $this->uploadOne(
+                request()->file('cover', 'products'),
+                'categories'
+            );
         }
 
         $merge = $collection->merge(compact('slug', 'cover'));

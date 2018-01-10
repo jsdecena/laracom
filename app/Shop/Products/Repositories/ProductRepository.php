@@ -12,6 +12,7 @@ use App\Shop\Tools\UploadableTrait;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\UploadedFile;
 
 class ProductRepository extends BaseRepository implements ProductRepositoryInterface
 {
@@ -55,8 +56,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
 
             if (request()->hasFile('cover')) {
-                $file = request()->file('cover');
-                $cover = $this->uploadOneImage($file);
+                $cover = $this->uploadOneImage(request()->file('cover'));
             }
 
             $merge = $collection->merge(compact('slug', 'cover'));
@@ -85,8 +85,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             $slug = str_slug($collection->get('name'));
 
             if (request()->hasFile('cover')) {
-                $file = request()->file('cover');
-                $cover = $this->uploadOneImage($file);
+                $cover = $this->uploadOneImage(request()->file('cover'));
             }
 
             $merge = $collection->merge(compact('slug', 'cover'));
@@ -185,7 +184,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      * @param string $folder
      * @return false|string
      */
-    public function uploadOneImage($image, $folder = 'products')
+    public function uploadOneImage(UploadedFile $image, $folder = 'products')
     {
         return $this->uploadOne($image, $folder);
     }

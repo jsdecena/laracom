@@ -2,6 +2,8 @@
 
 namespace App\Shop\Tools;
 
+use Illuminate\Http\UploadedFile;
+
 trait UploadableTrait
 {
     /**
@@ -12,10 +14,8 @@ trait UploadableTrait
      * @param string $disk
      * @return false|string
      */
-    public function uploadOne($file, $folder = null, $disk = 'uploads')
+    public function uploadOne(UploadedFile $file, $folder = null, $disk = 'public')
     {
-        return request()->file('cover')->storeAs(
-            $folder, str_random(25) . "." . $file->getClientOriginalExtension(), $disk
-        );
+        return $file->storeAs($folder, str_random(25) . "." . $file->getClientOriginalExtension(), $disk);
     }
 }

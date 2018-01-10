@@ -27,7 +27,7 @@
                     </div>
                     @if(isset($category->cover))
                     <div class="form-group">
-                        <img src="{{ asset("uploads/$category->cover") }}" alt="" class="img-responsive"> <br/>
+                        <img src="{{ asset("storage/$category->cover") }}" alt="" class="img-responsive"> <br/>
                         <a onclick="return confirm('Are you sure?')" href="{{ route('admin.category.remove.image', ['category' => $category->id]) }}" class="btn btn-danger">Remove image?</a>
                     </div>
                     @endif

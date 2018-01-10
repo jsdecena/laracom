@@ -14,3 +14,4 @@ yarn.lock
 /build
 Envoy.blade.php
 /coverage
+storage/app/public/storage

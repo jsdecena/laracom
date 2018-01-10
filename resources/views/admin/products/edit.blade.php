@@ -28,7 +28,7 @@
                                 @if(isset($product->cover))
                                     <div class="col-md-3">
                                         <div class="row">
-                                            <img src="{{ asset("uploads/$product->cover") }}" alt="" class="img-responsive"> <br />
+                                            <img src="{{ asset("storage/$product->cover") }}" alt="" class="img-responsive"> <br />
                                             <a onclick="return confirm('Are you sure?')" href="{{ route('admin.product.remove.image', ['product' => $product->id, 'image' => substr($product->cover, 9)]) }}" class="btn btn-danger btn-sm btn-block">Remove image?</a><br />
                                         </div>
                                     </div>
