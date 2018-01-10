@@ -26,10 +26,16 @@
                             </div>
                             <div class="form-group">
                                 @if(isset($product->cover))
-                                    <img src="{{ asset("uploads/$product->cover") }}" alt="" class="img-responsive"> <br />
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <img src="{{ asset("uploads/$product->cover") }}" alt="" class="img-responsive">
+                                        </div>
+                                    </div>
+                                    <br />
                                     <a onclick="return confirm('Are you sure?')" href="{{ route('admin.product.remove.image', ['product' => $product->id, 'image' => substr($product->cover, 9)]) }}" class="btn btn-danger">Remove image?</a>
                                 @endif
                             </div>
+                            <div class="row"></div>
                             <div class="form-group">
                                 <label for="cover">Cover </label>
                                 <input type="file" name="cover" id="cover" class="form-control">
