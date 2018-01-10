@@ -24,4 +24,6 @@
             <div id="browse-all-btn"> <a class="btn btn-default browse-all-btn" href="#" role="button">browse all items</a></div>
         </div>
     @endif
+    <hr />
+    @include('mailchimp::mailchimp')
 @endsection
