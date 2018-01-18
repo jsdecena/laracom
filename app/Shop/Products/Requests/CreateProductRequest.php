@@ -17,7 +17,8 @@ class CreateProductRequest extends BaseFormRequest
             'sku' => ['required'],
             'name' => ['required', 'unique:products'],
             'quantity' => ['required', 'numeric'],
-            'price' => ['required']
+            'price' => ['required'],
+            'cover' => ['required', 'file', 'image:png,jpeg,jpg,gif']
         ];
     }
 }

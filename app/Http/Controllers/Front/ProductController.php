@@ -11,8 +11,15 @@ class ProductController extends Controller
 {
     use ProductTransformable;
 
+    /**
+     * @var ProductRepositoryInterface
+     */
     private $productRepo;
 
+    /**
+     * ProductController constructor.
+     * @param ProductRepositoryInterface $productRepository
+     */
     public function __construct(ProductRepositoryInterface $productRepository)
     {
         $this->productRepo = $productRepository;

@@ -9,10 +9,11 @@ use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Transformations\ProductTransformable;
 use App\Shop\Tools\UploadableTrait;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class ProductRepository extends BaseRepository implements ProductRepositoryInterface
 {
@@ -50,18 +51,13 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function createProduct(array $params) : Product
     {
         try {
-            $collection = collect($params)->except('_token');
-            $slug = str_slug($collection->get('name'));
+            $product = new Product($params);
+            $product->save();
 
-
-            if (request()->hasFile('cover')) {
-                $cover = $this->uploadOneImage(request()->file('cover'));
+            if (isset($params['thumbnails'])) {
+                $this->saveThumbnails($params['thumbnails'], $product);
             }
 
-            $merge = $collection->merge(compact('slug', 'cover'));
-
-            $product = new Product($merge->all());
-            $product->save();
             return $product;
         } catch (QueryException $e) {
             throw new ProductInvalidArgumentException($e->getMessage());
@@ -159,6 +155,15 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     }
 
     /**
+     * @param string $src
+     * @return bool
+     */
+    public function deleteThumb(string $src) : bool
+    {
+        return DB::table('product_images')->where('src', $src)->delete();
+    }
+
+    /**
      * Get the product via slug
      *
      * @param array $slug
@@ -192,5 +197,27 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function searchProduct(string $text) : Collection
     {
         return $this->model->search($text)->get();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function findProductImages() : Collection
+    {
+        return $this->model->images()->get();
+    }
+
+    /**
+     * @param array $thumbnails
+     * @param Product $product
+     */
+    private function saveThumbnails(array $thumbnails, Product $product)
+    {
+        collect($thumbnails)->each(function ($filename) use ($product) {
+            DB::table('product_images')->insert([
+                'product_id' => $product->id,
+                'src' => $filename
+            ]);
+        });
     }
 }

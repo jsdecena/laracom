@@ -3,6 +3,7 @@
 namespace App\Shop\Products;
 
 use App\Shop\Categories\Category;
+use App\Shop\ProductImages\ProductImage;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Model;
 use Sofa\Eloquence\Eloquence;
@@ -72,5 +73,13 @@ class Product extends Model implements Buyable
     public function getBuyablePrice($options = null)
     {
         return $this->price;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
     }
 }

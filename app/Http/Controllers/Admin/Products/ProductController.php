@@ -9,12 +9,16 @@ use App\Shop\Products\Requests\CreateProductRequest;
 use App\Shop\Products\Requests\UpdateProductRequest;
 use App\Http\Controllers\Controller;
 use App\Shop\Products\Transformations\ProductTransformable;
+use App\Shop\Tools\UploadableTrait;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 class ProductController extends Controller
 {
-    use ProductTransformable;
+    use ProductTransformable, UploadableTrait;
 
     /**
      * @var ProductRepositoryInterface
@@ -78,7 +82,25 @@ class ProductController extends Controller
      */
     public function store(CreateProductRequest $request)
     {
-        $this->productRepo->createProduct($request->all());
+        $data = $request->except('_token', '_method');
+        $data['slug'] = str_slug($request->input('name'));
+
+        $date = new DateTime('now', new DateTimeZone(config('app.timezone')));
+        $folder = $date->format('U');
+
+        if ($request->hasFile('cover')) {
+            $data['cover'] = $this->uploadOne(request()->file('cover'), "products/$folder", 'public', 'cover');
+        }
+
+        if ($request->hasFile('image')) {
+            $thumbs = collect($request->file('image'))->transform(function (UploadedFile $file) use ($folder) {
+                return $this->uploadOne($file, "products/$folder");
+            })->all();
+
+            $data['thumbnails'] = $thumbs;
+        }
+
+        $this->productRepo->createProduct($data);
 
         return redirect()->route('admin.products.index');
     }
@@ -117,6 +139,7 @@ class ProductController extends Controller
 
         return view('admin.products.edit', [
             'product' => $product,
+            'images' => $product->images()->get(['src']),
             'categories' => $this->categoryRepo->listCategories('name', 'asc'),
             'selectCategories' => $ids
         ]);
@@ -174,6 +197,17 @@ class ProductController extends Controller
     public function removeImage(Request $request)
     {
         $this->productRepo->deleteFile($request->only('product', 'image'), 'uploads');
+        request()->session()->flash('message', 'Image delete successful');
+        return redirect()->back();
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function removeThumbnail(Request $request)
+    {
+        $this->productRepo->deleteThumb($request->input('src'));
         request()->session()->flash('message', 'Image delete successful');
         return redirect()->back();
     }
