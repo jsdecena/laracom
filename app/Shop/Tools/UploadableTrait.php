@@ -9,13 +9,19 @@ trait UploadableTrait
     /**
      * Upload a single file in the server
      *
-     * @param $file
+     * @param UploadedFile $file
      * @param null $folder
      * @param string $disk
+     * @param null $filename
      * @return false|string
      */
-    public function uploadOne(UploadedFile $file, $folder = null, $disk = 'public')
+    public function uploadOne(UploadedFile $file, $folder = null, $disk = 'public', $filename = null)
     {
-        return $file->storeAs($folder, str_random(25) . "." . $file->getClientOriginalExtension(), $disk);
+        $name = !is_null($filename) ? $filename : str_random(25);
+
+        return $file->storeAs(
+            $folder,
+            $name . "." . $file->getClientOriginalExtension(),
+            $disk);
     }
 }

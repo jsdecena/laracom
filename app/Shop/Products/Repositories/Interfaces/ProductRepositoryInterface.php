@@ -4,8 +4,8 @@ namespace App\Shop\Products\Repositories\Interfaces;
 
 use App\Shop\Base\Interfaces\BaseRepositoryInterface;
 use App\Shop\Products\Product;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 
 interface ProductRepositoryInterface extends BaseRepositoryInterface
 {
@@ -27,9 +27,13 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
 
     public function deleteFile(array $file, $disk = null) : bool;
 
+    public function deleteThumb(string $src) : bool;
+
     public function findProductBySlug(array $slug) : Product;
 
     public function uploadOneImage(UploadedFile $image, $folder = 'products');
 
     public function searchProduct(string $text) : Collection;
+
+    public function findProductImages() : Collection;
 }

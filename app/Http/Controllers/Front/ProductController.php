@@ -11,8 +11,15 @@ class ProductController extends Controller
 {
     use ProductTransformable;
 
+    /**
+     * @var ProductRepositoryInterface
+     */
     private $productRepo;
 
+    /**
+     * ProductController constructor.
+     * @param ProductRepositoryInterface $productRepository
+     */
     public function __construct(ProductRepositoryInterface $productRepository)
     {
         $this->productRepo = $productRepository;
@@ -42,8 +49,11 @@ class ProductController extends Controller
      */
     public function getProduct(string $slug)
     {
+        $product = $this->productRepo->findProductBySlug(['slug' => $slug]);
+
         return view('front.products.product', [
-            'product' =>  $this->productRepo->findProductBySlug(['slug' => $slug])
+            'product' => $product,
+            'images' => $product->images()->get()
         ]);
     }
 }
