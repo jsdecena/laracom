@@ -15,3 +15,5 @@ yarn.lock
 Envoy.blade.php
 /coverage
 storage/app/public/storage
+
+\.php_cs\.cache
