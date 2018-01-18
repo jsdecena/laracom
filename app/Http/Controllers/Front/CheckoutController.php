@@ -44,8 +44,7 @@ class CheckoutController extends Controller
         CustomerRepositoryInterface $customerRepository,
         ProductRepositoryInterface $productRepository,
         OrderRepositoryInterface $orderRepository
-    )
-    {
+    ) {
         $this->middleware('checkout');
 
         $this->cartRepo = $cartRepository;
@@ -74,9 +73,9 @@ class CheckoutController extends Controller
         $customer = $this->customerRepo->findCustomerById($this->loggedUser()->id);
 
         $payments = $this->paymentRepo->listPaymentMethods()
-                        ->filter(function (PaymentMethod $method){
+                        ->filter(function (PaymentMethod $method) {
                             return $method->status == 1;
-                    });
+                        });
 
         return view('front.checkout', [
             'customer' => $customer,
@@ -102,7 +101,6 @@ class CheckoutController extends Controller
         $method = $this->paymentRepo->findPaymentMethodById($request->input('payment'));
 
         if ($method->slug == 'paypal') {
-
             $this->paypal->setPayer();
             $this->paypal->setItems($this->getCartItems());
             $this->paypal->setOtherFees(
@@ -113,7 +111,6 @@ class CheckoutController extends Controller
             $this->paypal->setTransactions();
 
             try {
-
                 $response = $this->paypal->createPayment(
                     route('checkout.execute', $request->except('_token')),
                     route('checkout.cancel')
@@ -123,9 +120,7 @@ class CheckoutController extends Controller
                     $redirectUrl = $response->links[1]->href;
                     return redirect()->to($redirectUrl);
                 }
-
             } catch (PayPalConnectionException $e) {
-
                 throw new PaypalRequestError($e->getMessage());
             }
         } else {
@@ -142,7 +137,6 @@ class CheckoutController extends Controller
     public function execute(Request $request)
     {
         try {
-
             $apiContext = $this->paypal->getApiContext();
 
             $payment = Payment::get($request->input('paymentId'), $apiContext);
@@ -168,7 +162,6 @@ class CheckoutController extends Controller
             }
 
             return redirect()->route('checkout.success');
-
         } catch (PayPalConnectionException $e) {
             throw new PaypalRequestError($e->getData());
         } catch (Exception $e) {
@@ -210,7 +203,7 @@ class CheckoutController extends Controller
                 $product = $this->productRepo->find($item->id);
                 $orderDetailRepo = new OrderProductRepository(new OrderProduct);
                 $orderDetailRepo->createOrderDetail($order, $product, $item->qty);
-        });
+            });
 
         return $this->clearCart();
     }
@@ -232,7 +225,7 @@ class CheckoutController extends Controller
         $productRepo = $this->productRepo;
 
         return $this->cartRepo->getCartItems()
-                ->map(function ($item) use($productRepo) {
+                ->map(function ($item) use ($productRepo) {
                     $product = $productRepo->findProductById($item->id);
                     $item->product = $product;
                     $item->cover = $product->cover;

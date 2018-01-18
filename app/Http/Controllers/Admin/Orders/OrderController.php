@@ -36,8 +36,7 @@ class OrderController extends Controller
         CustomerRepositoryInterface $customerRepository,
         OrderStatusRepositoryInterface $orderStatusRepository,
         PaymentMethodRepositoryInterface $paymentMethodRepository
-    )
-    {
+    ) {
         $this->orderRepo = $orderRepository;
         $this->courierRepo = $courierRepository;
         $this->addressRepo = $addressRepository;

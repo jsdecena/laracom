@@ -10,7 +10,7 @@ use App\Shop\Cities\City;
 use App\Shop\Countries\Country;
 use Tests\TestCase;
 
-class AddressFeatureTest extends TestCase 
+class AddressFeatureTest extends TestCase
 {
     /** @test */
     public function it_errors_updating_the_address()

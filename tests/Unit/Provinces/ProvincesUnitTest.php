@@ -41,7 +41,6 @@ class ProvincesUnitTest extends TestCase
         $cities = $province->cities()->get();
 
         $this->assertCount(1, $cities);
-
     }
     
     /** @test */

@@ -115,7 +115,7 @@ class CustomerController extends Controller
         $update = new CustomerRepository($employee);
         $data = $request->except('_method', '_token', 'password');
 
-        if ($request->has('password')){
+        if ($request->has('password')) {
             $data['password'] = $request->input('password');
         }
 

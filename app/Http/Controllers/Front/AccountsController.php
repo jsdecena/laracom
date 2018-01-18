@@ -19,8 +19,7 @@ class AccountsController extends Controller
     public function __construct(
         CourierRepositoryInterface $courierRepository,
         CustomerRepositoryInterface $customerRepository
-    )
-    {
+    ) {
         $this->customerRepo = $customerRepository;
         $this->courierRepo = $courierRepository;
     }

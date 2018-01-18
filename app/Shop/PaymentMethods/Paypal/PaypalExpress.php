@@ -31,8 +31,7 @@ class PaypalExpress
         $clientSecret,
         $mode,
         $url
-    )
-    {
+    ) {
         $apiContext = new ApiContext(
             new OAuthTokenCredential(
                 $clientId,

@@ -6,5 +6,4 @@ use Doctrine\Instantiator\Exception\InvalidArgumentException;
 
 class ProductInvalidArgumentException extends InvalidArgumentException
 {
-
 }

@@ -32,8 +32,7 @@ class AddressController extends Controller
         CountryRepositoryInterface $countryRepository,
         ProvinceRepositoryInterface $provinceRepository,
         CityRepositoryInterface $cityRepository
-    )
-    {
+    ) {
         $this->addressRepo = $addressRepository;
         $this->customerRepo = $customerRepository;
         $this->countryRepo = $countryRepository;

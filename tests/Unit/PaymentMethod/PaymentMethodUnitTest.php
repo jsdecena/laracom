@@ -37,7 +37,6 @@ class PaymentMethodUnitTest extends TestCase
             $this->assertDatabaseHas('payment_methods', ['name' => $list->name]);
             $this->assertDatabaseHas('payment_methods', ['description' => $list->description]);
         }
-
     }
     
     /** @test */

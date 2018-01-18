@@ -37,7 +37,6 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
     public function createAddress(array $params) : Address
     {
         try {
-
             $address = new Address($params);
             if (isset($params['customer'])) {
                 $address->customer()->associate($params['customer']);
@@ -45,7 +44,6 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
             $address->save();
 
             return $address;
-
         } catch (QueryException $e) {
             throw new AddressInvalidArgumentException('Address creation error', 500, $e);
         }

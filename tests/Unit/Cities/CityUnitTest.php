@@ -7,7 +7,7 @@ use App\Shop\Cities\Repositories\CityRepository;
 use App\Shop\Cities\City;
 use Tests\TestCase;
 
-class CityUnitTest extends TestCase 
+class CityUnitTest extends TestCase
 {
     /** @test */
     public function it_can_list_all_the_cities()
@@ -28,7 +28,6 @@ class CityUnitTest extends TestCase
         $cityRepo->updateCity($update);
 
         $this->assertEquals($update['name'], $city->name);
-
     }
     
     /** @test */

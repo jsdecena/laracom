@@ -37,13 +37,11 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     public function createOrder(array $params) : Order
     {
         try {
-
             $order = $this->create($params);
 
             event(new OrderCreateEvent($order));
 
             return $order;
-
         } catch (QueryException $e) {
             throw new OrderInvalidArgumentException($e->getMessage(), 500, $e);
         }
@@ -153,7 +151,9 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
      */
     public function searchOrder(string $text) : Collection
     {
-        return $this->model->search($text, [
+        return $this->model->search(
+            $text,
+            [
             'products.name',
             'products.description',
             'customer.name',

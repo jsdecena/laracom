@@ -95,7 +95,6 @@ class CategoryUnitTest extends TestCase
         foreach ($products as $product) {
             $this->assertNotEquals($this->product->name, $product->name);
         }
-
     }
 
     /** @test */

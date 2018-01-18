@@ -30,8 +30,7 @@ class CartController extends Controller
     public function __construct(
         CartRepositoryInterface $cartRepository,
         ProductRepositoryInterface $productRepository
-    )
-    {
+    ) {
         $this->cartRepo = $cartRepository;
         $this->productRepo = $productRepository;
     }
@@ -51,7 +50,7 @@ class CartController extends Controller
                 $item->product = $product;
                 $item->cover = $product->cover;
                 return $item;
-        });
+            });
 
         return view('front.carts.cart', [
             'products' => $items,

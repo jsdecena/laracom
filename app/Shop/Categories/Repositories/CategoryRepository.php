@@ -50,7 +50,6 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     public function createCategory(array $params) : Category
     {
         try {
-
             $collection = collect($params);
             if (isset($params['name'])) {
                 $slug = str_slug($params['name']);
@@ -67,14 +66,13 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 
             $category = new Category($merge->all());
 
-            if (isset($params['parent'])){
+            if (isset($params['parent'])) {
                 $parent = $this->findCategoryById($params['parent']);
                 $category->parent()->associate($parent);
             }
 
             $category->save();
             return $category;
-
         } catch (QueryException $e) {
             throw new CategoryInvalidArgumentException($e->getMessage());
         }

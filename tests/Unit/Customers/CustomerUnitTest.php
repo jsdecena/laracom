@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
-class CustomerUnitTest extends TestCase 
+class CustomerUnitTest extends TestCase
 {
     use CustomerTransformable;
     
@@ -36,8 +36,6 @@ class CustomerUnitTest extends TestCase
             $this->assertEquals($order->id, $o->id);
             $this->assertEquals($customer->id, $o->customer_id);
         }
-
-
     }
 
     /** @test */
@@ -52,7 +50,6 @@ class CustomerUnitTest extends TestCase
 
         $this->assertInternalType('string', $customerFromDb->status);
         $this->assertInternalType('int', $cust->status);
-
     }
     
     /** @test */
@@ -160,7 +157,6 @@ class CustomerUnitTest extends TestCase
         $this->assertInstanceOf(Customer::class, $found);
         $this->assertEquals($data['name'], $found->name);
         $this->assertEquals($data['email'], $found->email);
-
     }
     
     /** @test */

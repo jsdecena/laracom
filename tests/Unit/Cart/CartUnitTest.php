@@ -67,7 +67,6 @@ class CartUnitTest extends TestCase
         }
 
         $this->assertEquals(3, $cartRepo->findItem($rowId[0])->qty);
-
     }
     
     /** @test */

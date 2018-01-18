@@ -41,5 +41,4 @@ class OrderStatusFeatureTest extends TestCase
             ->assertStatus(302)
             ->assertSessionHasErrors(['name' => 'The name field is required.']);
     }
-
 }

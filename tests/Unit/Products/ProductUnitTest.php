@@ -115,7 +115,6 @@ class ProductUnitTest extends TestCase
     /** @test */
     public function it_can_update_a_product()
     {
-
         $product = factory(Product::class)->create();
 
         $productName = 'apple';

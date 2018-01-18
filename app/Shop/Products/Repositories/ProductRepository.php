@@ -50,7 +50,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function createProduct(array $params) : Product
     {
         try {
-
             $collection = collect($params)->except('_token');
             $slug = str_slug($collection->get('name'));
 
@@ -64,7 +63,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             $product = new Product($merge->all());
             $product->save();
             return $product;
-
         } catch (QueryException $e) {
             throw new ProductInvalidArgumentException($e->getMessage());
         }
@@ -80,7 +78,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function updateProduct(array $params, int $id) : bool
     {
         try {
-
             $collection = collect($params)->except('_token');
             $slug = str_slug($collection->get('name'));
 
@@ -104,7 +101,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function findProductById(int $id) : Product
     {
         try {
-
             return $this->transformProduct($this->findOneOrFail($id));
         } catch (ModelNotFoundException $e) {
             throw new ProductNotFoundException($e->getMessage());

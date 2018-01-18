@@ -22,9 +22,9 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showLoginForm() {
-
-        if (auth()->guard('admin')->check()){
+    public function showLoginForm()
+    {
+        if (auth()->guard('admin')->check()) {
             return redirect()->route('admin.dashboard');
         }
 

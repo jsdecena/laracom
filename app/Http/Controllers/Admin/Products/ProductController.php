@@ -33,8 +33,7 @@ class ProductController extends Controller
     public function __construct(
         ProductRepositoryInterface $productRepository,
         CategoryRepositoryInterface $categoryRepository
-    )
-    {
+    ) {
         $this->productRepo = $productRepository;
         $this->categoryRepo = $categoryRepository;
     }

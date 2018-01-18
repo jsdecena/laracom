@@ -71,7 +71,6 @@ class CountryUnitTest extends TestCase
         foreach ($provinces as $province) {
             $this->assertEquals($prov->id, $province->id);
         }
-
     }
     
     /** @test */
