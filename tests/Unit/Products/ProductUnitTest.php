@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\Products;
 
-use App\Products\Exceptions\ProductInvalidArgumentException;
-use App\Products\Exceptions\ProductNotFoundException;
-use App\Products\Product;
-use App\Products\Repositories\ProductRepository;
+use App\Shop\Products\Exceptions\ProductInvalidArgumentException;
+use App\Shop\Products\Exceptions\ProductNotFoundException;
+use App\Shop\Products\Product;
+use App\Shop\Products\Repositories\ProductRepository;
 use Tests\TestCase;
 
 class ProductUnitTest extends TestCase
@@ -115,7 +115,6 @@ class ProductUnitTest extends TestCase
     /** @test */
     public function it_can_update_a_product()
     {
-
         $product = factory(Product::class)->create();
 
         $productName = 'apple';

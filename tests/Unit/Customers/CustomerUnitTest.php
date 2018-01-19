@@ -2,19 +2,19 @@
 
 namespace Tests\Unit\Customers;
 
-use App\Addresses\Address;
-use App\Customers\Customer;
-use App\Customers\Exceptions\CreateCustomerInvalidArgumentException;
-use App\Customers\Exceptions\CustomerNotFoundException;
-use App\Customers\Exceptions\UpdateCustomerInvalidArgumentException;
-use App\Customers\Repositories\CustomerRepository;
-use App\Customers\Transformations\CustomerTransformable;
-use App\Orders\Order;
+use App\Shop\Addresses\Address;
+use App\Shop\Customers\Customer;
+use App\Shop\Customers\Exceptions\CreateCustomerInvalidArgumentException;
+use App\Shop\Customers\Exceptions\CustomerNotFoundException;
+use App\Shop\Customers\Exceptions\UpdateCustomerInvalidArgumentException;
+use App\Shop\Customers\Repositories\CustomerRepository;
+use App\Shop\Customers\Transformations\CustomerTransformable;
+use App\Shop\Orders\Order;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
-class CustomerUnitTest extends TestCase 
+class CustomerUnitTest extends TestCase
 {
     use CustomerTransformable;
     
@@ -36,8 +36,6 @@ class CustomerUnitTest extends TestCase
             $this->assertEquals($order->id, $o->id);
             $this->assertEquals($customer->id, $o->customer_id);
         }
-
-
     }
 
     /** @test */
@@ -52,7 +50,6 @@ class CustomerUnitTest extends TestCase
 
         $this->assertInternalType('string', $customerFromDb->status);
         $this->assertInternalType('int', $cust->status);
-
     }
     
     /** @test */
@@ -160,7 +157,6 @@ class CustomerUnitTest extends TestCase
         $this->assertInstanceOf(Customer::class, $found);
         $this->assertEquals($data['name'], $found->name);
         $this->assertEquals($data['email'], $found->email);
-
     }
     
     /** @test */

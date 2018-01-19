@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
-use App\Addresses\Requests\CreateAddressRequest;
-use App\Cities\Repositories\Interfaces\CityRepositoryInterface;
-use App\Countries\Repositories\Interfaces\CountryRepositoryInterface;
-use App\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
+use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
+use App\Shop\Addresses\Requests\CreateAddressRequest;
+use App\Shop\Cities\Repositories\Interfaces\CityRepositoryInterface;
+use App\Shop\Countries\Repositories\Interfaces\CountryRepositoryInterface;
+use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Http\Controllers\Controller;
 
 class CustomerAddressController extends Controller
@@ -21,8 +21,7 @@ class CustomerAddressController extends Controller
         CustomerRepositoryInterface $customerRepository,
         CountryRepositoryInterface $countryRepository,
         CityRepositoryInterface $cityRepository
-    )
-    {
+    ) {
         $this->addressRepo = $addressRepository;
         $this->customerRepo = $customerRepository;
         $this->countryRepo = $countryRepository;

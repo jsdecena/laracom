@@ -32,7 +32,7 @@
                                     <td>
                                         <a href="{{ route('front.get.product', $product->product->slug) }}" class="hover-border">
                                             @if(isset($product->product->cover))
-                                                <img src="{{ asset("uploads/$product->cover") }}" alt="{{ $product->name }}" class="img-responsive img-thumbnail">
+                                                <img src="{{ asset("storage/$product->cover") }}" alt="{{ $product->name }}" class="img-responsive img-thumbnail">
                                             @else
                                                 <img src="https://placehold.it/120x120" alt="" class="img-responsive img-thumbnail">
                                             @endif

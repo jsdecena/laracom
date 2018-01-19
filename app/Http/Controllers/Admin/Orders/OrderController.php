@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Admin\Orders;
 
-use App\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
-use App\Addresses\Transformations\AddressTransformable;
-use App\Couriers\Courier;
-use App\Couriers\Repositories\CourierRepository;
-use App\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
-use App\Customers\Customer;
-use App\Customers\Repositories\CustomerRepository;
-use App\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
-use App\Orders\Order;
-use App\Orders\Repositories\Interfaces\OrderRepositoryInterface;
-use App\OrderStatuses\OrderStatus;
-use App\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
-use App\OrderStatuses\Repositories\OrderStatusRepository;
-use App\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
+use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
+use App\Shop\Addresses\Transformations\AddressTransformable;
+use App\Shop\Couriers\Courier;
+use App\Shop\Couriers\Repositories\CourierRepository;
+use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
+use App\Shop\Customers\Customer;
+use App\Shop\Customers\Repositories\CustomerRepository;
+use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
+use App\Shop\Orders\Order;
+use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
+use App\Shop\OrderStatuses\OrderStatus;
+use App\Shop\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
+use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
+use App\Shop\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
 use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
@@ -36,8 +36,7 @@ class OrderController extends Controller
         CustomerRepositoryInterface $customerRepository,
         OrderStatusRepositoryInterface $orderStatusRepository,
         PaymentMethodRepositoryInterface $paymentMethodRepository
-    )
-    {
+    ) {
         $this->orderRepo = $orderRepository;
         $this->courierRepo = $courierRepository;
         $this->addressRepo = $addressRepository;

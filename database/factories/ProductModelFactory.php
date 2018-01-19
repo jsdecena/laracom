@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Products\Product;
+use App\Shop\Products\Product;
 
 $factory->define(Product::class, function (Faker\Generator $faker) {
     $product = $faker->unique()->sentence;

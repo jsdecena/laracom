@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Categories;
 
-use App\Categories\Repositories\CategoryRepository;
-use App\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
-use App\Categories\Requests\CreateCategoryRequest;
-use App\Categories\Requests\UpdateCategoryRequest;
+use App\Shop\Categories\Repositories\CategoryRepository;
+use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
+use App\Shop\Categories\Requests\CreateCategoryRequest;
+use App\Shop\Categories\Requests\UpdateCategoryRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -39,7 +39,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create',[
+        return view('admin.categories.create', [
             'categories' => $this->categoryRepo->listCategories('name', 'asc')
         ]);
     }

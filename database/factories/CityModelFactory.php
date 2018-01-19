@@ -12,8 +12,8 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Provinces\Province;
-use App\Cities\City;
+use App\Shop\Provinces\Province;
+use App\Shop\Cities\City;
 
 $factory->define(City::class, function (Faker\Generator $faker) {
 

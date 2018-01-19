@@ -1,6 +1,6 @@
 <?php
 
-use App\Products\Product;
+use App\Shop\Products\Product;
 use Illuminate\Database\Seeder;
 
 class ProductsTableSeeder extends Seeder

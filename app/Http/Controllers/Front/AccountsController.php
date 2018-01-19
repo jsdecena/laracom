@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
-use App\Customers\Repositories\CustomerRepository;
-use App\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
+use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
+use App\Shop\Customers\Repositories\CustomerRepository;
+use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Orders\Order;
-use App\Orders\Transformers\OrderTransformable;
+use App\Shop\Orders\Order;
+use App\Shop\Orders\Transformers\OrderTransformable;
 
 class AccountsController extends Controller
 {
@@ -19,8 +19,7 @@ class AccountsController extends Controller
     public function __construct(
         CourierRepositoryInterface $courierRepository,
         CustomerRepositoryInterface $customerRepository
-    )
-    {
+    ) {
         $this->customerRepo = $customerRepository;
         $this->courierRepo = $courierRepository;
     }

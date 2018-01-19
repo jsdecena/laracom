@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers\Admin\Customers;
 
-use App\Customers\Customer;
-use App\Customers\Repositories\CustomerRepository;
-use App\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
-use App\Customers\Requests\CreateCustomerRequest;
-use App\Customers\Requests\UpdateCustomerRequest;
-use App\Customers\Transformations\CustomerTransformable;
+use App\Shop\Customers\Customer;
+use App\Shop\Customers\Repositories\CustomerRepository;
+use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
+use App\Shop\Customers\Requests\CreateCustomerRequest;
+use App\Shop\Customers\Requests\UpdateCustomerRequest;
+use App\Shop\Customers\Transformations\CustomerTransformable;
 use App\Http\Controllers\Controller;
 
 class CustomerController extends Controller
 {
     use CustomerTransformable;
 
+    /**
+     * @var CustomerRepositoryInterface
+     */
     private $customerRepo;
 
+    /**
+     * CustomerController constructor.
+     * @param CustomerRepositoryInterface $customerRepository
+     */
     public function __construct(CustomerRepositoryInterface $customerRepository)
     {
         $this->customerRepo = $customerRepository;
@@ -108,7 +115,7 @@ class CustomerController extends Controller
         $update = new CustomerRepository($employee);
         $data = $request->except('_method', '_token', 'password');
 
-        if ($request->has('password')){
+        if ($request->has('password')) {
             $data['password'] = $request->input('password');
         }
 

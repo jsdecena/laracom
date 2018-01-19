@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
-use App\Cart\Requests\CartCheckoutRequest;
-use App\Carts\Repositories\Interfaces\CartRepositoryInterface;
-use App\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
-use App\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
-use App\OrderDetails\OrderProduct;
-use App\OrderDetails\Repositories\OrderProductRepository;
-use App\Orders\Order;
-use App\Orders\Repositories\Interfaces\OrderRepositoryInterface;
-use App\PaymentMethods\Exceptions\PaymentMethodNotFoundException;
-use App\PaymentMethods\PaymentMethod;
-use App\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
-use App\PaymentMethods\Paypal\PaypalExpress;
-use App\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
-use App\Products\Repositories\Interfaces\ProductRepositoryInterface;
+use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
+use App\Shop\Cart\Requests\CartCheckoutRequest;
+use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
+use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
+use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
+use App\Shop\OrderDetails\OrderProduct;
+use App\Shop\OrderDetails\Repositories\OrderProductRepository;
+use App\Shop\Orders\Order;
+use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
+use App\Shop\PaymentMethods\Exceptions\PaymentMethodNotFoundException;
+use App\Shop\PaymentMethods\PaymentMethod;
+use App\Shop\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
+use App\Shop\PaymentMethods\Paypal\PaypalExpress;
+use App\Shop\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
+use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use Exception;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -44,8 +44,7 @@ class CheckoutController extends Controller
         CustomerRepositoryInterface $customerRepository,
         ProductRepositoryInterface $productRepository,
         OrderRepositoryInterface $orderRepository
-    )
-    {
+    ) {
         $this->middleware('checkout');
 
         $this->cartRepo = $cartRepository;
@@ -74,9 +73,9 @@ class CheckoutController extends Controller
         $customer = $this->customerRepo->findCustomerById($this->loggedUser()->id);
 
         $payments = $this->paymentRepo->listPaymentMethods()
-                        ->filter(function (PaymentMethod $method){
+                        ->filter(function (PaymentMethod $method) {
                             return $method->status == 1;
-                    });
+                        });
 
         return view('front.checkout', [
             'customer' => $customer,
@@ -102,7 +101,6 @@ class CheckoutController extends Controller
         $method = $this->paymentRepo->findPaymentMethodById($request->input('payment'));
 
         if ($method->slug == 'paypal') {
-
             $this->paypal->setPayer();
             $this->paypal->setItems($this->getCartItems());
             $this->paypal->setOtherFees(
@@ -113,7 +111,6 @@ class CheckoutController extends Controller
             $this->paypal->setTransactions();
 
             try {
-
                 $response = $this->paypal->createPayment(
                     route('checkout.execute', $request->except('_token')),
                     route('checkout.cancel')
@@ -123,9 +120,7 @@ class CheckoutController extends Controller
                     $redirectUrl = $response->links[1]->href;
                     return redirect()->to($redirectUrl);
                 }
-
             } catch (PayPalConnectionException $e) {
-
                 throw new PaypalRequestError($e->getMessage());
             }
         } else {
@@ -142,7 +137,6 @@ class CheckoutController extends Controller
     public function execute(Request $request)
     {
         try {
-
             $apiContext = $this->paypal->getApiContext();
 
             $payment = Payment::get($request->input('paymentId'), $apiContext);
@@ -168,7 +162,6 @@ class CheckoutController extends Controller
             }
 
             return redirect()->route('checkout.success');
-
         } catch (PayPalConnectionException $e) {
             throw new PaypalRequestError($e->getData());
         } catch (Exception $e) {
@@ -210,7 +203,7 @@ class CheckoutController extends Controller
                 $product = $this->productRepo->find($item->id);
                 $orderDetailRepo = new OrderProductRepository(new OrderProduct);
                 $orderDetailRepo->createOrderDetail($order, $product, $item->qty);
-        });
+            });
 
         return $this->clearCart();
     }
@@ -232,7 +225,7 @@ class CheckoutController extends Controller
         $productRepo = $this->productRepo;
 
         return $this->cartRepo->getCartItems()
-                ->map(function ($item) use($productRepo) {
+                ->map(function ($item) use ($productRepo) {
                     $product = $productRepo->findProductById($item->id);
                     $item->product = $product;
                     $item->cover = $product->cover;

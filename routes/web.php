@@ -33,6 +33,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.' ], 
         Route::namespace('Products')->group(function () {
             Route::resource('products', 'ProductController');
             Route::get('remove-image-product', 'ProductController@removeImage')->name('product.remove.image');
+            Route::get('remove-image-thumb', 'ProductController@removeThumbnail')->name('product.remove.thumb');
         });
         Route::namespace('Categories')->group(function () {
             Route::resource('categories', 'CategoryController');

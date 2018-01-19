@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Orders\Order;
+use App\Shop\Orders\Order;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;

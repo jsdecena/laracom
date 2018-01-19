@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="category-image">
                     @if(isset($category->cover))
-                        <img src="{{ asset("uploads/$category->cover") }}" alt="{{ $category->name }}" class="img-responsive" />
+                        <img src="{{ asset("storage/$category->cover") }}" alt="{{ $category->name }}" class="img-responsive" />
                     @else
                         <img src="https://placehold.it/1200x200" alt="{{ $category->cover }}" class="img-responsive" />
                     @endif

@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Products\Product;
+use App\Shop\Products\Product;
 use Tests\TestCase;
 
-class CartFeatureTest extends TestCase 
+class CartFeatureTest extends TestCase
 {
     /** @test */
     public function it_errors_when_adding_a_product_to_cart_without_the_product()

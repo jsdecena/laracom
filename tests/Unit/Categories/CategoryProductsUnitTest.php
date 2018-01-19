@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Categories;
 
-use App\Categories\Category;
-use App\Categories\Repositories\CategoryRepository;
+use App\Shop\Categories\Category;
+use App\Shop\Categories\Repositories\CategoryRepository;
 use Tests\TestCase;
 
 class CategoryProductsUnitTest extends TestCase

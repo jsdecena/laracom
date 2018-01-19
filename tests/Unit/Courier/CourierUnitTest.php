@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\Courier;
 
-use App\Couriers\Courier;
-use App\Couriers\Exceptions\CourierInvalidArgumentException;
-use App\Couriers\Exceptions\CourierNotFoundException;
-use App\Couriers\Repositories\CourierRepository;
+use App\Shop\Couriers\Courier;
+use App\Shop\Couriers\Exceptions\CourierInvalidArgumentException;
+use App\Shop\Couriers\Exceptions\CourierNotFoundException;
+use App\Shop\Couriers\Repositories\CourierRepository;
 use Tests\TestCase;
 
 class CourierUnitTest extends TestCase

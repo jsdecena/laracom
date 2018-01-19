@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\OrderStatus;
 
-use App\OrderStatuses\OrderStatus;
+use App\Shop\OrderStatuses\OrderStatus;
 use Tests\TestCase;
 
 class OrderStatusFeatureTest extends TestCase
@@ -41,5 +41,4 @@ class OrderStatusFeatureTest extends TestCase
             ->assertStatus(302)
             ->assertSessionHasErrors(['name' => 'The name field is required.']);
     }
-
 }

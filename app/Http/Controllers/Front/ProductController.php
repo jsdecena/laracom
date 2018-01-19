@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Products\Product;
-use App\Products\Repositories\Interfaces\ProductRepositoryInterface;
+use App\Shop\Products\Product;
+use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Products\Transformations\ProductTransformable;
+use App\Shop\Products\Transformations\ProductTransformable;
 
 class ProductController extends Controller
 {
     use ProductTransformable;
 
+    /**
+     * @var ProductRepositoryInterface
+     */
     private $productRepo;
 
+    /**
+     * ProductController constructor.
+     * @param ProductRepositoryInterface $productRepository
+     */
     public function __construct(ProductRepositoryInterface $productRepository)
     {
         $this->productRepo = $productRepository;
@@ -42,8 +49,11 @@ class ProductController extends Controller
      */
     public function getProduct(string $slug)
     {
+        $product = $this->productRepo->findProductBySlug(['slug' => $slug]);
+
         return view('front.products.product', [
-            'product' =>  $this->productRepo->findProductBySlug(['slug' => $slug])
+            'product' => $product,
+            'images' => $product->images()->get()
         ]);
     }
 }

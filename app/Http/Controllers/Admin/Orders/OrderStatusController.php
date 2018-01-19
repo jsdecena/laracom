@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Orders;
 
-use App\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
-use App\OrderStatuses\Repositories\OrderStatusRepository;
-use App\OrderStatuses\Requests\CreateOrderStatusRequest;
-use App\OrderStatuses\Requests\UpdateOrderStatusRequest;
+use App\Shop\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
+use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
+use App\Shop\OrderStatuses\Requests\CreateOrderStatusRequest;
+use App\Shop\OrderStatuses\Requests\UpdateOrderStatusRequest;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

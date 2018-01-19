@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\PaymentMethods;
 
-use App\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
-use App\PaymentMethods\Repositories\PaymentMethodRepository;
-use App\PaymentMethods\Requests\CreatePaymentMethodRequest;
-use App\PaymentMethods\Requests\UpdatePaymentMethodRequest;
+use App\Shop\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
+use App\Shop\PaymentMethods\Repositories\PaymentMethodRepository;
+use App\Shop\PaymentMethods\Requests\CreatePaymentMethodRequest;
+use App\Shop\PaymentMethods\Requests\UpdatePaymentMethodRequest;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

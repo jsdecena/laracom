@@ -28,7 +28,7 @@
                                 <td>{{ str_limit($category->description, 100, ' ...') }}</td>
                                 <td>
                                     @if(isset($category->cover))
-                                        <img src="{{ asset("uploads/$category->cover") }}" alt="" class="img-responsive">
+                                        <img src="{{ asset("storage/$category->cover") }}" alt="" class="img-responsive">
                                     @endif
                                 </td>
                                 <td>@include('layouts.status', ['status' => $category->status])</td>

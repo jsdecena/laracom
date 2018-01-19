@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Provinces;
 
-use App\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
+use App\Shop\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Provinces\Repositories\ProvinceRepository;
+use App\Shop\Provinces\Repositories\ProvinceRepository;
 use Illuminate\Http\Request;
 
 class ProvinceController extends Controller

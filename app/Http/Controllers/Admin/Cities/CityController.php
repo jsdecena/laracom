@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Cities;
 
-use App\Cities\Repositories\CityRepository;
-use App\Cities\Repositories\Interfaces\CityRepositoryInterface;
-use App\Cities\Requests\UpdateCityRequest;
+use App\Shop\Cities\Repositories\CityRepository;
+use App\Shop\Cities\Repositories\Interfaces\CityRepositoryInterface;
+use App\Shop\Cities\Requests\UpdateCityRequest;
 use App\Http\Controllers\Controller;
-use App\Cities\City;
 
 class CityController extends Controller
 {

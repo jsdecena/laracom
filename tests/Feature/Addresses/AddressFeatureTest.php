@@ -2,15 +2,15 @@
 
 namespace Tests\Feature\Addresses;
 
-use App\Addresses\Address;
-use App\Addresses\Repositories\AddressRepository;
-use App\Customers\Customer;
-use App\Provinces\Province;
-use App\Cities\City;
-use App\Countries\Country;
+use App\Shop\Addresses\Address;
+use App\Shop\Addresses\Repositories\AddressRepository;
+use App\Shop\Customers\Customer;
+use App\Shop\Provinces\Province;
+use App\Shop\Cities\City;
+use App\Shop\Countries\Country;
 use Tests\TestCase;
 
-class AddressFeatureTest extends TestCase 
+class AddressFeatureTest extends TestCase
 {
     /** @test */
     public function it_errors_updating_the_address()

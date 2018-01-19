@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Categories\Repositories\CategoryRepository;
-use App\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
+use App\Shop\Categories\Repositories\CategoryRepository;
+use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
@@ -19,7 +19,7 @@ class CategoryController extends Controller
      * Find the category via the slug
      *
      * @param string $slug
-     * @return \App\Categories\Category
+     * @return \App\Shop\Categories\Category
      */
     public function getCategory(string $slug)
     {

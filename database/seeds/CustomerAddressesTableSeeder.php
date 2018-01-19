@@ -1,7 +1,7 @@
 <?php
 
-use App\Addresses\Address;
-use App\Customers\Customer;
+use App\Shop\Addresses\Address;
+use App\Shop\Customers\Customer;
 use Illuminate\Database\Seeder;
 
 class CustomerAddressesTableSeeder extends Seeder

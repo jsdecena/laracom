@@ -18,7 +18,7 @@
                 <td>{{ $product->description }}</td>
                 <td class="text-center">
                     @if(isset($product->cover))
-                        <img src="{{ asset("uploads/$product->cover") }}" alt="" class="img-responsive">
+                        <img src="{{ asset("storage/$product->cover") }}" alt="" class="img-responsive">
                     @else
                         -
                     @endif

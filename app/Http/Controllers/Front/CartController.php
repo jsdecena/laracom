@@ -2,25 +2,35 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Cart\Requests\AddToCartRequest;
-use App\Carts\Repositories\Interfaces\CartRepositoryInterface;
-use App\Products\Product;
-use App\Products\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Products\Repositories\ProductRepository;
+use App\Shop\Carts\Requests\AddToCartRequest;
+use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
+use App\Shop\Products\Product;
+use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
+use App\Shop\Products\Repositories\ProductRepository;
 use Gloudemans\Shoppingcart\CartItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CartController extends Controller
 {
+    /**
+     * @var CartRepositoryInterface
+     */
     private $cartRepo;
+    /**
+     * @var ProductRepositoryInterface
+     */
     private $productRepo;
 
+    /**
+     * CartController constructor.
+     * @param CartRepositoryInterface $cartRepository
+     * @param ProductRepositoryInterface $productRepository
+     */
     public function __construct(
         CartRepositoryInterface $cartRepository,
         ProductRepositoryInterface $productRepository
-    )
-    {
+    ) {
         $this->cartRepo = $cartRepository;
         $this->productRepo = $productRepository;
     }
@@ -40,7 +50,7 @@ class CartController extends Controller
                 $item->product = $product;
                 $item->cover = $product->cover;
                 return $item;
-        });
+            });
 
         return view('front.carts.cart', [
             'products' => $items,
