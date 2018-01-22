@@ -6,7 +6,7 @@
 [![PHPPackages Rank](http://phppackages.org/p/jsdecena/laracom/badge/rank.svg)](http://phppackages.org/p/jsdecena/laracom)
 
 # Laravel FREE E-Commerce Software
-testt
+testttt
 #### Framework Used : Laravel 5.4
 
 [Installation](https://github.com/jsdecena/laracom/wiki)
