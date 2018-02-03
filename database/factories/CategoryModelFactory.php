@@ -13,6 +13,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\Shop\Categories\Category;
+use Illuminate\Http\UploadedFile;
 
 $factory->define(Category::class, function (Faker\Generator $faker) {
     $name = $faker->unique()->randomElement([
@@ -34,7 +35,7 @@ $factory->define(Category::class, function (Faker\Generator $faker) {
         'name' => $name,
         'slug' => str_slug($name),
         'description' => $faker->paragraph,
-        'cover' => null,
+        'cover' => UploadedFile::fake()->image('file.png', 600, 600),
         'status' => 1
     ];
 });

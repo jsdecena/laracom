@@ -2,8 +2,10 @@
 
 namespace Tests\Unit\PaymentMethod;
 
-use App\Shop\PaymentMethods\Exceptions\PaymentMethodInvalidArgumentException;
+use App\Shop\Orders\Order;
+use App\Shop\PaymentMethods\Exceptions\CreatePaymentMethodException;
 use App\Shop\PaymentMethods\Exceptions\PaymentMethodNotFoundException;
+use App\Shop\PaymentMethods\Exceptions\UpdatePaymentErrorException;
 use App\Shop\PaymentMethods\PaymentMethod;
 use App\Shop\PaymentMethods\Repositories\PaymentMethodRepository;
 use ErrorException;
@@ -12,9 +14,35 @@ use Tests\TestCase;
 class PaymentMethodUnitTest extends TestCase
 {
     /** @test */
+    public function it_can_retrieve_the_orders_for_the_specific_payment_method()
+    {
+        $paymentMethod = factory(PaymentMethod::class)->create();
+        $order = factory(Order::class)->create([
+            'payment_method_id' => $paymentMethod->id
+        ]);
+
+        $paymentMethodRepo = new PaymentMethodRepository($paymentMethod);
+        $orders = $paymentMethodRepo->findOrders();
+
+        $orders->each(function (Order $item) use ($order) {
+            $this->assertInstanceOf(Order::class, $item);
+            $this->assertEquals($item->reference, $order->reference);
+        });
+    }
+
+    /** @test */
+    public function it_error_creating_the_payment_method()
+    {
+        $this->expectException(CreatePaymentMethodException::class);
+
+        $paymentMethod = new PaymentMethodRepository(new PaymentMethod());
+        $paymentMethod->createPaymentMethod(['name' => null]);
+    }
+
+    /** @test */
     public function it_errors_when_updating_a_payment_method()
     {
-        $this->expectException(PaymentMethodInvalidArgumentException::class);
+        $this->expectException(UpdatePaymentErrorException::class);
 
         $payment = new PaymentMethodRepository($this->paymentMethod);
         $payment->updatePaymentMethod(['name' => null]);
@@ -24,7 +52,7 @@ class PaymentMethodUnitTest extends TestCase
     public function it_can_list_all_the_payment_methods()
     {
         $data = [
-            'name' => $this->faker->word,
+            'name' => $this->faker->unique()->uuid,
             'slug' => str_slug($this->faker->word),
             'description' => $this->faker->paragraph
         ];

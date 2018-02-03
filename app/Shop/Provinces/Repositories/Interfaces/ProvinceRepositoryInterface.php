@@ -3,8 +3,9 @@
 namespace App\Shop\Provinces\Repositories\Interfaces;
 
 use App\Shop\Base\Interfaces\BaseRepositoryInterface;
+use App\Shop\Countries\Country;
 use App\Shop\Provinces\Province;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 interface ProvinceRepositoryInterface extends BaseRepositoryInterface
 {
@@ -15,4 +16,6 @@ interface ProvinceRepositoryInterface extends BaseRepositoryInterface
     public function updateProvince(array $params) : bool;
 
     public function listCities(int $provinceId);
+
+    public function findCountry() : Country;
 }

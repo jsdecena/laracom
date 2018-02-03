@@ -9,6 +9,8 @@ use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Transformations\ProductTransformable;
 use App\Shop\Tools\UploadableTrait;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\UploadedFile;
@@ -54,8 +56,8 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             $product = new Product($params);
             $product->save();
 
-            if (isset($params['thumbnails'])) {
-                $this->saveThumbnails($params['thumbnails'], $product);
+            if (isset($params['image']) && is_array($params['image'])) {
+                $this->saveImages($params, $product);
             }
 
             return $product;
@@ -76,8 +78,8 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         $product = $this->find($id);
 
         try {
-            if (isset($params['thumbnails'])) {
-                $this->saveThumbnails($params['thumbnails'], $product);
+            if (isset($params['image']) && is_array($params['image'])) {
+                $this->saveImages($params, $product);
             }
             return $this->update($params, $id);
         } catch (QueryException $e) {
@@ -176,18 +178,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     }
 
     /**
-     * Upload the image
-     *
-     * @param $image
-     * @param string $folder
-     * @return false|string
-     */
-    public function uploadOneImage(UploadedFile $image, $folder = 'products')
-    {
-        return $this->uploadOne($image, $folder);
-    }
-
-    /**
      * @param string $text
      * @return mixed
      */
@@ -205,12 +195,16 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     }
 
     /**
-     * @param array $thumbnails
-     * @param Product $product
+     * @param array $params
+     * @param $product
      */
-    private function saveThumbnails(array $thumbnails, Product $product)
+    private function saveImages(array $params, $product): void
     {
-        collect($thumbnails)->each(function ($filename) use ($product) {
+        $date = new DateTime('now', new DateTimeZone(config('app.timezone')));
+        $folder = $date->format('U');
+
+        collect($params['image'])->each(function (UploadedFile $file) use ($folder, $product) {
+            $filename = $this->uploadOne($file, "products/$folder");
             DB::table('product_images')->insert([
                 'product_id' => $product->id,
                 'src' => $filename

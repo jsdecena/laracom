@@ -6,6 +6,7 @@ use App\Shop\Categories\Category;
 use App\Shop\Categories\Exceptions\CategoryInvalidArgumentException;
 use App\Shop\Categories\Exceptions\CategoryNotFoundException;
 use App\Shop\Categories\Repositories\CategoryRepository;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 class CategoryUnitTest extends TestCase
@@ -164,11 +165,16 @@ class CategoryUnitTest extends TestCase
     /** @test */
     public function it_can_update_the_category()
     {
+        $cover = UploadedFile::fake()->image('file.png', 600, 600);
+        $parent = factory(Category::class)->create();
+
         $params = [
             'name' => 'Boys',
             'slug' => 'boys',
             'description' => $this->faker->paragraph,
-            'status' => 1
+            'status' => 1,
+            'parent' => $parent->id,
+            'cover' => $cover
         ];
 
         $category = new CategoryRepository($this->category);
@@ -179,18 +185,23 @@ class CategoryUnitTest extends TestCase
         $this->assertEquals($params['slug'], $updated->slug);
         $this->assertEquals($params['description'], $updated->description);
         $this->assertEquals($params['status'], $updated->status);
-
-        $this->assertDatabaseHas('categories', $params);
+        $this->assertEquals($params['parent'], $updated->parent_id);
+        $this->assertEquals($params['cover'], $cover);
     }
 
     /** @test */
     public function it_can_create_a_category()
     {
+        $cover = UploadedFile::fake()->image('file.png', 600, 600);
+        $parent = factory(Category::class)->create();
+
         $params = [
             'name' => 'Boys',
             'slug' => 'boys',
+            'cover' => $cover,
             'description' => $this->faker->paragraph,
-            'status' => 1
+            'status' => 1,
+            'parent' => $parent->id
         ];
 
         $category = new CategoryRepository(new Category);
@@ -201,7 +212,7 @@ class CategoryUnitTest extends TestCase
         $this->assertEquals($params['slug'], $created->slug);
         $this->assertEquals($params['description'], $created->description);
         $this->assertEquals($params['status'], $created->status);
-
-        $this->assertDatabaseHas('categories', $params);
+        $this->assertEquals($params['parent'], $created->parent_id);
+        $this->assertEquals($params['cover'], $cover);
     }
 }

@@ -12,6 +12,7 @@ use App\Shop\Products\Transformations\ProductTransformable;
 use App\Shop\Tools\UploadableTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\UploadedFile;
 
 class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
 {
@@ -55,11 +56,8 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
                 $slug = str_slug($params['name']);
             }
 
-            if (request()->hasFile('cover')) {
-                $cover = $this->uploadOne(
-                    request()->file('cover', 'products'),
-                    'categories'
-                );
+            if (isset($params['cover']) && anInstanceOf(UploadedFile::class)) {
+                $cover = $this->uploadOne($params['cover'], 'categories');
             }
 
             $merge = $collection->merge(compact('slug', 'cover'));
@@ -90,11 +88,8 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         $collection = collect($params)->except('_token');
         $slug = str_slug($collection->get('name'));
 
-        if (request()->hasFile('cover')) {
-            $cover = $this->uploadOne(
-                request()->file('cover', 'products'),
-                'categories'
-            );
+        if (isset($params['cover']) && anInstanceOf(UploadedFile::class)) {
+            $cover = $this->uploadOne($params['cover'], 'categories');
         }
 
         $merge = $collection->merge(compact('slug', 'cover'));

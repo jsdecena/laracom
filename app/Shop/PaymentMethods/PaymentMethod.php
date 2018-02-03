@@ -5,6 +5,10 @@ namespace App\Shop\PaymentMethods;
 use App\Shop\Orders\Order;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class PaymentMethod
+ * @package App\Shop\PaymentMethods
+ */
 class PaymentMethod extends Model
 {
     /**

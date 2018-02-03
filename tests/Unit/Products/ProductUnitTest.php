@@ -2,14 +2,120 @@
 
 namespace Tests\Unit\Products;
 
+use App\Shop\ProductImages\ProductImage;
+use App\Shop\ProductImages\ProductImageRepository;
 use App\Shop\Products\Exceptions\ProductInvalidArgumentException;
 use App\Shop\Products\Exceptions\ProductNotFoundException;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\ProductRepository;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 class ProductUnitTest extends TestCase
 {
+    /** @test */
+    public function it_can_show_the_product_where_the_image_belongs_to()
+    {
+        $product = 'apple';
+        $cover = UploadedFile::fake()->image('file.png', 600, 600);
+
+        $params = [
+            'sku' => $this->faker->numberBetween(1111111, 999999),
+            'name' => $product,
+            'slug' => str_slug($product),
+            'description' => $this->faker->paragraph,
+            'cover' => $cover,
+            'quantity' => 10,
+            'price' => 9.95,
+            'status' => 1,
+            'image' => [
+                UploadedFile::fake()->image('file.png', 200, 200),
+                UploadedFile::fake()->image('file1.png', 200, 200),
+                UploadedFile::fake()->image('file2.png', 200, 200)
+            ]
+        ];
+
+        $productRepo = new ProductRepository(new Product);
+        $created = $productRepo->createProduct($params);
+        $repo = new ProductRepository($created);
+        $thumbnails = $repo->findProductImages();
+
+        $thumbnails->each(function (ProductImage $item) use ($created) {
+            $this->assertInstanceOf(ProductImage::class, $item);
+
+            $productImageRepo = new ProductImageRepository($item);
+            $product = $productImageRepo->findProduct();
+
+            $this->assertEquals($created->name, $product->name);
+            $this->assertEquals($created->description, $product->description);
+        });
+    }
+
+    /** @test */
+    public function it_can_delete_a_thumbnail_image()
+    {
+        $product = 'apple';
+        $cover = UploadedFile::fake()->image('file.png', 600, 600);
+
+        $params = [
+            'sku' => $this->faker->numberBetween(1111111, 999999),
+            'name' => $product,
+            'slug' => str_slug($product),
+            'description' => $this->faker->paragraph,
+            'cover' => $cover,
+            'quantity' => 10,
+            'price' => 9.95,
+            'status' => 1,
+            'image' => [
+                UploadedFile::fake()->image('file.png', 200, 200),
+                UploadedFile::fake()->image('file1.png', 200, 200),
+                UploadedFile::fake()->image('file2.png', 200, 200)
+            ]
+        ];
+
+        $productRepo = new ProductRepository(new Product);
+        $created = $productRepo->createProduct($params);
+        $repo = new ProductRepository($created);
+        $thumbnails = $repo->findProductImages();
+
+        $this->assertCount(3, $repo->findProductImages());
+        $thumbnails->each(function ($thumbnail) {
+            $repo = new ProductRepository(new Product());
+            $repo->deleteThumb($thumbnail->src);
+        });
+
+        $this->assertCount(0, $repo->findProductImages());
+    }
+    
+    /** @test */
+    public function it_can_show_all_the_product_images()
+    {
+        $product = 'apple';
+        $cover = UploadedFile::fake()->image('file.png', 600, 600);
+
+        $params = [
+            'sku' => $this->faker->numberBetween(1111111, 999999),
+            'name' => $product,
+            'slug' => str_slug($product),
+            'description' => $this->faker->paragraph,
+            'cover' => $cover,
+            'quantity' => 10,
+            'price' => 9.95,
+            'status' => 1,
+            'image' => [
+                UploadedFile::fake()->image('file.png', 200, 200),
+                UploadedFile::fake()->image('file1.png', 200, 200),
+                UploadedFile::fake()->image('file2.png', 200, 200)
+            ]
+        ];
+
+        $productRepo = new ProductRepository(new Product);
+        $created = $productRepo->createProduct($params);
+
+        $repo = new ProductRepository($created);
+        $this->assertCount(3, $repo->findProductImages());
+    }
+
     /** @test */
     public function it_can_search_the_product()
     {
@@ -116,41 +222,46 @@ class ProductUnitTest extends TestCase
     public function it_can_update_a_product()
     {
         $product = factory(Product::class)->create();
-
         $productName = 'apple';
+        $cover = UploadedFile::fake()->image('file.png', 600, 600);
 
         $params = [
             'sku' => '11111',
             'name' => $productName,
             'slug' => str_slug($productName),
             'description' => $this->faker->paragraph,
-            'cover' => null,
+            'cover' => $cover,
             'quantity' => 11,
             'price' => 9.95,
-            'status' => 1
+            'status' => 1,
+            'image' => [
+                UploadedFile::fake()->image('file.png', 200, 200),
+                UploadedFile::fake()->image('file1.png', 200, 200),
+                UploadedFile::fake()->image('file2.png', 200, 200)
+            ]
         ];
 
         $productRepo = new ProductRepository($product);
         $updated = $productRepo->updateProduct($params, $product->id);
 
         $this->assertTrue($updated);
-        $this->assertDatabaseHas('products', $params);
     }
 
     /** @test */
     public function it_can_create_a_product()
     {
         $product = 'apple';
+        $cover = UploadedFile::fake()->image('file.png', 600, 600);
 
         $params = [
             'sku' => $this->faker->numberBetween(1111111, 999999),
             'name' => $product,
             'slug' => str_slug($product),
             'description' => $this->faker->paragraph,
-            'cover' => null,
+            'cover' => $cover,
             'quantity' => 10,
             'price' => 9.95,
-            'status' => 1
+            'status' => 1,
         ];
 
         $product = new ProductRepository(new Product);
@@ -165,7 +276,5 @@ class ProductUnitTest extends TestCase
         $this->assertEquals($params['quantity'], $created->quantity);
         $this->assertEquals($params['price'], $created->price);
         $this->assertEquals($params['status'], $created->status);
-
-        $this->assertDatabaseHas('products', $params);
     }
 }

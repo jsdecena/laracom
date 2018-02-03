@@ -21,6 +21,69 @@ use Tests\TestCase;
 class OrderUnitTest extends TestCase
 {
     /** @test */
+    public function it_can_get_the_payment_method_of_the_order()
+    {
+        $payment = factory(PaymentMethod::class)->create();
+        $order = factory(Order::class)->create([
+            'payment_method_id' => $payment->id
+        ]);
+
+        $repo = new OrderRepository($order);
+        $method = $repo->findPaymentMethod();
+
+        $this->assertInstanceOf(PaymentMethod::class, $method);
+        $this->assertEquals($payment->name, $method->name);
+        $this->assertEquals($payment->description, $method->description);
+    }
+
+    /** @test */
+    public function it_can_transform_the_order()
+    {
+        $customer = factory(Customer::class)->create();
+        $courier = factory(Courier::class)->create();
+        $address = factory(Address::class)->create();
+        $orderStatus = factory(OrderStatus::class)->create();
+        $paymentMethod = factory(PaymentMethod::class)->create();
+
+        $data = [
+            'reference' => $this->faker->uuid,
+            'courier_id' => $courier->id,
+            'customer_id' => $customer->id,
+            'address_id' => $address->id,
+            'order_status_id' => $orderStatus->id,
+            'payment_method_id' => $paymentMethod->id,
+        ];
+
+        $order = factory(Order::class)->create($data);
+        $repo = new OrderRepository($order);
+        $transformed = $repo->transform();
+
+        $this->assertEquals($customer->name, $transformed->customer->name);
+        $this->assertEquals($courier->name, $transformed->courier->name);
+        $this->assertEquals($address->alias, $transformed->address->alias);
+        $this->assertEquals($orderStatus->name, $transformed->status->name);
+        $this->assertEquals($paymentMethod->name, $transformed->payment->name);
+    }
+    
+    /** @test */
+    public function it_can_search_for_order()
+    {
+        $order = factory(Order::class)->create();
+
+        $repo = new OrderRepository($order);
+        $result = $repo->searchOrder(str_limit($order, 5));
+
+        $this->assertCount(1, $result);
+
+        $result->each(function ($item) use ($order) {
+            $this->assertEquals($item->reference, $order->reference);
+            $this->assertEquals($item->courier_id, $order->courier_id);
+            $this->assertEquals($item->customer_id, $order->customer_id);
+            $this->assertEquals($item->address_id, $order->address_id);
+        });
+    }
+
+    /** @test */
     public function it_can_send_email_to_customer()
     {
         Mail::fake();

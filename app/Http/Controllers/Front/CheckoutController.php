@@ -95,6 +95,7 @@ class CheckoutController extends Controller
      * @param CartCheckoutRequest $request
      * @return \Illuminate\Http\RedirectResponse
      * @throws PaymentMethodNotFoundException
+     * @codeCoverageIgnore
      */
     public function store(CartCheckoutRequest $request)
     {

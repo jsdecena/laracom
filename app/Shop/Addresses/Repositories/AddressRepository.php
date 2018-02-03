@@ -8,8 +8,11 @@ use App\Shop\Addresses\Exceptions\AddressNotFoundException;
 use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Shop\Addresses\Transformations\AddressTransformable;
 use App\Shop\Base\BaseRepository;
+use App\Shop\Cities\City;
+use App\Shop\Countries\Country;
 use App\Shop\Customers\Customer;
 use App\Shop\Customers\Transformations\CustomerTransformable;
+use App\Shop\Provinces\Province;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
@@ -130,5 +133,34 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
             'city.name' => 5,
             'country.name' => 5
         ])->get();
+    }
+
+    /**
+     * @return Country
+     */
+    public function findCountry() : Country
+    {
+        return $this->model->country;
+    }
+
+    /**
+     * @return Province
+     */
+    public function findProvince() : Province
+    {
+        return $this->model->province;
+    }
+
+    public function findCity() : City
+    {
+        return $this->model->city;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function findOrders() : Collection
+    {
+        return $this->model->orders()->get();
     }
 }

@@ -3,12 +3,13 @@
 namespace App\Shop\Provinces\Repositories;
 
 use App\Shop\Base\BaseRepository;
+use App\Shop\Countries\Country;
 use App\Shop\Provinces\Exceptions\ProvinceNotFoundException;
 use App\Shop\Provinces\Province;
 use App\Shop\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
-use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Collection;
 
 class ProvinceRepository extends BaseRepository implements ProvinceRepositoryInterface
 {
@@ -59,7 +60,7 @@ class ProvinceRepository extends BaseRepository implements ProvinceRepositoryInt
     {
         try {
             return $this->model->update($params);
-        } catch (InvalidArgumentException $e) {
+        } catch (QueryException $e) {
             throw new ProvinceNotFoundException($e->getMessage());
         }
     }
@@ -68,8 +69,16 @@ class ProvinceRepository extends BaseRepository implements ProvinceRepositoryInt
      * @param int $provinceId
      * @return mixed
      */
-    public function listCities(int $provinceId)
+    public function listCities(int $provinceId) : Collection
     {
-        return $this->findProvinceById($provinceId)->cities;
+        return $this->findProvinceById($provinceId)->cities()->get();
+    }
+
+    /**
+     * @return Country
+     */
+    public function findCountry() : Country
+    {
+        return $this->model->country;
     }
 }

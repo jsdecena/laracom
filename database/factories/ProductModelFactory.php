@@ -13,6 +13,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\Shop\Products\Product;
+use Illuminate\Http\UploadedFile;
 
 $factory->define(Product::class, function (Faker\Generator $faker) {
     $product = $faker->unique()->sentence;
@@ -22,7 +23,7 @@ $factory->define(Product::class, function (Faker\Generator $faker) {
         'name' => $product,
         'slug' => str_slug($product),
         'description' => $this->faker->paragraph,
-        'cover' => null,
+        'cover' => UploadedFile::fake()->image('file.png', 600, 600),
         'quantity' => 10,
         'price' => 5.00,
         'status' => 1
