@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\PaymentMethods;
+namespace Tests\Feature\Admin\PaymentMethods;
 
 use App\Shop\PaymentMethods\PaymentMethod;
 use Tests\TestCase;

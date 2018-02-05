@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Provinces;
+namespace Tests\Feature\Admin\Provinces;
 
 use App\Shop\Countries\Country;
 use App\Shop\Provinces\Province;

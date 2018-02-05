@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Countries;
+namespace Tests\Feature\Admin\Countries;
 
 use App\Shop\Countries\Country;
 use Tests\TestCase;
@@ -53,6 +53,7 @@ class CountryFeatureTest extends TestCase
         $this
             ->actingAs($this->employee, 'admin')
             ->get(route('admin.countries.edit', $country->id))
-            ->assertStatus(200);
+            ->assertStatus(200)
+            ->assertSee($country->name);
     }
 }

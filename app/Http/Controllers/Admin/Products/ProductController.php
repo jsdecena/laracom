@@ -13,9 +13,8 @@ use App\Shop\Products\Transformations\ProductTransformable;
 use App\Shop\Tools\UploadableTrait;
 use DateTime;
 use DateTimeZone;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 
 class ProductController extends Controller
 {
@@ -126,9 +125,7 @@ class ProductController extends Controller
 
         $productCategories = $product->categories;
 
-        $ids = $productCategories->transform(function (Category $category) {
-            return $category->id;
-        })->all();
+        $ids = $this->findSelectedCategories($productCategories);
 
         return view('admin.products.edit', [
             'product' => $product,
@@ -202,5 +199,16 @@ class ProductController extends Controller
         $this->productRepo->deleteThumb($request->input('src'));
         request()->session()->flash('message', 'Image delete successful');
         return redirect()->back();
+    }
+
+    /**
+     * @param Collection $productCategories
+     * @return array
+     */
+    private function findSelectedCategories(Collection $productCategories)
+    {
+        return $productCategories->transform(function (Category $category) {
+            return $category->id;
+        })->all();
     }
 }

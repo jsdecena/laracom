@@ -11,6 +11,10 @@ use Gloudemans\Shoppingcart\Exceptions\InvalidRowIDException;
 
 class CartRepository extends BaseRepository implements CartRepositoryInterface
 {
+    /**
+     * CartRepository constructor.
+     * @param ShoppingCart $cart
+     */
     public function __construct(ShoppingCart $cart)
     {
         $this->model = $cart;

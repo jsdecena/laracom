@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Dashboard;
+namespace Tests\Feature\Admin\Dashboard;
 
 use Tests\TestCase;
 
