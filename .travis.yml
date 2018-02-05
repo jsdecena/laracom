@@ -1,6 +1,7 @@
 language: php
 
 php:
+  - 7.0
   - 7.1
 
 before_script:
@@ -10,4 +11,6 @@ before_script:
   - composer dump-autoload
 
 script:
-  - vendor/bin/phpunit --coverage-text --colors
+  - vendor/bin/phpunit --coverage-clover=coverage.xml
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
