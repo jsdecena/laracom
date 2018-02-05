@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use App\Shop\Addresses\Address;
 use App\Shop\Categories\Category;
 use App\Shop\Couriers\Courier;
 use App\Shop\Couriers\Repositories\CourierRepository;
@@ -13,15 +12,11 @@ use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
 use App\Shop\PaymentMethods\PaymentMethod;
 use App\Shop\PaymentMethods\Repositories\PaymentMethodRepository;
 use App\Shop\Products\Product;
-use App\Shop\Provinces\Province;
 use Gloudemans\Shoppingcart\Cart;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Faker\Factory as Faker;
-use App\Shop\Cities\City;
-use App\Shop\Countries\Country;
-use MyCountryTableSeeder;
 
 abstract class TestCase extends BaseTestCase
 {
