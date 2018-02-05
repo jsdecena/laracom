@@ -1,12 +1,27 @@
 <?php
 
-namespace Tests\Feature\Employees;
+namespace Tests\Feature\Admin\Employees;
 
 use App\Shop\Employees\Employee;
 use Tests\TestCase;
 
 class EmployeeFeatureTest extends TestCase
 {
+    /** @test */
+    public function it_can_show_the_create_and_edit_employee_page()
+    {
+        $this->actingAs($this->employee, 'admin')
+            ->get(route('admin.employees.create'))
+            ->assertStatus(200);
+
+        $employee = factory(Employee::class)->create();
+
+        $this->actingAs($this->employee, 'admin')
+            ->get(route('admin.employees.edit', $employee->id))
+            ->assertStatus(200)
+            ->assertSee($employee->name);
+    }
+
     /** @test */
     public function it_can_update_the_profile()
     {

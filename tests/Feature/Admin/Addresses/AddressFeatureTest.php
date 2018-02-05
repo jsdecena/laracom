@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Addresses;
+namespace Tests\Feature\Admin\Addresses;
 
 use App\Shop\Addresses\Address;
 use App\Shop\Customers\Customer;

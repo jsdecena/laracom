@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\OrderStatus;
+namespace Tests\Feature\Admin\OrderStatus;
 
 use App\Shop\OrderStatuses\OrderStatus;
 use Tests\TestCase;
