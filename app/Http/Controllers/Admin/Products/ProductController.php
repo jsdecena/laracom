@@ -92,14 +92,6 @@ class ProductController extends Controller
             $data['cover'] = $this->uploadOne(request()->file('cover'), "products/$folder", 'public', 'cover');
         }
 
-        if ($request->hasFile('image')) {
-            $thumbs = collect($request->file('image'))->transform(function (UploadedFile $file) use ($folder) {
-                return $this->uploadOne($file, "products/$folder");
-            })->all();
-
-            $data['thumbnails'] = $thumbs;
-        }
-
         $this->productRepo->createProduct($data);
 
         return redirect()->route('admin.products.index');
@@ -158,17 +150,6 @@ class ProductController extends Controller
 
         $data = $request->except('categories', '_token', '_method');
         $data['slug'] = str_slug($request->input('name'));
-
-        $date = new DateTime('now', new DateTimeZone(config('app.timezone')));
-        $folder = $date->format('U');
-
-        if ($request->hasFile('image')) {
-            $thumbs = collect($request->file('image'))->transform(function (UploadedFile $file) use ($folder) {
-                return $this->uploadOne($file, "products/$folder");
-            })->all();
-
-            $data['thumbnails'] = $thumbs;
-        }
 
         $this->productRepo->updateProduct($data, $product->id);
 

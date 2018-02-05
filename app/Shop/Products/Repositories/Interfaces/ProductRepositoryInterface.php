@@ -31,8 +31,6 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
 
     public function findProductBySlug(array $slug) : Product;
 
-    public function uploadOneImage(UploadedFile $image, $folder = 'products');
-
     public function searchProduct(string $text) : Collection;
 
     public function findProductImages() : Collection;

@@ -19,6 +19,45 @@ class AddressUnitTest extends TestCase
     use AddressTransformable;
 
     /** @test */
+    public function it_can_transform_address()
+    {
+        $city = factory(City::class)->create();
+        $province = factory(Province::class)->create();
+        $country = factory(Country::class)->create();
+        $customer = factory(Customer::class)->create();
+        $address = factory(Address::class)->create([
+            'city_id' => $city->id,
+            'province_id' => $province->id,
+            'country_id' => $country->id,
+            'customer_id' => $customer->id,
+        ]);
+
+        $transformed = $this->transformAddress($address);
+
+        $this->assertEquals($city->name, $transformed->city);
+        $this->assertEquals($province->name, $transformed->province);
+        $this->assertEquals($country->name, $transformed->country);
+        $this->assertEquals($customer->name, $transformed->customer);
+    }
+    
+    /** @test */
+    public function it_can_search_the_address()
+    {
+        $address1 = $this->faker->address;
+        $address = factory(Address::class)->create([
+            'address_1' => $address1
+        ]);
+
+        $repo = new AddressRepository(new Address());
+        $results = $repo->searchAddress($address->alias);
+
+        $results->each(function ($item) use ($address1) {
+            $this->assertEquals($address1, $item->address_1);
+        });
+
+    }
+
+    /** @test */
     public function it_can_return_the_owner_of_the_address()
     {
         $customer = factory(Customer::class)->create();

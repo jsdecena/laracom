@@ -5,6 +5,7 @@ namespace Tests\Feature\Addresses;
 use App\Shop\Addresses\Address;
 use App\Shop\Addresses\Repositories\AddressRepository;
 use App\Shop\Customers\Customer;
+use App\Shop\Orders\Order;
 use App\Shop\Provinces\Province;
 use App\Shop\Cities\City;
 use App\Shop\Countries\Country;
@@ -12,6 +13,65 @@ use Tests\TestCase;
 
 class AddressFeatureTest extends TestCase
 {
+    /** @test */
+    public function it_shows_the_orders_for_this_address()
+    {
+        $address = factory(Address::class)->create();
+        factory(Order::class)->create([
+            'address_id' => $address->id
+        ]);
+
+        $repo = new AddressRepository($address);
+        $orders = $repo->findOrders();
+
+        $orders->each(function ($item) use ($address) {
+            $this->assertEquals($address->id, $item->address_id);
+        });
+    }
+
+    /** @test */
+    public function it_returns_the_country_of_the_address()
+    {
+        $country = factory(Country::class)->create();
+        $province = factory(Province::class)->create();
+        $city = factory(City::class)->create();
+        $address = factory(Address::class)->create([
+            'country_id' => $country->id,
+            'province_id' => $province->id,
+            'city_id' => $city->id
+        ]);
+
+        $repo = new AddressRepository($address);
+        $foundCountry = $repo->findCountry();
+        $foundProvince = $repo->findProvince();
+        $foundCity = $repo->findCity();
+
+        $this->assertInstanceOf(Country::class, $foundCountry);
+        $this->assertInstanceOf(Province::class, $foundProvince);
+        $this->assertInstanceOf(City::class, $foundCity);
+        $this->assertEquals($country->name, $foundCountry->name);
+        $this->assertEquals($province->name, $foundProvince->name);
+        $this->assertEquals($city->name, $foundCity->name);
+    }
+    
+    /** @test */
+    public function it_can_update_the_address()
+    {
+        $address = factory(Address::class)->create();
+
+        $data = [
+            'alias' => $this->faker->word,
+            'address_1' => $this->faker->streetName,
+            'status' => 1
+        ];
+
+        $this->actingAs($this->employee, 'admin')
+            ->put(route('admin.addresses.update', $address->id), $data)
+            ->assertStatus(302)
+            ->assertRedirect(route('admin.addresses.edit', $address->id))
+            ->assertSessionHas('message');
+    }
+
     /** @test */
     public function it_errors_updating_the_address()
     {
@@ -41,7 +101,7 @@ class AddressFeatureTest extends TestCase
         ];
 
         $this->actingAs($this->employee, 'admin')
-            ->post(route('admin.addresses.store', $data))
+            ->post(route('admin.addresses.store'), $data)
             ->assertStatus(302)
             ->assertRedirect(route('admin.addresses.index'))
             ->assertSessionHas('message');

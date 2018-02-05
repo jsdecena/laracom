@@ -17,6 +17,13 @@ use PayPal\Exception\PayPalConnectionException;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 
+/**
+ * Class PaypalExpress
+ * @package App\Shop\PaymentMethods\Paypal
+ * @codeCoverageIgnore
+ *
+ * @todo Make a test for this
+ */
 class PaypalExpress
 {
     private $apiContext;

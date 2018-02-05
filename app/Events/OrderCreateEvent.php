@@ -30,6 +30,7 @@ class OrderCreateEvent
      * Get the channels the event should broadcast on.
      *
      * @return Channel|array
+     * @codeCoverageIgnore
      */
     public function broadcastOn()
     {

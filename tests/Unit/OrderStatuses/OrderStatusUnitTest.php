@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\OrderStatuses;
 
+use App\Shop\Orders\Order;
 use App\Shop\OrderStatuses\Exceptions\OrderStatusInvalidArgumentException;
 use App\Shop\OrderStatuses\Exceptions\OrderStatusNotFoundException;
 use App\Shop\OrderStatuses\OrderStatus;
@@ -10,6 +11,27 @@ use Tests\TestCase;
 
 class OrderStatusUnitTest extends TestCase
 {
+    /** @test */
+    public function it_can_return_all_orders_on_a_specific_order_status()
+    {
+        $orderStatus = factory(OrderStatus::class)->create();
+        $order = factory(Order::class)->create([
+            'order_status_id' => $orderStatus->id
+        ]);
+
+        $repo = new OrderStatusRepository($orderStatus);
+        $collection = $repo->findOrders();
+
+        $this->assertCount(1, $collection->all());
+
+        $collection->each(function ($item) use ($order) {
+            $this->assertEquals($item->reference, $order->reference);
+            $this->assertEquals($item->courier_id, $order->courier_id);
+            $this->assertEquals($item->customer_id, $order->customer_id);
+            $this->assertEquals($item->address_id, $order->address_id);
+        });
+    }
+    
     /** @test */
     public function it_errors_when_updating_the_order_status()
     {

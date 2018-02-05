@@ -4,6 +4,11 @@ namespace App\Shop\Cart\Requests;
 
 use App\Shop\Base\BaseFormRequest;
 
+/**
+ * Class CartCheckoutRequest
+ * @package App\Shop\Cart\Requests
+ * @codeCoverageIgnore
+ */
 class CartCheckoutRequest extends BaseFormRequest
 {
     /**

@@ -19,6 +19,21 @@ class CustomerUnitTest extends TestCase
     use CustomerTransformable;
     
     /** @test */
+    public function it_can_search_for_customers()
+    {
+        $name = $this->faker->name;
+        $customer = factory(Customer::class)->create([
+            'name' => $name,
+            'email' => $this->faker->email
+        ]);
+
+        $repo = new CustomerRepository($customer);
+        $result = $repo->searchCustomer($name);
+
+        $this->assertCount(1, $result);
+    }
+    
+    /** @test */
     public function it_can_return_all_the_orders_of_the_customer()
     {
         $customer = factory(Customer::class)->create();

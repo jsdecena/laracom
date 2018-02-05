@@ -9,6 +9,11 @@ use App\Shop\Categories\Repositories\CategoryRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class GlobalTemplateServiceProvider
+ * @package App\Providers
+ * @codeCoverageIgnore
+ */
 class GlobalTemplateServiceProvider extends ServiceProvider
 {
     /**

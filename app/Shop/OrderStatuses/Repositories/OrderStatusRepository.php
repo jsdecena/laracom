@@ -9,11 +9,17 @@ use App\Shop\OrderStatuses\OrderStatus;
 use App\Shop\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Collection;
 
 class OrderStatusRepository extends BaseRepository implements OrderStatusRepositoryInterface
 {
+    /**
+     * OrderStatusRepository constructor.
+     * @param OrderStatus $orderStatus
+     */
     public function __construct(OrderStatus $orderStatus)
     {
+        parent::__construct($orderStatus);
         $this->model = $orderStatus;
     }
 
@@ -79,5 +85,13 @@ class OrderStatusRepository extends BaseRepository implements OrderStatusReposit
     public function deleteOrderStatus(OrderStatus $os) : bool
     {
         return $this->delete($os->id);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function findOrders() : Collection
+    {
+        return $this->model->orders()->get();
     }
 }

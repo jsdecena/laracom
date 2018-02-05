@@ -20,6 +20,7 @@ class CourierRepository extends BaseRepository implements CourierRepositoryInter
      */
     public function __construct(Courier $courier)
     {
+        parent::__construct($courier);
         $this->model = $courier;
     }
 

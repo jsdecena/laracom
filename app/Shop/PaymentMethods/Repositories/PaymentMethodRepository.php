@@ -3,11 +3,11 @@
 namespace App\Shop\PaymentMethods\Repositories;
 
 use App\Shop\Base\BaseRepository;
-use App\Shop\PaymentMethods\Exceptions\PaymentMethodInvalidArgumentException;
+use App\Shop\PaymentMethods\Exceptions\CreatePaymentMethodException;
+use App\Shop\PaymentMethods\Exceptions\UpdatePaymentErrorException;
 use App\Shop\PaymentMethods\Exceptions\PaymentMethodNotFoundException;
 use App\Shop\PaymentMethods\PaymentMethod;
 use App\Shop\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
-use ErrorException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
@@ -21,6 +21,7 @@ class PaymentMethodRepository extends BaseRepository implements PaymentMethodRep
     public function __construct(PaymentMethod $paymentMethod)
     {
         parent::__construct($paymentMethod);
+        $this->model = $paymentMethod;
     }
 
     /**
@@ -28,37 +29,35 @@ class PaymentMethodRepository extends BaseRepository implements PaymentMethodRep
      *
      * @param array $data
      * @return PaymentMethod
-     * @throws PaymentMethodInvalidArgumentException
+     * @throws CreatePaymentMethodException
      */
     public function createPaymentMethod(array $data) : PaymentMethod
     {
-        $collection = collect($data)->merge(['slug' => str_slug($data['name'])]);
+        $data['slug'] = str_slug($data['name']);
 
         try {
-            return $this->create($collection->all());
+            return $this->create($data);
         } catch (QueryException $e) {
-            throw new PaymentMethodInvalidArgumentException($e->getMessage());
-        } catch (ErrorException $e) {
-            throw new PaymentMethodInvalidArgumentException($e->getMessage());
+            throw new CreatePaymentMethodException($e);
         }
     }
 
     /**
      * Update the payment method
      *
-     * @param array $update
+     * @param array $data
      * @return PaymentMethod
-     * @throws PaymentMethodInvalidArgumentException
+     * @throws UpdatePaymentErrorException
      */
-    public function updatePaymentMethod(array $update) : PaymentMethod
+    public function updatePaymentMethod(array $data) : PaymentMethod
     {
-        $collection = collect($update)->merge(['slug' => str_slug($update['name'])]);
+        $data['slug'] = str_slug($data['name']);
 
         try {
-            $this->update($collection->all(), $this->model->id);
+            $this->update($data, $this->model->id);
             return $this->find($this->model->id);
         } catch (QueryException $e) {
-            throw new PaymentMethodInvalidArgumentException($e->getMessage());
+            throw new UpdatePaymentErrorException($e->getMessage());
         }
     }
 
@@ -92,22 +91,10 @@ class PaymentMethodRepository extends BaseRepository implements PaymentMethodRep
     }
 
     /**
-     * Returns the client ID
-     *
-     * @return string
+     * @return Collection
      */
-    public function getClientId() : string
+    public function findOrders() : Collection
     {
-        return $this->model->getClientId();
-    }
-
-    /**
-     * Returns the client secret
-     *
-     * @return string
-     */
-    public function getClientSecret() : string
-    {
-        return $this->model->getClientSecret();
+        return $this->model->orders()->get();
     }
 }
