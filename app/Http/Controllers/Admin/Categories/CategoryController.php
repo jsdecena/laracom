@@ -54,6 +54,7 @@ class CategoryController extends Controller
     {
         $this->categoryRepo->createCategory($request->except('_token', '_method'));
 
+        $request->session()->flash('message', 'Category created');
         return redirect()->route('admin.categories.index');
     }
 
@@ -132,6 +133,6 @@ class CategoryController extends Controller
     {
         $this->categoryRepo->deleteFile($request->only('category'));
         request()->session()->flash('message', 'Image delete successful');
-        return redirect()->back();
+        return redirect()->route('admin.categories.edit', $request->input('category'));
     }
 }

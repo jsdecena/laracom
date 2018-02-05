@@ -31,6 +31,7 @@
         <env name="DB_DATABASE" value=":memory:"/>
         <env name="API_DEBUG" value="false"/>
         <env name="MAIL_DRIVER" value="log"/>
+        <env name="COUNTRY_ID" value="1"/>
         <ini name="memory_limit" value="512M" />
     </php>
 </phpunit>
