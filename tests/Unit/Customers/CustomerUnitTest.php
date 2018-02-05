@@ -30,7 +30,7 @@ class CustomerUnitTest extends TestCase
         $repo = new CustomerRepository($customer);
         $result = $repo->searchCustomer($name);
 
-        $this->assertCount(1, $result);
+        $this->assertGreaterThan(0, $result->count());
     }
     
     /** @test */

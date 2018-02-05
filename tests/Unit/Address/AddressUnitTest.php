@@ -9,6 +9,7 @@ use App\Shop\Addresses\Repositories\AddressRepository;
 use App\Shop\Addresses\Transformations\AddressTransformable;
 use App\Shop\Customers\Customer;
 use App\Shop\Customers\Repositories\CustomerRepository;
+use App\Shop\Orders\Order;
 use App\Shop\Provinces\Province;
 use App\Shop\Cities\City;
 use App\Shop\Countries\Country;
@@ -17,6 +18,47 @@ use Tests\TestCase;
 class AddressUnitTest extends TestCase
 {
     use AddressTransformable;
+
+    /** @test */
+    public function it_shows_the_orders_for_this_address()
+    {
+        $address = factory(Address::class)->create();
+        factory(Order::class)->create([
+            'address_id' => $address->id
+        ]);
+
+        $repo = new AddressRepository($address);
+        $orders = $repo->findOrders();
+
+        $orders->each(function ($item) use ($address) {
+            $this->assertEquals($address->id, $item->address_id);
+        });
+    }
+
+    /** @test */
+    public function it_returns_the_country_of_the_address()
+    {
+        $country = factory(Country::class)->create();
+        $province = factory(Province::class)->create();
+        $city = factory(City::class)->create();
+        $address = factory(Address::class)->create([
+            'country_id' => $country->id,
+            'province_id' => $province->id,
+            'city_id' => $city->id
+        ]);
+
+        $repo = new AddressRepository($address);
+        $foundCountry = $repo->findCountry();
+        $foundProvince = $repo->findProvince();
+        $foundCity = $repo->findCity();
+
+        $this->assertInstanceOf(Country::class, $foundCountry);
+        $this->assertInstanceOf(Province::class, $foundProvince);
+        $this->assertInstanceOf(City::class, $foundCity);
+        $this->assertEquals($country->name, $foundCountry->name);
+        $this->assertEquals($province->name, $foundProvince->name);
+        $this->assertEquals($city->name, $foundCity->name);
+    }
 
     /** @test */
     public function it_can_transform_address()

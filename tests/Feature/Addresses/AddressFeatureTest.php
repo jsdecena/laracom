@@ -3,9 +3,7 @@
 namespace Tests\Feature\Addresses;
 
 use App\Shop\Addresses\Address;
-use App\Shop\Addresses\Repositories\AddressRepository;
 use App\Shop\Customers\Customer;
-use App\Shop\Orders\Order;
 use App\Shop\Provinces\Province;
 use App\Shop\Cities\City;
 use App\Shop\Countries\Country;
@@ -14,46 +12,85 @@ use Tests\TestCase;
 class AddressFeatureTest extends TestCase
 {
     /** @test */
-    public function it_shows_the_orders_for_this_address()
+    public function it_can_show_the_edit_page()
     {
+        factory(City::class)->create();
         $address = factory(Address::class)->create();
-        factory(Order::class)->create([
-            'address_id' => $address->id
-        ]);
 
-        $repo = new AddressRepository($address);
-        $orders = $repo->findOrders();
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.addresses.edit', $address->id))
+            ->assertStatus(200)
+            ->assertSee($address->alias)
+            ->assertSee($address->address_1);
+    }
+    
+    /** @test */
+    public function it_can_show_the_create_address_page()
+    {
+        factory(Country::class)->create();
 
-        $orders->each(function ($item) use ($address) {
-            $this->assertEquals($address->id, $item->address_id);
-        });
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.addresses.create'))
+            ->assertStatus(200)
+            ->assertSee($this->customer->name);
+    }
+    
+    /** @test */
+    public function it_can_delete_the_address()
+    {
+        factory(City::class)->create();
+        $address = factory(Address::class)->create();
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->delete(route('admin.addresses.destroy', $address->id))
+            ->assertStatus(302)
+            ->assertRedirect(route('admin.addresses.index'))
+            ->assertDontSee($address->alias);
     }
 
     /** @test */
-    public function it_returns_the_country_of_the_address()
+    public function it_can_show_the_address()
     {
-        $country = factory(Country::class)->create();
-        $province = factory(Province::class)->create();
-        $city = factory(City::class)->create();
-        $address = factory(Address::class)->create([
-            'country_id' => $country->id,
-            'province_id' => $province->id,
-            'city_id' => $city->id
-        ]);
+        factory(City::class)->create();
+        $address = factory(Address::class)->create();
 
-        $repo = new AddressRepository($address);
-        $foundCountry = $repo->findCountry();
-        $foundProvince = $repo->findProvince();
-        $foundCity = $repo->findCity();
-
-        $this->assertInstanceOf(Country::class, $foundCountry);
-        $this->assertInstanceOf(Province::class, $foundProvince);
-        $this->assertInstanceOf(City::class, $foundCity);
-        $this->assertEquals($country->name, $foundCountry->name);
-        $this->assertEquals($province->name, $foundProvince->name);
-        $this->assertEquals($city->name, $foundCity->name);
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.addresses.show', $address->id))
+            ->assertStatus(200)
+            ->assertSee($address->alias);;
     }
     
+    /** @test */
+    public function it_can_search_for_the_address()
+    {
+        factory(City::class)->create();
+        $address = factory(Address::class)->create();
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.addresses.index', ['q' => $address->alias]))
+            ->assertStatus(200)
+            ->assertSee($address->alias);
+    }
+
+    /** @test */
+    public function it_can_list_all_the_addresses()
+    {
+        factory(City::class)->create();
+        $address = factory(Address::class)->create();
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.addresses.index'))
+            ->assertStatus(200)
+            ->assertSee($address->alias)
+            ->assertSee($address->address_1);
+    }
+
     /** @test */
     public function it_can_update_the_address()
     {
