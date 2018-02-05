@@ -74,9 +74,10 @@ class OrderStatusController extends Controller
     public function update(UpdateOrderStatusRequest $request, int $id)
     {
         $orderStatus = $this->orderStatuses->findOrderStatusById($id);
-        $update = new OrderStatusRepository($orderStatus);
 
+        $update = new OrderStatusRepository($orderStatus);
         $update->updateOrderStatus($request->all());
+
         $request->session()->flash('message', 'Update successful');
         return redirect()->route('admin.order-statuses.edit', $id);
     }
@@ -89,14 +90,7 @@ class OrderStatusController extends Controller
      */
     public function destroy(int $id)
     {
-        $os = $this->orderStatuses->findOrderStatusById($id);
-
-        try {
-            $this->orderStatuses->deleteOrderStatus($os);
-        } catch (QueryException $e) {
-            request()->session()->flash('error', 'Ooops, there is an order that has this status so we cannot delete this. Sorry.');
-            return redirect()->route('admin.order-statuses.index');
-        }
+        $this->orderStatuses->findOrderStatusById($id)->delete();
 
         request()->session()->flash('message', 'Delete successful');
         return redirect()->route('admin.order-statuses.index');

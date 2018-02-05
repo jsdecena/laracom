@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Products;
 
+use App\Shop\Categories\Category;
 use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
@@ -94,6 +95,7 @@ class ProductController extends Controller
 
         $this->productRepo->createProduct($data);
 
+        $request->session()->flash('message', 'Create successful');
         return redirect()->route('admin.products.index');
     }
 
@@ -124,10 +126,9 @@ class ProductController extends Controller
 
         $productCategories = $product->categories;
 
-        $ids = [];
-        foreach ($productCategories as $category) {
-            $ids[] = $category->id;
-        }
+        $ids = $productCategories->transform(function (Category $category) {
+            return $category->id;
+        })->all();
 
         return view('admin.products.edit', [
             'product' => $product,
@@ -174,15 +175,11 @@ class ProductController extends Controller
     {
         $product = $this->productRepo->findProductById($id);
         $product->categories()->sync([]);
-        try {
-            $this->productRepo->delete($id);
-        } catch (QueryException $e) {
-            request()->session()->flash('error', 'Ooops, the product (name: '. $product->name .' sku: '. $product->sku .')" has order. You cannot delete this.');
-            return redirect()->back();
-        }
+
+        $this->productRepo->delete($id);
 
         request()->session()->flash('message', 'Delete successful');
-        return redirect()->back();
+        return redirect()->route('admin.products.index');
     }
 
     /**

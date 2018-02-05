@@ -96,12 +96,7 @@ class CourierController extends Controller
      */
     public function destroy(int $id)
     {
-        try {
-            $this->courierRepo->delete($id);
-        } catch (QueryException $e) {
-            request()->session()->flash('error', 'Sorry, we cannot delete this courier since an order used this before.');
-            return redirect()->route('admin.couriers.index');
-        }
+        $this->courierRepo->delete($id);
 
         request()->session()->flash('message', 'Delete successful');
         return redirect()->route('admin.couriers.index');

@@ -48,7 +48,7 @@ class AddressFeatureTest extends TestCase
             ->delete(route('admin.addresses.destroy', $address->id))
             ->assertStatus(302)
             ->assertRedirect(route('admin.addresses.index'))
-            ->assertDontSee($address->alias);
+            ->assertSessionHas('message', 'Delete successful');
     }
 
     /** @test */

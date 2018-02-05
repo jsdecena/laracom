@@ -2,11 +2,95 @@
 
 namespace Tests\Feature;
 
+use App\Shop\Addresses\Address;
+use App\Shop\Cities\City;
+use App\Shop\Countries\Country;
 use App\Shop\Customers\Customer;
+use App\Shop\Customers\Repositories\CustomerRepository;
+use App\Shop\Provinces\Province;
 use Tests\TestCase;
 
 class CustomersFeatureTest extends TestCase
 {
+    /** @test */
+    public function it_can_edit_the_customer_address()
+    {
+        factory(Country::class)->create();
+        factory(Province::class)->create();
+        factory(City::class)->create();
+        $customer = factory(Customer::class)->create();
+        $address = factory(Address::class)->create();
+
+        $customerRepo = new CustomerRepository($customer);
+        $attachedAddress = $customerRepo->attachAddress($address);
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.customers.addresses.edit', [$customer->id, $attachedAddress->id]))
+            ->assertStatus(200)
+            ->assertSee($address->alias);
+    }
+
+    /** @test */
+    public function it_can_show_the_customer_address()
+    {
+        factory(City::class)->create();
+        $customer = factory(Customer::class)->create();
+        $address = factory(Address::class)->create();
+
+        $customerRepo = new CustomerRepository($customer);
+        $customerRepo->attachAddress($address);
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.customers.addresses.show', [$customer->id, $address->id]))
+            ->assertStatus(200)
+            ->assertSee($address->alias);
+    }
+    
+    /** @test */
+    public function it_can_delete_the_customer()
+    {
+        $customer = factory(Customer::class)->create();
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->delete(route('admin.customers.destroy', $customer->id))
+            ->assertStatus(302)
+            ->assertRedirect(route('admin.customers.index'))
+            ->assertSessionHas('message', 'Delete successful');
+    }
+    
+    /** @test */
+    public function it_can_show_the_create_and_edit_page()
+    {
+        $customer = factory(Customer::class)->create();
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.customers.create'))
+            ->assertStatus(200);
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.customers.edit', $customer->id))
+            ->assertStatus(200)
+            ->assertSee($customer->name);
+    }
+
+    /** @test */
+    public function it_can_search_for_the_customer()
+    {
+        $customer = factory(Customer::class)->create();
+
+        $param = ['q' => str_slug($customer->name, 5)];
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.customers.index', $param))
+            ->assertStatus(200);
+    }
+    
     /** @test */
     public function it_errors_when_the_customer_is_logging_in_without_the_email_or_password()
     {

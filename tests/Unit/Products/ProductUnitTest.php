@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Products;
 
+use App\Shop\Categories\Category;
 use App\Shop\ProductImages\ProductImage;
 use App\Shop\ProductImages\ProductImageRepository;
 use App\Shop\Products\Exceptions\ProductInvalidArgumentException;
@@ -13,6 +14,27 @@ use Tests\TestCase;
 
 class ProductUnitTest extends TestCase
 {
+    /** @test */
+    public function it_can_detach_all_the_categories()
+    {
+        $product = factory(Product::class)->create();
+        $categories = factory(Category::class, 4)->create();
+
+        $productRepo = new ProductRepository($product);
+
+        $ids = $categories->transform(function (Category $category) {
+            return $category->id;
+        })->all();
+
+        $productRepo->syncCategories($ids);
+
+        $this->assertCount(4, $productRepo->getCategories());
+
+        $productRepo->detachCategories($product);
+
+        $this->assertCount(0, $productRepo->getCategories());
+    }
+
     /** @test */
     public function it_can_show_the_product_where_the_image_belongs_to()
     {
@@ -119,16 +141,14 @@ class ProductUnitTest extends TestCase
     /** @test */
     public function it_can_search_the_product()
     {
-        $products = factory(Product::class, 5)->create();
+        $product = factory(Product::class)->create();
 
-        $name = str_limit($products->get(1)->name, 2);
+        $name = str_limit($product->name, 2, '');
 
         $productRepo = new ProductRepository(new Product);
         $results = $productRepo->searchProduct($name);
 
-        foreach ($results->toArray() as $result) {
-            $this->assertContains($name, $result->name);
-        }
+        $this->assertGreaterThan(0, $results->count());
     }
     
     /** @test */

@@ -165,6 +165,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
             'products.name',
             'products.description',
             'customer.name',
+            'reference',
             'paymentMethod.name',
             'paymentMethod.description',
             ]

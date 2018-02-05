@@ -3,32 +3,151 @@
 namespace Tests\Feature;
 
 use App\Shop\Categories\Category;
+use App\Shop\ProductImages\ProductImage;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\ProductRepository;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 class ProductFeatureTest extends TestCase
 {
     /** @test */
-    public function it_can_detach_all_the_categories()
+    public function it_can_show_the_product()
     {
         $product = factory(Product::class)->create();
-        $categories = factory(Category::class, 4)->create();
 
-        $productRepo = new ProductRepository($product);
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.products.show', $product->id))
+            ->assertStatus(200)
+            ->assertSee($product->name);
+    }
+    
+    /** @test */
+    public function it_can_search_the_product()
+    {
+        $product = factory(Product::class)->create();
 
-        $ids = [];
-        foreach ($categories as $category) {
-            $ids[] = $category->id;
-        }
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.products.index', ['q' => str_limit($product->name, 5, '')]))
+            ->assertStatus(200)
+            ->assertSee($product->name);
+    }
 
-        $productRepo->syncCategories($ids);
+    /** @test */
+    public function it_can_remove_the_thumbnail()
+    {
+        $product = 'apple';
+        $cover = UploadedFile::fake()->image('file.png', 600, 600);
 
-        $this->assertCount(4, $productRepo->getCategories());
+        $params = [
+            'sku' => $this->faker->numberBetween(1111111, 999999),
+            'name' => $product,
+            'slug' => str_slug($product),
+            'description' => $this->faker->paragraph,
+            'cover' => $cover,
+            'quantity' => 10,
+            'price' => 9.95,
+            'status' => 1,
+            'image' => [
+                UploadedFile::fake()->image('file.png', 200, 200),
+                UploadedFile::fake()->image('file1.png', 200, 200),
+                UploadedFile::fake()->image('file2.png', 200, 200)
+            ]
+        ];
 
-        $productRepo->detachCategories($product);
+        $productRepo = new ProductRepository(new Product());
+        $created = $productRepo->createProduct($params);
+        $repo = new ProductRepository($created);
+        $image = $repo->findProductImages()->first();
 
-        $this->assertCount(0, $productRepo->getCategories());
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.product.remove.thumb',  ['src' => $image->src]))
+            ->assertStatus(302)
+            ->assertRedirect(url('/'))
+            ->assertSessionHas('message', 'Image delete successful');
+    }
+    
+    /** @test */
+    public function it_can_remove_the_cover_image()
+    {
+        $product = factory(Product::class)->create();
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.product.remove.image', ['product' => $product->id, 'image' => substr($product->cover, 9)]))
+            ->assertStatus(302)
+            ->assertRedirect(url('/'))
+            ->assertSessionHas('message', 'Image delete successful');
+    }
+    
+    /** @test */
+    public function it_can_delete_the_product()
+    {
+        $product = factory(Product::class)->create();
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->delete(route('admin.products.destroy', $product->id))
+            ->assertStatus(302)
+            ->assertRedirect(route('admin.products.index'))
+            ->assertSessionHas('message', 'Delete successful');
+    }
+
+    /** @test */
+    public function it_can_list_all_products()
+    {
+        $product = factory(Product::class)->create();
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.products.index'))
+            ->assertStatus(200)
+            ->assertSee($product->name);
+    }
+    
+    /** @test */
+    public function it_can_show_the_product_create_and_edit_page()
+    {
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.products.create'))
+            ->assertStatus(200);
+
+        $product = factory(Product::class)->create();
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.products.edit', $product->id))
+            ->assertStatus(200)
+            ->assertSee($product->name);
+    }
+    
+    /** @test */
+    public function it_can_create_the_product()
+    {
+        $product = 'apple';
+        $cover = UploadedFile::fake()->image('file.png', 600, 600);
+
+        $params = [
+            'sku' => $this->faker->numberBetween(1111111, 999999),
+            'name' => $product,
+            'slug' => str_slug($product),
+            'description' => $this->faker->paragraph,
+            'cover' => $cover,
+            'quantity' => 10,
+            'price' => 9.95,
+            'status' => 1,
+        ];
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->post(route('admin.products.store'), $params)
+            ->assertStatus(302)
+            ->assertRedirect(route('admin.products.index'))
+            ->assertSessionHas('message', 'Create successful');
     }
 
     /** @test */
@@ -54,8 +173,7 @@ class ProductFeatureTest extends TestCase
             'cover' => null,
             'quantity' => 10,
             'price' => 9.95,
-            'status' => 1,
-            'categories' => []
+            'status' => 1
         ];
 
         $this->actingAs($this->employee, 'admin')

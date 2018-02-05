@@ -10,6 +10,24 @@ use Tests\TestCase;
 class CityFeatureTest extends TestCase
 {
     /** @test */
+    public function it_can_show_the_edit_page()
+    {
+        $country = factory(Country::class)->create();
+        $province = factory(Province::class)->create([
+            'country_id' => $country->id
+        ]);
+        $city = factory(City::class)->create([
+            'province_id' => $province->id
+        ]);
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.countries.provinces.cities.edit', [$country->id, $province->id, $city->id]))
+            ->assertStatus(200)
+            ->assertSee($city->name);
+    }
+    
+    /** @test */
     public function it_error_when_the_city_name_is_already_existing()
     {
         $country = factory(Country::class)->create();

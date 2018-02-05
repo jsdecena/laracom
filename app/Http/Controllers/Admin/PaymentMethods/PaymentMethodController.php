@@ -95,12 +95,7 @@ class PaymentMethodController extends Controller
      */
     public function destroy($id)
     {
-        try {
-            $this->paymentMethodRepo->delete($id);
-        } catch (QueryException $e) {
-            request()->session()->flash('error', 'Sorry, we cannot delete this payment method since an order used this before.');
-            return redirect()->route('admin.payment-methods.index');
-        }
+        $this->paymentMethodRepo->delete($id);
 
         request()->session()->flash('message', 'Delete successful');
         return redirect()->route('admin.payment-methods.index');

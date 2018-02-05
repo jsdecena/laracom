@@ -24,11 +24,10 @@ class UpdateCountryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
-            'iso' => ['required', 'max:2'],
+            'iso' => ['max:2'],
             'iso3' => ['max:3'],
             'numcode' => ['numeric'],
-            'phonecode' => ['required']
+            'phonecode' => ['numeric']
         ];
     }
 }

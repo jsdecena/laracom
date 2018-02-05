@@ -8,6 +8,50 @@ use Tests\TestCase;
 class PaymentMethodFeatureTest extends TestCase
 {
     /** @test */
+    public function it_can_delete_the_payment_method()
+    {
+        $paymentMethod = factory(PaymentMethod::class)->create();
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->delete(route('admin.payment-methods.destroy', $paymentMethod->id))
+            ->assertStatus(302)
+            ->assertRedirect(route('admin.payment-methods.index'))
+            ->assertSessionHas('message', 'Delete successful');
+    }
+
+    /** @test */
+    public function it_can_show_the_payment_method_create_and_edit_page()
+    {
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.payment-methods.create'))
+            ->assertStatus(200);
+
+        $paymentMethod = factory(PaymentMethod::class)->create();
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.payment-methods.edit', $paymentMethod->id))
+            ->assertStatus(200)
+            ->assertSee($paymentMethod->name)
+            ->assertSee($paymentMethod->description);
+    }
+    
+    /** @test */
+    public function it_can_list_all_payment_methods()
+    {
+        $paymentMethod = factory(PaymentMethod::class)->create();
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.payment-methods.index'))
+            ->assertStatus(200)
+            ->assertSee($paymentMethod->name)
+            ->assertSee($paymentMethod->description);
+    }
+    
+    /** @test */
     public function it_can_update_the_payment_method()
     {
         $paymentMethod = factory(PaymentMethod::class)->create();

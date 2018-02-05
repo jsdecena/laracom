@@ -123,7 +123,7 @@ class PaymentMethodUnitTest extends TestCase
     /** @test */
     public function it_can_create_a_payment()
     {
-        $name = $this->faker->word;
+        $name = $this->faker->unique()->word;
         $data = [
             'name' => $name,
             'slug' => str_slug($name),

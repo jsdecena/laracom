@@ -17,6 +17,7 @@ use App\Shop\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterfac
 use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
 use App\Shop\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Collection;
 
 class OrderController extends Controller
 {
@@ -58,18 +59,7 @@ class OrderController extends Controller
             $list = $this->orderRepo->searchOrder(request()->input('q'));
         }
 
-        $courierRepo = new CourierRepository(new Courier());
-        $customerRepo = new CustomerRepository(new Customer());
-        $orderStatusRepo = new OrderStatusRepository(new OrderStatus());
-
-        $orders = $list->map(function (Order $order) use ($courierRepo, $customerRepo, $orderStatusRepo) {
-            $order->courier = $courierRepo->findCourierById($order->courier_id);
-            $order->customer = $customerRepo->findCustomerById($order->customer_id);
-            $order->status = $orderStatusRepo->findOrderStatusById($order->order_status_id);
-            return $order;
-        })->all();
-
-        $orders = $this->orderRepo->paginateArrayResults($orders, 10);
+        $orders = $this->orderRepo->paginateArrayResults($this->transFormOrder($list), 10);
 
         return view('admin.orders.list', ['orders' => $orders]);
     }
@@ -118,5 +108,23 @@ class OrderController extends Controller
         $pdf = app()->make('dompdf.wrapper');
         $pdf->loadView('invoices.orders', $data)->stream();
         return $pdf->stream();
+    }
+
+    /**
+     * @param Collection $list
+     * @return array
+     */
+    private function transFormOrder(Collection $list)
+    {
+        $courierRepo = new CourierRepository(new Courier());
+        $customerRepo = new CustomerRepository(new Customer());
+        $orderStatusRepo = new OrderStatusRepository(new OrderStatus());
+
+        return $list->transform(function (Order $order) use ($courierRepo, $customerRepo, $orderStatusRepo) {
+            $order->courier = $courierRepo->findCourierById($order->courier_id);
+            $order->customer = $customerRepo->findCustomerById($order->customer_id);
+            $order->status = $orderStatusRepo->findOrderStatusById($order->order_status_id);
+            return $order;
+        })->all();
     }
 }

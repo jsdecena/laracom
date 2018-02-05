@@ -10,6 +10,7 @@ use App\Shop\Addresses\Requests\UpdateAddressRequest;
 use App\Shop\Addresses\Transformations\AddressTransformable;
 use App\Shop\Cities\City;
 use App\Shop\Cities\Repositories\Interfaces\CityRepositoryInterface;
+use App\Shop\Countries\Country;
 use App\Shop\Countries\Repositories\CountryRepository;
 use App\Shop\Countries\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
@@ -119,9 +120,15 @@ class AddressController extends Controller
     public function edit(int $id)
     {
         $countries = $this->countryRepo->listCountries();
-        $philippines = $countries->find(['id' => env('COUNTRY_ID')])->first();
 
-        $countryRepo = new CountryRepository($philippines);
+        $country = $countries->filter(function ($country) {
+            return $country == env('COUNTRY_ID', 1);
+        })->first();
+
+        $countryRepo = new CountryRepository(new Country());
+        if (!empty($country)) {
+            $countryRepo = new CountryRepository($country);
+        }
 
         $address = $this->addressRepo->findAddressById($id);
         $addressRepo = new AddressRepository($address);

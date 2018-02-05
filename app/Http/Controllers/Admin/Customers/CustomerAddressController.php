@@ -62,14 +62,14 @@ class CustomerAddressController extends Controller
      */
     public function edit(int $customerId, int $addressId)
     {
-        $ph = $this->countryRepo->findCountryById(169);
-        $prov = $this->provinceRepo->findProvinceById(1);
+        $this->countryRepo->findCountryById(env('COUNTRY_ID', 1));
+        $province = $this->provinceRepo->findProvinceById(1);
 
         return view('admin.addresses.customers.edit', [
             'address' => $this->addressRepo->findAddressById($addressId),
             'countries' => $this->countryRepo->listCountries(),
-            'provinces' => $this->countryRepo->findProvinces($ph),
-            'cities' => $this->provinceRepo->listCities($prov),
+            'provinces' => $this->countryRepo->findProvinces(),
+            'cities' => $this->provinceRepo->listCities($province->id),
             'customerId' => $customerId
         ]);
     }
