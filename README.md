@@ -7,7 +7,7 @@
 
 # Laravel FREE E-Commerce Software
 
-#### Framework Used : Laravel 5.4
+#### Framework Used : Laravel 5.5 LTS
 
 [Installation](https://github.com/jsdecena/laracom/wiki)
 

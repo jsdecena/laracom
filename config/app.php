@@ -169,7 +169,7 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Sofa\Eloquence\ServiceProvider::class,
+        Sofa\Eloquence\BaseServiceProvider::class,
         Jsdecena\MCPro\McproServiceProvider::class,
         Jsdecena\MailChimp\MailChimpServiceProvider::class,
 
