@@ -116,7 +116,7 @@ class CustomerController extends Controller
         $data = $request->except('_method', '_token', 'password');
 
         if ($request->has('password')) {
-            $data['password'] = $request->input('password');
+            $data['password'] = bcrypt($request->input('password'));
         }
 
         $update->updateCustomer($data);
