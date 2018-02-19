@@ -162,12 +162,12 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         return $this->model->search(
             $text,
             [
-            'products.name',
-            'products.description',
-            'customer.name',
-            'reference',
-            'paymentMethod.name',
-            'paymentMethod.description',
+                'products.name',
+                'products.description',
+                'customer.name',
+                'reference',
+                'paymentMethod.name',
+                'paymentMethod.description',
             ]
         )->get();
     }
