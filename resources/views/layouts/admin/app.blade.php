@@ -77,6 +77,8 @@
 <script src="{{ asset('js/fastclick.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('js/app.min.js') }}"></script>
+<!-- Custom JS -->
+<script src="{{ asset('js/admin.js') }}"></script>
 @yield('js')
 </body>
 </html>

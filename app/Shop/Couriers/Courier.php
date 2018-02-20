@@ -17,6 +17,7 @@ class Courier extends Model
         'description',
         'url',
         'is_free',
+        'cost',
         'status'
     ];
 

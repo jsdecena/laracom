@@ -24,11 +24,18 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="is_free">Free Delivery? </label>
+                        <label for="is_free">Is Free Delivery? </label>
                         <select name="is_free" id="is_free" class="form-control">
-                            <option value="0" selected="selected">No</option>
-                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                            <option value="1" selected="selected">Yes</option>
                         </select>
+                    </div>
+                    <div class="form-group" style="display: none" id="delivery_cost">
+                        <label for="cost">Delivery Cost <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-addon">{{config('cart.currency')}}</span>
+                            <input class="form-control" type="text" id="cost" name="cost" placeholder="{{config('cart.currency')}}" value="{{old('cost')}}">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="status">Status </label>
