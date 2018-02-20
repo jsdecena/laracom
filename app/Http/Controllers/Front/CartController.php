@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Front;
 
 use App\Shop\Carts\Requests\AddToCartRequest;
 use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
-use App\Shop\Products\Product;
+use App\Shop\Carts\Transformers\ShoppingCartTransformer;
+use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Shop\Products\Repositories\ProductRepository;
-use Gloudemans\Shoppingcart\CartItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -17,22 +16,28 @@ class CartController extends Controller
      * @var CartRepositoryInterface
      */
     private $cartRepo;
+
     /**
      * @var ProductRepositoryInterface
      */
     private $productRepo;
 
+    private $courierRepo;
+
     /**
      * CartController constructor.
      * @param CartRepositoryInterface $cartRepository
      * @param ProductRepositoryInterface $productRepository
+     * @param CourierRepositoryInterface $courierRepository
      */
     public function __construct(
         CartRepositoryInterface $cartRepository,
-        ProductRepositoryInterface $productRepository
+        ProductRepositoryInterface $productRepository,
+        CourierRepositoryInterface $courierRepository
     ) {
         $this->cartRepo = $cartRepository;
         $this->productRepo = $productRepository;
+        $this->courierRepo = $courierRepository;
     }
 
     /**
@@ -42,21 +47,16 @@ class CartController extends Controller
      */
     public function index()
     {
-        $productRepo = new ProductRepository(new Product());
-
-        $items = collect($this->cartRepo->getCartItems())
-            ->map(function (CartItem $item) use ($productRepo) {
-                $product = $productRepo->findProductById($item->id);
-                $item->product = $product;
-                $item->cover = $product->cover;
-                return $item;
-            });
+        $cartProducts = new ShoppingCartTransformer($this->cartRepo->getCartItems());
+        $courier = $this->courierRepo->findCourierById(request()->session()->get('courierId', 1));
+        $shippingFee = $this->cartRepo->getShippingFee($courier);
 
         return view('front.carts.cart', [
-            'products' => $items,
+            'products' => $cartProducts->transform(),
             'subtotal' => $this->cartRepo->getSubTotal(),
             'tax' => $this->cartRepo->getTax(),
-            'total' => $this->cartRepo->getTotal()
+            'shippingFee' => $shippingFee,
+            'total' => $this->cartRepo->getTotal(2, $shippingFee)
         ]);
     }
 
@@ -102,5 +102,10 @@ class CartController extends Controller
 
         request()->session()->flash('message', 'Removed to cart successful');
         return redirect()->route('cart.index');
+    }
+
+    public function updateDelivery(int $orderId)
+    {
+        die($orderId);
     }
 }

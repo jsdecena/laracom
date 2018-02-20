@@ -31,6 +31,13 @@
                             <option value="1" @if($courier->is_free == 1) selected="selected" @endif>Yes</option>
                         </select>
                     </div>
+                    <div class="form-group" @if($courier->is_free == 1) style="display: none" @endif id="delivery_cost">
+                        <label for="cost">Delivery Cost <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-addon">{{config('cart.currency')}}</span>
+                            <input class="form-control" type="text" id="cost" name="cost" placeholder="{{config('cart.currency')}}" value="{{$courier->cost}}">
+                        </div>
+                    </div>
                     <div class="form-group">
                         @include('admin.shared.status-select', ['status' => $courier->status])
                     </div>

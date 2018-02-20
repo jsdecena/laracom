@@ -82,6 +82,6 @@ class CourierRepository extends BaseRepository implements CourierRepositoryInter
      */
     public function listCouriers(string $order = 'id', string $sort = 'desc') : Collection
     {
-        return $this->model->orderBy($order, $sort)->get();
+        return $this->model->where('status', 1)->orderBy($order, $sort)->get();
     }
 }

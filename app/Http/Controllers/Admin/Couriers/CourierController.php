@@ -6,7 +6,6 @@ use App\Shop\Couriers\Repositories\CourierRepository;
 use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
 use App\Shop\Couriers\Requests\CreateCourierRequest;
 use App\Shop\Couriers\Requests\UpdateCourierRequest;
-use Illuminate\Database\QueryException;
 use App\Http\Controllers\Controller;
 
 class CourierController extends Controller

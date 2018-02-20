@@ -14,7 +14,8 @@ class CreateCourierRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'unique:couriers']
+            'name' => ['required', 'unique:couriers'],
+            'cost' => ['required_if:is_free,0']
         ];
     }
 }
