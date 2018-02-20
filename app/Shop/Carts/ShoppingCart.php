@@ -6,6 +6,8 @@ use Gloudemans\Shoppingcart\Cart;
 
 class ShoppingCart extends Cart
 {
+    static $defaultCurrency;
+
     private $session;
 
     private $event;
@@ -15,6 +17,8 @@ class ShoppingCart extends Cart
         $this->session = $this->getSession();
         $this->event = $this->getEvents();
         parent::__construct($this->session, $this->event);
+
+        self::$defaultCurrency = config('cart.currency');
     }
 
     public function getSession()

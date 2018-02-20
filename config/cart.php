@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'tax' => 21,
+    'tax' => env('TAX_RATE', 12),
 
     /*
     |--------------------------------------------------------------------------
@@ -63,5 +63,7 @@ return [
         'thousand_seperator' => ','
 
     ],
+
+    'currency' => env('DEFAULT_CURRENCY', 'PHP')
 
 ];

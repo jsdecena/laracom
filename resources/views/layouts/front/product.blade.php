@@ -40,7 +40,7 @@
     <div class="col-md-6">
         <div class="product-description">
             <h1>{{ $product->name }}
-                <small>Php {{ $product->price }}</small>
+                <small>{{ config('cart.currency') }} {{ $product->price }}</small>
             </h1>
             <div class="description">{{ $product->description }}</div>
             <div class="excerpt">

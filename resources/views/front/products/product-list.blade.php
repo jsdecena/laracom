@@ -31,7 +31,7 @@
 
                     <div class="product-text">
                         <h4>{{ $product->name }}</h4>
-                        <p>Php {{ number_format($product->price, 2) }}</p>
+                        <p>{{ config('cart.currency') }} {{ number_format($product->price, 2) }}</p>
                     </div>
                     <!-- Modal -->
                     <div class="modal fade" id="myModal_{{ $product->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

@@ -41,7 +41,7 @@
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->product->description }}</td>
                                     <td>{{ $product->qty }}</td>
-                                    <td>Php {{ number_format($product->product->price, 2) }}</td>
+                                    <td>{{config('cart.currency')}} {{ number_format($product->product->price, 2) }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -51,21 +51,21 @@
                                 <td class="bg-warning"></td>
                                 <td class="bg-warning"></td>
                                 <td class="bg-warning"></td>
-                                <td class="text-center bg-warning">Php {{ $subtotal }}</td>
+                                <td class="text-center bg-warning">{{config('cart.currency')}} {{ $subtotal }}</td>
                             </tr>
                             <tr>
                                 <td class="bg-warning">Tax</td>
                                 <td class="bg-warning"></td>
                                 <td class="bg-warning"></td>
                                 <td class="bg-warning"></td>
-                                <td class="text-center bg-warning">Php {{ number_format($tax, 2) }}</td>
+                                <td class="text-center bg-warning">{{config('cart.currency')}} {{ number_format($tax, 2) }}</td>
                             </tr>
                             <tr>
                                 <td class="bg-success">Total</td>
                                 <td class="bg-success"></td>
                                 <td class="bg-success"></td>
                                 <td class="bg-success"></td>
-                                <td class="text-center bg-success">Php {{ $total }}</td>
+                                <td class="text-center bg-success">{{config('cart.currency')}} {{ $total }}</td>
                             </tr>
                             </tbody>
                         </table>

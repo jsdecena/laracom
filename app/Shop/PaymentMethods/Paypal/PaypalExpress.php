@@ -2,6 +2,7 @@
 
 namespace App\Shop\PaymentMethods\Paypal;
 
+use App\Shop\Carts\ShoppingCart;
 use App\Shop\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
 use Illuminate\Support\Collection;
 use PayPal\Api\Amount;
@@ -92,7 +93,7 @@ class PaypalExpress
             $item->setName($product->name)
                 ->setDescription($product->description)
                 ->setQuantity($product->qty)
-                ->setCurrency('PHP')
+                ->setCurrency(ShoppingCart::$defaultCurrency)
                 ->setPrice($product->price);
             $items[] = $item;
         }
@@ -119,7 +120,7 @@ class PaypalExpress
         // You can also specify additional details
         // such as shipping, tax.
         $amount = new Amount();
-        $amount->setCurrency($currency)
+        $amount->setCurrency(ShoppingCart::$defaultCurrency)
             ->setTotal($amt)
             ->setDetails($this->others);
 
