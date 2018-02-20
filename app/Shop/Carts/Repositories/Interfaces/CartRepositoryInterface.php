@@ -3,27 +3,37 @@
 namespace App\Shop\Carts\Repositories\Interfaces;
 
 use App\Shop\Base\Interfaces\BaseRepositoryInterface;
+use App\Shop\Couriers\Courier;
+use App\Shop\Customers\Customer;
 use App\Shop\Products\Product;
+use Gloudemans\Shoppingcart\CartItem;
+use Illuminate\Support\Collection;
 
 interface CartRepositoryInterface extends BaseRepositoryInterface
 {
-    public function addToCart(Product $product, int $int, $options = []);
+    public function addToCart(Product $product, int $int, $options = []) : CartItem;
 
-    public function getCartItems();
+    public function getCartItems() : Collection;
 
     public function removeToCart(string $rowId);
 
     public function countItems() : int;
 
-    public function getSubTotal();
+    public function getSubTotal(int $decimals = 2);
 
-    public function getTotal(int $decimals = 2);
+    public function getTotal(int $decimals = 2, $shipping = 0.00);
 
-    public function updateQuantityInCart(string $rowId, int $quantity);
+    public function updateQuantityInCart(string $rowId, int $quantity) : CartItem;
 
-    public function findItem(string $rowId);
+    public function findItem(string $rowId) : CartItem;
 
-    public function getTax() : float;
+    public function getTax(int $decimals = 2);
+
+    public function getShippingFee(Courier $courier);
 
     public function clearCart();
+
+    public function saveCart(Customer $customer, $instance = 'default');
+
+    public function openCart(Customer $customer, $instance = 'default');
 }

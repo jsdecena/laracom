@@ -6,8 +6,13 @@ use App\Shop\Base\BaseRepository;
 use App\Shop\Carts\Exceptions\ProductInCartNotFoundException;
 use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
 use App\Shop\Carts\ShoppingCart;
+use App\Shop\Couriers\Courier;
+use App\Shop\Customers\Customer;
 use App\Shop\Products\Product;
+use Gloudemans\Shoppingcart\Cart;
+use Gloudemans\Shoppingcart\CartItem;
 use Gloudemans\Shoppingcart\Exceptions\InvalidRowIDException;
+use Illuminate\Support\Collection;
 
 class CartRepository extends BaseRepository implements CartRepositoryInterface
 {
@@ -24,16 +29,17 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
      * @param Product $product
      * @param int $int
      * @param array $options
+     * @return CartItem
      */
-    public function addToCart(Product $product, int $int, $options = [])
+    public function addToCart(Product $product, int $int, $options = []) : CartItem
     {
-        $this->model->add($product, $int, $options);
+        return $this->model->add($product, $int, $options);
     }
 
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function getCartItems()
+    public function getCartItems() : Collection
     {
         return $this->model->content();
     }
@@ -63,27 +69,34 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
     /**
      * Get the sub total of all the items in the cart
      *
-     * @return float
-     */
-    public function getSubTotal()
-    {
-        return $this->model->subtotal();
-    }
-
-    /**
-     * Get the final total of all the items in the cart minux tax
-     *
      * @param int $decimals
      * @return float
      */
-    public function getTotal(int $decimals = 2)
+    public function getSubTotal(int $decimals = 2)
     {
-        return $this->model->total($decimals);
+        return $this->model->subtotal(2);
     }
 
-    public function updateQuantityInCart(string $rowId, int $quantity)
+    /**
+     * Get the final total of all the items in the cart minus tax
+     *
+     * @param int $decimals
+     * @param float $shipping
+     * @return float
+     */
+    public function getTotal(int $decimals = 2, $shipping = 0.00)
     {
-        $this->model->update($rowId, $quantity);
+        return $this->model->total($decimals, null, null, $shipping);
+    }
+
+    /**
+     * @param string $rowId
+     * @param int $quantity
+     * @return CartItem
+     */
+    public function updateQuantityInCart(string $rowId, int $quantity) : CartItem
+    {
+        return $this->model->update($rowId, $quantity);
     }
 
     /**
@@ -92,7 +105,7 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
      * @param string $rowId
      * @return \Gloudemans\Shoppingcart\CartItem
      */
-    public function findItem(string $rowId)
+    public function findItem(string $rowId) : CartItem
     {
         return $this->model->get($rowId);
     }
@@ -100,11 +113,21 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
     /**
      * Returns the tax
      *
+     * @param int $decimals
      * @return float
      */
-    public function getTax() : float
+    public function getTax(int $decimals = 2)
     {
-        return $this->model->tax;
+        return $this->model->tax($decimals);
+    }
+
+    /**
+     * @param Courier $courier
+     * @return mixed
+     */
+    public function getShippingFee(Courier $courier)
+    {
+        return number_format($courier->cost, 2);
     }
 
     /**
@@ -113,5 +136,24 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
     public function clearCart()
     {
         $this->model->destroy();
+    }
+
+    /**
+     * @param Customer $customer
+     * @param string $instance
+     */
+    public function saveCart(Customer $customer, $instance = 'default')
+    {
+        $this->model->instance($instance)->store($customer->email);
+    }
+
+    /**
+     * @param Customer $customer
+     * @param string $instance
+     * @return Cart
+     */
+    public function openCart(Customer $customer, $instance = 'default')
+    {
+        return $this->model->instance($instance)->restore($customer->email);
     }
 }

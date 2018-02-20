@@ -104,16 +104,17 @@ class PaypalExpress
         $this->itemList = $itemList;
     }
 
-    public function setOtherFees($subtotal, $tax = 0, $shipping = 0)
+    public function setOtherFees($subtotal, $tax = 0, $shipping)
     {
         $details = new Details();
         $details->setTax($tax)
-            ->setSubtotal($subtotal);
+            ->setSubtotal($subtotal)
+            ->setShipping($shipping);
 
         $this->others = $details;
     }
 
-    public function setAmount($amt, $currency = 'PHP')
+    public function setAmount($amt)
     {
         // ### Amount
         // Lets you specify a payment amount.

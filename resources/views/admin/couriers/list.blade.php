@@ -17,8 +17,9 @@
                             <td class="col-md-2">Description</td>
                             <td class="col-md-2">URL</td>
                             <td class="col-md-1">Is Free?</td>
+                            <td class="col-md-1">Cost</td>
                             <td class="col-md-1">Status</td>
-                            <td class="col-md-4">Actions</td>
+                            <td class="col-md-3">Actions</td>
                         </tr>
                         </tbody>
                         <tbody>
@@ -29,6 +30,9 @@
                                 <td>{{ $courier->url }}</td>
                                 <td>
                                     @include('layouts.status', ['status' => $courier->is_free])
+                                </td>
+                                <td>
+                                    {{config('cart.currency')}} {{ $courier->cost }}
                                 </td>
                                 <td>@include('layouts.status', ['status' => $courier->status])</td>
                                 <td>

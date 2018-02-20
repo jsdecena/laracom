@@ -87,7 +87,7 @@ class PaymentMethodRepository extends BaseRepository implements PaymentMethodRep
      */
     public function listPaymentMethods(string $order = 'id', string $sort = 'desc', array $columns = ['*']) : Collection
     {
-        return $this->all($columns, $order, $sort);
+        return $this->all($columns, $order, $sort)->where('status', 1);
     }
 
     /**
