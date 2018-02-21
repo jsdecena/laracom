@@ -1,9 +1,9 @@
-[![Build Status](https://travis-ci.org/jsdecena/laracom.svg?branch=master)](https://travis-ci.org/jsdecena/laracom) 
-[![codecov](https://codecov.io/gh/jsdecena/laracom/branch/master/graph/badge.svg)](https://codecov.io/gh/jsdecena/laracom) 
-[![Total Downloads](https://poser.pugx.org/jsdecena/laracom/downloads)](https://packagist.org/packages/jsdecena/laracom) 
-[![License](https://poser.pugx.org/jsdecena/laracom/license)](https://packagist.org/packages/jsdecena/laracom) 
-[![Latest Stable Version](https://poser.pugx.org/jsdecena/laracom/version)](https://packagist.org/packages/jsdecena/laracom) 
-[![PHPPackages Rank](http://phppackages.org/p/jsdecena/laracom/badge/rank.svg)](http://phppackages.org/p/jsdecena/laracom)
+[![Build Status](https://img.shields.io/travis/jsdecena/laracom/master.svg)](https://travis-ci.org/jsdecena/laracom)
+[![Build Status](https://img.shields.io/github/forks/jsdecena/laracom.svg)](https://github.com/jsdecena/laracom)
+[![Build Status](https://img.shields.io/github/stars/jsdecena/laracom.svg)](https://github.com/jsdecena/laracom)
+[![Test Coverage](https://img.shields.io/codecov/c/github/jsdecena/laracom/master.svg)](https://codecov.io/github/jsdecena/laracom?branch=master)
+[![Latest Stable Version](https://img.shields.io/packagist/v/jsdecena/laracom.svg)](https://packagist.org/packages/jsdecena/laracom)
+[![License](https://img.shields.io/packagist/l/jsdecena/laracom.svg)](https://packagist.org/packages/jsdecena/laracom)
 
 # Laravel FREE E-Commerce Software
 
