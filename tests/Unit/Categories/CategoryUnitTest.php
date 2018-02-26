@@ -50,7 +50,7 @@ class CategoryUnitTest extends TestCase
     {
         $category = new CategoryRepository($this->category);
         $category->syncProducts([$this->product->id]);
-        $products = $category->findProductsInCategory($this->category->id);
+        $products = $category->findProducts();
 
         foreach ($products as $product) {
             $this->assertEquals($this->product->id, $product->id);

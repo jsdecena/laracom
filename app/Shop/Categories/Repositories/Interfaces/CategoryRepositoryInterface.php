@@ -5,6 +5,7 @@ namespace App\Shop\Categories\Repositories\Interfaces;
 use App\Shop\Base\Interfaces\BaseRepositoryInterface;
 use App\Shop\Categories\Category;
 use App\Shop\Products\Product;
+use Illuminate\Support\Collection;
 
 interface CategoryRepositoryInterface extends BaseRepositoryInterface
 {
@@ -20,7 +21,7 @@ interface CategoryRepositoryInterface extends BaseRepositoryInterface
 
     public function associateProduct(Product $product);
 
-    public function findProducts();
+    public function findProducts() : Collection;
 
     public function syncProducts(array $params);
 
@@ -29,6 +30,4 @@ interface CategoryRepositoryInterface extends BaseRepositoryInterface
     public function deleteFile(array $file, $disk = null) : bool;
 
     public function findCategoryBySlug(array $slug) : Category;
-
-    public function findProductsInCategory(int $id);
 }

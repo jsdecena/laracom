@@ -3,6 +3,7 @@
 namespace App\Shop\Products\Transformations;
 
 use App\Shop\Products\Product;
+use Illuminate\Support\Facades\Storage;
 
 trait ProductTransformable
 {
@@ -14,17 +15,19 @@ trait ProductTransformable
      */
     protected function transformProduct(Product $product)
     {
-        $prop = new Product;
-        $prop->id = (int) $product->id;
-        $prop->name = $product->name;
-        $prop->sku = $product->sku;
-        $prop->slug = $product->slug;
-        $prop->description = $product->description;
-        $prop->cover = $product->cover;
-        $prop->quantity = $product->quantity;
-        $prop->price = $product->price;
-        $prop->status = $product->status;
+        $file = Storage::exists($product->cover) ? $product->cover : null;
 
-        return $prop;
+        $prod = new Product;
+        $prod->id = (int) $product->id;
+        $prod->name = $product->name;
+        $prod->sku = $product->sku;
+        $prod->slug = $product->slug;
+        $prod->description = $product->description;
+        $prod->cover = $file;
+        $prod->quantity = $product->quantity;
+        $prod->price = $product->price;
+        $prod->status = $product->status;
+
+        return $prod;
     }
 }
