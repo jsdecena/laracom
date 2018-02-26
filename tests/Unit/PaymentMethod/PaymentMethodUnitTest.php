@@ -47,14 +47,15 @@ class PaymentMethodUnitTest extends TestCase
         $payment = new PaymentMethodRepository($this->paymentMethod);
         $payment->updatePaymentMethod(['name' => null]);
     }
-    
+
     /** @test */
     public function it_can_list_all_the_payment_methods()
     {
         $data = [
             'name' => $this->faker->unique()->uuid,
             'slug' => str_slug($this->faker->word),
-            'description' => $this->faker->paragraph
+            'description' => $this->faker->paragraph,
+            'status' => 1,
         ];
 
         $payment = new PaymentMethodRepository(new PaymentMethod);
@@ -66,7 +67,7 @@ class PaymentMethodUnitTest extends TestCase
             $this->assertDatabaseHas('payment_methods', ['description' => $list->description]);
         }
     }
-    
+
     /** @test */
     public function it_errors_when_the_payment_method_is_not_found()
     {
@@ -110,7 +111,7 @@ class PaymentMethodUnitTest extends TestCase
         $this->assertEquals($update['name'], $updated->name);
         $this->assertEquals($update['description'], $updated->description);
     }
-    
+
     /** @test */
     public function it_errors_when_creating_the_payment_method_if_the_required_fields_are_not_passed()
     {
@@ -119,7 +120,7 @@ class PaymentMethodUnitTest extends TestCase
         $payment = new PaymentMethodRepository(new PaymentMethod);
         $payment->createPaymentMethod([]);
     }
-    
+
     /** @test */
     public function it_can_create_a_payment()
     {

@@ -28,7 +28,7 @@ class CategoryUnitTest extends TestCase
             $this->assertEquals($child->id, $c->id);
         }
     }
-    
+
     /** @test */
     public function it_can_get_the_parent_category()
     {
@@ -56,7 +56,7 @@ class CategoryUnitTest extends TestCase
             $this->assertEquals($this->product->id, $product->id);
         }
     }
-    
+
     /** @test */
     public function it_errors_looking_for_the_category_if_the_slug_is_not_found()
     {
@@ -65,7 +65,7 @@ class CategoryUnitTest extends TestCase
         $category = new CategoryRepository($this->category);
         $category->findCategoryBySlug(['slug' => 'unknown']);
     }
-    
+
     /** @test */
     public function it_can_get_the_category_by_slug()
     {
@@ -83,7 +83,7 @@ class CategoryUnitTest extends TestCase
 
         $this->assertDatabaseHas('categories', ['cover' => null]);
     }
-    
+
     /** @test */
     public function it_can_detach_the_products()
     {
@@ -92,10 +92,7 @@ class CategoryUnitTest extends TestCase
         $category->detachProducts();
 
         $products = $category->findProducts();
-
-        foreach ($products as $product) {
-            $this->assertNotEquals($this->product->name, $product->name);
-        }
+        $this->assertCount(0, $products);
     }
 
     /** @test */
@@ -133,10 +130,17 @@ class CategoryUnitTest extends TestCase
     /** @test */
     public function it_can_list_all_the_categories()
     {
-        $category = new CategoryRepository(new Category);
-        $list = $category->listCategories();
+        $category = factory(Category::class)->create();
+        $attributes = $category->getFillable();
 
-        $this->arrayHasKey(array_keys($list->all()));
+        $categoryRepo = new CategoryRepository(new Category);
+        $categories = $categoryRepo->listCategories();
+
+        $categories->each(function ($category, $key) use($attributes) {
+            foreach ($category->getFillable() as $key => $value) {
+                $this->assertArrayHasKey($key, $attributes);
+            }
+        });
     }
 
     /** @test */

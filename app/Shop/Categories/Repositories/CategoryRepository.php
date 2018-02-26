@@ -57,7 +57,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
                 $slug = str_slug($params['name']);
             }
 
-            if (isset($params['cover']) && anInstanceOf(UploadedFile::class)) {
+            if (isset($params['cover']) && ($params['cover'] instanceof UploadedFile)) {
                 $cover = $this->uploadOne($params['cover'], 'categories');
             }
 
@@ -89,7 +89,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         $collection = collect($params)->except('_token');
         $slug = str_slug($collection->get('name'));
 
-        if (isset($params['cover']) && anInstanceOf(UploadedFile::class)) {
+        if (isset($params['cover']) && ($params['cover'] instanceof UploadedFile)) {
             $cover = $this->uploadOne($params['cover'], 'categories');
         }
 
