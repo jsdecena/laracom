@@ -5,6 +5,7 @@ namespace Tests\Unit\Cart;
 use App\Shop\Carts\Exceptions\ProductInCartNotFoundException;
 use App\Shop\Carts\Repositories\CartRepository;
 use App\Shop\Carts\ShoppingCart;
+use Gloudemans\Shoppingcart\Exceptions\InvalidRowIDException;
 use Tests\TestCase;
 
 class CartUnitTest extends TestCase
@@ -20,7 +21,7 @@ class CartUnitTest extends TestCase
         $cartRepo->clearCart();
         $this->assertCount(0, $cartRepo->getCartItems());
     }
-    
+
     /** @test */
     public function it_returns_all_the_items_in_the_cart()
     {
@@ -36,7 +37,7 @@ class CartUnitTest extends TestCase
             $this->assertEquals($qty, $list->qty);
         }
     }
-    
+
     /** @test */
     public function it_can_show_the_specific_item_in_the_cart()
     {
@@ -68,7 +69,7 @@ class CartUnitTest extends TestCase
 
         $this->assertEquals(3, $cartRepo->findItem($rowId[0])->qty);
     }
-    
+
     /** @test */
     public function it_can_return_the_total_value_of_the_items_in_the_cart()
     {
@@ -81,7 +82,7 @@ class CartUnitTest extends TestCase
 
         $this->assertEquals($grandTotal, $total);
     }
-    
+
     /** @test */
     public function it_can_return_the_sub_total_of_the_items()
     {
@@ -102,7 +103,7 @@ class CartUnitTest extends TestCase
 
         $this->assertEquals(1, $count);
     }
-    
+
     /** @test */
     public function it_errors_when_removing_item_in_the_cart_with_cart_rowID_not_existing()
     {
@@ -122,14 +123,12 @@ class CartUnitTest extends TestCase
         $items = $cartRepo->getCartItems();
 
         foreach ($items as $item) {
+            $this->expectException(InvalidRowIDException::class);
             $cartRepo->removeToCart($item->rowId);
-        }
-
-        foreach ($items as $item) {
-            $this->assertNotEquals($this->product->id, $item->id);
+            $cartRepo->findItem($item->rowId);
         }
     }
-    
+
     /** @test */
     public function it_can_add_to_cart()
     {

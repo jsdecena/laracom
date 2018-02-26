@@ -108,7 +108,7 @@ class ProductUnitTest extends TestCase
 
         $this->assertCount(0, $repo->findProductImages());
     }
-    
+
     /** @test */
     public function it_can_show_all_the_product_images()
     {
@@ -150,14 +150,14 @@ class ProductUnitTest extends TestCase
 
         $this->assertGreaterThan(0, $results->count());
     }
-    
+
     /** @test */
     public function it_can_delete_the_file_only_by_updating_the_database()
     {
         $product = new ProductRepository($this->product);
-        $product->deleteFile(['product' => $this->product->id]);
+        $this->assertTrue($product->deleteFile(['product' => $this->product->id]));
     }
-    
+
     /** @test */
     public function it_errors_when_the_slug_in_not_found()
     {
@@ -166,7 +166,7 @@ class ProductUnitTest extends TestCase
         $product = new ProductRepository($this->product);
         $product->findProductBySlug(['slug' => 'unknown']);
     }
-    
+
     /** @test */
     public function it_can_find_the_product_with_the_slug()
     {
@@ -175,7 +175,7 @@ class ProductUnitTest extends TestCase
 
         $this->assertEquals($this->product->name, $found->name);
     }
-    
+
     /** @test */
     public function it_errors_updating_the_product_with_required_fields_are_not_passed()
     {
@@ -184,7 +184,7 @@ class ProductUnitTest extends TestCase
         $product = new ProductRepository($this->product);
         $product->updateProduct(['name' => null], $this->product->id);
     }
-    
+
     /** @test */
     public function it_errors_creating_the_product_when_required_fields_are_not_passed()
     {
@@ -206,10 +206,17 @@ class ProductUnitTest extends TestCase
     /** @test */
     public function it_can_list_all_the_products()
     {
-        $product = new ProductRepository(new Product);
-        $list = $product->listProducts()->toArray();
+        $product = factory(Product::class)->create();
+        $attributes = $product->getFillable();
 
-        $this->arrayHasKey(array_keys($list));
+        $productRepo = new ProductRepository(new Product);
+        $products = $productRepo->listProducts();
+
+        $products->each(function ($product, $key) use($attributes) {
+            foreach ($product->getFillable() as $key => $value) {
+                $this->assertArrayHasKey($key, $attributes);
+            }
+        });
     }
 
     /** @test */

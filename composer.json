@@ -5,22 +5,24 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.6.4",
-        "barryvdh/laravel-dompdf": "^0.8.1",
+        "php": ">=7.0.0",
+        "barryvdh/laravel-dompdf": "^0.8.2",
         "doctrine/dbal": "^2.6",
-        "gloudemans/shoppingcart": "^2.3",
+        "fideloper/proxy": "~3.3",
+        "gloudemans/shoppingcart": "^2.5",
         "guzzlehttp/guzzle": "^6.3",
         "jsdecena/mailchimp": "~7.0",
-        "jsdecena/mcpro": "^1.1",
-        "laravel/framework": "5.4.*",
+        "jsdecena/mcpro": "1.1.*",
+        "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "paypal/rest-api-sdk-php": "*",
-        "sofa/eloquence": "^5.4"
+        "sofa/eloquence": "^5.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.7"
+        "mockery/mockery": "~1.0",
+        "phpunit/phpunit": "~6.0",
+        "filp/whoops": "~2.0"
     },
     "autoload": {
         "classmap": [
@@ -46,9 +48,9 @@
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan optimize"
         ],
-        "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "php artisan optimize"
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover"
         ]
     },
     "config": {

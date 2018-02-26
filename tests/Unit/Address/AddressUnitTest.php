@@ -81,7 +81,7 @@ class AddressUnitTest extends TestCase
         $this->assertEquals($country->name, $transformed->country);
         $this->assertEquals($customer->name, $transformed->customer);
     }
-    
+
     /** @test */
     public function it_can_search_the_address()
     {
@@ -91,7 +91,7 @@ class AddressUnitTest extends TestCase
         ]);
 
         $repo = new AddressRepository(new Address());
-        $results = $repo->searchAddress($address->alias);
+        $results = $repo->searchAddress($address->address_1);
 
         $results->each(function ($item) use ($address1) {
             $this->assertEquals($address1, $item->address_1);
@@ -123,7 +123,7 @@ class AddressUnitTest extends TestCase
 
         $this->assertEquals($customer->name, $address->customer->name);
     }
-    
+
     /** @test */
     public function it_errors_when_the_address_is_not_found()
     {
@@ -132,7 +132,7 @@ class AddressUnitTest extends TestCase
         $address = new AddressRepository(new Address);
         $address->findAddressById(999);
     }
-    
+
     /** @test */
     public function it_can_list_all_the_addresses()
     {
@@ -154,7 +154,7 @@ class AddressUnitTest extends TestCase
         $address = new AddressRepository(new Address);
         $address->createAddress(['alias' => null]);
     }
-    
+
     /** @test */
     public function it_can_show_the_address()
     {
@@ -162,7 +162,7 @@ class AddressUnitTest extends TestCase
 
         $this->assertDatabaseHas('addresses', ['id' => $address->id]);
     }
-    
+
     /** @test */
     public function it_can_list_all_the_addresses_of_the_customer()
     {
@@ -174,7 +174,7 @@ class AddressUnitTest extends TestCase
 
         $this->assertCount(1, $lists);
     }
-    
+
     /** @test */
     public function it_can_soft_delete_the_address()
     {
@@ -209,7 +209,7 @@ class AddressUnitTest extends TestCase
         $this->assertEquals($update['zip'], $address->zip);
         $this->assertEquals($update['status'], $address->status);
     }
-    
+
     /** @test */
     public function it_can_create_the_address()
     {

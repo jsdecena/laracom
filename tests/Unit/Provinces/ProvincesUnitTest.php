@@ -72,7 +72,7 @@ class ProvincesUnitTest extends TestCase
 
         $this->assertEquals($data['name'], $province->name);
     }
-    
+
     /** @test */
     public function it_will_error_when_the_province_is_not_found()
     {
@@ -82,7 +82,7 @@ class ProvincesUnitTest extends TestCase
         $provinceRepo = new ProvinceRepository(new Province);
         $provinceRepo->findProvinceById(999);
     }
-    
+
     /** @test */
     public function it_can_show_the_province()
     {
@@ -92,7 +92,7 @@ class ProvincesUnitTest extends TestCase
 
         $this->assertEquals($province->name, $found->name);
     }
-    
+
     /** @test */
     public function it_can_list_all_the_cities_within_the_province()
     {
@@ -105,10 +105,11 @@ class ProvincesUnitTest extends TestCase
 
         $this->assertCount(1, $cities);
     }
-    
+
     /** @test */
     public function it_can_list_all_the_provinces()
     {
+        factory(Province::class, 5)->create();
         $provinceRepo = new ProvinceRepository(new Province);
         $provinces = $provinceRepo->listProvinces();
 
