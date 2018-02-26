@@ -15,7 +15,7 @@ trait ProductTransformable
      */
     protected function transformProduct(Product $product)
     {
-        $file = Storage::exists($product->cover) ? $product->cover : null;
+        $file = Storage::disk('public')->exists($product->cover) ? $product->cover : null;
 
         $prod = new Product;
         $prod->id = (int) $product->id;
