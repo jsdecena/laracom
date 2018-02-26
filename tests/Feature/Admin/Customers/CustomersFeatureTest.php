@@ -75,7 +75,7 @@ class CustomersFeatureTest extends TestCase
             ->actingAs($this->employee, 'admin')
             ->get(route('admin.customers.edit', $customer->id))
             ->assertStatus(200)
-            ->assertSee($customer->name);
+            ->assertSee(htmlentities($customer->name, ENT_QUOTES));
     }
 
     /** @test */
@@ -137,7 +137,7 @@ class CustomersFeatureTest extends TestCase
         $this->actingAs($this->employee, 'admin')
             ->get(route('admin.customers.show', $customer->id))
             ->assertViewHas(['customer'])
-            ->assertSeeText($customer->name);
+            ->assertSeeText(htmlentities($customer->name, ENT_QUOTES));
     }
     
     /** @test */

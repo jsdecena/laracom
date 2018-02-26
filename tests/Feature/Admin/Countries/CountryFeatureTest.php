@@ -30,7 +30,7 @@ class CountryFeatureTest extends TestCase
             ->actingAs($this->employee, 'admin')
             ->get(route('admin.countries.show', $country->id))
             ->assertStatus(200)
-            ->assertSee($country->name);
+            ->assertSee(htmlentities($country->name, ENT_QUOTES));
     }
     
     /** @test */
@@ -42,7 +42,7 @@ class CountryFeatureTest extends TestCase
             ->actingAs($this->employee, 'admin')
             ->get(route('admin.countries.index'))
             ->assertStatus(200)
-            ->assertSee($country->name);
+            ->assertSee(htmlentities($country->name, ENT_QUOTES));
     }
 
     /** @test */
@@ -54,6 +54,6 @@ class CountryFeatureTest extends TestCase
             ->actingAs($this->employee, 'admin')
             ->get(route('admin.countries.edit', $country->id))
             ->assertStatus(200)
-            ->assertSee($country->name);
+            ->assertSee(htmlentities($country->name, ENT_QUOTES));
     }
 }
