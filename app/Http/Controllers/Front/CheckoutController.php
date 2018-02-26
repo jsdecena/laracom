@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Front;
 use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Shop\Cart\Requests\CartCheckoutRequest;
 use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
-use App\Shop\Carts\Transformers\ShoppingCartTransformer;
 use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
 use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Shop\OrderDetails\OrderProduct;
@@ -19,6 +18,7 @@ use App\Shop\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInter
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Repositories\ProductRepository;
+use App\Shop\Products\Transformations\ProductTransformable;
 use Exception;
 use App\Http\Controllers\Controller;
 use Gloudemans\Shoppingcart\CartItem;
@@ -31,6 +31,8 @@ use Ramsey\Uuid\Uuid;
 
 class CheckoutController extends Controller
 {
+    use ProductTransformable;
+
     private $cartRepo;
     private $courierRepo;
     private $paymentRepo;
@@ -68,7 +70,13 @@ class CheckoutController extends Controller
 
         );
 
-        $this->cartProducts = new ShoppingCartTransformer($this->cartRepo->getCartItems());
+        $products = $this->cartRepo->getCartItems()->map(function (CartItem $item) {
+            $productRepo = new ProductRepository(new Product());
+            $product = $productRepo->findProductById($item->id);
+            return $this->transformProduct($product);
+        });
+
+        $this->cartProducts = $products;
     }
 
     /**
@@ -91,7 +99,7 @@ class CheckoutController extends Controller
         return view('front.checkout', [
             'customer' => $customer,
             'addresses' => $customer->addresses()->get(),
-            'products' => $this->cartProducts->getCartItems(),
+            'products' => $this->cartProducts,
             'subtotal' => $this->cartRepo->getSubTotal(),
             'shipping' => $shippingCost,
             'tax' => $this->cartRepo->getTax(),

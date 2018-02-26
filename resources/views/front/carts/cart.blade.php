@@ -65,8 +65,8 @@
                             @foreach($products as $product)
                                 <tr>
                                     <td>
-                                        <a href="{{ route('front.get.product', $product->product->slug) }}" class="hover-border">
-                                            @if(isset($product->product->cover))
+                                        <a href="{{ route('front.get.product', $product->slug) }}" class="hover-border">
+                                            @if(isset($product->cover))
                                                 <img src="{{ asset("storage/$product->cover") }}" alt="{{ $product->name }}" class="img-responsive img-thumbnail">
                                             @else
                                                 <img src="https://placehold.it/120x120" alt="" class="img-responsive img-thumbnail">
@@ -74,7 +74,7 @@
                                         </a>
                                     </td>
                                     <td>{{ $product->name }}</td>
-                                    <td>{{ $product->product->description }}</td>
+                                    <td>{{ $product->description }}</td>
                                     <td>
                                         <form action="{{ route('cart.update', $product->rowId) }}" class="form-inline" method="post">
                                             {{ csrf_field() }}
@@ -92,7 +92,7 @@
                                             <button onclick="return confirm('Are you sure?')" class="btn btn-danger"><i class="fa fa-times"></i></button>
                                         </form>
                                     </td>
-                                    <td>{{config('cart.currency')}} {{ number_format($product->product->price, 2) }}</td>
+                                    <td>{{config('cart.currency')}} {{ number_format($product->price, 2) }}</td>
                                 </tr>
                             @endforeach
                             </tbody>

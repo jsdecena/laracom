@@ -4,14 +4,18 @@ namespace App\Http\Controllers\Front;
 
 use App\Shop\Carts\Requests\AddToCartRequest;
 use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
-use App\Shop\Carts\Transformers\ShoppingCartTransformer;
 use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
+use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
+use App\Shop\Products\Repositories\ProductRepository;
+use App\Shop\Products\Transformations\ProductTransformable;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CartController extends Controller
 {
+    use ProductTransformable;
+
     /**
      * @var CartRepositoryInterface
      */
@@ -47,12 +51,17 @@ class CartController extends Controller
      */
     public function index()
     {
-        $cartProducts = new ShoppingCartTransformer($this->cartRepo->getCartItems());
+        $cartProducts = $this->cartRepo->getCartItems()->map(function ($item) {
+            $productRepo = new ProductRepository(new Product());
+            $product = $productRepo->findProductById($item->id);
+            return $this->transformProduct($product);
+        });
+
         $courier = $this->courierRepo->findCourierById(request()->session()->get('courierId', 1));
         $shippingFee = $this->cartRepo->getShippingFee($courier);
 
         return view('front.carts.cart', [
-            'products' => $cartProducts->transform(),
+            'products' => $cartProducts,
             'subtotal' => $this->cartRepo->getSubTotal(),
             'tax' => $this->cartRepo->getTax(),
             'shippingFee' => $shippingFee,
