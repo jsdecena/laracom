@@ -111,8 +111,6 @@ class ProductFeatureTest extends TestCase
     /** @test */
     public function it_can_show_the_product_edit_page()
     {
-        $this->markTestSkipped('Throws infinite loop error in the test');
-
         $product = factory(Product::class)->create();
 
         $this
