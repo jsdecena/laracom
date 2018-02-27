@@ -121,15 +121,15 @@ class ProductController extends Controller
     {
         $product = $this->productRepo->findProductById($id);
 
-        $productCategories = $product->categories;
-
-        $ids = $this->findSelectedCategories($productCategories);
+        $ids = $product->categories->map(function (Category $category) {
+            return $category->id;
+        })->all();
 
         return view('admin.products.edit', [
             'product' => $product,
             'images' => $product->images()->get(['src']),
-            'categories' => $this->categoryRepo->listCategories('name', 'asc'),
-            'selectCategories' => $ids
+            'categories' => $this->categoryRepo->listCategories('name', 'asc')->where('parent_id', 1),
+            'productCategoryIds' => $ids
         ]);
     }
 

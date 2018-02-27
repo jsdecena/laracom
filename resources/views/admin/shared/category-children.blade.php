@@ -1,4 +1,4 @@
-<ul class="list-unstyled">
+<ul class="list-unstyled" style="padding-left: 25px">
     @foreach($categories as $category)
         <li>
             @if(in_array($category->id, $ids))
