@@ -81,6 +81,8 @@
 <script src="{{ asset('js/app.min.js') }}"></script>
 <!-- Select2 -->
 <script src="{{ asset('js/select2.min.js') }}"></script>
+<!-- CKEditor -->
+<script src="{{ asset('//cdn.ckeditor.com/4.8.0/standard/ckeditor.js') }}"></script>
 <!-- Custom JS -->
 <script src="{{ asset('js/admin.js?v=0.1') }}"></script>
 @yield('js')

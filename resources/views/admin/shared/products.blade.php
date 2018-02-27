@@ -3,19 +3,17 @@
         <tbody>
         <tr>
             <td class="col-md-2">Name</td>
-            <td class="col-md-2">Description</td>
-            <td class="col-md-2">Cover</td>
-            <td class="col-md-1">Quantity</td>
-            <td class="col-md-1">Price</td>
-            <td class="col-md-1">Status</td>
-            <td class="col-md-3">Actions</td>
+            <td class="col-md-2 text-center">Cover</td>
+            <td class="col-md-2 text-center">Quantity</td>
+            <td class="col-md-2 text-center">Price</td>
+            <td class="col-md-2">Status</td>
+            <td class="col-md-2">Actions</td>
         </tr>
         </tbody>
         <tbody>
         @foreach ($products as $product)
             <tr>
                 <td><a href="{{ route('admin.products.show', $product->id) }}">{{ $product->name }}</a></td>
-                <td>{{ $product->description }}</td>
                 <td class="text-center">
                     @if(isset($product->cover))
                         <img src="{{ asset("storage/$product->cover") }}" alt="" class="img-responsive">
@@ -23,8 +21,8 @@
                         -
                     @endif
                 </td>
-                <td>{{ $product->quantity }}</td>
-                <td>Php {{ $product->price }}</td>
+                <td class="text-center">{{ $product->quantity }}</td>
+                <td class="text-center">Php {{ $product->price }}</td>
                 <td>@include('layouts.status', ['status' => $product->status])</td>
                 <td>
                     <form action="{{ route('admin.products.destroy', $product->id) }}" method="post" class="form-horizontal">

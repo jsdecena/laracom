@@ -13,10 +13,9 @@
                     <table class="table">
                         <tbody>
                         <tr>
-                            <td class="col-md-2">Name</td>
-                            <td class="col-md-2">Description</td>
+                            <td class="col-md-3">Name</td>
                             <td class="col-md-3">Cover</td>
-                            <td class="col-md-2">Status</td>
+                            <td class="col-md-3">Status</td>
                             <td class="col-md-3">Actions</td>
                         </tr>
                         </tbody>
@@ -25,7 +24,6 @@
                             <tr>
                                 <td>
                                     <a href="{{ route('admin.categories.show', $category->id) }}">{{ $category->name }}</a></td>
-                                <td>{{ str_limit($category->description, 100, ' ...') }}</td>
                                 <td>
                                     @if(isset($category->cover))
                                         <img src="{{ asset("storage/$category->cover") }}" alt="" class="img-responsive">
