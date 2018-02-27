@@ -16,7 +16,7 @@ class CourierFeatureTest extends TestCase
             ->actingAs($this->employee, 'admin')
             ->get(route('admin.couriers.index'))
             ->assertStatus(200)
-            ->assertSee($courier->name);
+            ->assertSee(htmlentities($courier->name, ENT_QUOTES));
     }
     
     /** @test */
@@ -62,7 +62,7 @@ class CourierFeatureTest extends TestCase
             ->actingAs($this->employee, 'admin')
             ->get(route('admin.couriers.edit', $courier->id))
             ->assertStatus(200)
-            ->assertSee($courier->name);
+            ->assertSee(htmlentities($courier->name, ENT_QUOTES));
     }
     
     /** @test */
