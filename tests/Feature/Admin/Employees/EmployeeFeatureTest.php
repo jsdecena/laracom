@@ -19,7 +19,7 @@ class EmployeeFeatureTest extends TestCase
         $this->actingAs($this->employee, 'admin')
             ->get(route('admin.employees.edit', $employee->id))
             ->assertStatus(200)
-            ->assertSee($employee->name);
+            ->assertSee(htmlentities($employee->name, ENT_QUOTES));
     }
 
     /** @test */
@@ -41,7 +41,7 @@ class EmployeeFeatureTest extends TestCase
         $this->actingAs($this->employee, 'admin')
             ->get(route('admin.employee.profile', $employee->id))
             ->assertStatus(200)
-            ->assertSee($employee->name);
+            ->assertSee(htmlentities($employee->name, ENT_QUOTES));
     }
 
     /** @test */
@@ -68,7 +68,7 @@ class EmployeeFeatureTest extends TestCase
         $this->actingAs($this->employee, 'admin')
             ->get(route('admin.employees.index'))
             ->assertStatus(200)
-            ->assertSee($employee->name);
+            ->assertSee(htmlentities($employee->name, ENT_QUOTES));
     }
 
     /** @test */

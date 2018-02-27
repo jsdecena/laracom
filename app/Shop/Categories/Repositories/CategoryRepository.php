@@ -37,7 +37,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
      * @param array $except
      * @return \Illuminate\Support\Collection
      */
-    public function listCategories(string $order = 'id', string $sort = 'desc', $except = [])
+    public function listCategories(string $order = 'id', string $sort = 'desc', $except = []) : Collection
     {
         return $this->model->orderBy($order, $sort)->get()->except($except);
     }
