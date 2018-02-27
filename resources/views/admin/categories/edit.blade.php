@@ -11,7 +11,7 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="parent">Parent Category</label>
-                        <select name="parent" id="parent" class="form-control">
+                        <select name="parent" id="parent" class="form-control select2">
                             @foreach($categories as $cat)
                                 <option @if($cat->id == $category->parent_id) selected="selected" @endif value="{{$cat->id}}">{{$cat->name}}</option>
                             @endforeach
