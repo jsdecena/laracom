@@ -1,4 +1,4 @@
-<ul class="list-unstyled">
+<ul class="list-unstyled" style="padding-left: 25px">
     @foreach($categories as $category)
         <li>
             @if(in_array($category->id, $ids))
@@ -15,8 +15,8 @@
                 </div>
             @endif
         </li>
-        @if($category->children()->count() >= 1)
-            @include('admin.shared.category-children', ['categories' => $category->children, 'ids' => $ids])
+        @if($category->children()->count() > 0)
+            @include('admin.shared.category-children', ['categories' => $category->children])
         @endif
     @endforeach
 </ul>
