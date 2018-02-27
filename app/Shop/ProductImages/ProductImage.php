@@ -11,6 +11,9 @@ class ProductImage extends Model
         'product_id',
         'src'
     ];
+
+    public $timestamps = false;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

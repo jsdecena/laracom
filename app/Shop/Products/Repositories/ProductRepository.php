@@ -3,14 +3,12 @@
 namespace App\Shop\Products\Repositories;
 
 use App\Shop\Base\BaseRepository;
+use App\Shop\ProductImages\ProductImage;
 use App\Shop\Products\Exceptions\ProductInvalidArgumentException;
 use App\Shop\Products\Exceptions\ProductNotFoundException;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Transformations\ProductTransformable;
-use App\Shop\Tools\UploadableTrait;
-use DateTime;
-use DateTimeZone;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\UploadedFile;
@@ -19,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 
 class ProductRepository extends BaseRepository implements ProductRepositoryInterface
 {
-    use UploadableTrait, ProductTransformable;
+    use ProductTransformable;
 
     /**
      * ProductRepository constructor.
@@ -183,7 +181,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      */
     public function searchProduct(string $text) : Collection
     {
-        return $this->model->search($text)->get();
+        return $this->model->searchProduct($text);
     }
 
     /**
@@ -198,17 +196,12 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      * @param array $params
      * @param $product
      */
-    private function saveImages(array $params, $product): void
+    private function saveImages(array $params, Product $product): void
     {
-        $date = new DateTime('now', new DateTimeZone(config('app.timezone')));
-        $folder = $date->format('U');
-
-        collect($params['image'])->each(function (UploadedFile $file) use ($folder, $product) {
-            $filename = $this->uploadOne($file, "products/$folder");
-            DB::table('product_images')->insert([
-                'product_id' => $product->id,
-                'src' => $filename
-            ]);
+        collect($params['image'])->each(function (UploadedFile $file) use ($product) {
+            $filename = $file->store('products', ['disk' => 'public']);
+            $image = new ProductImage(['src' => $filename]);
+            $product->images()->save($image);
         });
     }
 }

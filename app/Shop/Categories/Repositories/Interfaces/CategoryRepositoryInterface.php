@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 
 interface CategoryRepositoryInterface extends BaseRepositoryInterface
 {
-    public function listCategories(string $order = 'id', string $sort = 'desc', $except = []);
+    public function listCategories(string $order = 'id', string $sort = 'desc', $except = []) : Collection;
 
     public function createCategory(array $params) : Category;
 

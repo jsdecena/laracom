@@ -14,6 +14,7 @@ use App\Shop\Tools\UploadableTrait;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 
 class ProductController extends Controller
@@ -85,11 +86,8 @@ class ProductController extends Controller
         $data = $request->except('_token', '_method');
         $data['slug'] = str_slug($request->input('name'));
 
-        $date = new DateTime('now', new DateTimeZone(config('app.timezone')));
-        $folder = $date->format('U');
-
-        if ($request->hasFile('cover')) {
-            $data['cover'] = $this->uploadOne(request()->file('cover'), "products/$folder", 'public', 'cover');
+        if ($request->hasFile('cover') && $request->file('cover') instanceof UploadedFile) {
+            $data['cover'] = $request->file('cover')->store('products', ['disk' => 'public']);
         }
 
         $this->productRepo->createProduct($data);

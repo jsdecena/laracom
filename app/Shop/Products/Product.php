@@ -6,6 +6,7 @@ use App\Shop\Categories\Category;
 use App\Shop\ProductImages\ProductImage;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Sofa\Eloquence\Eloquence;
 
 class Product extends Model implements Buyable
@@ -81,5 +82,14 @@ class Product extends Model implements Buyable
     public function images()
     {
         return $this->hasMany(ProductImage::class);
+    }
+
+    /**
+     * @param string $term
+     * @return Collection
+     */
+    public function searchProduct(string $term) : Collection
+    {
+        return self::search($term)->get();
     }
 }
