@@ -21,7 +21,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'AFG',
                     'numcode' => '4',
                     'phonecode' => '93',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -33,7 +33,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ALB',
                     'numcode' => '8',
                     'phonecode' => '355',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -45,7 +45,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'DZA',
                     'numcode' => '12',
                     'phonecode' => '213',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -57,7 +57,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ASM',
                     'numcode' => '16',
                     'phonecode' => '1684',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -69,7 +69,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'AND',
                     'numcode' => '20',
                     'phonecode' => '376',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -81,7 +81,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'AGO',
                     'numcode' => '24',
                     'phonecode' => '244',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -93,7 +93,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'AIA',
                     'numcode' => '660',
                     'phonecode' => '1264',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -105,7 +105,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => NULL,
                     'numcode' => NULL,
                     'phonecode' => '0',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -117,7 +117,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ATG',
                     'numcode' => '28',
                     'phonecode' => '1268',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -129,7 +129,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ARG',
                     'numcode' => '32',
                     'phonecode' => '54',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -141,7 +141,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ARM',
                     'numcode' => '51',
                     'phonecode' => '374',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -153,7 +153,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ABW',
                     'numcode' => '533',
                     'phonecode' => '297',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -165,7 +165,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'AUS',
                     'numcode' => '36',
                     'phonecode' => '61',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -177,7 +177,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'AUT',
                     'numcode' => '40',
                     'phonecode' => '43',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -189,7 +189,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'AZE',
                     'numcode' => '31',
                     'phonecode' => '994',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -201,7 +201,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BHS',
                     'numcode' => '44',
                     'phonecode' => '1242',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -213,7 +213,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BHR',
                     'numcode' => '48',
                     'phonecode' => '973',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -225,7 +225,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BGD',
                     'numcode' => '50',
                     'phonecode' => '880',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -237,7 +237,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BRB',
                     'numcode' => '52',
                     'phonecode' => '1246',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -249,7 +249,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BLR',
                     'numcode' => '112',
                     'phonecode' => '375',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -261,7 +261,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BEL',
                     'numcode' => '56',
                     'phonecode' => '32',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -273,7 +273,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BLZ',
                     'numcode' => '84',
                     'phonecode' => '501',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -285,7 +285,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BEN',
                     'numcode' => '204',
                     'phonecode' => '229',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -297,7 +297,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BMU',
                     'numcode' => '60',
                     'phonecode' => '1441',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -309,7 +309,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BTN',
                     'numcode' => '64',
                     'phonecode' => '975',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -321,7 +321,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BOL',
                     'numcode' => '68',
                     'phonecode' => '591',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -333,7 +333,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BIH',
                     'numcode' => '70',
                     'phonecode' => '387',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -345,7 +345,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BWA',
                     'numcode' => '72',
                     'phonecode' => '267',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -357,7 +357,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => NULL,
                     'numcode' => NULL,
                     'phonecode' => '0',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -369,7 +369,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BRA',
                     'numcode' => '76',
                     'phonecode' => '55',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -381,7 +381,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => NULL,
                     'numcode' => NULL,
                     'phonecode' => '246',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -393,7 +393,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BRN',
                     'numcode' => '96',
                     'phonecode' => '673',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -405,7 +405,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BGR',
                     'numcode' => '100',
                     'phonecode' => '359',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -417,7 +417,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BFA',
                     'numcode' => '854',
                     'phonecode' => '226',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -429,7 +429,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'BDI',
                     'numcode' => '108',
                     'phonecode' => '257',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -441,7 +441,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'KHM',
                     'numcode' => '116',
                     'phonecode' => '855',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -453,7 +453,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'CMR',
                     'numcode' => '120',
                     'phonecode' => '237',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -465,7 +465,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'CAN',
                     'numcode' => '124',
                     'phonecode' => '1',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -477,7 +477,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'CPV',
                     'numcode' => '132',
                     'phonecode' => '238',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -489,7 +489,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'CYM',
                     'numcode' => '136',
                     'phonecode' => '1345',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -501,7 +501,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'CAF',
                     'numcode' => '140',
                     'phonecode' => '236',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -513,7 +513,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'TCD',
                     'numcode' => '148',
                     'phonecode' => '235',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -525,7 +525,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'CHL',
                     'numcode' => '152',
                     'phonecode' => '56',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -537,7 +537,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'CHN',
                     'numcode' => '156',
                     'phonecode' => '86',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -549,7 +549,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => NULL,
                     'numcode' => NULL,
                     'phonecode' => '61',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -561,7 +561,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => NULL,
                     'numcode' => NULL,
                     'phonecode' => '672',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -573,7 +573,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'COL',
                     'numcode' => '170',
                     'phonecode' => '57',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -585,7 +585,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'COM',
                     'numcode' => '174',
                     'phonecode' => '269',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -597,7 +597,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'COG',
                     'numcode' => '178',
                     'phonecode' => '242',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -609,7 +609,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'COD',
                     'numcode' => '180',
                     'phonecode' => '242',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -621,7 +621,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'COK',
                     'numcode' => '184',
                     'phonecode' => '682',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -633,7 +633,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'CRI',
                     'numcode' => '188',
                     'phonecode' => '506',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -645,7 +645,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'CIV',
                     'numcode' => '384',
                     'phonecode' => '225',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -657,7 +657,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'HRV',
                     'numcode' => '191',
                     'phonecode' => '385',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -669,7 +669,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'CUB',
                     'numcode' => '192',
                     'phonecode' => '53',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -681,7 +681,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'CYP',
                     'numcode' => '196',
                     'phonecode' => '357',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -693,7 +693,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'CZE',
                     'numcode' => '203',
                     'phonecode' => '420',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -705,7 +705,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'DNK',
                     'numcode' => '208',
                     'phonecode' => '45',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -717,7 +717,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'DJI',
                     'numcode' => '262',
                     'phonecode' => '253',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -729,7 +729,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'DMA',
                     'numcode' => '212',
                     'phonecode' => '1767',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -741,7 +741,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'DOM',
                     'numcode' => '214',
                     'phonecode' => '1809',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -753,7 +753,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ECU',
                     'numcode' => '218',
                     'phonecode' => '593',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -765,7 +765,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'EGY',
                     'numcode' => '818',
                     'phonecode' => '20',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -777,7 +777,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SLV',
                     'numcode' => '222',
                     'phonecode' => '503',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -789,7 +789,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'GNQ',
                     'numcode' => '226',
                     'phonecode' => '240',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -801,7 +801,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ERI',
                     'numcode' => '232',
                     'phonecode' => '291',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -813,7 +813,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'EST',
                     'numcode' => '233',
                     'phonecode' => '372',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -825,7 +825,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ETH',
                     'numcode' => '231',
                     'phonecode' => '251',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -837,7 +837,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'FLK',
                     'numcode' => '238',
                     'phonecode' => '500',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -849,7 +849,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'FRO',
                     'numcode' => '234',
                     'phonecode' => '298',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -861,7 +861,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'FJI',
                     'numcode' => '242',
                     'phonecode' => '679',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -873,7 +873,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'FIN',
                     'numcode' => '246',
                     'phonecode' => '358',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -885,7 +885,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'FRA',
                     'numcode' => '250',
                     'phonecode' => '33',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -897,7 +897,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'GUF',
                     'numcode' => '254',
                     'phonecode' => '594',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -909,7 +909,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'PYF',
                     'numcode' => '258',
                     'phonecode' => '689',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -921,7 +921,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => NULL,
                     'numcode' => NULL,
                     'phonecode' => '0',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -933,7 +933,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'GAB',
                     'numcode' => '266',
                     'phonecode' => '241',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -945,7 +945,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'GMB',
                     'numcode' => '270',
                     'phonecode' => '220',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -957,7 +957,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'GEO',
                     'numcode' => '268',
                     'phonecode' => '995',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -969,7 +969,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'DEU',
                     'numcode' => '276',
                     'phonecode' => '49',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -981,7 +981,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'GHA',
                     'numcode' => '288',
                     'phonecode' => '233',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -993,7 +993,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'GIB',
                     'numcode' => '292',
                     'phonecode' => '350',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1005,7 +1005,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'GRC',
                     'numcode' => '300',
                     'phonecode' => '30',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1017,7 +1017,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'GRL',
                     'numcode' => '304',
                     'phonecode' => '299',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1029,7 +1029,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'GRD',
                     'numcode' => '308',
                     'phonecode' => '1473',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1041,7 +1041,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'GLP',
                     'numcode' => '312',
                     'phonecode' => '590',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1053,7 +1053,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'GUM',
                     'numcode' => '316',
                     'phonecode' => '1671',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1065,7 +1065,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'GTM',
                     'numcode' => '320',
                     'phonecode' => '502',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1077,7 +1077,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'GIN',
                     'numcode' => '324',
                     'phonecode' => '224',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1089,7 +1089,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'GNB',
                     'numcode' => '624',
                     'phonecode' => '245',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1101,7 +1101,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'GUY',
                     'numcode' => '328',
                     'phonecode' => '592',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1113,7 +1113,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'HTI',
                     'numcode' => '332',
                     'phonecode' => '509',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1125,7 +1125,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => NULL,
                     'numcode' => NULL,
                     'phonecode' => '0',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1137,7 +1137,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'VAT',
                     'numcode' => '336',
                     'phonecode' => '39',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1149,7 +1149,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'HND',
                     'numcode' => '340',
                     'phonecode' => '504',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1161,7 +1161,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'HKG',
                     'numcode' => '344',
                     'phonecode' => '852',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1173,7 +1173,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'HUN',
                     'numcode' => '348',
                     'phonecode' => '36',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1185,7 +1185,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ISL',
                     'numcode' => '352',
                     'phonecode' => '354',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1197,7 +1197,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'IND',
                     'numcode' => '356',
                     'phonecode' => '91',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1221,7 +1221,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'IRN',
                     'numcode' => '364',
                     'phonecode' => '98',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1233,7 +1233,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'IRQ',
                     'numcode' => '368',
                     'phonecode' => '964',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1245,7 +1245,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'IRL',
                     'numcode' => '372',
                     'phonecode' => '353',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1257,7 +1257,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ISR',
                     'numcode' => '376',
                     'phonecode' => '972',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1269,7 +1269,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ITA',
                     'numcode' => '380',
                     'phonecode' => '39',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1281,7 +1281,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'JAM',
                     'numcode' => '388',
                     'phonecode' => '1876',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1293,7 +1293,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'JPN',
                     'numcode' => '392',
                     'phonecode' => '81',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1305,7 +1305,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'JOR',
                     'numcode' => '400',
                     'phonecode' => '962',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1317,7 +1317,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'KAZ',
                     'numcode' => '398',
                     'phonecode' => '7',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1329,7 +1329,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'KEN',
                     'numcode' => '404',
                     'phonecode' => '254',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1341,7 +1341,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'KIR',
                     'numcode' => '296',
                     'phonecode' => '686',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1353,7 +1353,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'PRK',
                     'numcode' => '408',
                     'phonecode' => '850',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1365,7 +1365,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'KOR',
                     'numcode' => '410',
                     'phonecode' => '82',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1377,7 +1377,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'KWT',
                     'numcode' => '414',
                     'phonecode' => '965',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1389,7 +1389,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'KGZ',
                     'numcode' => '417',
                     'phonecode' => '996',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1401,7 +1401,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'LAO',
                     'numcode' => '418',
                     'phonecode' => '856',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1413,7 +1413,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'LVA',
                     'numcode' => '428',
                     'phonecode' => '371',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1425,7 +1425,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'LBN',
                     'numcode' => '422',
                     'phonecode' => '961',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1437,7 +1437,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'LSO',
                     'numcode' => '426',
                     'phonecode' => '266',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1449,7 +1449,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'LBR',
                     'numcode' => '430',
                     'phonecode' => '231',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1461,7 +1461,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'LBY',
                     'numcode' => '434',
                     'phonecode' => '218',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1473,7 +1473,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'LIE',
                     'numcode' => '438',
                     'phonecode' => '423',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1485,7 +1485,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'LTU',
                     'numcode' => '440',
                     'phonecode' => '370',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1497,7 +1497,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'LUX',
                     'numcode' => '442',
                     'phonecode' => '352',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1509,7 +1509,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MAC',
                     'numcode' => '446',
                     'phonecode' => '853',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1521,7 +1521,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MKD',
                     'numcode' => '807',
                     'phonecode' => '389',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1533,7 +1533,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MDG',
                     'numcode' => '450',
                     'phonecode' => '261',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1545,7 +1545,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MWI',
                     'numcode' => '454',
                     'phonecode' => '265',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1569,7 +1569,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MDV',
                     'numcode' => '462',
                     'phonecode' => '960',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1581,7 +1581,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MLI',
                     'numcode' => '466',
                     'phonecode' => '223',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1593,7 +1593,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MLT',
                     'numcode' => '470',
                     'phonecode' => '356',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1605,7 +1605,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MHL',
                     'numcode' => '584',
                     'phonecode' => '692',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1617,7 +1617,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MTQ',
                     'numcode' => '474',
                     'phonecode' => '596',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1629,7 +1629,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MRT',
                     'numcode' => '478',
                     'phonecode' => '222',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1641,7 +1641,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MUS',
                     'numcode' => '480',
                     'phonecode' => '230',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1653,7 +1653,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => NULL,
                     'numcode' => NULL,
                     'phonecode' => '269',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1665,7 +1665,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MEX',
                     'numcode' => '484',
                     'phonecode' => '52',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1677,7 +1677,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'FSM',
                     'numcode' => '583',
                     'phonecode' => '691',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1689,7 +1689,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MDA',
                     'numcode' => '498',
                     'phonecode' => '373',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1701,7 +1701,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MCO',
                     'numcode' => '492',
                     'phonecode' => '377',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1713,7 +1713,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MNG',
                     'numcode' => '496',
                     'phonecode' => '976',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1725,7 +1725,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MSR',
                     'numcode' => '500',
                     'phonecode' => '1664',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1737,7 +1737,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MAR',
                     'numcode' => '504',
                     'phonecode' => '212',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1749,7 +1749,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MOZ',
                     'numcode' => '508',
                     'phonecode' => '258',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1761,7 +1761,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MMR',
                     'numcode' => '104',
                     'phonecode' => '95',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1773,7 +1773,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'NAM',
                     'numcode' => '516',
                     'phonecode' => '264',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1785,7 +1785,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'NRU',
                     'numcode' => '520',
                     'phonecode' => '674',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1797,7 +1797,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'NPL',
                     'numcode' => '524',
                     'phonecode' => '977',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1809,7 +1809,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'NLD',
                     'numcode' => '528',
                     'phonecode' => '31',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1821,7 +1821,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ANT',
                     'numcode' => '530',
                     'phonecode' => '599',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1833,7 +1833,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'NCL',
                     'numcode' => '540',
                     'phonecode' => '687',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1845,7 +1845,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'NZL',
                     'numcode' => '554',
                     'phonecode' => '64',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1857,7 +1857,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'NIC',
                     'numcode' => '558',
                     'phonecode' => '505',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1869,7 +1869,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'NER',
                     'numcode' => '562',
                     'phonecode' => '227',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1881,7 +1881,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'NGA',
                     'numcode' => '566',
                     'phonecode' => '234',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1893,7 +1893,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'NIU',
                     'numcode' => '570',
                     'phonecode' => '683',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1905,7 +1905,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'NFK',
                     'numcode' => '574',
                     'phonecode' => '672',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1917,7 +1917,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'MNP',
                     'numcode' => '580',
                     'phonecode' => '1670',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1929,7 +1929,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'NOR',
                     'numcode' => '578',
                     'phonecode' => '47',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1941,7 +1941,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'OMN',
                     'numcode' => '512',
                     'phonecode' => '968',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1953,7 +1953,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'PAK',
                     'numcode' => '586',
                     'phonecode' => '92',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1965,7 +1965,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'PLW',
                     'numcode' => '585',
                     'phonecode' => '680',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1977,7 +1977,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => NULL,
                     'numcode' => NULL,
                     'phonecode' => '970',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -1989,7 +1989,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'PAN',
                     'numcode' => '591',
                     'phonecode' => '507',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2001,7 +2001,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'PNG',
                     'numcode' => '598',
                     'phonecode' => '675',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2013,7 +2013,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'PRY',
                     'numcode' => '600',
                     'phonecode' => '595',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2025,7 +2025,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'PER',
                     'numcode' => '604',
                     'phonecode' => '51',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2049,7 +2049,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'PCN',
                     'numcode' => '612',
                     'phonecode' => '0',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2061,7 +2061,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'POL',
                     'numcode' => '616',
                     'phonecode' => '48',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2073,7 +2073,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'PRT',
                     'numcode' => '620',
                     'phonecode' => '351',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2085,7 +2085,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'PRI',
                     'numcode' => '630',
                     'phonecode' => '1787',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2097,7 +2097,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'QAT',
                     'numcode' => '634',
                     'phonecode' => '974',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2109,7 +2109,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'REU',
                     'numcode' => '638',
                     'phonecode' => '262',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2121,7 +2121,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ROM',
                     'numcode' => '642',
                     'phonecode' => '40',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2133,7 +2133,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'RUS',
                     'numcode' => '643',
                     'phonecode' => '70',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2145,7 +2145,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'RWA',
                     'numcode' => '646',
                     'phonecode' => '250',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2157,7 +2157,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SHN',
                     'numcode' => '654',
                     'phonecode' => '290',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2169,7 +2169,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'KNA',
                     'numcode' => '659',
                     'phonecode' => '1869',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2181,7 +2181,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'LCA',
                     'numcode' => '662',
                     'phonecode' => '1758',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2193,7 +2193,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SPM',
                     'numcode' => '666',
                     'phonecode' => '508',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2205,7 +2205,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'VCT',
                     'numcode' => '670',
                     'phonecode' => '1784',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2217,7 +2217,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'WSM',
                     'numcode' => '882',
                     'phonecode' => '684',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2229,7 +2229,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SMR',
                     'numcode' => '674',
                     'phonecode' => '378',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2241,7 +2241,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'STP',
                     'numcode' => '678',
                     'phonecode' => '239',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2253,7 +2253,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SAU',
                     'numcode' => '682',
                     'phonecode' => '966',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2265,7 +2265,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SEN',
                     'numcode' => '686',
                     'phonecode' => '221',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2277,7 +2277,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => NULL,
                     'numcode' => NULL,
                     'phonecode' => '381',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2289,7 +2289,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SYC',
                     'numcode' => '690',
                     'phonecode' => '248',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2301,7 +2301,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SLE',
                     'numcode' => '694',
                     'phonecode' => '232',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2325,7 +2325,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SVK',
                     'numcode' => '703',
                     'phonecode' => '421',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2337,7 +2337,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SVN',
                     'numcode' => '705',
                     'phonecode' => '386',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2349,7 +2349,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SLB',
                     'numcode' => '90',
                     'phonecode' => '677',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2361,7 +2361,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SOM',
                     'numcode' => '706',
                     'phonecode' => '252',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2373,7 +2373,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ZAF',
                     'numcode' => '710',
                     'phonecode' => '27',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2385,7 +2385,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => NULL,
                     'numcode' => NULL,
                     'phonecode' => '0',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2397,7 +2397,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ESP',
                     'numcode' => '724',
                     'phonecode' => '34',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2409,7 +2409,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'LKA',
                     'numcode' => '144',
                     'phonecode' => '94',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2421,7 +2421,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SDN',
                     'numcode' => '736',
                     'phonecode' => '249',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2433,7 +2433,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SUR',
                     'numcode' => '740',
                     'phonecode' => '597',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2445,7 +2445,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SJM',
                     'numcode' => '744',
                     'phonecode' => '47',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2457,7 +2457,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SWZ',
                     'numcode' => '748',
                     'phonecode' => '268',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2469,7 +2469,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SWE',
                     'numcode' => '752',
                     'phonecode' => '46',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2481,7 +2481,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'CHE',
                     'numcode' => '756',
                     'phonecode' => '41',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2493,7 +2493,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'SYR',
                     'numcode' => '760',
                     'phonecode' => '963',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2505,7 +2505,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'TWN',
                     'numcode' => '158',
                     'phonecode' => '886',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2517,7 +2517,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'TJK',
                     'numcode' => '762',
                     'phonecode' => '992',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2529,7 +2529,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'TZA',
                     'numcode' => '834',
                     'phonecode' => '255',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2541,7 +2541,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'THA',
                     'numcode' => '764',
                     'phonecode' => '66',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2553,7 +2553,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => NULL,
                     'numcode' => NULL,
                     'phonecode' => '670',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2565,7 +2565,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'TGO',
                     'numcode' => '768',
                     'phonecode' => '228',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2577,7 +2577,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'TKL',
                     'numcode' => '772',
                     'phonecode' => '690',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2589,7 +2589,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'TON',
                     'numcode' => '776',
                     'phonecode' => '676',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2601,7 +2601,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'TTO',
                     'numcode' => '780',
                     'phonecode' => '1868',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2613,7 +2613,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'TUN',
                     'numcode' => '788',
                     'phonecode' => '216',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2625,7 +2625,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'TUR',
                     'numcode' => '792',
                     'phonecode' => '90',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2637,7 +2637,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'TKM',
                     'numcode' => '795',
                     'phonecode' => '7370',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2649,7 +2649,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'TCA',
                     'numcode' => '796',
                     'phonecode' => '1649',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2661,7 +2661,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'TUV',
                     'numcode' => '798',
                     'phonecode' => '688',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2673,7 +2673,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'UGA',
                     'numcode' => '800',
                     'phonecode' => '256',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2685,7 +2685,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'UKR',
                     'numcode' => '804',
                     'phonecode' => '380',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2697,7 +2697,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ARE',
                     'numcode' => '784',
                     'phonecode' => '971',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2709,7 +2709,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'GBR',
                     'numcode' => '826',
                     'phonecode' => '44',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2733,7 +2733,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => NULL,
                     'numcode' => NULL,
                     'phonecode' => '1',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2745,7 +2745,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'URY',
                     'numcode' => '858',
                     'phonecode' => '598',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2757,7 +2757,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'UZB',
                     'numcode' => '860',
                     'phonecode' => '998',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2769,7 +2769,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'VUT',
                     'numcode' => '548',
                     'phonecode' => '678',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2781,7 +2781,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'VEN',
                     'numcode' => '862',
                     'phonecode' => '58',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2793,7 +2793,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'VNM',
                     'numcode' => '704',
                     'phonecode' => '84',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2805,7 +2805,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'VGB',
                     'numcode' => '92',
                     'phonecode' => '1284',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2817,7 +2817,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'VIR',
                     'numcode' => '850',
                     'phonecode' => '1340',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2829,7 +2829,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'WLF',
                     'numcode' => '876',
                     'phonecode' => '681',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2841,7 +2841,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ESH',
                     'numcode' => '732',
                     'phonecode' => '212',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2853,7 +2853,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'YEM',
                     'numcode' => '887',
                     'phonecode' => '967',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2865,7 +2865,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ZMB',
                     'numcode' => '894',
                     'phonecode' => '260',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
@@ -2877,7 +2877,7 @@ class MyCountryTableSeeder extends Seeder
                     'iso3' => 'ZWE',
                     'numcode' => '716',
                     'phonecode' => '263',
-                    'status' => 0,
+                    'status' => 1,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ),
