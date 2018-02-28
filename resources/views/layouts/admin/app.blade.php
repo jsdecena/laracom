@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css') }}">
+    <!-- Select2 -->
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -77,8 +79,12 @@
 <script src="{{ asset('js/fastclick.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('js/app.min.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ asset('js/select2.min.js') }}"></script>
+<!-- CKEditor -->
+<script src="{{ asset('//cdn.ckeditor.com/4.8.0/standard/ckeditor.js') }}"></script>
 <!-- Custom JS -->
-<script src="{{ asset('js/admin.js') }}"></script>
+<script src="{{ asset('js/admin.js?v=0.1') }}"></script>
 @yield('js')
 </body>
 </html>

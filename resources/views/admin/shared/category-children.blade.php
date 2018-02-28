@@ -15,8 +15,5 @@
                 </div>
             @endif
         </li>
-        @if($category->children()->count() > 0)
-            @include('admin.shared.category-children', ['categories' => $category->children])
-        @endif
     @endforeach
 </ul>

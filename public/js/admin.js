@@ -7,4 +7,7 @@ $(document).ready(function () {
             $('#delivery_cost').fadeOut();
         }
     });
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
 });

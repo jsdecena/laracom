@@ -11,7 +11,7 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="parent">Parent Category</label>
-                        <select name="parent" id="parent" class="form-control">
+                        <select name="parent" id="parent" class="form-control select2">
                             @foreach($categories as $cat)
                                 <option @if($cat->id == $category->parent_id) selected="selected" @endif value="{{$cat->id}}">{{$cat->name}}</option>
                             @endforeach
@@ -23,7 +23,7 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Description </label>
-                        <textarea class="form-control" name="description" id="description" rows="5" placeholder="Description">{!! $category->description ?: old('description')  !!}</textarea>
+                        <textarea class="form-control ckeditor" name="description" id="description" rows="5" placeholder="Description">{!! $category->description ?: old('description')  !!}</textarea>
                     </div>
                     @if(isset($category->cover))
                     <div class="form-group">
