@@ -3,7 +3,6 @@
 @section('content')
     <!-- Main content -->
     <section class="content">
-
     @include('layouts.errors-and-messages')
     <!-- Default box -->
         @if($categories)

@@ -9,6 +9,7 @@ use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Repositories\ProductRepository;
 use App\Shop\Products\Transformations\ProductTransformable;
+use Gloudemans\Shoppingcart\CartItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -51,10 +52,12 @@ class CartController extends Controller
      */
     public function index()
     {
-        $cartProducts = $this->cartRepo->getCartItems()->map(function ($item) {
+        $cartProducts = $this->cartRepo->getCartItems()->map(function (CartItem $item) {
             $productRepo = new ProductRepository(new Product());
             $product = $productRepo->findProductById($item->id);
-            return $this->transformProduct($product);
+            $item->product = $this->transformProduct($product);
+            $item->cover = $product->cover;
+            return $item;
         });
 
         $courier = $this->courierRepo->findCourierById(request()->session()->get('courierId', 1));
