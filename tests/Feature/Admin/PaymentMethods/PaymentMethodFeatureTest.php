@@ -34,8 +34,8 @@ class PaymentMethodFeatureTest extends TestCase
             ->actingAs($this->employee, 'admin')
             ->get(route('admin.payment-methods.edit', $paymentMethod->id))
             ->assertStatus(200)
-            ->assertSee($paymentMethod->name)
-            ->assertSee($paymentMethod->description);
+            ->assertSee(htmlentities($paymentMethod->name, ENT_QUOTES))
+            ->assertSee(htmlentities($paymentMethod->description, ENT_QUOTES));
     }
     
     /** @test */
@@ -47,8 +47,8 @@ class PaymentMethodFeatureTest extends TestCase
             ->actingAs($this->employee, 'admin')
             ->get(route('admin.payment-methods.index'))
             ->assertStatus(200)
-            ->assertSee($paymentMethod->name)
-            ->assertSee($paymentMethod->description);
+            ->assertSee(htmlentities($paymentMethod->name, ENT_QUOTES))
+            ->assertSee(htmlentities($paymentMethod->description, ENT_QUOTES));
     }
     
     /** @test */
@@ -83,6 +83,6 @@ class PaymentMethodFeatureTest extends TestCase
             'account_id' => $this->faker->word,
             'client_id' => $this->faker->word,
             'client_secret' => $this->faker->word
-        ];;
+        ];
     }
 }

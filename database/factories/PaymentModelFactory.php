@@ -15,11 +15,11 @@
 use App\Shop\PaymentMethods\PaymentMethod;
 
 $factory->define(PaymentMethod::class, function (Faker\Generator $faker) {
-    $name = $faker->word;
+    $name = $faker->sentence;
     return [
         'name' => $name,
         'slug' => str_slug($name),
-        'description' => $faker->sentence,
+        'description' => $faker->word,
         'account_id' => $faker->uuid,
         'client_id' => $faker->uuid,
         'client_secret' => $faker->uuid,
