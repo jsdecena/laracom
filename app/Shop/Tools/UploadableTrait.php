@@ -22,6 +22,7 @@ trait UploadableTrait
         return $file->storeAs(
             $folder,
             $name . "." . $file->getClientOriginalExtension(),
-            $disk);
+            $disk
+        );
     }
 }

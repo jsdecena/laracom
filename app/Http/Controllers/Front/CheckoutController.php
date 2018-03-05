@@ -11,6 +11,7 @@ use App\Shop\OrderDetails\OrderProduct;
 use App\Shop\OrderDetails\Repositories\OrderProductRepository;
 use App\Shop\Orders\Order;
 use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
+use App\Shop\PaymentMethods\Payment as PaypalPayment;
 use App\Shop\PaymentMethods\Exceptions\PaymentMethodNotFoundException;
 use App\Shop\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
 use App\Shop\PaymentMethods\Paypal\PaypalExpress;
@@ -62,13 +63,6 @@ class CheckoutController extends Controller
         $this->customerRepo = $customerRepository;
         $this->productRepo = $productRepository;
         $this->orderRepo = $orderRepository;
-        $this->paypal = new PaypalExpress(
-            config('paypal.client_id'),
-            config('paypal.client_secret'),
-            config('paypal.mode'),
-            config('paypal.api_url')
-
-        );
 
         $products = $this->cartRepo->getCartItems()->map(function (CartItem $item) {
             $productRepo = new ProductRepository(new Product());
@@ -125,32 +119,46 @@ class CheckoutController extends Controller
         $method = $this->paymentRepo->findPaymentMethodById($request->input('payment'));
         $courier = $this->courierRepo->findCourierById(request()->session()->get('courierId', 1));
 
-        if ($method->slug == 'paypal') {
-            $this->paypal->setPayer();
-            $this->paypal->setItems($this->getCartItems($this->cartRepo->getCartItems()));
-            $this->paypal->setOtherFees(
-                $this->cartRepo->getSubTotal(),
-                $this->cartRepo->getTax(),
-                $this->cartRepo->getShippingFee($courier)
-            );
-            $this->paypal->setAmount($this->cartRepo->getTotal(2, $this->cartRepo->getShippingFee($courier)));
-            $this->paypal->setTransactions();
+        switch ($method->slug) {
+            case 'paypal';
 
-            try {
-                $response = $this->paypal->createPayment(
-                    route('checkout.execute', $request->except('_token')),
-                    route('checkout.cancel')
+                $ppe = new PaypalExpress($method->client_id, $method->client_secret, $method->mode, $method->api_url);
+                $payment = new PaypalPayment($ppe);
+                $this->paypal = $payment->init();
+
+                $this->paypal->setPayer();
+                $this->paypal->setItems($this->getCartItems($this->cartRepo->getCartItems()));
+                $this->paypal->setOtherFees(
+                    $this->cartRepo->getSubTotal(),
+                    $this->cartRepo->getTax(),
+                    $this->cartRepo->getShippingFee($courier)
                 );
+                $this->paypal->setAmount($this->cartRepo->getTotal(2, $this->cartRepo->getShippingFee($courier)));
+                $this->paypal->setTransactions();
 
-                if ($response) {
-                    $redirectUrl = $response->links[1]->href;
-                    return redirect()->to($redirectUrl);
+                $billingAddress = $this->addressRepo->findAddressById($request->input('billing_address'));
+                $this->paypal->setBillingAddress($billingAddress);
+
+                if ($request->has('shipping_address')) {
+                    $shippingAddress = $this->addressRepo->findAddressById($request->input('shipping_address'));
+                    $this->paypal->setShippingAddress($shippingAddress);
                 }
-            } catch (PayPalConnectionException $e) {
-                throw new PaypalRequestError($e->getMessage());
-            }
-        } else {
-            throw new PaymentMethodNotFoundException('Payment method unknown');
+
+                try {
+                    $response = $this->paypal->createPayment(
+                        route('checkout.execute', $request->except('_token')),
+                        route('checkout.cancel')
+                    );
+
+                    if ($response) {
+                        $redirectUrl = $response->links[1]->href;
+                        return redirect()->to($redirectUrl);
+                    }
+                } catch (PayPalConnectionException $e) {
+                    throw new PaypalRequestError($e->getMessage());
+                }
+                break;
+            default;
         }
     }
 

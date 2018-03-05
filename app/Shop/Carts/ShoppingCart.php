@@ -7,7 +7,7 @@ use Gloudemans\Shoppingcart\CartItem;
 
 class ShoppingCart extends Cart
 {
-    static $defaultCurrency;
+    public static $defaultCurrency;
 
     private $session;
 
