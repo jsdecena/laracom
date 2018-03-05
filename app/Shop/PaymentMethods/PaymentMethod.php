@@ -20,6 +20,14 @@ class PaymentMethod extends Model
         'name',
         'slug',
         'description',
+        'account_id',
+        'client_id',
+        'client_secret',
+        'api_url',
+        'redirect_url',
+        'cancel_url',
+        'failed_url',
+        'mode',
         'status'
     ];
 

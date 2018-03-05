@@ -37,7 +37,7 @@
                                                 </td>
                                                 <td>
                                                     <label class="col-md-2 col-md-offset-3">
-                                                        <input type="radio" class="form-control" name="address" @if($selectedAddress == $address->id) checked="checked"  @endif value="{{ $address->id }}">
+                                                        <input type="radio" class="form-control" name="billing_address" @if($selectedAddress == $address->id) checked="checked"  @endif value="{{ $address->id }}">
                                                     </label>
                                                 </td>
                                             </tr>
