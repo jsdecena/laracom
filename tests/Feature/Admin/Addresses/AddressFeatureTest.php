@@ -87,8 +87,8 @@ class AddressFeatureTest extends TestCase
             ->actingAs($this->employee, 'admin')
             ->get(route('admin.addresses.index'))
             ->assertStatus(200)
-            ->assertSee($address->alias)
-            ->assertSee($address->address_1);
+            ->assertSee(htmlentities($address->alias, ENT_QUOTES))
+            ->assertSee(htmlentities($address->address_1, ENT_QUOTES));
     }
 
     /** @test */
