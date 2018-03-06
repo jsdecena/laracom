@@ -9,10 +9,14 @@ pipelines:
   default:
     - step:
         caches:
-          - vendor
+          - composer
+          - vendor-directory
         script:
           - apt-get update && apt-get install -y unzip
           - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
           - composer install
           - cp .env.example .env
           - vendor/bin/phpunit
+definitions:
+  caches:
+    vendor-directory: vendor
