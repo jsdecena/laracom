@@ -36,44 +36,6 @@ class ProductUnitTest extends TestCase
     }
 
     /** @test */
-    public function it_can_show_the_product_where_the_image_belongs_to()
-    {
-        $product = 'apple';
-        $cover = UploadedFile::fake()->image('file.png', 600, 600);
-
-        $params = [
-            'sku' => $this->faker->numberBetween(1111111, 999999),
-            'name' => $product,
-            'slug' => str_slug($product),
-            'description' => $this->faker->paragraph,
-            'cover' => $cover,
-            'quantity' => 10,
-            'price' => 9.95,
-            'status' => 1,
-            'image' => [
-                UploadedFile::fake()->image('file.png', 200, 200),
-                UploadedFile::fake()->image('file1.png', 200, 200),
-                UploadedFile::fake()->image('file2.png', 200, 200)
-            ]
-        ];
-
-        $productRepo = new ProductRepository(new Product);
-        $created = $productRepo->createProduct($params);
-        $repo = new ProductRepository($created);
-        $thumbnails = $repo->findProductImages();
-
-        $thumbnails->each(function (ProductImage $item) use ($created) {
-            $this->assertInstanceOf(ProductImage::class, $item);
-
-            $productImageRepo = new ProductImageRepository($item);
-            $product = $productImageRepo->findProduct();
-
-            $this->assertEquals($created->name, $product->name);
-            $this->assertEquals($created->description, $product->description);
-        });
-    }
-
-    /** @test */
     public function it_can_delete_a_thumbnail_image()
     {
         $product = 'apple';
@@ -97,10 +59,13 @@ class ProductUnitTest extends TestCase
 
         $productRepo = new ProductRepository(new Product);
         $created = $productRepo->createProduct($params);
+
         $repo = new ProductRepository($created);
+        $repo->saveProductImages(collect($params['image']), $created);
         $thumbnails = $repo->findProductImages();
 
         $this->assertCount(3, $repo->findProductImages());
+
         $thumbnails->each(function ($thumbnail) {
             $repo = new ProductRepository(new Product());
             $repo->deleteThumb($thumbnail->src);
@@ -135,6 +100,7 @@ class ProductUnitTest extends TestCase
         $created = $productRepo->createProduct($params);
 
         $repo = new ProductRepository($created);
+        $repo->saveProductImages(collect($params['image']), $created);
         $this->assertCount(3, $repo->findProductImages());
     }
 

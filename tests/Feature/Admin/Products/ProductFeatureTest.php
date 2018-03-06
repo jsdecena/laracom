@@ -60,6 +60,7 @@ class ProductFeatureTest extends TestCase
         $productRepo = new ProductRepository(new Product());
         $created = $productRepo->createProduct($params);
         $repo = new ProductRepository($created);
+        $repo->saveProductImages(collect($params['image']), $created);
         $image = $repo->findProductImages()->first();
 
         $this

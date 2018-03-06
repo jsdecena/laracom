@@ -117,15 +117,15 @@ class OrderUnitTest extends TestCase
     }
     
     /** @test */
-    public function it_can_update_the_product_quanity_upon_creation_of_order_details()
+    public function it_should_deduct_the_quantity_of_the_product_when_an_order_is_created()
     {
         $product = factory(Product::class)->create(['quantity' => 9]);
         $order = factory(Order::class)->create();
 
         $orderRepo = new OrderRepository($order);
-        $orderRepo->associateProduct($product);
+        $orderRepo->associateProduct($product, 5);
 
-        $this->assertEquals(9, $product->quantity);
+        $this->assertEquals(4, $product->quantity);
     }
     
     /** @test */

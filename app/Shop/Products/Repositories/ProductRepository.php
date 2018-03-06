@@ -53,11 +53,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         try {
             $product = new Product($params);
             $product->save();
-
-            if (isset($params['image']) && is_array($params['image'])) {
-                $this->saveImages($params, $product);
-            }
-
             return $product;
         } catch (QueryException $e) {
             throw new ProductInvalidArgumentException($e->getMessage());
@@ -73,13 +68,8 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      */
     public function updateProduct(array $params, int $id) : bool
     {
-        $product = $this->find($id);
-
         try {
-            if (isset($params['image']) && is_array($params['image'])) {
-                $this->saveImages($params, $product);
-            }
-            return $this->update($params, $id);
+            return $this->model->update($params);
         } catch (QueryException $e) {
             throw new ProductInvalidArgumentException($e->getMessage());
         }
@@ -193,15 +183,28 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     }
 
     /**
-     * @param array $params
-     * @param $product
+     * @param UploadedFile $file
+     * @return string
      */
-    private function saveImages(array $params, Product $product): void
+    public function saveCoverImage(UploadedFile $file) : string
     {
-        collect($params['image'])->each(function (UploadedFile $file) use ($product) {
+        return $file->store('products', ['disk' => 'public']);
+    }
+
+    /**
+     * @param Collection $collection
+     * @param Product $product
+     * @return Collection
+     */
+    public function saveProductImages(Collection $collection, Product $product)
+    {
+        $collection->each(function (UploadedFile $file) use ($product) {
             $filename = $file->store('products', ['disk' => 'public']);
-            $image = new ProductImage(['src' => $filename]);
-            $product->images()->save($image);
+            $productImage = new ProductImage([
+                'product_id' => $product->id,
+                'src' => $filename
+            ]);
+            $product->images()->save($productImage);
         });
     }
 }

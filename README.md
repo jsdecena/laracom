@@ -6,8 +6,9 @@
 [![License](https://img.shields.io/packagist/l/jsdecena/laracom.svg)](https://packagist.org/packages/jsdecena/laracom)
 
 # Laravel FREE E-Commerce Software
+## Test-driven development (TDD) made app
 
-#### Framework Used : Laravel 5.4
+#### Framework Used : Laravel 5.5
 
 [Installation](https://github.com/jsdecena/laracom/wiki)
 
@@ -16,6 +17,7 @@
 - Products
     - Multiple product images
     - Configure SKU, name, description, price and quantity
+    - Product list ordering and sorting
     - Enable / Disable products
     - Full searchable of products in admin and front store
 
@@ -35,7 +37,7 @@
     - Downloadable invoice
     
 - Payment
-    - Paypal-ready shop!
+    - PayPal-ready shop!
     - Accept online payments in an instant
     
 - Couriers

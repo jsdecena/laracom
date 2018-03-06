@@ -4,6 +4,7 @@ namespace App\Shop\Products\Repositories\Interfaces;
 
 use App\Shop\Base\Interfaces\BaseRepositoryInterface;
 use App\Shop\Products\Product;
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 
@@ -34,4 +35,8 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
     public function searchProduct(string $text) : Collection;
 
     public function findProductImages() : Collection;
+
+    public function saveCoverImage(UploadedFile $file) : string;
+
+    public function saveProductImages(Collection $collection, Product $product);
 }
