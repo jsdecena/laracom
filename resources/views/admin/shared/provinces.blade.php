@@ -1,12 +1,12 @@
 @if(!$provinces->isEmpty())
     <table class="table">
-        <tbody>
-        <tr>
-            <td class="col-md-4">Name</td>
-            <td class="col-md-4">Status</td>
-            <td class="col-md-4">Actions</td>
-        </tr>
-        </tbody>
+        <thead>
+            <tr>
+                <td class="col-md-4">Name</td>
+                <td class="col-md-4">Status</td>
+                <td class="col-md-4">Actions</td>
+            </tr>
+        </thead>
         <tbody>
         @foreach($provinces as $province)
             <tr>

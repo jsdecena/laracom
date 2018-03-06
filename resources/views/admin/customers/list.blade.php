@@ -12,15 +12,15 @@
                     <h2>Customers</h2>
                     @include('layouts.search', ['route' => route('admin.customers.index')])
                     <table class="table">
-                        <tbody>
-                        <tr>
-                            <td class="col-md-2">ID</td>
-                            <td class="col-md-2">Name</td>
-                            <td class="col-md-2">Email</td>
-                            <td class="col-md-2">Status</td>
-                            <td class="col-md-4">Actions</td>
-                        </tr>
-                        </tbody>
+                        <thead>
+                            <tr>
+                                <td class="col-md-2">ID</td>
+                                <td class="col-md-2">Name</td>
+                                <td class="col-md-2">Email</td>
+                                <td class="col-md-2">Status</td>
+                                <td class="col-md-4">Actions</td>
+                            </tr>
+                        </thead>
                         <tbody>
                         @foreach ($customers as $customer)
                             <tr>

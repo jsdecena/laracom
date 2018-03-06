@@ -11,13 +11,13 @@
                 <div class="box-body">
                     <h2>Category</h2>
                     <table class="table">
-                        <tbody>
+                        <thead>
                         <tr>
                             <td class="col-md-4">Name</td>
                             <td class="col-md-4">Description</td>
                             <td class="col-md-4">Cover</td>
                         </tr>
-                        </tbody>
+                        </thead>
                         <tbody>
                             <tr>
                                 <td>{{ $category->name }}</td>
@@ -36,14 +36,14 @@
                     <div class="box-body">
                         <h2>Sub Categories</h2>
                         <table class="table">
-                            <tbody>
+                            <thead>
                             <tr>
                                 <td class="col-md-3">Name</td>
                                 <td class="col-md-3">Description</td>
                                 <td class="col-md-3">Cover</td>
                                 <td class="col-md-3">Actions</td>
                             </tr>
-                            </tbody>
+                            </thead>
                             <tbody>
                                 @foreach($categories as $cat)
                                     <tr>

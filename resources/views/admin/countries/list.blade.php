@@ -11,17 +11,17 @@
                 <div class="box-body">
                     <h2>Countries</h2>
                     <table class="table">
-                        <tbody>
-                        <tr>
-                            <td class="col-md-2">Name</td>
-                            <td class="col-md-1">ISO</td>
-                            <td class="col-md-2">ISO-3</td>
-                            <td class="col-md-1">Numcode</td>
-                            <td class="col-md-1">Phone Code</td>
-                            <td class="col-md-1">Status</td>
-                            <td class="col-md-4">Actions</td>
-                        </tr>
-                        </tbody>
+                        <thead>
+                            <tr>
+                                <td class="col-md-2">Name</td>
+                                <td class="col-md-1">ISO</td>
+                                <td class="col-md-2">ISO-3</td>
+                                <td class="col-md-1">Numcode</td>
+                                <td class="col-md-1">Phone Code</td>
+                                <td class="col-md-1">Status</td>
+                                <td class="col-md-4">Actions</td>
+                            </tr>
+                        </thead>
                         <tbody>
                         @foreach ($countries as $country)
                             <tr>

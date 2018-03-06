@@ -12,7 +12,7 @@
                     <h2>Orders</h2>
                     @include('layouts.search', ['route' => route('admin.orders.index')])
                     <table class="table">
-                        <tbody>
+                        <thead>
                             <tr>
                                 <td class="col-md-3">Date</td>
                                 <td class="col-md-3">Customer</td>
@@ -20,7 +20,7 @@
                                 <td class="col-md-2">Total</td>
                                 <td class="col-md-2">Status</td>
                             </tr>
-                        </tbody>
+                        </thead>
                         <tbody>
                         @foreach ($orders as $order)
                             <tr>

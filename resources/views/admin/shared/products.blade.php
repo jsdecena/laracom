@@ -1,15 +1,15 @@
 @if(isset($products))
     <table class="table">
-        <tbody>
-        <tr>
-            <td class="col-md-2">Name</td>
-            <td class="col-md-2 text-center">Cover</td>
-            <td class="col-md-2 text-center">Quantity</td>
-            <td class="col-md-2 text-center">Price</td>
-            <td class="col-md-2">Status</td>
-            <td class="col-md-2">Actions</td>
-        </tr>
-        </tbody>
+        <thead>
+            <tr>
+                <td class="col-md-2">Name</td>
+                <td class="col-md-2 text-center">Cover</td>
+                <td class="col-md-2 text-center">Quantity</td>
+                <td class="col-md-2 text-center">Price</td>
+                <td class="col-md-2">Status</td>
+                <td class="col-md-2">Actions</td>
+            </tr>
+        </thead>
         <tbody>
         @foreach ($products as $product)
             <tr>

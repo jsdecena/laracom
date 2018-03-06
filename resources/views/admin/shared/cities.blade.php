@@ -1,10 +1,10 @@
 <table class="table">
-    <tbody>
-    <tr>
-        <td class="col-md-4">Name</td>
-        <td class="col-md-4">Actions</td>
-    </tr>
-    </tbody>
+    <thead>
+        <tr>
+            <td class="col-md-4">Name</td>
+            <td class="col-md-4">Actions</td>
+        </tr>
+    </thead>
     <tbody>
     @foreach($cities as $city)
         <tr>

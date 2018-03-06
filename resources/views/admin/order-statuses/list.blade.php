@@ -11,13 +11,13 @@
             <div class="box-body">
                 <h2>Order Status</h2>
                 <table class="table">
-                    <tbody>
+                    <thead>
                         <tr>
                             <td class="col-md-4">Name</td>
                             <td class="col-md-4">Color</td>
                             <td class="col-md-4">Actions</td>
                         </tr>
-                    </tbody>
+                    </thead>
                     <tbody>
                     @foreach ($orderStatuses as $status)
                         <tr>

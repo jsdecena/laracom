@@ -11,16 +11,16 @@
                 <div class="box-body">
                     <h2> <i class="fa fa-flask"></i> Payment Methods</h2>
                     <table class="table">
-                        <tbody>
-                        <tr>
-                            <td>Name</td>
-                            <td>Account ID</td>
-                            <td>Client ID</td>
-                            <td>Client Secret</td>
-                            <td>Status</td>
-                            <td>Actions</td>
-                        </tr>
-                        </tbody>
+                        <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Account ID</td>
+                                <td>Client ID</td>
+                                <td>Client Secret</td>
+                                <td>Status</td>
+                                <td>Actions</td>
+                            </tr>
+                        </thead>
                         <tbody>
                         @foreach ($paymentMethods as $paymentMethod)
                             <tr>

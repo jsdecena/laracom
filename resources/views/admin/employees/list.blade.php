@@ -11,7 +11,7 @@
             <div class="box-body">
                 <h2>Employees</h2>
                 <table class="table">
-                    <tbody>
+                    <thead>
                         <tr>
                             <td class="col-md-1">ID</td>
                             <td class="col-md-3">Name</td>
@@ -19,7 +19,7 @@
                             <td class="col-md-1">Status</td>
                             <td class="col-md-4">Actions</td>
                         </tr>
-                    </tbody>
+                    </thead>
                     <tbody>
                     @foreach ($employees as $employee)
                         <tr>

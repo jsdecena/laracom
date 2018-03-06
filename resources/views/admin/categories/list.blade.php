@@ -10,14 +10,14 @@
                 <div class="box-body">
                     <h2>Categories</h2>
                     <table class="table">
-                        <tbody>
-                        <tr>
-                            <td class="col-md-3">Name</td>
-                            <td class="col-md-3">Cover</td>
-                            <td class="col-md-3">Status</td>
-                            <td class="col-md-3">Actions</td>
-                        </tr>
-                        </tbody>
+                        <thead>
+                            <tr>
+                                <td class="col-md-3">Name</td>
+                                <td class="col-md-3">Cover</td>
+                                <td class="col-md-3">Status</td>
+                                <td class="col-md-3">Actions</td>
+                            </tr>
+                        </thead>
                         <tbody>
                         @foreach ($categories as $category)
                             <tr>

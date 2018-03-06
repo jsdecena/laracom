@@ -11,17 +11,17 @@
                 <div class="box-body">
                     <h2> <i class="fa fa-truck"></i> Couriers</h2>
                     <table class="table">
-                        <tbody>
-                        <tr>
-                            <td class="col-md-2">Name</td>
-                            <td class="col-md-2">Description</td>
-                            <td class="col-md-2">URL</td>
-                            <td class="col-md-1">Is Free?</td>
-                            <td class="col-md-1">Cost</td>
-                            <td class="col-md-1">Status</td>
-                            <td class="col-md-3">Actions</td>
-                        </tr>
-                        </tbody>
+                        <thead>
+                            <tr>
+                                <td class="col-md-2">Name</td>
+                                <td class="col-md-2">Description</td>
+                                <td class="col-md-2">URL</td>
+                                <td class="col-md-1">Is Free?</td>
+                                <td class="col-md-1">Cost</td>
+                                <td class="col-md-1">Status</td>
+                                <td class="col-md-3">Actions</td>
+                            </tr>
+                        </thead>
                         <tbody>
                         @foreach ($couriers as $courier)
                             <tr>
