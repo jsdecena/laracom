@@ -114,22 +114,8 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     public function associateProduct(Product $product, int $quantity = 1)
     {
         $this->model->products()->attach($product, ['quantity' => $quantity]);
-
-        $this->updateProductQuantity($product, $quantity);
-    }
-
-    /**
-     * @param $product
-     * @param $qty
-     * @return Product
-     */
-    private function updateProductQuantity($product, $qty)
-    {
-        // update the product quantity
-        $productRepo = new ProductRepository($product);
-
-        $quantity = $product->quantity - $qty;
-        $productRepo->updateProduct(compact('quantity'), $product->id);
+        $product->quantity = ($product->quantity - $quantity);
+        $product->save();
     }
 
     /**

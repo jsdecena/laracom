@@ -41,8 +41,9 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{{ asset('favicons/ms-icon-144x144.png')}}">
     <meta name="theme-color" content="#ffffff">
-    @section('css')
-    @show
+    @yield('css')
+    <meta property="og:url" content="{{ request()->url() }}"/>
+    @yield('og')
 </head>
 <body>
 

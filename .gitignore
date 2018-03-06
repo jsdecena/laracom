@@ -9,11 +9,9 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 .env
-composer.lock
 yarn.lock
 /build
 Envoy.blade.php
 /coverage
 storage/app/public/storage
-
 \.php_cs\.cache
