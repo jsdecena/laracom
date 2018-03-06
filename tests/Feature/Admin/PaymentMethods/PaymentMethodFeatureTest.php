@@ -47,8 +47,7 @@ class PaymentMethodFeatureTest extends TestCase
             ->actingAs($this->employee, 'admin')
             ->get(route('admin.payment-methods.index'))
             ->assertStatus(200)
-            ->assertSee(htmlentities($paymentMethod->name, ENT_QUOTES))
-            ->assertSee(htmlentities($paymentMethod->description, ENT_QUOTES));
+            ->assertSee(htmlentities($paymentMethod->name, ENT_QUOTES));
     }
     
     /** @test */

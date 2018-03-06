@@ -19,7 +19,7 @@ $factory->define(PaymentMethod::class, function (Faker\Generator $faker) {
     return [
         'name' => $name,
         'slug' => str_slug($name),
-        'description' => $faker->word,
+        'description' => '',
         'account_id' => $faker->uuid,
         'client_id' => $faker->uuid,
         'client_secret' => $faker->uuid,
