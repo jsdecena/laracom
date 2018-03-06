@@ -103,12 +103,10 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
     /**
      * Detach the categories
-     *
-     * @param Product $product
      */
-    public function detachCategories(Product $product)
+    public function detachCategories()
     {
-        $product->categories()->detach();
+        $this->model->categories()->detach();
     }
 
     /**

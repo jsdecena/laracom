@@ -90,12 +90,12 @@ class ProductController extends Controller
         }
 
         $product = $this->productRepo->createProduct($data);
-
         $this->saveProductImages($request, $product);
 
         if ($request->has('categories')) {
-            $productRepo = new ProductRepository($product);
-            $productRepo->syncCategories($request->input('categories'));
+            $product->categories()->sync($request->input('categories'));
+        } else {
+            $product->categories()->detach();
         }
 
         $request->session()->flash('message', 'Create successful');
@@ -159,12 +159,12 @@ class ProductController extends Controller
 
         $this->saveProductImages($request, $product);
 
-        $this->productRepo->updateProduct($data, $product->id);
+        $this->productRepo->updateProduct($data, $id);
 
         if ($request->has('categories')) {
             $product->categories()->sync($request->input('categories'));
         } else {
-            $product->categories()->detach($product);
+            $product->categories()->detach();
         }
 
         $request->session()->flash('message', 'Update successful');
@@ -212,7 +212,7 @@ class ProductController extends Controller
 
     /**
      * @param Request $request
-     * @param $product
+     * @param Product $product
      */
     private function saveProductImages(Request $request, Product $product)
     {
