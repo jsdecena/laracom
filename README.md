@@ -4,6 +4,7 @@
 [![Test Coverage](https://img.shields.io/codecov/c/github/jsdecena/laracom/master.svg)](https://codecov.io/github/jsdecena/laracom?branch=master)
 [![Latest Stable Version](https://img.shields.io/packagist/v/jsdecena/laracom.svg)](https://packagist.org/packages/jsdecena/laracom)
 [![License](https://img.shields.io/packagist/l/jsdecena/laracom.svg)](https://packagist.org/packages/jsdecena/laracom)
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/larac0m/Lobby)
 
 # Laravel FREE E-Commerce Software
 ## Test-driven development (TDD) made app
