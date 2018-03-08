@@ -17,6 +17,7 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/admin';
 
+
     /**
      * Shows the admin login form
      *

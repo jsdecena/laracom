@@ -76,7 +76,7 @@
                         </div>
                         <div class="col-md-4">
                             <h2>Categories</h2>
-                            @include('admin.shared.categories', ['categories' => $categories, 'ids' => $productCategoryIds])
+                            @include('admin.shared.categories', ['categories' => $categories, 'ids' => $product])
                         </div>
                     </div>
                 </div>

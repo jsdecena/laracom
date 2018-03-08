@@ -9,9 +9,9 @@ class ShoppingCart extends Cart
 {
     public static $defaultCurrency;
 
-    private $session;
+    protected $session;
 
-    private $event;
+    protected $event;
 
     public function __construct()
     {

@@ -10,10 +10,79 @@ use App\Shop\Products\Exceptions\ProductNotFoundException;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\ProductRepository;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class ProductUnitTest extends TestCase
 {
+    /** @test */
+    public function it_can_return_the_product_of_the_cover_image()
+    {
+        $thumbnails = [
+            UploadedFile::fake()->image('cover.jpg', 600, 600),
+            UploadedFile::fake()->image('cover.jpg', 600, 600),
+            UploadedFile::fake()->image('cover.jpg', 600, 600)
+        ];
+
+        $collection = collect($thumbnails);
+
+        $product = factory(Product::class)->create();
+        $productRepo = new ProductRepository($product);
+        $productRepo->saveProductImages($collection, $product);
+
+        $images = $productRepo->findProductImages();
+
+        $images->each(function (ProductImage $image) use ($product) {
+            $productImageRepo = new ProductImageRepository($image);
+            $foundProduct = $productImageRepo->findProduct();
+
+            $this->assertInstanceOf(Product::class, $foundProduct);
+            $this->assertEquals($product->name, $foundProduct->name);
+            $this->assertEquals($product->slug, $foundProduct->slug);
+            $this->assertEquals($product->description, $foundProduct->description);
+            $this->assertEquals($product->quantity, $foundProduct->quantity);
+            $this->assertEquals($product->price, $foundProduct->price);
+            $this->assertEquals($product->status, $foundProduct->status);
+        });
+    }
+
+    /** @test */
+    public function it_can_save_the_thumbnails_properly_in_the_file_storage()
+    {
+        $thumbnails = [
+            UploadedFile::fake()->image('cover.jpg', 600, 600),
+            UploadedFile::fake()->image('cover.jpg', 600, 600),
+            UploadedFile::fake()->image('cover.jpg', 600, 600)
+        ];
+
+        $collection = collect($thumbnails);
+
+        $product = factory(Product::class)->create();
+        $productRepo = new ProductRepository($product);
+        $productRepo->saveProductImages($collection, $product);
+
+        $images = $productRepo->findProductImages();
+
+        $images->each(function (ProductImage $image) {
+            $exists = Storage::disk('public')->exists($image->src);
+            $this->assertTrue($exists);
+        });
+    }
+
+    /** @test */
+    public function it_can_save_the_cover_image_properly_in_file_storage()
+    {
+        $cover = UploadedFile::fake()->image('cover.jpg', 600, 600);
+
+        $product = factory(Product::class)->create();
+        $productRepo = new ProductRepository($product);
+        $filename = $productRepo->saveCoverImage($cover);
+
+        $exists = Storage::disk('public')->exists($filename);
+
+        $this->assertTrue($exists);
+    }
+
     /** @test */
     public function it_can_detach_all_the_categories()
     {
@@ -30,7 +99,7 @@ class ProductUnitTest extends TestCase
 
         $this->assertCount(4, $productRepo->getCategories());
 
-        $productRepo->detachCategories($product);
+        $productRepo->detachCategories();
 
         $this->assertCount(0, $productRepo->getCategories());
     }

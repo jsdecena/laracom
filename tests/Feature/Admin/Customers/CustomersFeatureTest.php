@@ -92,17 +92,6 @@ class CustomersFeatureTest extends TestCase
     }
     
     /** @test */
-    public function it_errors_when_the_customer_is_logging_in_without_the_email_or_password()
-    {
-        $this
-            ->post('login', [])
-            ->assertSessionHasErrors([
-                'email' => 'The email field is required.',
-                'password' => 'The password field is required.'
-            ]);
-    }
-    
-    /** @test */
     public function it_can_update_the_customers_password()
     {
         $customer = factory(Customer::class)->create();
@@ -159,7 +148,7 @@ class CustomersFeatureTest extends TestCase
     }
 
     /** @test */
-    public function it_can_create_an_employee()
+    public function it_can_create_the_customer()
     {
         $data = [
             'name' => $this->faker->name,

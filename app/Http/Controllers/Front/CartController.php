@@ -115,9 +115,4 @@ class CartController extends Controller
         request()->session()->flash('message', 'Removed to cart successful');
         return redirect()->route('cart.index');
     }
-
-    public function updateDelivery(int $orderId)
-    {
-        die($orderId);
-    }
 }

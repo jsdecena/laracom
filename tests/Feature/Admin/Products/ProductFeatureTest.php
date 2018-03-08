@@ -129,12 +129,24 @@ class ProductFeatureTest extends TestCase
             ->get(route('admin.products.create'))
             ->assertStatus(200);
     }
-    
+
     /** @test */
-    public function it_can_create_the_product()
+    public function it_can_create_the_product_with_categories()
     {
         $product = 'apple';
         $cover = UploadedFile::fake()->image('file.png', 600, 600);
+
+        $thumbnails = [
+            UploadedFile::fake()->image('cover.jpg', 600, 600),
+            UploadedFile::fake()->image('cover.jpg', 600, 600),
+            UploadedFile::fake()->image('cover.jpg', 600, 600)
+        ];
+
+        $categories = factory(Category::class, 2)->create();
+
+        $categoryIds = $categories->transform(function (Category $category) {
+            return $category->id;
+        })->all();
 
         $params = [
             'sku' => $this->faker->numberBetween(1111111, 999999),
@@ -145,6 +157,40 @@ class ProductFeatureTest extends TestCase
             'quantity' => 10,
             'price' => 9.95,
             'status' => 1,
+            'categories' => $categoryIds,
+            'image' => $thumbnails
+        ];
+
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->post(route('admin.products.store'), $params)
+            ->assertStatus(302)
+            ->assertRedirect(route('admin.products.index'))
+            ->assertSessionHas('message', 'Create successful');
+    }
+    
+    /** @test */
+    public function it_can_create_the_product()
+    {
+        $product = 'apple';
+        $cover = UploadedFile::fake()->image('file.png', 600, 600);
+
+        $thumbnails = [
+            UploadedFile::fake()->image('cover.jpg', 600, 600),
+            UploadedFile::fake()->image('cover.jpg', 600, 600),
+            UploadedFile::fake()->image('cover.jpg', 600, 600)
+        ];
+
+        $params = [
+            'sku' => $this->faker->numberBetween(1111111, 999999),
+            'name' => $product,
+            'slug' => str_slug($product),
+            'description' => $this->faker->paragraph,
+            'cover' => $cover,
+            'quantity' => 10,
+            'price' => 9.95,
+            'status' => 1,
+            'image' => $thumbnails
         ];
 
         $this
