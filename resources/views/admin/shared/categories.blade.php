@@ -1,4 +1,9 @@
 <ul class="list-unstyled">
+    @php(
+        $ids = $product->categories->transform(function ($item) {
+            return $item->id;
+        })->all()
+    )
     @foreach($categories as $category)
         <li>
             @if(in_array($category->id, $ids))

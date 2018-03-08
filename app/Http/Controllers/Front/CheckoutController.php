@@ -54,7 +54,6 @@ class CheckoutController extends Controller
         ProductRepositoryInterface $productRepository,
         OrderRepositoryInterface $orderRepository
     ) {
-        $this->middleware('checkout');
 
         $this->cartRepo = $cartRepository;
         $this->courierRepo = $courierRepository;

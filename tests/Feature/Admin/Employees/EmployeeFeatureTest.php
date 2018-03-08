@@ -3,10 +3,89 @@
 namespace Tests\Feature\Admin\Employees;
 
 use App\Shop\Employees\Employee;
+use Illuminate\Auth\Events\Lockout;
 use Tests\TestCase;
 
 class EmployeeFeatureTest extends TestCase
 {
+    /** @test */
+    public function it_should_go_directly_to_dashboard_when_employee_is_already_logged_in()
+    {
+        $this
+            ->actingAs($this->employee, 'admin')
+            ->get(route('admin.login'))
+            ->assertStatus(302)
+            ->assertRedirect(route('admin.dashboard'));
+    }
+    
+    /** @test */
+    public function it_can_show_the_admin_login_form()
+    {
+        $this->get(route('admin.login'))
+            ->assertStatus(200)
+            ->assertSee('Sign in to start your session')
+            ->assertSee('I forgot my password')
+            ->assertSee('Register a new membership');
+    }
+
+    /** @test */
+    public function it_redirect_back_outside_if_customer_accessing_admin_page()
+    {
+        $this->actingAs($this->customer)
+            ->get(route('admin.dashboard'))
+            ->assertStatus(302)
+            ->assertRedirect(route('admin.login'))
+            ->assertSessionHas('error', 'You must be an employee to see this page');
+    }
+
+    /** @test */
+    public function it_throws_the_too_many_login_attempts_event()
+    {
+        $this->expectsEvents(Lockout::class);
+
+        $employee = factory(Employee::class)->create();
+
+        for ($i=0; $i <= 5; $i++) {
+            $data = [
+                'email' => $employee->email,
+                'password' => 'unknown'
+            ];
+
+            $this->post(route('admin.login'), $data);
+        }
+    }
+
+    /** @test */
+    public function it_redirects_back_to_login_page_when_credentials_are_wrong()
+    {
+        $employee = factory(Employee::class)->create();
+
+        $data = [
+            'email' => $employee->email,
+            'password' => 'unknown'
+        ];
+
+        $this->post(route('admin.login'), $data)
+            ->assertStatus(302)
+            ->assertRedirect(route('home'))
+            ->assertSessionHasErrors();
+    }
+
+    /** @test */
+    public function it_can_login_to_the_dashboard()
+    {
+        $employee = factory(Employee::class)->create();
+
+        $data = [
+            'email' => $employee->email,
+            'password' => 'secret'
+        ];
+
+        $this->post(route('admin.login'), $data)
+            ->assertStatus(302)
+            ->assertRedirect(route('admin.dashboard'));
+    }
+
     /** @test */
     public function it_can_show_the_create_and_edit_employee_page()
     {
