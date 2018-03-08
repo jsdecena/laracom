@@ -5,11 +5,46 @@ namespace Tests\Unit\Cart;
 use App\Shop\Carts\Exceptions\ProductInCartNotFoundException;
 use App\Shop\Carts\Repositories\CartRepository;
 use App\Shop\Carts\ShoppingCart;
+use Gloudemans\Shoppingcart\CartItem;
 use Gloudemans\Shoppingcart\Exceptions\InvalidRowIDException;
 use Tests\TestCase;
 
 class CartUnitTest extends TestCase
 {
+    /** @test */
+    public function it_can_retrieve_the_saved_cart_from_database()
+    {
+        $cartRepo = new CartRepository(new ShoppingCart);
+        $cartRepo->addToCart($this->product, 1);
+        $cartRepo->saveCart($this->customer);
+
+        // retrieve the saved cart from database
+        $cartRepo2 = new CartRepository(new ShoppingCart);
+        $cartRepo2->openCart($this->customer);
+
+        $savedCartItem = $cartRepo->getCartItems()->first();
+        $cartItemFromDb = $cartRepo2->getCartItems()->first();
+
+        $this->assertInstanceOf(CartItem::class, $cartItemFromDb);
+        $this->assertEquals($savedCartItem->name, $cartItemFromDb->name);
+        $this->assertEquals($savedCartItem->price, $cartItemFromDb->price);
+        $this->assertEquals($savedCartItem->qty, $cartItemFromDb->qty);
+    }
+
+    /** @test */
+    public function it_can_store_the_cart_in_database()
+    {
+        $cartRepo = new CartRepository(new ShoppingCart);
+        $cartRepo->addToCart($this->product, 1);
+        $cartRepo->saveCart($this->customer);
+
+        $this->assertDatabaseHas('shoppingcart', [
+            'identifier' => $this->customer->email,
+            'instance' => 'default',
+            'content' => serialize($cartRepo->getCartItems())
+        ]);
+    }
+
     /** @test */
     public function it_can_clear_out_your_cart()
     {
