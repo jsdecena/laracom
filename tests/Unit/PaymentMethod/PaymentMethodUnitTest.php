@@ -3,16 +3,28 @@
 namespace Tests\Unit\PaymentMethod;
 
 use App\Shop\Orders\Order;
+use App\Shop\PaymentMethods\Payment;
 use App\Shop\PaymentMethods\Exceptions\CreatePaymentMethodException;
 use App\Shop\PaymentMethods\Exceptions\PaymentMethodNotFoundException;
 use App\Shop\PaymentMethods\Exceptions\UpdatePaymentErrorException;
 use App\Shop\PaymentMethods\PaymentMethod;
+use App\Shop\PaymentMethods\Paypal\PaypalExpress;
 use App\Shop\PaymentMethods\Repositories\PaymentMethodRepository;
 use ErrorException;
 use Tests\TestCase;
 
 class PaymentMethodUnitTest extends TestCase
 {
+    /** @test */
+    public function it_can_inject_a_new_payment_class()
+    {
+        $ppe = new PaypalExpress($this->faker->uuid, $this->faker->uuid, 'sandbox', $this->faker->url);
+        $payment = new Payment($ppe);
+        $paypal = $payment->init();
+
+        $this->assertInstanceOf(PaypalExpress::class, $paypal);
+    }
+
     /** @test */
     public function it_can_retrieve_the_orders_for_the_specific_payment_method()
     {
