@@ -116,7 +116,9 @@ class CheckoutController extends Controller
     public function store(CartCheckoutRequest $request)
     {
         $method = $this->paymentRepo->findPaymentMethodById($request->input('payment'));
-        $courier = $this->courierRepo->findCourierById(request()->session()->get('courierId', 1));
+
+        $courierId = $request->session()->get('courierId', $request->input('courier'));
+        $courier = $this->courierRepo->findCourierById($courierId);
 
         switch ($method->slug) {
             case 'paypal';
