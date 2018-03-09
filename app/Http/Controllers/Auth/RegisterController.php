@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Shop\Customers\Customer;
 use App\Http\Controllers\Controller;
+use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
+use App\Shop\Customers\Requests\CreateCustomerRequest;
+use App\Shop\Customers\Requests\RegisterCustomerRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -29,30 +32,18 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/accounts';
+
+    private $customerRepo;
 
     /**
      * Create a new controller instance.
-     *
+     * @param CustomerRepositoryInterface $customerRepository
      */
-    public function __construct()
+    public function __construct(CustomerRepositoryInterface $customerRepository)
     {
         $this->middleware('guest');
-    }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+        $this->customerRepo = $customerRepository;
     }
 
     /**
@@ -63,18 +54,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return Customer::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        return $this->customerRepo->createCustomer($data);
     }
 
     /**
-     * @param Request $request
+     * @param RegisterCustomerRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function register(Request $request)
+    public function register(RegisterCustomerRequest $request)
     {
         $customer = $this->create($request->except('_method', '_token'));
         Auth::login($customer);

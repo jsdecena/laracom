@@ -42,7 +42,6 @@ class CheckoutController extends Controller
     private $productRepo;
     private $orderRepo;
     private $paypal;
-    private $cartProducts;
     private $courierId;
 
     public function __construct(
@@ -62,14 +61,6 @@ class CheckoutController extends Controller
         $this->customerRepo = $customerRepository;
         $this->productRepo = $productRepository;
         $this->orderRepo = $orderRepository;
-
-        $products = $this->cartRepo->getCartItems()->map(function (CartItem $item) {
-            $productRepo = new ProductRepository(new Product());
-            $product = $productRepo->findProductById($item->id);
-            return $this->transformProduct($product);
-        });
-
-        $this->cartProducts = $products;
     }
 
     /**
@@ -92,7 +83,7 @@ class CheckoutController extends Controller
         return view('front.checkout', [
             'customer' => $customer,
             'addresses' => $customer->addresses()->get(),
-            'products' => $this->cartProducts,
+            'products' => $this->cartRepo->getCartItems(),
             'subtotal' => $this->cartRepo->getSubTotal(),
             'shipping' => $shippingCost,
             'tax' => $this->cartRepo->getTax(),

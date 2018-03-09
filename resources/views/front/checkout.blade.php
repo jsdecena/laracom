@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container product-in-cart-list">
-        @if($products)
+        @if(!$products->isEmpty())
             <form action="{{ route('checkout.store') }}" method="post" class="form-horizontal">
                 {{ csrf_field() }}
                 <div class="row">
@@ -32,7 +32,9 @@
                                                 <td>{{ $address->alias }}</td>
                                                 <td>
                                                     {{ $address->address_1 }} {{ $address->address_2 }} <br />
-                                                    {{ $address->city->name }} {{ $address->province->name }} <br />
+                                                    @if(!is_null($address->province) || !is_null($address->city))
+                                                        {{ $address->city->name }} {{ $address->province->name }} <br />
+                                                    @endif
                                                     {{ $address->country->name }} {{ $address->zip }}
                                                 </td>
                                                 <td>

@@ -27,6 +27,7 @@ $factory->define(PaymentMethod::class, function (Faker\Generator $faker) {
         'redirect_url' => $faker->url,
         'cancel_url' => $faker->url,
         'failed_url' => $faker->url,
+        'mode' => 'sandbox',
         'status' => 1
     ];
 });
