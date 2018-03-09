@@ -44,6 +44,8 @@
     @yield('css')
     <meta property="og:url" content="{{ request()->url() }}"/>
     @yield('og')
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{{ asset('front/js/jquery.min.js') }}"></script>
 </head>
 <body>
 

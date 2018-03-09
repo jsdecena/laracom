@@ -28,6 +28,10 @@ class CustomerAddressController extends Controller
         $this->cityRepo = $cityRepository;
     }
 
+    /**
+     * @param int $customerId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(int $customerId)
     {
         $customer = $this->customerRepo->findCustomerById($customerId);
@@ -38,23 +42,26 @@ class CustomerAddressController extends Controller
         ]);
     }
 
+    /**
+     * @param int $customerId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create(int $customerId)
     {
-        $country = $this->countryRepo->findCountryById(env('COUNTRY_ID'));
-        $countries = $this->countryRepo
-                            ->listCountries()
-                            ->except(env('COUNTRY_ID'))
-                            ->prepend($country);
+        $countries = $this->countryRepo->listCountries();
 
         return view('front.customers.addresses.create', [
             'customers' => $this->customerRepo->listCustomers(),
             'customer' => $this->customerRepo->findCustomerById($customerId),
-            'countries' => $countries,
-            'provinces' => $country->provinces,
-            'cities' => $this->cityRepo->listCities()
+            'countries' => $countries
         ]);
     }
 
+    /**
+     * @param CreateAddressRequest $request
+     * @param int $customerId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(CreateAddressRequest $request, int $customerId)
     {
         $request['customer'] = $customerId;

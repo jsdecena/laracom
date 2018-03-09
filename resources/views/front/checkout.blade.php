@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container product-in-cart-list">
-        @if($products)
+        @if(!$products->isEmpty())
             <form action="{{ route('checkout.store') }}" method="post" class="form-horizontal">
                 {{ csrf_field() }}
                 <div class="row">
@@ -32,7 +32,9 @@
                                                 <td>{{ $address->alias }}</td>
                                                 <td>
                                                     {{ $address->address_1 }} {{ $address->address_2 }} <br />
-                                                    {{ $address->city->name }} {{ $address->province->name }} <br />
+                                                    @if(!is_null($address->province) || !is_null($address->city))
+                                                        {{ $address->city->name }} {{ $address->province->name }} <br />
+                                                    @endif
                                                     {{ $address->country->name }} {{ $address->zip }}
                                                 </td>
                                                 <td>
@@ -165,4 +167,55 @@
             </div>
         @endif
     </div>
+@endsection
+
+@section('js')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Payment options
+            $('input[name="payment"]').on('change', function () {
+                $.ajax({
+                    type: 'post',
+                    url: '/set-payment',
+                    data: { paymentId: $(this).val(), _token: $('input[name="_token"]').val()},
+                    success: function(data){
+                        //
+                    }
+                });
+            });
+
+            // Addresses
+            $('input[name="address"]').on('change', function () {
+                $.ajax({
+                    type: 'post',
+                    url: '/set-address',
+                    data: { addressId: $(this).val(), _token: $('input[name="_token"]').val()},
+                    success: function(data){
+                        //
+                    }
+                });
+            });
+
+            // Couriers
+            $('input[name="courier"]').on('change', function () {
+                $.ajax({
+                    type: 'post',
+                    url: '/set-courier',
+                    data: { courierId: $(this).val(), _token: $('input[name="_token"]').val()},
+                    success: function(data){
+                        console.log(data);
+                        $(data.courier).each(function (idx, shipping) {
+                            $('#shippingFee').html(shipping.cost);
+                            if (shipping.cost != 0) {
+                                $('#shippingRow').fadeIn();
+                            } else {
+                                $('#shippingRow').fadeOut();
+                            }
+                        });
+                        $('#cartTotal').html(data.cartTotal);
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

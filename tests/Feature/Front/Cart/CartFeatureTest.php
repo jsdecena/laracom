@@ -2,13 +2,113 @@
 
 namespace Tests\Feature\Front\Cart;
 
+use App\Shop\Addresses\Address;
 use App\Shop\Carts\Repositories\CartRepository;
 use App\Shop\Carts\ShoppingCart;
+use App\Shop\Cities\City;
+use App\Shop\Customers\Customer;
 use App\Shop\Products\Product;
+use Illuminate\Auth\Events\Lockout;
 use Tests\TestCase;
 
 class CartFeatureTest extends TestCase
 {
+    /** @test */
+    public function it_shows_the_checkout_page_after_successful_login()
+    {
+        $data = ['email' => $this->customer->email, 'password' => 'secret'];
+
+        $this
+            ->post(route('cart.login'), $data)
+            ->assertStatus(302)
+            ->assertRedirect(route('checkout.index'));
+    }
+
+    /** @test */
+    public function it_throws_the_too_many_login_attempts_event()
+    {
+        $this->expectsEvents(Lockout::class);
+
+        $customer = factory(Customer::class)->create();
+
+        for ($i=0; $i <= 5; $i++) {
+            $data = [
+                'email' => $customer->email,
+                'password' => 'unknown'
+            ];
+
+            $this->post(route('cart.login'), $data);
+        }
+    }
+
+    /** @test */
+    public function it_shows_the_login_form_when_checking_out()
+    {
+        $this->get(route('cart.login'))
+            ->assertStatus(200)
+            ->assertSee('Email')
+            ->assertSee('Password')
+            ->assertSee('Login now')
+            ->assertSee('I forgot my password');
+    }
+
+    /** @test */
+    public function it_shows_error_page_when_checking_out_without_item_in_the_cart()
+    {
+        $this
+            ->actingAs($this->customer, 'checkout')
+            ->get(route('checkout.index'))
+            ->assertStatus(200)
+            ->assertSee('No products in cart yet.')
+            ->assertSee('Show now!');
+    }
+
+    /** @test */
+    public function it_errors_when_customer_has_no_address_yet_upon_checkout()
+    {
+        $cartRepo = new CartRepository(new ShoppingCart);
+        $cartRepo->addToCart($this->product, 1);
+
+        $this
+            ->actingAs($this->customer, 'checkout')
+            ->get(route('checkout.index'))
+            ->assertStatus(200)
+            ->assertSee('No address found. You need to create an address first here.');
+    }
+
+    /** @test */
+    public function it_shows_the_checkout_page_when_user_is_logged_in()
+    {
+        $cartRepo = new CartRepository(new ShoppingCart);
+        $cartRepo->addToCart($this->product, 1);
+
+        factory(City::class)->create();
+
+        factory(Address::class)->create([
+            'customer_id' => $this->customer->id
+        ]);
+
+        $this
+            ->actingAs($this->customer, 'checkout')
+            ->get(route('checkout.index'))
+            ->assertStatus(200)
+            ->assertSee('Choose delivery address')
+            ->assertSee('Choose courier')
+            ->assertSee('Choose payment method')
+            ->assertSee('Your Total')
+            ->assertSee('Review cart')
+            ->assertSee('Checkout now');
+    }
+
+    /** @test */
+    public function it_redirects_to_login_screen_when_checking_out_while_you_are_still_logged_out()
+    {
+        $this
+            ->get(route('checkout.index'))
+            ->assertStatus(302)
+            ->assertRedirect(route('login'));
+    }
+    
     /** @test */
     public function it_can_remove_the_item_in_the_cart()
     {

@@ -23,28 +23,14 @@
                     </div>
                     <div class="form-group">
                         <label for="country_id">Country </label>
-                        <select name="country_id" id="country_id" class="form-control">
+                        <select name="country_id" id="country_id" class="form-control select2">
                             @foreach($countries as $country)
                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div id="province" class="form-group">
-                        <label for="province_id">Province </label>
-                        <select name="province_id" id="province_id" class="form-control">
-                            @foreach($provinces as $province)
-                                <option value="{{ $province->id }}">{{ $province->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div id="cities" class="form-group">
-                        <label for="city_id">City </label>
-                        <select name="city_id" id="city_id" class="form-control">
-                            @foreach($cities as $city)
-                                <option value="{{ $city->id }}">{{ $city->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <div id="provinces" class="form-group" style="display: none;"></div>
+                    <div id="cities" class="form-group" style="display: none;"></div>
                     <div class="form-group">
                         <label for="zip">Zip Code </label>
                         <input type="text" name="zip" id="zip" placeholder="Zip code" class="form-control" value="{{ old('zip') }}">
@@ -64,41 +50,74 @@
     </section>
     <!-- /.content -->
 @endsection
+
+@section('css')
+    <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css') }}" rel="stylesheet" />
+@endsection
+
 @section('js')
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js') }}"></script>
     <script type="text/javascript">
 
-        var countryIdSelector = '#country_id',
-            citySelector = '#city_id';
-
-        localStorage.setItem('countryId', $(countryIdSelector).val());
-
-        function getCities(provinceId) {
-
-            var countryId = localStorage.getItem('countryId');
-
+        function findProvinceOrState(countryId) {
             $.ajax({
-                url: '/api/v1/country/'+countryId+'/province/' + provinceId + '/city',
-                success: function (data) {
-                    var options = '';
-                        $(data.data).each(function (idx, v) {
-                            options += "<option value='"+v.id+"'>"+ v.name +"</option>";
+                url : '/api/v1/country/' + countryId + '/province',
+                contentType: 'json',
+                success: function (res) {
+                    if (res.data.length > 0) {
+                        var html = '<label for="province_id">Provinces </label>';
+                        html += '<select name="province_id" id="province_id" class="form-control select2">';
+                        $(res.data).each(function (idx, v) {
+                            html += '<option value="'+ v.id+'">'+ v.name +'</option>';
                         });
-                    $(citySelector).html(options);
+                        html += '</select>';
+
+                        $('#provinces').html(html).show();
+                        $('.select2').select2();
+
+                        findCity(countryId, 1);
+
+                        $('#province_id').change(function () {
+                            var provinceId = $(this).val();
+                            findCity(countryId, provinceId);
+                        });
+                    } else {
+                        $('#provinces').hide();
+                        $('#cities').hide();
+                    }
                 }
             });
         }
 
-        $(countryIdSelector).on('change', function () {
-            localStorage.setItem('countryId', $(this).val());
-            if($(this).val() != 169) {
-                $('#province, #cities').hide();
-            } else {
-                $('#province, #cities').show();
-            }
-        });
+        function findCity(countryId, provinceOrStateId) {
+            $.ajax({
+                url: '/api/v1/country/' + countryId + '/province/' + provinceOrStateId + '/city',
+                contentType: 'json',
+                success: function (data) {
+                    var html = '<label for="city_id">City </label>';
+                    html += '<select name="city_id" id="city_id" class="form-control select2">';
+                    $(data.data).each(function (idx, v) {
+                        html += '<option value="'+ v.id+'">'+ v.name +'</option>';
+                    });
+                    html += '</select>';
 
-        $('#province_id').on('change', function () {
-            getCities($(this).val());
+                    $('#cities').html(html).show();
+                    $('.select2').select2();
+                },
+                errors: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+        var countryId = null;
+
+        $(document).ready(function () {
+            $('#country_id').on('change', function () {
+                countryId = $(this).val();
+                findProvinceOrState(countryId);
+            });
+            $('.select2').select2();
         });
     </script>
 @endsection

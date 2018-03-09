@@ -19,10 +19,8 @@ class CreateAddressTable extends Migration
             $table->string('address_1');
             $table->string('address_2')->nullable();
             $table->string('zip')->nullable();
-            $table->integer('city_id')->unsigned()->index();
-            $table->foreign('city_id')->references('id')->on('cities');
-            $table->integer('province_id')->unsigned()->index();
-            $table->foreign('province_id')->references('id')->on('provinces');
+            $table->integer('city_id')->nullable();
+            $table->integer('province_id')->nullable();
             $table->integer('country_id')->unsigned()->index();
             $table->foreign('country_id')->references('id')->on('countries');
             $table->integer('customer_id')->unsigned()->index();
