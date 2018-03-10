@@ -56,7 +56,7 @@ class OrderController extends Controller
         $list = $this->orderRepo->listOrders('created_at', 'desc');
 
         if (request()->has('q')) {
-            $list = $this->orderRepo->searchOrder(request()->input('q'));
+            $list = $this->orderRepo->searchOrder(request()->input('q') ?? '');
         }
 
         $orders = $this->orderRepo->paginateArrayResults($this->transFormOrder($list), 10);
