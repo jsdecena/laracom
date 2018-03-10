@@ -64,16 +64,18 @@ class OrderUnitTest extends TestCase
         $this->assertEquals($orderStatus->name, $transformed->status->name);
         $this->assertEquals($paymentMethod->name, $transformed->payment->name);
     }
-    
+
     /** @test */
     public function it_can_search_for_order()
     {
-        $order = factory(Order::class)->create();
+        $customer = factory(Customer::class)->create(['name' => 'Test Customer']);
+        $order = factory(Order::class)->create(['customer_id' => $customer->id]);
+        $secondOrder = factory(Order::class)->create();
 
         $repo = new OrderRepository($order);
-        $result = $repo->searchOrder(str_limit($order, 5, ''));
+        $result = $repo->searchOrder('test');
 
-        $this->assertGreaterThan(0, $result->count());
+        $this->assertEquals(1, $result->count());
 
         $result->each(function ($item) use ($order) {
             $this->assertEquals($item->reference, $order->reference);
@@ -81,6 +83,19 @@ class OrderUnitTest extends TestCase
             $this->assertEquals($item->customer_id, $order->customer_id);
             $this->assertEquals($item->address_id, $order->address_id);
         });
+    }
+
+    /** @test */
+    public function it_should_return_all_orders_when_searched_by_empty_string()
+    {
+        $customer = factory(Customer::class)->create(['name' => 'Test Customer']);
+        $order = factory(Order::class)->create(['customer_id' => $customer->id]);
+        $secondOrder = factory(Order::class)->create(['customer_id' => 10]);
+
+        $repo = new OrderRepository($order);
+        $result = $repo->searchOrder('');
+
+        $this->assertEquals(2, $result->count());
     }
 
     /** @test */
@@ -115,7 +130,7 @@ class OrderUnitTest extends TestCase
         Mail::assertSent(SendOrderToCustomerMailable::class);
         Mail::assertSent(sendEmailNotificationToAdminMailable::class);
     }
-    
+
     /** @test */
     public function it_should_deduct_the_quantity_of_the_product_when_an_order_is_created()
     {
@@ -127,7 +142,7 @@ class OrderUnitTest extends TestCase
 
         $this->assertEquals(4, $product->quantity);
     }
-    
+
     /** @test */
     public function it_can_associate_the_product_in_the_order()
     {
@@ -145,7 +160,7 @@ class OrderUnitTest extends TestCase
             $this->assertEquals($product->description, $p->description);
         }
     }
-    
+
     /** @test */
     public function it_errors_when_updating_the_product_with_needed_fields_not_passed()
     {
@@ -195,7 +210,7 @@ class OrderUnitTest extends TestCase
             $this->assertEquals($data['invoice'], $found->invoice);
         }
     }
-    
+
     /** @test */
     public function it_errors_looking_for_the_order_that_is_not_found()
     {
@@ -205,7 +220,7 @@ class OrderUnitTest extends TestCase
         $orderRepo = new OrderRepository(new Order);
         $orderRepo->findOrderById(999);
     }
-    
+
     /** @test */
     public function it_can_get_the_order()
     {
@@ -241,7 +256,7 @@ class OrderUnitTest extends TestCase
         $this->assertEquals($data['total_paid'], $found->total_paid);
         $this->assertEquals($data['invoice'], $found->invoice);
     }
-    
+
     /** @test */
     public function it_can_update_the_order()
     {
