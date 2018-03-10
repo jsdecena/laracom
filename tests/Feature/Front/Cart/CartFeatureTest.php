@@ -108,7 +108,7 @@ class CartFeatureTest extends TestCase
             ->assertStatus(302)
             ->assertRedirect(route('login'));
     }
-    
+
     /** @test */
     public function it_can_remove_the_item_in_the_cart()
     {
@@ -135,7 +135,7 @@ class CartFeatureTest extends TestCase
                 ->assertSessionHas('message', 'Removed to cart successful');
         });
     }
-    
+
     /** @test */
     public function it_can_update_the_cart()
     {
@@ -162,7 +162,7 @@ class CartFeatureTest extends TestCase
                 ->assertSessionHas('message', 'Update cart successful');
         });
     }
-    
+
     /** @test */
     public function it_can_show_the_customer_cart()
     {
@@ -183,7 +183,7 @@ class CartFeatureTest extends TestCase
             ->assertStatus(200)
             ->assertSee($product->name);
     }
-    
+
     /** @test */
     public function it_errors_when_adding_a_product_to_cart_without_the_product()
     {
@@ -211,7 +211,7 @@ class CartFeatureTest extends TestCase
             ->assertStatus(302)
             ->assertSessionHasErrors(['quantity' => 'The quantity field is required.']);
     }
-    
+
     /** @test */
     public function it_can_add_to_cart()
     {

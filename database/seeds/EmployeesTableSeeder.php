@@ -7,6 +7,6 @@ class EmployeesTableSeeder extends Seeder
 {
     public function run()
     {
-        factory(Employee::class)->create();
+        factory(Employee::class)->create(['email' => 'admin@example.com', 'password' => bcrypt('secret')]);
     }
 }

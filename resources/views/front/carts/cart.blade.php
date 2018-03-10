@@ -65,7 +65,7 @@
                             @foreach($products as $product)
                                 <tr>
                                     <td>
-                                        <a href="{{ route('front.get.product', $product->slug) }}" class="hover-border">
+                                        <a href="{{ route('front.get.product', [$product->slug]) }}" class="hover-border">
                                             @if(isset($product->cover))
                                                 <img src="{{ asset("storage/$product->cover") }}" alt="{{ $product->name }}" class="img-responsive img-thumbnail">
                                             @else

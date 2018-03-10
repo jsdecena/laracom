@@ -37,7 +37,7 @@ class PaymentMethodFeatureTest extends TestCase
             ->assertSee(htmlentities($paymentMethod->name, ENT_QUOTES))
             ->assertSee(htmlentities($paymentMethod->description, ENT_QUOTES));
     }
-    
+
     /** @test */
     public function it_can_list_all_payment_methods()
     {
@@ -49,7 +49,7 @@ class PaymentMethodFeatureTest extends TestCase
             ->assertStatus(200)
             ->assertSee(htmlentities($paymentMethod->name, ENT_QUOTES));
     }
-    
+
     /** @test */
     public function it_can_update_the_payment_method()
     {
