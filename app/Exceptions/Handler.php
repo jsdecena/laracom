@@ -51,6 +51,12 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof NotFoundHttpException) {
             return response()->view('layouts.errors.404', [], 404);
+        } elseif ($exception instanceof HttpException && $exception->getStatusCode() == 403) {
+            // dd(auth()->guard('admin')->user()->roles);
+            return response()->view('layouts.errors.403',
+                ['error' => 'Sorry, this page is restricted to authorized users only.'],
+                403
+            );
         } elseif ($exception instanceof HttpException) {
             return response()->view('layouts.errors.503', ['error' => $exception->getTrace()], 500);
         }

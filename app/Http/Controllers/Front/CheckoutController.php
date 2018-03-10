@@ -53,7 +53,6 @@ class CheckoutController extends Controller
         ProductRepositoryInterface $productRepository,
         OrderRepositoryInterface $orderRepository
     ) {
-
         $this->cartRepo = $cartRepository;
         $this->courierRepo = $courierRepository;
         $this->paymentRepo = $paymentMethodRepository;
@@ -112,7 +111,7 @@ class CheckoutController extends Controller
         $courier = $this->courierRepo->findCourierById($courierId);
 
         switch ($method->slug) {
-            case 'paypal';
+            case 'paypal':
 
                 $ppe = new PaypalExpress($method->client_id, $method->client_secret, $method->mode, $method->api_url);
                 $payment = new PaypalPayment($ppe);
@@ -150,7 +149,7 @@ class CheckoutController extends Controller
                     throw new PaypalRequestError($e->getMessage());
                 }
                 break;
-            default;
+            default:
         }
     }
 

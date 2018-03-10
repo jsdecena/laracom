@@ -1,27 +1,19 @@
 <ul class="list-unstyled">
-    @php(
-        $ids = $product->categories->transform(function ($item) {
-            return $item->id;
-        })->all()
-    )
     @foreach($categories as $category)
         <li>
-            @if(in_array($category->id, $ids))
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" checked="checked" name="categories[]" value="{{ $category->id }}"> {{ $category->name }}
-                    </label>
-                </div>
-            @else
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="categories[]" value="{{ $category->id }}"> {{ $category->name }}
-                    </label>
-                </div>
-            @endif
+            <div class="checkbox">
+                <label>
+                    <input
+                            type="checkbox"
+                            @if(isset($selectedIds) && in_array($category->id, $selectedIds))checked="checked" @endif
+                            name="categories[]"
+                            value="{{ $category->id }}">
+                            {{ $category->name }}
+                </label>
+            </div>
         </li>
-        @if($category->children()->count() >= 1)
-            @include('admin.shared.category-children', ['categories' => $category->children, 'ids' => $ids])
+        @if($category->children->count() >= 1)
+            @include('admin.shared.category-children', ['categories' => $category->children, 'selectedIds' => $selectedIds])
         @endif
     @endforeach
 </ul>

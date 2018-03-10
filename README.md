@@ -11,7 +11,15 @@
 
 #### Framework Used : Laravel 5.6
 
-[Installation](https://github.com/jsdecena/laracom/wiki)
+[Website](https://laracom.net/)
+
+[Installation](https://github.com/jsdecena/laracom/wiki/Installation)
+
+[Admin Screenshots](https://github.com/jsdecena/laracom/wiki/Admin-Features)
+
+[Shop Screenshots](https://github.com/jsdecena/laracom/wiki/Frontend-Features)
+
+[Demo](https://shop.laracom.net)
 
 #### Features
 
@@ -21,6 +29,15 @@
     - Product list ordering and sorting
     - Enable / Disable products
     - Full searchable of products in admin and front store
+    - Product image zooming ability
+
+- Cart
+    - Add any item to the cart
+    - Customizable item in the cart
+
+- Checkout
+    - Ability to checkout the items and pay
+    - Guest checkout
 
 - Categories
     - Cover category image
@@ -40,13 +57,15 @@
 - Payment
     - PayPal-ready shop!
     - Accept online payments in an instant
-
+    - Accepts credit-card payments
+    
 - Couriers
     - Add couriers and configuration
 
 - Employees
     - Add / edit employees that will manage your store
-
+    - Set employee as admin and manage the shop
+    
 - Mobile
     - Mobile responsive design for the admin and front store
     - Access anywhere your admin and front store
@@ -54,4 +73,4 @@
 ## Support on Beerpay
 Hey dude! Help me out for a couple of :beers:!
 
-[![Beerpay](https://beerpay.io/jsdecena/laracom/badge.svg?style=beer-square)](https://beerpay.io/jsdecena/laracom)  [![Beerpay](https://beerpay.io/jsdecena/laracom/make-wish.svg?style=flat-square)](https://beerpay.io/jsdecena/laracom?focus=wish)
+[![Beerpay](https://www.dropbox.com/s/srxfghrj3apeajt/bp.png?raw=1)](https://beerpay.io/jsdecena/laracom)

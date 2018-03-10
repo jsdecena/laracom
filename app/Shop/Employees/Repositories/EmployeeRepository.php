@@ -7,11 +7,17 @@ use App\Shop\Employees\Employee;
 use App\Shop\Employees\Exceptions\EmployeeNotFoundException;
 use App\Shop\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Collection;
 
 class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInterface
 {
+    /**
+     * EmployeeRepository constructor.
+     * @param Employee $employee
+     */
     public function __construct(Employee $employee)
     {
+        parent::__construct($employee);
         $this->model = $employee;
     }
 
@@ -83,5 +89,30 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
         }
 
         return $this->model->update($fields);
+    }
+
+    /**
+     * @param array $roleIds
+     */
+    public function syncRoles(array $roleIds)
+    {
+        $this->model->roles()->sync($roleIds);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function listRoles() : Collection
+    {
+        return $this->model->roles()->get();
+    }
+
+    /**
+     * @param string $roleName
+     * @return bool
+     */
+    public function hasRole(string $roleName) : bool
+    {
+        return $this->model->hasRole($roleName);
     }
 }

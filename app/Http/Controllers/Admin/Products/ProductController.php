@@ -71,7 +71,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        return view('admin.products.create', [
+            'categories' => $this->categoryRepo->listCategories('name', 'asc')->where('parent_id', 1),
+            'selectedIds' => []
+        ]);
     }
 
     /**
@@ -99,7 +102,7 @@ class ProductController extends Controller
         }
 
         $request->session()->flash('message', 'Create successful');
-        return redirect()->route('admin.products.index');
+        return redirect()->route('admin.products.edit', $product->id);
     }
 
     /**
@@ -110,11 +113,7 @@ class ProductController extends Controller
      */
     public function show(int $id)
     {
-        $product = $this->productRepo->findProductById($id);
-
-        return view('admin.products.show', [
-            'product' => $product
-        ]);
+        return view('admin.products.show', ['product' => $this->productRepo->findProductById($id)]);
     }
 
     /**
@@ -130,7 +129,8 @@ class ProductController extends Controller
         return view('admin.products.edit', [
             'product' => $product,
             'images' => $product->images()->get(['src']),
-            'categories' => $this->categoryRepo->listCategories('name', 'asc')->where('parent_id', 1)
+            'categories' => $this->categoryRepo->listCategories('name', 'asc')->where('parent_id', 1),
+            'selectedIds' => $product->categories()->pluck('category_id')->all()
         ]);
     }
 
