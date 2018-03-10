@@ -10,6 +10,8 @@ interface AttributeRepositoryInterface extends BaseRepositoryInterface
 {
     public function createAttribute(array $data) : Attribute;
 
+    public function findAttributeById(int $id) : Attribute;
+
     public function updateAttribute(array $data) : bool;
 
     public function deleteAttribute() : ?bool;

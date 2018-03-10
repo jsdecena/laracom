@@ -3,6 +3,7 @@
 namespace Tests\Unit\Attributes;
 
 use App\Shop\Attributes\Attribute;
+use App\Shop\Attributes\Exceptions\AttributeNotFoundException;
 use App\Shop\Attributes\Exceptions\CreateAttributeErrorException;
 use App\Shop\Attributes\Exceptions\UpdateAttributeErrorException;
 use App\Shop\Attributes\Repositories\AttributeRepository;
@@ -10,6 +11,27 @@ use Tests\TestCase;
 
 class AttributeUnitTest extends TestCase
 {
+    /** @test */
+    public function it_should_error_when_the_attribute_is_not_found()
+    {
+        $this->expectException(AttributeNotFoundException::class);
+
+        $attributeRepo = new AttributeRepository(new Attribute);
+        $attributeRepo->findAttributeById(999);
+    }
+
+    /** @test */
+    public function it_should_show_the_attribute()
+    {
+        $attribute = factory(Attribute::class)->create();
+
+        $attributeRepo = new AttributeRepository(new Attribute);
+        $found = $attributeRepo->findAttributeById($attribute->id);
+
+        $this->assertInstanceOf(Attribute::class, $attribute);
+        $this->assertEquals($attribute->name, $found->name);
+    }
+
     /** @test */
     public function it_should_list_all_the_attributes()
     {
@@ -58,8 +80,7 @@ class AttributeUnitTest extends TestCase
         $attribute = factory(Attribute::class)->create();
 
         $data = [
-            'name' => $this->faker->word,
-            'value' => $this->faker->word
+            'name' => $this->faker->word
         ];
 
         $attributeRepo = new AttributeRepository($attribute);
@@ -67,7 +88,6 @@ class AttributeUnitTest extends TestCase
 
         $this->assertTrue($update);
         $this->assertEquals($data['name'], $attribute->name);
-        $this->assertEquals($data['value'], $attribute->value);
 
     }
 
@@ -84,8 +104,7 @@ class AttributeUnitTest extends TestCase
     public function it_can_create_attribute()
     {
         $data = [
-            'name' => $this->faker->word,
-            'value' => $this->faker->word
+            'name' => $this->faker->word
         ];
 
         $attributeRepo = new AttributeRepository(new Attribute);
@@ -93,6 +112,5 @@ class AttributeUnitTest extends TestCase
 
         $this->assertInstanceOf(Attribute::class, $attribute);
         $this->assertEquals($data['name'], $attribute->name);
-        $this->assertEquals($data['value'], $attribute->value);
     }
 }

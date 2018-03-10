@@ -53,6 +53,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin'], 'as' => 'admin.' ]
             Route::resource('countries.provinces.cities', 'Cities\CityController');
             Route::resource('couriers', 'Couriers\CourierController');
             Route::resource('payment-methods', 'PaymentMethods\PaymentMethodController');
+            Route::resource('attributes', 'Attributes\AttributeController');
         });
     });
 });

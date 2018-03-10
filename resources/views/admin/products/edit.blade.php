@@ -90,7 +90,6 @@
             </form>
         </div>
         <!-- /.box -->
-
     </section>
     <!-- /.content -->
 @endsection

@@ -3,9 +3,11 @@
 namespace App\Shop\Attributes\Repositories;
 
 use App\Shop\Attributes\Attribute;
+use App\Shop\Attributes\Exceptions\AttributeNotFoundException;
 use App\Shop\Attributes\Exceptions\CreateAttributeErrorException;
 use App\Shop\Attributes\Exceptions\UpdateAttributeErrorException;
 use App\Shop\Base\BaseRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Database\QueryException;
 
@@ -39,6 +41,20 @@ class AttributeRepository extends BaseRepository implements AttributeRepositoryI
             return $attribute;
         } catch (QueryException $e) {
             throw new CreateAttributeErrorException($e);
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return Attribute
+     * @throws AttributeNotFoundException
+     */
+    public function findAttributeById(int $id) : Attribute
+    {
+        try {
+            return $this->findOneOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            throw new AttributeNotFoundException($e);
         }
     }
 
