@@ -165,7 +165,7 @@ class ProductFeatureTest extends TestCase
             ->actingAs($this->employee, 'admin')
             ->post(route('admin.products.store'), $params)
             ->assertStatus(302)
-            ->assertRedirect(route('admin.products.index'))
+            ->assertRedirect(route('admin.products.edit', 2))
             ->assertSessionHas('message', 'Create successful');
     }
     
@@ -197,7 +197,7 @@ class ProductFeatureTest extends TestCase
             ->actingAs($this->employee, 'admin')
             ->post(route('admin.products.store'), $params)
             ->assertStatus(302)
-            ->assertRedirect(route('admin.products.index'))
+            ->assertRedirect(route('admin.products.edit', 2))
             ->assertSessionHas('message', 'Create successful');
     }
 
