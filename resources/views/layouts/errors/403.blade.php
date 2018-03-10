@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Service Unavailable</title>
+    <title>Unauthorized</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -47,8 +47,8 @@
 <body>
 <div class="flex-center position-ref full-height">
     <div class="content">
-        <div class="title error500">
-            <p>Ooops, server error occurred.</p> Please check again later.
+        <div class="title error403">
+            <p>{{$error}}</p>
         </div>
     </div>
 </div>

@@ -22,36 +22,38 @@ Route::namespace('Admin')->group(function () {
     Route::post('admin/login', 'LoginController@login')->name('admin.login');
     Route::get('admin/logout', 'LoginController@logout')->name('admin.logout');
 });
-Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.' ], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['admin'], 'as' => 'admin.' ], function () {
     Route::namespace('Admin')->group(function () {
         Route::get('/', 'DashboardController@index')->name('dashboard');
-        Route::namespace('Customers')->group(function () {
-            Route::resource('customers', 'CustomerController');
-            Route::resource('customers.addresses', 'CustomerAddressController');
+        Route::group(['middleware' => ['role:admin,guard:admin']], function () {
+            Route::namespace('Products')->group(function () {
+                Route::resource('products', 'ProductController');
+                Route::get('remove-image-product', 'ProductController@removeImage')->name('product.remove.image');
+                Route::get('remove-image-thumb', 'ProductController@removeThumbnail')->name('product.remove.thumb');
+            });
+            Route::namespace('Customers')->group(function () {
+                Route::resource('customers', 'CustomerController');
+                Route::resource('customers.addresses', 'CustomerAddressController');
+            });
+            Route::namespace('Categories')->group(function () {
+                Route::resource('categories', 'CategoryController');
+                Route::get('remove-image-category', 'CategoryController@removeImage')->name('category.remove.image');
+            });
+            Route::namespace('Orders')->group(function () {
+                Route::resource('orders', 'OrderController');
+                Route::resource('order-statuses', 'OrderStatusController');
+                Route::get('orders/{id}/invoice', 'OrderController@generateInvoice')->name('orders.invoice.generate');
+            });
+            Route::resource('employees', 'EmployeeController');
+            Route::get('employees/{id}/profile', 'EmployeeController@getProfile')->name('employee.profile');
+            Route::put('employees/{id}/profile', 'EmployeeController@updateProfile')->name('employee.profile.update');
+            Route::resource('addresses', 'Addresses\AddressController');
+            Route::resource('countries', 'Countries\CountryController');
+            Route::resource('countries.provinces', 'Provinces\ProvinceController');
+            Route::resource('countries.provinces.cities', 'Cities\CityController');
+            Route::resource('couriers', 'Couriers\CourierController');
+            Route::resource('payment-methods', 'PaymentMethods\PaymentMethodController');
         });
-        Route::namespace('Products')->group(function () {
-            Route::resource('products', 'ProductController');
-            Route::get('remove-image-product', 'ProductController@removeImage')->name('product.remove.image');
-            Route::get('remove-image-thumb', 'ProductController@removeThumbnail')->name('product.remove.thumb');
-        });
-        Route::namespace('Categories')->group(function () {
-            Route::resource('categories', 'CategoryController');
-            Route::get('remove-image-category', 'CategoryController@removeImage')->name('category.remove.image');
-        });
-        Route::namespace('Orders')->group(function () {
-            Route::resource('orders', 'OrderController');
-            Route::resource('order-statuses', 'OrderStatusController');
-            Route::get('orders/{id}/invoice', 'OrderController@generateInvoice')->name('orders.invoice.generate');
-        });
-        Route::resource('employees', 'EmployeeController');
-        Route::get('employees/{id}/profile', 'EmployeeController@getProfile')->name('employee.profile');
-        Route::put('employees/{id}/profile', 'EmployeeController@updateProfile')->name('employee.profile.update');
-        Route::resource('addresses', 'Addresses\AddressController');
-        Route::resource('countries', 'Countries\CountryController');
-        Route::resource('countries.provinces', 'Provinces\ProvinceController');
-        Route::resource('countries.provinces.cities', 'Cities\CityController');
-        Route::resource('couriers', 'Couriers\CourierController');
-        Route::resource('payment-methods', 'PaymentMethods\PaymentMethodController');
     });
 });
 

@@ -8,6 +8,11 @@
  * @package Laratrust
  */
 
+use App\Shop\Employees\Employee;
+use App\Shop\Permissions\Permission;
+use App\Shop\Roles\Role;
+use App\Shop\Teams\Team;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -28,7 +33,7 @@ return [
     | Defines if Laratrust will use Laravel's Cache to cache the roles and permissions.
     |
     */
-    'use_cache' => true,
+    'use_cache' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -67,7 +72,7 @@ return [
     |
     */
     'user_models' => [
-        'users' => 'App\User',
+        'users' => Employee::class,
     ],
 
     /*
@@ -84,17 +89,17 @@ return [
         /**
          * Role model
          */
-        'role' => 'App\Role',
+        'role' => Role::class,
 
         /**
          * Permission model
          */
-        'permission' => 'App\Permission',
+        'permission' => Permission::class,
 
         /**
          * Team model
          */
-        'team' => 'App\Team',
+        'team' => Team::class,
 
     ],
 

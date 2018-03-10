@@ -6,6 +6,8 @@ use App\Shop\Carts\Repositories\CartRepository;
 use App\Shop\Carts\ShoppingCart;
 use App\Shop\Categories\Category;
 use App\Shop\Categories\Repositories\CategoryRepository;
+use App\Shop\Employees\Employee;
+use App\Shop\Employees\Repositories\EmployeeRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,6 +27,7 @@ class GlobalTemplateServiceProvider extends ServiceProvider
     {
         view()->composer('layouts.admin.app', function ($view) {
             $view->with('user', Auth::guard('admin')->user());
+            $view->with('admin', $this->isAdmin(Auth::guard('admin')->user()));
         });
 
         view()->composer(['layouts.front.app', 'front.categories.sidebar-category'], function ($view) {
@@ -47,9 +50,22 @@ class GlobalTemplateServiceProvider extends ServiceProvider
         return $categoryRepo->listCategories('name', 'asc', 1)->whereIn('parent_id', [1]);
     }
 
+    /**
+     * @return int
+     */
     private function getCartCount()
     {
         $cartRepo = new CartRepository(new ShoppingCart);
         return $cartRepo->countItems();
+    }
+
+    /**
+     * @param Employee $employee
+     * @return bool
+     */
+    private function isAdmin(Employee $employee)
+    {
+        $employeeRepo = new EmployeeRepository($employee);
+        return $employeeRepo->hasRole('admin');
     }
 }
