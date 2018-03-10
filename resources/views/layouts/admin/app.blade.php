@@ -32,6 +32,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.table').DataTable({
+                'info' : false,
                 'paging' : false,
                 'searching' : false,
                 'columnDefs' : [

@@ -14,8 +14,7 @@ class CreateAttributeRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
-            'value' => ['required']
+            'name' => ['required']
         ];
     }
 }

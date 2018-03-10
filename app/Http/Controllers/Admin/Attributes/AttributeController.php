@@ -72,9 +72,14 @@ class AttributeController extends Controller
     {
         try {
 
+            $attribute = $this->attributeRepo->findAttributeById($id);
+            $attributeRepo = new AttributeRepository($attribute);
+
             return view('admin.attributes.show', [
-                'attribute' => $this->attributeRepo->findAttributeById($id)
+                'attribute' => $attribute,
+                'values' => $attributeRepo->listAttributeValues()
             ]);
+
         } catch (AttributeNotFoundException $e) {
 
             request()->session()->flash('error', 'The attribute you are looking for is not found.');

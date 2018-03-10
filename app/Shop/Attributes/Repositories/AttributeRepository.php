@@ -6,6 +6,7 @@ use App\Shop\Attributes\Attribute;
 use App\Shop\Attributes\Exceptions\AttributeNotFoundException;
 use App\Shop\Attributes\Exceptions\CreateAttributeErrorException;
 use App\Shop\Attributes\Exceptions\UpdateAttributeErrorException;
+use App\Shop\AttributeValues\AttributeValue;
 use App\Shop\Base\BaseRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
@@ -89,5 +90,13 @@ class AttributeRepository extends BaseRepository implements AttributeRepositoryI
     public function listAttributes($columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc') : Collection
     {
         return $this->all($columns, $orderBy, $sortBy);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function listAttributeValues() : Collection
+    {
+        return $this->model->values()->get();
     }
 }

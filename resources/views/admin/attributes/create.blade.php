@@ -14,10 +14,6 @@
                                 <label for="name">Attribute name <span class="text-danger">*</span></label>
                                 <input type="text" name="name" id="name" placeholder="Attribute name" class="form-control" value="{!! old('name')  !!}">
                             </div>
-                            <div class="form-group">
-                                <label for="value">Attribute value <span class="text-danger">*</span></label>
-                                <input type="text" name="value" id="value" placeholder="Attribute value" class="form-control" value="{!! old('value')  !!}">
-                            </div>
                         </div>
                     </div>
                 </div>
