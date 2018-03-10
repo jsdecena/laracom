@@ -1,6 +1,9 @@
 /node_modules
 /public/hot
 /public/storage
+/public/fonts/vendor
+/public/css/app.css
+/public/js/app.js
 /storage/*.key
 /vendor
 /.idea
@@ -8,7 +11,10 @@
 Homestead.json
 Homestead.yaml
 npm-debug.log
+yarn-error.log
 .env
+.DS_Store
+/public/.DS_Store
 yarn.lock
 /build
 Envoy.blade.php

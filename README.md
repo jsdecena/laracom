@@ -9,7 +9,7 @@
 # Laravel FREE E-Commerce Software
 ## Test-driven development (TDD) made app
 
-#### Framework Used : Laravel 5.5
+#### Framework Used : Laravel 5.6
 
 [Installation](https://github.com/jsdecena/laracom/wiki)
 
@@ -33,20 +33,20 @@
 
 - Orders
     - See overview of your orders
-    - Detailed view of the order comes with: list of items purchased, delivery address, chosen courier 
+    - Detailed view of the order comes with: list of items purchased, delivery address, chosen courier
     and payment status.
     - Downloadable invoice
-    
+
 - Payment
     - PayPal-ready shop!
     - Accept online payments in an instant
-    
+
 - Couriers
     - Add couriers and configuration
-    
+
 - Employees
     - Add / edit employees that will manage your store
-    
+
 - Mobile
     - Mobile responsive design for the admin and front store
     - Access anywhere your admin and front store
