@@ -165,7 +165,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\GlobalTemplateServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
-
+        Laratrust\LaratrustServiceProvider::class,
     ],
 
     /*
