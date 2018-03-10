@@ -11,7 +11,7 @@
 
 #### Framework Used : Laravel 5.6
 
-[Installation](https://github.com/jsdecena/laracom/wiki)
+[Installation](https://github.com/jsdecena/laracom/wiki/Installation)
 
 #### Features
 
