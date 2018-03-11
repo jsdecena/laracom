@@ -47,7 +47,7 @@ class ProductController extends Controller
      * @param string $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getProduct(string $slug)
+    public function show(string $slug)
     {
         $product = $this->productRepo->findProductBySlug(['slug' => $slug]);
 

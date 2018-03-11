@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Products;
 
-use App\Shop\Categories\Category;
+use App\Shop\Attributes\Repositories\AttributeRepositoryInterface;
+use App\Shop\AttributeValues\Repositories\AttributeValueRepositoryInterface;
 use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
-use App\Shop\ProductImages\ProductImage;
+use App\Shop\ProductAttributes\ProductAttribute;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Repositories\ProductRepository;
@@ -24,22 +25,39 @@ class ProductController extends Controller
      * @var ProductRepositoryInterface
      */
     private $productRepo;
+
     /**
      * @var CategoryRepositoryInterface
      */
     private $categoryRepo;
 
     /**
+     * @var AttributeRepositoryInterface
+     */
+    private $attributeRepo;
+
+    /**
+     * @var AttributeValueRepositoryInterface
+     */
+    private $attributeValueRepository;
+
+    /**
      * ProductController constructor.
      * @param ProductRepositoryInterface $productRepository
      * @param CategoryRepositoryInterface $categoryRepository
+     * @param AttributeRepositoryInterface $attributeRepository
+     * @param AttributeValueRepositoryInterface $attributeValueRepository
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
-        CategoryRepositoryInterface $categoryRepository
+        CategoryRepositoryInterface $categoryRepository,
+        AttributeRepositoryInterface $attributeRepository,
+        AttributeValueRepositoryInterface $attributeValueRepository
     ) {
         $this->productRepo = $productRepository;
         $this->categoryRepo = $categoryRepository;
+        $this->attributeRepo = $attributeRepository;
+        $this->attributeValueRepository = $attributeValueRepository;
     }
 
     /**
@@ -125,12 +143,17 @@ class ProductController extends Controller
     public function edit(int $id)
     {
         $product = $this->productRepo->findProductById($id);
+        $productAttributes = $product->attributes()->get();
+        $qty = $productAttributes->map(function($item) { return $item->quantity; })->sum();
 
         return view('admin.products.edit', [
             'product' => $product,
             'images' => $product->images()->get(['src']),
             'categories' => $this->categoryRepo->listCategories('name', 'asc')->where('parent_id', 1),
-            'selectedIds' => $product->categories()->pluck('category_id')->all()
+            'selectedIds' => $product->categories()->pluck('category_id')->all(),
+            'attributes' => $this->attributeRepo->listAttributes(),
+            'productAttributes' => $productAttributes,
+            'qty' => $qty
         ]);
     }
 
@@ -144,6 +167,15 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, int $id)
     {
         $product = $this->productRepo->findProductById($id);
+
+        if ($request->has('productAttributeQuantity')) {
+            $this->saveProductCombinations(
+                $product,
+                $request->input('productAttributeQuantity'),
+                $request->input('productAttributePrice'),
+                $request->input('attributeValue')
+            );
+        }
 
         $data = $request->except('categories', '_token', '_method');
         $data['slug'] = str_slug($request->input('name'));
@@ -163,7 +195,13 @@ class ProductController extends Controller
         }
 
         $request->session()->flash('message', 'Update successful');
-        return redirect()->route('admin.products.edit', $id);
+
+        $route = [$id];
+        if ($request->has('combination')) {
+            $route['combination'] = 1;
+        }
+
+        return redirect()->route('admin.products.edit', $route);
     }
 
     /**
@@ -214,5 +252,24 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $this->productRepo->saveProductImages(collect($request->file('image')), $product);
         }
+    }
+
+    /**
+     * @param Product $product
+     * @param int $quantity
+     * @param $price
+     * @param array $attributeValues
+     */
+    private function saveProductCombinations(Product $product, int $quantity, $price, array $attributeValues)
+    {
+        $productAttribute = new ProductAttribute(compact('quantity', 'price'));
+
+        $productRepo = new ProductRepository($product);
+        $created = $productRepo->saveProductAttributes($productAttribute);
+
+        // save the combinations
+        collect($attributeValues)->each(function ($attributeId) use ($productRepo, $created) {
+            $productRepo->saveCombination($created, $this->attributeValueRepository->find($attributeId));
+        });
     }
 }

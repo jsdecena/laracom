@@ -57,7 +57,14 @@
             padding: 15px;
             border-top: none;
         }
+        #search-btn {
+            border: 1px solid #bbb;
+        }
+        #admin-search {
+            margin-bottom: 15px;
+        }
     </style>
+    @yield('css')
 
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('favicons/apple-icon-57x57.png')}}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('favicons/apple-icon-60x60.png')}}">
@@ -76,14 +83,6 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{{ asset('favicons/ms-icon-144x144.png')}}">
     <meta name="theme-color" content="#ffffff">
-    <style type="text/css">
-        #search-btn {
-            border: 1px solid #bbb;
-        }
-        #admin-search {
-            margin-bottom: 15px;
-        }
-    </style>
 </head>
 <body class="hold-transition skin-purple sidebar-mini">
 <!-- Site wrapper -->

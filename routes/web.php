@@ -86,5 +86,5 @@ Route::namespace('Front')->group(function () {
     Route::resource('cart', 'CartController');
     Route::get("category/{slug}", 'CategoryController@getCategory')->name('front.category.slug');
     Route::get("search", 'ProductController@search')->name('search.product');
-    Route::get("{product}", 'ProductController@getProduct')->name('front.get.product');
+    Route::get("{product}", 'ProductController@show')->name('front.get.product');
 });
