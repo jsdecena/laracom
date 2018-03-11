@@ -72,7 +72,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function updateProduct(array $params, int $id) : bool
     {
         try {
-            return $this->model->update($params);
+            return $this->update($params, $id);
         } catch (QueryException $e) {
             throw new ProductInvalidArgumentException($e->getMessage());
         }

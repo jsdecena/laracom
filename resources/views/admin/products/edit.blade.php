@@ -66,8 +66,8 @@
                                                 <span class="text-warning">You can use ctr (cmd) to select multiple images</span>
                                             </div>
                                             <div class="form-group">
+                                                <label for="quantity">Quantity <span class="text-danger">*</span></label>
                                                 @if($productAttributes->isEmpty())
-                                                    <label for="quantity">Quantity <span class="text-danger">*</span></label>
                                                     <input
                                                             type="text"
                                                             name="quantity"
@@ -78,26 +78,29 @@
                                                     >
                                                 @else
                                                     <input type="hidden" name="quantity" value="{{ $qty }}">
+                                                    <input type="text" value="{{ $qty }}" class="form-control" disabled>
                                                 @endif
-                                                @if(!$productAttributes->isEmpty())<span class="text-danger">Note: Quantity and Price fields are disabled because you have combinations</span> @endif
+                                                @if(!$productAttributes->isEmpty())<span class="text-danger">Note: Quantity is disabled. Total quantity is calculated by the sum of all the combinations.</span> @endif
                                             </div>
-                                            @if($productAttributes->isEmpty())
-                                                <div class="form-group">
+                                            <div class="form-group">
+                                                @if($productAttributes->isEmpty())
                                                     <label for="price">Price <span class="text-danger">*</span></label>
                                                     <div class="input-group">
                                                         <span class="input-group-addon">PHP</span>
                                                         <input type="text" name="price" id="price" placeholder="Price" class="form-control" value="{!! $product->price !!}">
                                                     </div>
-                                                </div>
-                                            @else
-                                                <input type="hidden" name="price" value="0">
-                                            @endif
+                                                @else
+                                                    <label for="price">Price <span class="text-danger">*</span></label>
+                                                    <input type="hidden" name="price" value="{!! $product->price !!}">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">PHP</span>
+                                                        <input type="text" id="price" placeholder="Price" class="form-control" value="{!! $product->price !!}" disabled>
+                                                    </div>
+                                                @endif
+                                                @if(!$productAttributes->isEmpty())<span class="text-danger">Note: Price is disabled. Price is derived based on the combination.</span> @endif
+                                            </div>
                                             <div class="form-group">
-                                                <label for="status">Status </label>
-                                                <select name="status" id="status" class="form-control">
-                                                    <option value="0" @if($product->status == 0) selected="selected" @endif>Disable</option>
-                                                    <option value="1" @if($product->status == 1) selected="selected" @endif>Enable</option>
-                                                </select>
+                                                @include('admin.shared.status-select', ['status' => $product->status])
                                             </div>
                                             <!-- /.box-body -->
                                         </div>
@@ -118,85 +121,10 @@
                                 <div role="tabpanel" class="tab-pane @if(request()->has('combination')) active @endif" id="combinations">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <h2>Make combinations</h2>
-                                            <div class="form-group">
-                                                <ul class="list-unstyled attribute-lists">
-                                                    @foreach($attributes as $attribute)
-                                                        <li>
-                                                            <label for="attribute{{ $attribute->id }}" class="checkbox-inline">
-                                                                {{ $attribute->name }}
-                                                                <input name="attribute[]" class="attribute" type="checkbox" id="attribute{{ $attribute->id }}" value="{{ $attribute->id }}">
-                                                            </label>
-
-                                                            <label for="attributeValue{{ $attribute->id }}" style="display: none; visibility: hidden"></label>
-                                                            @if(!$attribute->values->isEmpty())
-                                                                <select name="attributeValue[]" id="attributeValue{{ $attribute->id }}" class="form-control" disabled>
-                                                                    @foreach($attribute->values as $attr)
-                                                                        <option value="{{ $attr->id }}">{{ $attr->value }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            @endif
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="productAttributeQuantity">Quantity</label>
-                                                <input type="text" name="productAttributeQuantity" id="productAttributeQuantity" class="form-control" placeholder="Set quantity" disabled>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="productAttributePrice">Price</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">{{ config('cart.currency') }}</span>
-                                                    <input type="text" name="productAttributePrice" id="productAttributePrice" class="form-control" placeholder="Price" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="box-footer">
-                                                <div class="btn-group">
-                                                    <input type="hidden" name="combination" id="combination" value="1" disabled>
-                                                    <button type="button" class="btn btn-sm btn-default" onclick="backToInfo()">Back</button>
-                                                    <button id="createCombinationBtn" type="submit" class="btn btn-sm btn-primary" disabled="disabled">Create combination</button>
-                                                </div>
-                                            </div>
+                                            @include('admin.products.create-attributes', compact('attributes'))
                                         </div>
                                         <div class="col-md-8">
-                                            @if(!$productAttributes->isEmpty())
-                                                <ul class="list-unstyled">
-                                                    <li>
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Quantity</th>
-                                                                    <th>Price</th>
-                                                                    <th>Attributes</th>
-                                                                    <th>Actions</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @foreach($productAttributes as $attribute)
-                                                                    <tr>
-                                                                        <td>{{ $attribute->quantity }}</td>
-                                                                        <td>{{ $attribute->price }}</td>
-                                                                        <td>
-                                                                            <ul class="list-unstyled">
-                                                                                @foreach($attribute->attributesValues as $item)
-                                                                                    <li>{{ $item->attribute->name }} : {{ $item->value }}</li>
-                                                                                @endforeach
-                                                                            </ul>
-                                                                        </td>
-                                                                        <td class="btn-group">
-                                                                            <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
-                                                                            <a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                        </table>
-                                                    </li>
-                                                </ul>
-                                            @else
-                                                <p class="alert alert-warning">No combination yet.</p>
-                                            @endif
+                                            @include('admin.products.attributes', compact('productAttributes'))
                                         </div>
                                     </div>
                                 </div>

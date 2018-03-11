@@ -41,23 +41,28 @@ class ProductController extends Controller
      */
     private $attributeValueRepository;
 
+    private $productAttribute;
+
     /**
      * ProductController constructor.
      * @param ProductRepositoryInterface $productRepository
      * @param CategoryRepositoryInterface $categoryRepository
      * @param AttributeRepositoryInterface $attributeRepository
      * @param AttributeValueRepositoryInterface $attributeValueRepository
+     * @param ProductAttribute $productAttribute
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         CategoryRepositoryInterface $categoryRepository,
         AttributeRepositoryInterface $attributeRepository,
-        AttributeValueRepositoryInterface $attributeValueRepository
+        AttributeValueRepositoryInterface $attributeValueRepository,
+        ProductAttribute $productAttribute
     ) {
         $this->productRepo = $productRepository;
         $this->categoryRepo = $categoryRepository;
         $this->attributeRepo = $attributeRepository;
         $this->attributeValueRepository = $attributeValueRepository;
+        $this->productAttribute = $productAttribute;
     }
 
     /**
@@ -145,6 +150,15 @@ class ProductController extends Controller
         $product = $this->productRepo->findProductById($id);
         $productAttributes = $product->attributes()->get();
         $qty = $productAttributes->map(function($item) { return $item->quantity; })->sum();
+
+        if (request()->has('pa')) {
+            $pa = $productAttributes->where('id', request()->input('pa'))->first();
+            $pa->attributesValues()->detach();
+            $pa->delete();
+
+            request()->session()->flash('message', 'Delete successful');
+            return redirect()->route('admin.products.edit', [$product->id, 'combination' => 1]);
+        }
 
         return view('admin.products.edit', [
             'product' => $product,

@@ -6,7 +6,6 @@ use App\Shop\AttributeValues\AttributeValue;
 use App\Shop\Base\Interfaces\BaseRepositoryInterface;
 use App\Shop\ProductAttributes\ProductAttribute;
 use App\Shop\Products\Product;
-use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 
