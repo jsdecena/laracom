@@ -12,7 +12,7 @@ class AttributeValueUnitTest extends TestCase
     /** @test */
     public function it_can_be_dissociated_from_the_attribute()
     {
-        $attributeValue = new AttributeValue(['value' => 'sizes']);
+        $attributeValue = new AttributeValue(['value' => 'small']);
         $attributeValueRepo = new AttributeValueRepository($attributeValue);
 
         $attribute = factory(Attribute::class)->create();
