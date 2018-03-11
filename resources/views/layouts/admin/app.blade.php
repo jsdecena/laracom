@@ -52,6 +52,11 @@
             background: #605ca8;
             color: #eee;
         }
+        .tab-content > .tab-pane {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-top: none;
+        }
     </style>
 
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('favicons/apple-icon-57x57.png')}}">
