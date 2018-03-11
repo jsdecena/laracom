@@ -85,9 +85,14 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 <body class="hold-transition skin-purple sidebar-mini">
+<noscript>
+    <p class="alert alert-danger">
+        You need to turn on your javascript. Some functionality will not work if this is disabled.
+        <a href="https://www.enable-javascript.com/" target="_blank">Read more</a>
+    </p>
+</noscript>
 <!-- Site wrapper -->
 <div class="wrapper">
-
     @include('layouts.admin.header', ['user' => $user])
 
     @include('layouts.admin.sidebar', ['user' => $user])
