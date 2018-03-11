@@ -18,12 +18,4 @@ class Attribute extends Model
     {
         return $this->hasMany(AttributeValue::class);
     }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function productAttributes()
-    {
-        return $this->belongsToMany(Attribute::class);
-    }
 }

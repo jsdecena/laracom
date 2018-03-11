@@ -138,18 +138,20 @@
 @section('js')
     <script type="text/javascript" src="{{ asset('front/js/Drift.min.js') }}"></script>
     <script type="text/javascript">
-        var productPane = document.querySelector('.product-cover');
-        var paneContainer = document.querySelector('.product-cover-wrap');
+        $(document).ready(function () {
+            var productPane = document.querySelector('.product-cover');
+            var paneContainer = document.querySelector('.product-cover-wrap');
 
-        new Drift(productPane, {
-            paneContainer: paneContainer,
-            inlinePane: false
-        });
+            new Drift(productPane, {
+                paneContainer: paneContainer,
+                inlinePane: false
+            });
 
-        $('#thumbnails li img').on('click', function () {
-            $('#main-image')
-                    .attr('src', $(this).attr('src') +'?w=400')
-                    .attr('data-zoom', $(this).attr('src') +'?w=1200');
+            $('#thumbnails li img').on('click', function () {
+                $('#main-image')
+                        .attr('src', $(this).attr('src') +'?w=400')
+                        .attr('data-zoom', $(this).attr('src') +'?w=1200');
+            });
         });
     </script>
 @endsection
