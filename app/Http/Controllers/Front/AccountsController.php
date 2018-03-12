@@ -31,9 +31,7 @@ class AccountsController extends Controller
         $customerRepo = new CustomerRepository($customer);
         $orders = $customerRepo->findOrders();
 
-        $orders->transform(function (Order $order) {
-            return $this->transformOrder($order);
-        });
+        $orders->transform(function (Order $order) { return $this->transformOrder($order); });
 
         $addresses = $customerRepo->findAddresses();
 

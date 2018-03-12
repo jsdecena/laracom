@@ -40,7 +40,7 @@ class AttributeUnitTest extends TestCase
         $attributeRepo = new AttributeRepository(new Attribute);
         $list = $attributeRepo->listAttributes();
 
-        $this->assertCount(5, $list->all());
+        $this->assertCount(5, $list);
     }
 
     /** @test */

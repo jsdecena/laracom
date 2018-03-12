@@ -25,7 +25,12 @@
                             </ul>
                         </td>
                         <td class="btn-group">
-                            <a onclick="return confirm('Are you sure?')" href="{{ route('admin.products.edit', [$product->id, 'combination' => 1, 'pa' => $pa->id]) }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                            <a
+                                    onclick="return confirm('Are you sure?')"
+                                    href="{{ route('admin.products.edit', [$product->id, 'combination' => 1, 'delete' => 1, 'pa' => $pa->id]) }}"
+                                    class="btn btn-sm btn-danger">
+                                <i class="fa fa-trash"></i> Delete
+                            </a>
                         </td>
                     </tr>
                 @endforeach

@@ -13,8 +13,6 @@ class UpdateAttributeRequest extends BaseFormRequest
      */
     public function rules()
     {
-        return [
-            'name' => ['required']
-        ];
+        return [];
     }
 }

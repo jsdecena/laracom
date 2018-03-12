@@ -49,19 +49,10 @@ class AttributeController extends Controller
      */
     public function store(CreateAttributeRequest $request)
     {
-        try {
+        $attribute = $this->attributeRepo->createAttribute($request->except('_token'));
+        $request->session()->flash('message', 'Create attribute successful!');
 
-            $attribute = $this->attributeRepo->createAttribute($request->except('_token'));
-
-            $request->session()->flash('message', 'Create attribute successful!');
-
-            return redirect()->route('admin.attributes.edit', $attribute->id);
-
-        } catch (CreateAttributeErrorException $e) {
-
-            $request->session()->flash('error', $e->getMessage());
-            return redirect()->back()->withInput();
-        }
+        return redirect()->route('admin.attributes.edit', $attribute->id);
     }
 
     /**
@@ -121,7 +112,7 @@ class AttributeController extends Controller
 
             $request->session()->flash('error', $e->getMessage());
 
-            return redirect()->back()->withInput();
+            return redirect()->route('admin.attributes.edit', $id)->withInput();
         }
     }
 

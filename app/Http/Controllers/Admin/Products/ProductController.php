@@ -151,7 +151,7 @@ class ProductController extends Controller
         $productAttributes = $product->attributes()->get();
         $qty = $productAttributes->map(function($item) { return $item->quantity; })->sum();
 
-        if (request()->has('pa')) {
+        if (request()->has('delete') && request()->has('pa')) {
             $pa = $productAttributes->where('id', request()->input('pa'))->first();
             $pa->attributesValues()->detach();
             $pa->delete();
