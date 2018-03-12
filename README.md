@@ -13,6 +13,8 @@
 
 [Website](https://laracom.net/)
 
+[Website](https://laracom.net/)
+
 [Installation](https://github.com/jsdecena/laracom/wiki/Installation)
 
 [Admin Screenshots](https://github.com/jsdecena/laracom/wiki/Admin-Features)

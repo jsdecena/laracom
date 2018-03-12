@@ -53,6 +53,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin'], 'as' => 'admin.' ]
             Route::resource('countries.provinces.cities', 'Cities\CityController');
             Route::resource('couriers', 'Couriers\CourierController');
             Route::resource('payment-methods', 'PaymentMethods\PaymentMethodController');
+            Route::resource('attributes', 'Attributes\AttributeController');
+            Route::resource('attributes.values', 'Attributes\AttributeValueController');
         });
     });
 });
@@ -78,11 +80,10 @@ Route::namespace('Front')->group(function () {
         Route::get('checkout/execute', 'CheckoutController@execute')->name('checkout.execute');
         Route::get('checkout/cancel', 'CheckoutController@cancel')->name('checkout.cancel');
         Route::get('checkout/success', 'CheckoutController@success')->name('checkout.success');
-        Route::resource('customer', 'CustomerController');
         Route::resource('customer.address', 'CustomerAddressController');
     });
     Route::resource('cart', 'CartController');
     Route::get("category/{slug}", 'CategoryController@getCategory')->name('front.category.slug');
     Route::get("search", 'ProductController@search')->name('search.product');
-    Route::get("{product}", 'ProductController@getProduct')->name('front.get.product');
+    Route::get("{product}", 'ProductController@show')->name('front.get.product');
 });

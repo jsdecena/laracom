@@ -32,6 +32,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.table').DataTable({
+                'info' : false,
                 'paging' : false,
                 'searching' : false,
                 'columnDefs' : [
@@ -51,7 +52,19 @@
             background: #605ca8;
             color: #eee;
         }
+        .tab-content > .tab-pane {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-top: none;
+        }
+        #search-btn {
+            border: 1px solid #bbb;
+        }
+        #admin-search {
+            margin-bottom: 15px;
+        }
     </style>
+    @yield('css')
 
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('favicons/apple-icon-57x57.png')}}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('favicons/apple-icon-60x60.png')}}">
@@ -70,19 +83,16 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{{ asset('favicons/ms-icon-144x144.png')}}">
     <meta name="theme-color" content="#ffffff">
-    <style type="text/css">
-        #search-btn {
-            border: 1px solid #bbb;
-        }
-        #admin-search {
-            margin-bottom: 15px;
-        }
-    </style>
 </head>
 <body class="hold-transition skin-purple sidebar-mini">
+<noscript>
+    <p class="alert alert-danger">
+        You need to turn on your javascript. Some functionality will not work if this is disabled.
+        <a href="https://www.enable-javascript.com/" target="_blank">Read more</a>
+    </p>
+</noscript>
 <!-- Site wrapper -->
 <div class="wrapper">
-
     @include('layouts.admin.header', ['user' => $user])
 
     @include('layouts.admin.sidebar', ['user' => $user])

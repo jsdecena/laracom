@@ -3,6 +3,7 @@
 namespace App\Shop\Products;
 
 use App\Shop\Categories\Category;
+use App\Shop\ProductAttributes\ProductAttribute;
 use App\Shop\ProductImages\ProductImage;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Model;
@@ -91,5 +92,13 @@ class Product extends Model implements Buyable
     public function searchProduct(string $term) : Collection
     {
         return self::search($term)->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attributes()
+    {
+        return $this->hasMany(ProductAttribute::class);
     }
 }

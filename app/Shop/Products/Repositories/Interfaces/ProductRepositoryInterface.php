@@ -2,9 +2,10 @@
 
 namespace App\Shop\Products\Repositories\Interfaces;
 
+use App\Shop\AttributeValues\AttributeValue;
 use App\Shop\Base\Interfaces\BaseRepositoryInterface;
+use App\Shop\ProductAttributes\ProductAttribute;
 use App\Shop\Products\Product;
-use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 
@@ -39,4 +40,14 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
     public function saveCoverImage(UploadedFile $file) : string;
 
     public function saveProductImages(Collection $collection, Product $product);
+
+    public function saveProductAttributes(ProductAttribute $productAttribute) : ProductAttribute;
+
+    public function listProductAttributes() : Collection;
+
+    public function removeProductAttribute(ProductAttribute $productAttribute) : ?bool;
+
+    public function saveCombination(ProductAttribute $productAttribute, AttributeValue ...$attributeValues) : Collection;
+
+    public function listCombinations() : Collection;
 }
