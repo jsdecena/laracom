@@ -80,7 +80,6 @@ Route::namespace('Front')->group(function () {
         Route::get('checkout/execute', 'CheckoutController@execute')->name('checkout.execute');
         Route::get('checkout/cancel', 'CheckoutController@cancel')->name('checkout.cancel');
         Route::get('checkout/success', 'CheckoutController@success')->name('checkout.success');
-        Route::resource('customer', 'CustomerController');
         Route::resource('customer.address', 'CustomerAddressController');
     });
     Route::resource('cart', 'CartController');

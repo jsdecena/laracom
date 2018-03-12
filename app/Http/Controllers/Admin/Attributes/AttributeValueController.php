@@ -56,6 +56,8 @@ class AttributeValueController extends Controller
 
         $attributeValueRepo->associateToAttribute($attribute);
 
+        $request->session()->flash('message', 'Attribute value created');
+
         return redirect()->route('admin.attributes.show', $attribute->id);
     }
 
@@ -69,14 +71,9 @@ class AttributeValueController extends Controller
         $attributeValue = $this->attributeValueRepo->findOneOrFail($attributeValueId);
 
         $attributeValueRepo = new AttributeValueRepository($attributeValue);
-        $deleted = $attributeValueRepo->dissociateFromAttribute();
+        $attributeValueRepo->dissociateFromAttribute();
 
-        if ($deleted) {
-            request()->session()->flash('message', 'Attribute value removed!');
-            return redirect()->route('admin.attributes.show', $attributeId);
-        }
-
-        request()->session()->flash('error', 'We have problem removing this value');
+        request()->session()->flash('message', 'Attribute value removed!');
         return redirect()->route('admin.attributes.show', $attributeId);
     }
 }
