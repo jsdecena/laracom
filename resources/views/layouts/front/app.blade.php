@@ -48,7 +48,12 @@
     <script src="{{ asset('front/js/jquery.min.js') }}"></script>
 </head>
 <body>
-
+<noscript>
+    <p class="alert alert-danger">
+        You need to turn on your javascript. Some functionality will not work if this is disabled.
+        <a href="https://www.enable-javascript.com/" target="_blank">Read more</a>
+    </p>
+</noscript>
 <section>
     <div class="row hidden-xs">
         <div class="container">

@@ -1,28 +1,24 @@
-@if(isset($products))
+@if(!$products->isEmpty())
     <table class="table">
         <thead>
             <tr>
-                <td class="col-md-2">Name</td>
-                <td class="col-md-2 text-center">Cover</td>
-                <td class="col-md-2 text-center">Quantity</td>
-                <td class="col-md-2 text-center">Price</td>
-                <td class="col-md-2">Status</td>
-                <td class="col-md-2">Actions</td>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Quantity</td>
+                <td>Price</td>
+                <td>Status</td>
+                <td>Actions</td>
             </tr>
         </thead>
         <tbody>
         @foreach ($products as $product)
             <tr>
+                <td>{{ $product->id }}</td>
                 <td><a href="{{ route('admin.products.show', $product->id) }}">{{ $product->name }}</a></td>
-                <td class="text-center">
-                    @if(isset($product->cover))
-                        <img src="{{ asset("storage/$product->cover") }}" alt="" class="img-responsive">
-                    @else
-                        -
-                    @endif
+                <td>
+                    {{ $product->quantity }}
                 </td>
-                <td class="text-center">{{ $product->quantity }}</td>
-                <td class="text-center">Php {{ $product->price }}</td>
+                <td>{{ config('cart.currency') }} {{ $product->price }}</td>
                 <td>@include('layouts.status', ['status' => $product->status])</td>
                 <td>
                     <form action="{{ route('admin.products.destroy', $product->id) }}" method="post" class="form-horizontal">
