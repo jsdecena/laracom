@@ -1,6 +1,8 @@
 /node_modules
 /public/hot
 /public/storage
+/public/fonts
+/public/img
 /public/fonts/vendor
 /public/css/app.css
 /public/js/app.js

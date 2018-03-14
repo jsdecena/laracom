@@ -2,7 +2,6 @@
 
 namespace App\Shop\Products\Repositories;
 
-use App\Shop\Attributes\Attribute;
 use App\Shop\AttributeValues\AttributeValue;
 use App\Shop\Base\BaseRepository;
 use App\Shop\ProductAttributes\ProductAttribute;
