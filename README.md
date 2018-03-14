@@ -13,8 +13,6 @@
 
 [Website](https://laracom.net/)
 
-[Website](https://laracom.net/)
-
 [Installation](https://github.com/jsdecena/laracom/wiki/Installation)
 
 [Admin Screenshots](https://github.com/jsdecena/laracom/wiki/Admin-Features)
@@ -71,8 +69,6 @@
 - Mobile
     - Mobile responsive design for the admin and front store
     - Access anywhere your admin and front store
-
-## Support on Beerpay
-Hey dude! Help me out for a couple of :beers:!
-
-[![Beerpay](https://www.dropbox.com/s/srxfghrj3apeajt/bp.png?raw=1)](https://beerpay.io/jsdecena/laracom)
+    
+## Support open source
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=jeff.decena@yahoo.com&item_name=Laracom%20E-Commerce%20development&bn=PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest)
