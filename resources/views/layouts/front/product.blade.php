@@ -51,6 +51,20 @@
                     @include('layouts.errors-and-messages')
                     <form action="{{ route('cart.store') }}" class="form-inline" method="post">
                         {{ csrf_field() }}
+                        @if(isset($combinations))
+                            <ul class="list-unstyled">
+                            @foreach($combinations as $key => $combination)
+                                <li>
+                                    <label for="attributeId" style="display: inline-block; min-width: 60px; padding-right: 10px; padding-bottom: 10px">{{ $key }} :</label>
+                                    <select name="combination[{{ strtolower($key) }}]" id="attributeId" class="form-control" style="min-width: 100px">
+                                        @foreach($combination as $attr)
+                                            <option value="{{ $attr['value'] }}">{{ $attr['value'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </li>
+                            @endforeach
+                            </ul>
+                        @endif
                         <div class="form-group">
                             <input type="text"
                                    class="form-control"

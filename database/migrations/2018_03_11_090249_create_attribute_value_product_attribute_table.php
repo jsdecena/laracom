@@ -14,7 +14,6 @@ class CreateAttributeValueProductAttributeTable extends Migration
     public function up()
     {
         Schema::create('attribute_value_product_attribute', function (Blueprint $table) {
-            $table->increments('id');
             $table->unsignedInteger('attribute_value_id');
             $table->foreign('attribute_value_id')->references('id')->on('attribute_values');
             $table->unsignedInteger('product_attribute_id');

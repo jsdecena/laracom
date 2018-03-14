@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Shop\AttributeValues\AttributeValue;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Shop\Products\Transformations\ProductTransformable;
+use Illuminate\Support\Collection;
 
 class ProductController extends Controller
 {
@@ -51,8 +53,30 @@ class ProductController extends Controller
     {
         $product = $this->productRepo->findProductBySlug(['slug' => $slug]);
         $images = $product->images()->get();
-        $productAttributes = $product->attributes()->get();
 
-        return view('front.products.product', compact('product', 'images', 'productAttributes'));
+        // Get all the attributes
+        $combinations = $product->attributes()->get()
+            ->pluck('attributesValues')
+            ->flatten()
+            ->unique()
+            ->groupBy(function (AttributeValue $av) {
+                return $av->attribute->name;
+            })
+            ->map(function (Collection $collection) {
+                return $collection->map(function (AttributeValue $av) {
+                    return [
+                        'attribute' => $av->attribute,
+                        'value' => $av->value
+                    ];
+                })->unique()->all();
+            })->all();
+
+        // dd($combinations);
+
+        return view('front.products.product', compact(
+            'product',
+            'images',
+            'combinations'
+        ));
     }
 }

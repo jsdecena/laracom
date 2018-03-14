@@ -15,7 +15,7 @@
 use App\Shop\PaymentMethods\PaymentMethod;
 
 $factory->define(PaymentMethod::class, function (Faker\Generator $faker) {
-    $name = $faker->unique()->sentence;
+    $name = $faker->unique()->word;
     return [
         'name' => $name,
         'slug' => str_slug($name),

@@ -39,7 +39,7 @@ class AttributesFeatureTest extends TestCase
             ->put(route('admin.products.update', $product->id), $data)
             ->assertStatus(302)
             ->assertRedirect(route('admin.products.edit', [$product->id, 'combination' => 1]))
-            ->assertSessionHas('message', 'Update successful');
+            ->assertSessionHas('message', 'Attribute combination created successful');
     }
 
     /** @test */

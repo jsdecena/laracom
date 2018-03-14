@@ -52,7 +52,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        $cartProducts = $this->cartRepo->getCartItems()->map(function (CartItem $item) {
+        $cartItems = $this->cartRepo->getCartItems()->map(function (CartItem $item) {
             $productRepo = new ProductRepository(new Product());
             $product = $productRepo->findProductById($item->id);
             $item->product = $this->transformProduct($product);
@@ -64,7 +64,7 @@ class CartController extends Controller
         $shippingFee = $this->cartRepo->getShippingFee($courier);
 
         return view('front.carts.cart', [
-            'products' => $cartProducts,
+            'cartItems' => $cartItems,
             'subtotal' => $this->cartRepo->getSubTotal(),
             'tax' => $this->cartRepo->getTax(),
             'shippingFee' => $shippingFee,
@@ -81,7 +81,7 @@ class CartController extends Controller
     public function store(AddToCartRequest $request)
     {
         $product = $this->productRepo->findProductById($request->input('product'));
-        $this->cartRepo->addToCart($product, $request->input('quantity'));
+        $this->cartRepo->addToCart($product, $request->input('quantity'), $request->input('combination'));
 
         $request->session()->flash('message', 'Add to cart successful');
         return redirect()->route('cart.index');

@@ -166,7 +166,7 @@
 @endsection
 @section('js')
     <script type="text/javascript">
-        function backToInfo() {
+        function backToInfoTab() {
             $('#tablist > li:first-child').addClass('active');
             $('#tablist > li:last-child').removeClass('active');
 
