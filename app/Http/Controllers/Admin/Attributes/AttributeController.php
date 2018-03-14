@@ -62,7 +62,6 @@ class AttributeController extends Controller
     public function show($id)
     {
         try {
-
             $attribute = $this->attributeRepo->findAttributeById($id);
             $attributeRepo = new AttributeRepository($attribute);
 
@@ -70,9 +69,7 @@ class AttributeController extends Controller
                 'attribute' => $attribute,
                 'values' => $attributeRepo->listAttributeValues()
             ]);
-
         } catch (AttributeNotFoundException $e) {
-
             request()->session()->flash('error', 'The attribute you are looking for is not found.');
 
             return redirect()->route('admin.attributes.index');
@@ -98,7 +95,6 @@ class AttributeController extends Controller
     public function update(UpdateAttributeRequest $request, $id)
     {
         try {
-
             $attribute = $this->attributeRepo->findAttributeById($id);
 
             $attributeRepo = new AttributeRepository($attribute);
@@ -107,9 +103,7 @@ class AttributeController extends Controller
             $request->session()->flash('message', 'Attribute update successful!');
 
             return redirect()->route('admin.attributes.edit', $attribute->id);
-
-        }  catch (UpdateAttributeErrorException $e) {
-
+        } catch (UpdateAttributeErrorException $e) {
             $request->session()->flash('error', $e->getMessage());
 
             return redirect()->route('admin.attributes.edit', $id)->withInput();

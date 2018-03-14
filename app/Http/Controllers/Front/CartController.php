@@ -96,7 +96,6 @@ class CartController extends Controller
 
         $options = [];
         if ($request->has('productAttribute')) {
-
             $pa = $request->input('productAttribute');
             $productAttribute = $this->productAttributeRepo->findProductAttributeById($pa);
 

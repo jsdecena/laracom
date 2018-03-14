@@ -29,8 +29,7 @@ class AttributeValueController extends Controller
     public function __construct(
         AttributeRepositoryInterface $attributeRepository,
         AttributeValueRepositoryInterface $attributeValueRepository
-    )
-    {
+    ) {
         $this->attributeRepo = $attributeRepository;
         $this->attributeValueRepo = $attributeValueRepository;
     }
