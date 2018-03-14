@@ -9,13 +9,17 @@ use App\Shop\ProductAttributes\ProductAttribute;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Repositories\ProductRepository;
+use App\Shop\Products\Requests\CreateAttributeCombination;
 use App\Shop\Products\Requests\CreateProductRequest;
 use App\Shop\Products\Requests\UpdateProductRequest;
 use App\Http\Controllers\Controller;
 use App\Shop\Products\Transformations\ProductTransformable;
 use App\Shop\Tools\UploadableTrait;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -182,13 +186,10 @@ class ProductController extends Controller
     {
         $product = $this->productRepo->findProductById($id);
 
-        if ($request->has('productAttributeQuantity')) {
-            $this->saveProductCombinations(
-                $product,
-                $request->input('productAttributeQuantity'),
-                $request->input('productAttributePrice'),
-                $request->input('attributeValue')
-            );
+        if ($request->has('attributeValue')) {
+            $this->saveProductCombinations($request, $product);
+            $request->session()->flash('message', 'Attribute combination created successful');
+            return redirect()->route('admin.products.edit', [$id, 'combination' => 1]);
         }
 
         $data = $request->except('categories', '_token', '_method');
@@ -210,12 +211,7 @@ class ProductController extends Controller
 
         $request->session()->flash('message', 'Update successful');
 
-        $route = [$id];
-        if ($request->has('combination')) {
-            $route['combination'] = 1;
-        }
-
-        return redirect()->route('admin.products.edit', $route);
+        return redirect()->route('admin.products.edit', $id);
     }
 
     /**
@@ -269,21 +265,44 @@ class ProductController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param Product $product
-     * @param int $quantity
-     * @param $price
-     * @param array $attributeValues
+     * @return boolean
      */
-    private function saveProductCombinations(Product $product, int $quantity, $price, array $attributeValues)
+    private function saveProductCombinations(Request $request, Product $product)
     {
-        $productAttribute = new ProductAttribute(compact('quantity', 'price'));
+        $fields = $request->only('productAttributeQuantity', 'productAttributePrice');
 
+        if($errors = $this->validateFields($fields)) {
+            return redirect()->route('admin.products.edit', [$product->id, 'combination' => 1])
+                ->withErrors($errors);
+        }
+
+        $quantity = $fields['productAttributeQuantity'];
+        $price = $fields['productAttributePrice'];
+
+        $attributeValues = $request->input('attributeValue');
         $productRepo = new ProductRepository($product);
-        $created = $productRepo->saveProductAttributes($productAttribute);
+        $productAttribute = $productRepo->saveProductAttributes(new ProductAttribute(compact('quantity', 'price')));
 
         // save the combinations
-        collect($attributeValues)->each(function ($attributeId) use ($productRepo, $created) {
-            $productRepo->saveCombination($created, $this->attributeValueRepository->find($attributeId));
-        });
+        return collect($attributeValues)->each(function ($attributeId) use ($productRepo, $productAttribute) {
+            $attribute = $this->attributeValueRepository->find($attributeId);
+            return $productRepo->saveCombination($productAttribute, $attribute);
+        })->count();
+    }
+
+    /**
+     * @param array $data
+     */
+    private function validateFields(array $data)
+    {
+        $validator = Validator::make($data, [
+            'productAttributeQuantity' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $validator;
+        }
     }
 }

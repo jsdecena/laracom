@@ -2,7 +2,6 @@
 
 namespace App\Shop\ProductAttributes;
 
-use App\Shop\Attributes\Attribute;
 use App\Shop\AttributeValues\AttributeValue;
 use App\Shop\Products\Product;
 use Illuminate\Database\Eloquent\Model;

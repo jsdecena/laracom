@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Shop\AttributeValues\AttributeValue;
+use App\Shop\ProductAttributes\ProductAttribute;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Shop\Products\Transformations\ProductTransformable;
+use Illuminate\Support\Collection;
 
 class ProductController extends Controller
 {
@@ -51,8 +54,15 @@ class ProductController extends Controller
     {
         $product = $this->productRepo->findProductBySlug(['slug' => $slug]);
         $images = $product->images()->get();
-        $productAttributes = $product->attributes()->get();
+        $category = $product->categories()->first();
+        $productAttributes = $product->attributes;
 
-        return view('front.products.product', compact('product', 'images', 'productAttributes'));
+        return view('front.products.product', compact(
+            'product',
+            'images',
+            'productAttributes',
+            'category',
+            'combos'
+        ));
     }
 }

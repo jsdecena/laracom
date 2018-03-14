@@ -2,21 +2,11 @@
 
 namespace App\Shop\Products\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Shop\Base\BaseFormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateProductRequest extends FormRequest
+class UpdateProductRequest extends BaseFormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,7 +17,7 @@ class UpdateProductRequest extends FormRequest
         return [
             'sku' => ['required'],
             'name' => ['required', Rule::unique('products')->ignore($this->segment(3))],
-            'quantity' => ['required', 'numeric'],
+            'quantity' => ['required', 'integer'],
             'price' => ['required']
         ];
     }

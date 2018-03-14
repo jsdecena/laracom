@@ -10,7 +10,7 @@
 
                 <label for="attributeValue{{ $attribute->id }}" style="display: none; visibility: hidden"></label>
                 @if(!$attribute->values->isEmpty())
-                    <select name="attributeValue[]" id="attributeValue{{ $attribute->id }}" class="form-control" disabled>
+                    <select name="attributeValue[]" id="attributeValue{{ $attribute->id }}" class="form-control select2" style="width: 100%" disabled>
                         @foreach($attribute->values as $attr)
                             <option value="{{ $attr->id }}">{{ $attr->value }}</option>
                         @endforeach
@@ -21,7 +21,7 @@
     </ul>
 </div>
 <div class="form-group">
-    <label for="productAttributeQuantity">Quantity</label>
+    <label for="productAttributeQuantity">Quantity <span class="text text-danger">*</span></label>
     <input type="text" name="productAttributeQuantity" id="productAttributeQuantity" class="form-control" placeholder="Set quantity" disabled>
 </div>
 <div class="form-group">
@@ -33,8 +33,7 @@
 </div>
 <div class="box-footer">
     <div class="btn-group">
-        <input type="hidden" name="combination" id="combination" value="1" disabled>
-        <button type="button" class="btn btn-sm btn-default" onclick="backToInfo()">Back</button>
+        <button type="button" class="btn btn-sm btn-default" onclick="backToInfoTab()">Back</button>
         <button id="createCombinationBtn" type="submit" class="btn btn-sm btn-primary" disabled="disabled">Create combination</button>
     </div>
 </div>

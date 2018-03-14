@@ -17,7 +17,7 @@ use App\Shop\Permissions\Permission;
 $factory->define(Permission::class, function (Faker\Generator $faker) {
 
     return [
-        'name' => $faker->name,
+        'name' => $faker->word,
         'display_name' => '',
         'description' => ''
     ];
