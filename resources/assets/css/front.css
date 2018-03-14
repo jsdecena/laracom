@@ -194,7 +194,7 @@ li.menubar-cart a {
         HERO AREA
 ************************** */
 .top-area {
-    background: #fff url('images/banner.jpg') no-repeat;
+    background: #fff url('../images/banner.jpg') no-repeat;
     background-size: cover;
     background-position: center;
     height: 760px;
@@ -590,4 +590,70 @@ a:hover img {
     border-right: 1px solid #d89522;
     border-bottom: 1px solid #d89522;
     border-left: 1px solid #d8cab2;
+}
+
+.product-cover-wrap {
+    border: 1px solid #eee;
+}
+
+.product-description {
+    position: relative;
+}
+
+.excerpt {
+    display: none;
+}
+
+.modal-dialog .modal-content {
+    min-width: 800px;
+}
+
+.modal-dialog h1 {
+    font-size: 18px;
+    text-align: left;
+    line-height: 24px;
+}
+
+.modal-dialog h1 small {
+    display: block;
+    padding-top: 10px;
+}
+
+.modal-dialog .description,
+.modal-dialog .excerpt {
+    font-size: 14px;
+    line-height: 16px;
+    text-align: left;
+}
+
+.modal-dialog .description {
+    display: none;
+}
+
+.modal-dialog #quantity {
+    width: 85px;
+}
+
+.modal-dialog .modal-content {
+    padding: 15px;
+}
+
+.modal-content .excerpt {
+    display: block;
+    text-align: left;
+}
+
+#thumbnails li {
+    margin-bottom: 10px;
+}
+
+#thumbnails li img {
+    width: 100px;
+}
+
+#thumbnails li a:hover img {
+    border: 1px solid #d89522;
+}
+#productAttribute {
+    width: 312px;
 }

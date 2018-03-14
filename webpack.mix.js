@@ -21,10 +21,21 @@ mix
             'node_modules/admin-lte/dist/css/AdminLTE.min.css',
             'node_modules/admin-lte/dist/css/skins/skin-purple.min.css',
             'node_modules/datatables/media/css/jquery.dataTables.css',
-            'resources/assets/css/style.css'
+            'resources/assets/css/admin.css'
         ],
         'public/css/admin.min.css'
-    ).scripts(
+    )
+    .styles(
+        [
+            'node_modules/bootstrap/dist/css/bootstrap.css',
+            'node_modules/font-awesome/css/font-awesome.css',
+            'node_modules/select2/dist/css/select2.css',
+            'resources/assets/css/drift-basic.min.css',
+            'resources/assets/css/front.css'
+        ],
+        'public/css/style.min.css'
+    )
+    .scripts(
         [
             'resources/assets/js/jquery-2.2.3.min.js',
             'node_modules/bootstrap/dist/js/bootstrap.js',
@@ -34,7 +45,18 @@ mix
         ],
         'public/js/admin.min.js'
     )
+    .scripts(
+        [
+            'node_modules/bootstrap/dist/js/bootstrap.js',
+            'node_modules/select2/dist/js/select2.js',
+            'resources/assets/js/owl.carousel.min.js',
+            'resources/assets/js/Drift.min.js'
+        ],
+        'public/js/front.min.js'
+    )
     .copyDirectory('node_modules/datatables/media/images', 'public/images')
     .copyDirectory('node_modules/font-awesome/fonts', 'public/fonts')
     .copyDirectory('node_modules/admin-lte/dist/img', 'public/img')
-    .copy('resources/assets/js/scripts.js', 'public/js/scripts.js');
+    .copyDirectory('resources/assets/images', 'public/images')
+    .copy('resources/assets/js/scripts.js', 'public/js/scripts.js')
+    .copy('resources/assets/js/custom.js', 'public/js/custom.js');
