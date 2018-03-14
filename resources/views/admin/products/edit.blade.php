@@ -83,14 +83,13 @@
                                                 @if(!$productAttributes->isEmpty())<span class="text-danger">Note: Quantity is disabled. Total quantity is calculated by the sum of all the combinations.</span> @endif
                                             </div>
                                             <div class="form-group">
+                                                <label for="price">Price</label>
                                                 @if($productAttributes->isEmpty())
-                                                    <label for="price">Price <span class="text-danger">*</span></label>
                                                     <div class="input-group">
                                                         <span class="input-group-addon">PHP</span>
                                                         <input type="text" name="price" id="price" placeholder="Price" class="form-control" value="{!! $product->price !!}">
                                                     </div>
                                                 @else
-                                                    <label for="price">Price <span class="text-danger">*</span></label>
                                                     <input type="hidden" name="price" value="{!! $product->price !!}">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">PHP</span>

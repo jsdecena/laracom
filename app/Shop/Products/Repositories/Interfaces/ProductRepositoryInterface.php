@@ -50,4 +50,6 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
     public function saveCombination(ProductAttribute $productAttribute, AttributeValue ...$attributeValues) : Collection;
 
     public function listCombinations() : Collection;
+
+    public function findProductCombination(ProductAttribute $attribute);
 }

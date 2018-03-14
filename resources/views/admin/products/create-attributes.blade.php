@@ -25,7 +25,7 @@
     <input type="text" name="productAttributeQuantity" id="productAttributeQuantity" class="form-control" placeholder="Set quantity" disabled>
 </div>
 <div class="form-group">
-    <label for="productAttributePrice">Price <span class="text text-danger">*</span></label>
+    <label for="productAttributePrice">Price</label>
     <div class="input-group">
         <span class="input-group-addon">{{ config('cart.currency') }}</span>
         <input type="text" name="productAttributePrice" id="productAttributePrice" class="form-control" placeholder="Price" disabled>

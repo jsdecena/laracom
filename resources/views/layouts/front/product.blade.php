@@ -51,19 +51,22 @@
                     @include('layouts.errors-and-messages')
                     <form action="{{ route('cart.store') }}" class="form-inline" method="post">
                         {{ csrf_field() }}
-                        @if(isset($combinations))
-                            <ul class="list-unstyled">
-                            @foreach($combinations as $key => $combination)
-                                <li>
-                                    <label for="attributeId" style="display: inline-block; min-width: 60px; padding-right: 10px; padding-bottom: 10px">{{ $key }} :</label>
-                                    <select name="combination[{{ strtolower($key) }}]" id="attributeId" class="form-control" style="min-width: 100px">
-                                        @foreach($combination as $attr)
-                                            <option value="{{ $attr['value'] }}">{{ $attr['value'] }}</option>
-                                        @endforeach
-                                    </select>
-                                </li>
-                            @endforeach
-                            </ul>
+                        @if(isset($productAttributes) && !$productAttributes->isEmpty())
+                            <div class="form-group">
+                                <label for="productAttribute">Choose Combination</label> <br />
+                                <select name="productAttribute" id="productAttribute" class="form-control select2">
+                                    @foreach($productAttributes as $productAttribute)
+                                        <option value="{{ $productAttribute->id }}">
+                                            @foreach($productAttribute->attributesValues as $value)
+                                                {{ $value->attribute->name }} : {{ ucwords($value->value) }}
+                                            @endforeach
+                                            @if(!is_null($productAttribute->price))
+                                                ( {{ config('cart.currency') }} {{ $productAttribute->price }})
+                                            @endif
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div><hr>
                         @endif
                         <div class="form-group">
                             <input type="text"
@@ -84,6 +87,7 @@
 </div>
 @section('css')
     <link rel="stylesheet" href="{{ asset('front/css/drift-basic.min.css') }}">
+    <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css') }}" rel="stylesheet" />
     <style type="text/css">
         .product-cover-wrap {
             border: 1px solid #eee;
@@ -147,12 +151,19 @@
         #thumbnails li a:hover img {
             border: 1px solid #d89522;
         }
+        #productAttribute {
+            width: 312px;
+        }
     </style>
 @endsection
 @section('js')
     <script type="text/javascript" src="{{ asset('front/js/Drift.min.js') }}"></script>
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+
+            $('.select2').select2();
+
             var productPane = document.querySelector('.product-cover');
             var paneContainer = document.querySelector('.product-cover-wrap');
 

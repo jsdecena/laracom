@@ -298,8 +298,7 @@ class ProductController extends Controller
     private function validateFields(array $data)
     {
         $validator = Validator::make($data, [
-            'productAttributeQuantity' => 'required',
-            'productAttributePrice' => 'required'
+            'productAttributeQuantity' => 'required'
         ]);
 
         if ($validator->fails()) {

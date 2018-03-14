@@ -28,6 +28,8 @@ use App\Shop\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterfac
 use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
 use App\Shop\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
 use App\Shop\PaymentMethods\Repositories\PaymentMethodRepository;
+use App\Shop\ProductAttributes\Repositories\ProductAttributeRepository;
+use App\Shop\ProductAttributes\Repositories\ProductAttributeRepositoryInterface;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Repositories\ProductRepository;
 use App\Shop\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
@@ -38,6 +40,11 @@ class RepositoryServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        $this->app->bind(
+            ProductAttributeRepositoryInterface::class,
+            ProductAttributeRepository::class
+        );
+
         $this->app->bind(
             AttributeValueRepositoryInterface::class,
             AttributeValueRepository::class

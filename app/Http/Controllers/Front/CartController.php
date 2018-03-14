@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Shop\Carts\Requests\AddToCartRequest;
 use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
 use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
+use App\Shop\ProductAttributes\Repositories\ProductAttributeRepositoryInterface;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Repositories\ProductRepository;
@@ -27,22 +28,33 @@ class CartController extends Controller
      */
     private $productRepo;
 
+    /**
+     * @var CourierRepositoryInterface
+     */
     private $courierRepo;
+
+    /**
+     * @var ProductAttributeRepositoryInterface
+     */
+    private $productAttributeRepo;
 
     /**
      * CartController constructor.
      * @param CartRepositoryInterface $cartRepository
      * @param ProductRepositoryInterface $productRepository
      * @param CourierRepositoryInterface $courierRepository
+     * @param ProductAttributeRepositoryInterface $productAttributeRepository
      */
     public function __construct(
         CartRepositoryInterface $cartRepository,
         ProductRepositoryInterface $productRepository,
-        CourierRepositoryInterface $courierRepository
+        CourierRepositoryInterface $courierRepository,
+        ProductAttributeRepositoryInterface $productAttributeRepository
     ) {
         $this->cartRepo = $cartRepository;
         $this->productRepo = $productRepository;
         $this->courierRepo = $courierRepository;
+        $this->productAttributeRepo = $productAttributeRepository;
     }
 
     /**
@@ -81,7 +93,24 @@ class CartController extends Controller
     public function store(AddToCartRequest $request)
     {
         $product = $this->productRepo->findProductById($request->input('product'));
-        $this->cartRepo->addToCart($product, $request->input('quantity'), $request->input('combination'));
+
+        $options = [];
+        if ($request->has('productAttribute')) {
+
+            $pa = $request->input('productAttribute');
+            $productAttribute = $this->productAttributeRepo->findProductAttributeById($pa);
+
+            $productRepo = new ProductRepository($product);
+            $combination = $productRepo->findProductCombination($productAttribute);
+
+            $options = $combination->all();
+
+            if (!is_null($productAttribute->price)) {
+                $product->price = $productAttribute->price;
+            }
+        }
+
+        $this->cartRepo->addToCart($product, $request->input('quantity'), $options);
 
         $request->session()->flash('message', 'Add to cart successful');
         return redirect()->route('cart.index');

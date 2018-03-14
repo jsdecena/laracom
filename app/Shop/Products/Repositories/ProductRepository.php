@@ -262,4 +262,21 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             return $productAttribute->attributesValues;
         });
     }
+
+    /**
+     * @param ProductAttribute $productAttribute
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findProductCombination(ProductAttribute $productAttribute)
+    {
+        $values = $productAttribute->attributesValues()->get();
+
+        return $values->map(function (AttributeValue $attributeValue) {
+            return $attributeValue;
+        })->keyBy(function (AttributeValue $item) {
+            return strtolower($item->attribute->name);
+        })->transform(function (AttributeValue $value) {
+            return $value->value;
+        });
+    }
 }
