@@ -69,6 +69,12 @@
 - Mobile
     - Mobile responsive design for the admin and front store
     - Access anywhere your admin and front store
-    
+
+# BUILD AND COMPILE ASSETS
+
+- Run: `npm install`
+
+- Then: `npm run dev` and wait for it to compile (currently, only admin assets are being compiled) 
+
 ## Support open source
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=jeff.decena@yahoo.com&item_name=Laracom%20E-Commerce%20development&bn=PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest)
