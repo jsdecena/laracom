@@ -7,7 +7,16 @@ $(document).ready(function () {
             $('#delivery_cost').fadeOut();
         }
     });
-    $(document).ready(function() {
-        $('.select2').select2();
+    $('.select2').select2();
+    $('.table').DataTable({
+        'info' : false,
+        'paging' : false,
+        'searching' : false,
+        'columnDefs' : [
+            {
+                'orderable': false, 'targets' : -1
+            }
+        ],
+        'sorting' : []
     });
 });

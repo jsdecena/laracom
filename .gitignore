@@ -1,6 +1,9 @@
-/node_modules
+/node_modules/
 /public/hot
 /public/storage
+/public/fonts
+/public/img
+/public/images
 /public/fonts/vendor
 /public/css/app.css
 /public/js/app.js
@@ -21,3 +24,5 @@ Envoy.blade.php
 /coverage
 storage/app/public/storage
 \.php_cs\.cache
+public/css
+public/js

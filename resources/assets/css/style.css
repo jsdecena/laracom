@@ -1,0 +1,24 @@
+#search-btn {
+    border: 1px solid #d2d6de;
+}
+#search-btn:hover {
+    background: #605ca8;
+    color: #eee;
+}
+.tab-content > .tab-pane {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-top: none;
+}
+#search-btn {
+    border: 1px solid #bbb;
+}
+#admin-search {
+    margin-bottom: 15px;
+}
+table.dataTable thead td,
+table.dataTable tfoot td,
+table.dataTable.no-footer,
+table.dataTable thead th {
+    border-bottom: none;
+}

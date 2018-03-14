@@ -17,5 +17,13 @@
     "laravel-mix": "^2.0",
     "lodash": "^4.17.5",
     "vue": "^2.5.13"
+  },
+  "dependencies": {
+    "admin-lte": "^2.3.8",
+    "bootstrap": "^3.3.7",
+    "datatables": "^1.10.13",
+    "font-awesome": "^4.7.0",
+    "ionicons": "^3.0.0",
+    "select2": "^4.0.6-rc.1"
   }
 }

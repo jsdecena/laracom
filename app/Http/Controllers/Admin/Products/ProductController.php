@@ -153,7 +153,9 @@ class ProductController extends Controller
     {
         $product = $this->productRepo->findProductById($id);
         $productAttributes = $product->attributes()->get();
-        $qty = $productAttributes->map(function($item) { return $item->quantity; })->sum();
+        $qty = $productAttributes->map(function ($item) {
+            return $item->quantity;
+        })->sum();
 
         if (request()->has('delete') && request()->has('pa')) {
             $pa = $productAttributes->where('id', request()->input('pa'))->first();
@@ -273,7 +275,7 @@ class ProductController extends Controller
     {
         $fields = $request->only('productAttributeQuantity', 'productAttributePrice');
 
-        if($errors = $this->validateFields($fields)) {
+        if ($errors = $this->validateFields($fields)) {
             return redirect()->route('admin.products.edit', [$product->id, 'combination' => 1])
                 ->withErrors($errors);
         }
