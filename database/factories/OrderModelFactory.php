@@ -22,7 +22,7 @@ $factory->define(Order::class, function (Faker\Generator $faker) {
         'customer_id' => 1,
         'address_id' => 1,
         'order_status_id' => 1,
-        'payment_method_id' => 1,
+        'payment' => 'paypal',
         'discounts' => $faker->randomFloat(2, 10, 999),
         'total_products' => $faker->randomFloat(2, 10, 5555),
         'tax' => $faker->randomFloat(2, 10, 9999),

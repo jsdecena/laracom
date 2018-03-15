@@ -1,0 +1,130 @@
+<?php
+
+namespace App\Shop\PaymentMethods\Paypal\Repositories;
+
+use App\Shop\Addresses\Address;
+use App\Shop\Addresses\Repositories\AddressRepository;
+use App\Shop\Carts\Repositories\CartRepository;
+use App\Shop\Carts\ShoppingCart;
+use App\Shop\Couriers\Courier;
+use App\Shop\OrderDetails\OrderProduct;
+use App\Shop\OrderDetails\Repositories\OrderProductRepository;
+use App\Shop\Orders\Order;
+use App\Shop\Orders\Repositories\OrderRepository;
+use App\Shop\PaymentMethods\Payment;
+use App\Shop\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
+use App\Shop\PaymentMethods\Paypal\PaypalExpress;
+use Illuminate\Http\Request;
+use PayPal\Exception\PayPalConnectionException;
+use PayPal\Api\Payment as PayPalPayment;
+use Ramsey\Uuid\Uuid;
+
+class PayPalExpressCheckoutRepository implements PayPalExpressCheckoutRepositoryInterface
+{
+    /**
+     * @var mixed
+     */
+    private $payPal;
+
+    /**
+     * PayPalExpressCheckoutRepository constructor.
+     */
+    public function __construct()
+    {
+        $payment = new Payment(new PaypalExpress(
+            config('paypal.client_id'),
+            config('paypal.client_secret'),
+            config('paypal.mode'),
+            config('paypal.api_url')
+        ));
+
+        $this->payPal = $payment->init();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getApiContext()
+    {
+        return $this->payPal;
+    }
+
+    /**
+     * @param Courier $courier
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function process(Courier $courier, Request $request)
+    {
+        $cartRepo = new CartRepository(new ShoppingCart());
+        $items = $cartRepo->getCartItemsTransformed();
+
+        $addressRepo = new AddressRepository(new Address());
+
+        $this->payPal->setPayer();
+        $this->payPal->setItems($items);
+        $this->payPal->setOtherFees(
+            $cartRepo->getSubTotal(),
+            $cartRepo->getTax(),
+            $cartRepo->getShippingFee($courier)
+        );
+        $this->payPal->setAmount($cartRepo->getTotal(2, $cartRepo->getShippingFee($courier)));
+        $this->payPal->setTransactions();
+
+        $billingAddress = $addressRepo->findAddressById($request->input('billing_address'));
+        $this->payPal->setBillingAddress($billingAddress);
+
+        if ($request->has('shipping_address')) {
+            $shippingAddress = $addressRepo->findAddressById($request->input('shipping_address'));
+            $this->payPal->setShippingAddress($shippingAddress);
+        }
+
+        try {
+
+            $response = $this->payPal->createPayment(
+                route('checkout.execute', $request->except('_token')),
+                route('checkout.cancel')
+            );
+
+            $redirectUrl = config('app.url');
+            if ($response) {
+                $redirectUrl = $response->links[1]->href;
+            }
+            return redirect()->to($redirectUrl);
+        } catch (PayPalConnectionException $e) {
+            throw new PaypalRequestError($e->getMessage());
+        }
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function execute(Request $request)
+    {
+        $payment = PayPalPayment::get($request->input('paymentId'), $this->payPal->getApiContext());
+        $execution = $this->payPal->setPayerId($request->input('PayerID'));
+        $trans = $payment->execute($execution, $this->payPal->getApiContext());
+
+        $orderRepo = new OrderRepository(new Order());
+        $cartRepo = new CartRepository(new ShoppingCart());
+        $orderProductRepo = new OrderProductRepository(new OrderProduct);
+
+        foreach ($trans->getTransactions() as $t) {
+            $order = $orderRepo->create([
+                'reference' => Uuid::uuid4()->toString(),
+                'courier_id' => $request->input('courier'),
+                'customer_id' => auth()->user()->id,
+                'address_id' => $request->input('billing_address'),
+                'order_status_id' => 1,
+                'payment' => $request->input('payment'),
+                'discounts' => 0,
+                'total_products' => $cartRepo->getSubTotal(),
+                'total' => $cartRepo->getTotal(),
+                'total_paid' => $t->getAmount()->getTotal(),
+                'tax' => $cartRepo->getTax()
+            ]);
+
+            $orderProductRepo->buildOrderDetails($order, $cartRepo->getCartItems());
+        }
+    }
+}

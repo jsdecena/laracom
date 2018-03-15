@@ -10,8 +10,6 @@ use App\Shop\Customers\Customer;
 use App\Shop\Employees\Repositories\EmployeeRepository;
 use App\Shop\OrderStatuses\OrderStatus;
 use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
-use App\Shop\PaymentMethods\PaymentMethod;
-use App\Shop\PaymentMethods\Repositories\PaymentMethodRepository;
 use App\Shop\Products\Product;
 use App\Shop\Roles\Repositories\RoleRepository;
 use App\Shop\Roles\Role;
@@ -36,7 +34,6 @@ abstract class TestCase extends BaseTestCase
     protected $city;
     protected $courier;
     protected $orderStatus;
-    protected $paymentMethod;
     protected $cart;
 
     /**
@@ -79,17 +76,6 @@ abstract class TestCase extends BaseTestCase
 
         $orderStatusRepo = new OrderStatusRepository(new OrderStatus);
         $this->orderStatus = $orderStatusRepo->createOrderStatus($orderStatusData);
-
-        $paymentMethodData = [
-            'name' => $this->faker->unique()->word,
-            'description' => $this->faker->paragraph,
-            'account_id' => $this->faker->word,
-            'client_id' => $this->faker->word,
-            'client_secret' => $this->faker->word
-        ];
-
-        $payment = new PaymentMethodRepository(new PaymentMethod);
-        $this->paymentMethod = $payment->createPaymentMethod($paymentMethodData);
 
         $session = $this->app->make('session');
         $events = $this->app->make('events');

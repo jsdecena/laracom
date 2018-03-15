@@ -11,8 +11,6 @@ use App\Shop\Customers\Repositories\CustomerRepository;
 use App\Shop\Orders\Order;
 use App\Shop\OrderStatuses\OrderStatus;
 use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
-use App\Shop\PaymentMethods\PaymentMethod;
-use App\Shop\PaymentMethods\Repositories\PaymentMethodRepository;
 
 trait OrderTransformable
 {
@@ -35,9 +33,6 @@ trait OrderTransformable
 
         $orderStatusRepo = new OrderStatusRepository(new OrderStatus());
         $order->status = $orderStatusRepo->findOrderStatusById($order->order_status_id);
-
-        $paymentMethod = new PaymentMethodRepository(new PaymentMethod());
-        $order->payment = $paymentMethod->findPaymentMethodById($order->payment_method_id);
 
         return $order;
     }

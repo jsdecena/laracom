@@ -5,7 +5,7 @@ namespace Tests\Feature\Admin\Countries;
 use App\Shop\Countries\Country;
 use Tests\TestCase;
 
-class CountryFeatureTest extends TestCase 
+class CountryFeatureTest extends TestCase
 {
     /** @test */
     public function it_can_update_the_country()

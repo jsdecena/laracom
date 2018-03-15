@@ -4,6 +4,9 @@ namespace App\Shop\PaymentMethods;
 
 class Payment
 {
+    /**
+     * @var $payment
+     */
     protected $payment;
 
     /**
@@ -15,6 +18,9 @@ class Payment
         $this->payment = $class;
     }
 
+    /**
+     * @return mixed
+     */
     public function init()
     {
         return $this->payment;

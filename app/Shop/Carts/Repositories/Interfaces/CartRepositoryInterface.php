@@ -36,4 +36,6 @@ interface CartRepositoryInterface extends BaseRepositoryInterface
     public function saveCart(Customer $customer, $instance = 'default');
 
     public function openCart(Customer $customer, $instance = 'default');
+
+    public function getCartItemsTransformed() : Collection;
 }

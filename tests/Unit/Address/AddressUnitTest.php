@@ -96,7 +96,6 @@ class AddressUnitTest extends TestCase
         $results->each(function ($item) use ($address1) {
             $this->assertEquals($address1, $item->address_1);
         });
-
     }
 
     /** @test */

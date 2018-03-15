@@ -54,7 +54,7 @@ class ProvincesUnitTest extends TestCase
         $collection = $repo->listCities($province->id);
 
         $collection->each(function ($item) use ($city) {
-           $this->assertEquals($item->name, $city->name);
+            $this->assertEquals($item->name, $city->name);
         });
     }
 

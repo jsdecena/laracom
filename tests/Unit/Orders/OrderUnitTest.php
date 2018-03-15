@@ -13,7 +13,6 @@ use App\Shop\Orders\Exceptions\OrderNotFoundException;
 use App\Shop\Orders\Order;
 use App\Shop\Orders\Repositories\OrderRepository;
 use App\Shop\OrderStatuses\OrderStatus;
-use App\Shop\PaymentMethods\PaymentMethod;
 use App\Shop\Products\Product;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
@@ -21,29 +20,12 @@ use Tests\TestCase;
 class OrderUnitTest extends TestCase
 {
     /** @test */
-    public function it_can_get_the_payment_method_of_the_order()
-    {
-        $payment = factory(PaymentMethod::class)->create();
-        $order = factory(Order::class)->create([
-            'payment_method_id' => $payment->id
-        ]);
-
-        $repo = new OrderRepository($order);
-        $method = $repo->findPaymentMethod();
-
-        $this->assertInstanceOf(PaymentMethod::class, $method);
-        $this->assertEquals($payment->name, $method->name);
-        $this->assertEquals($payment->description, $method->description);
-    }
-
-    /** @test */
     public function it_can_transform_the_order()
     {
         $customer = factory(Customer::class)->create();
         $courier = factory(Courier::class)->create();
         $address = factory(Address::class)->create();
         $orderStatus = factory(OrderStatus::class)->create();
-        $paymentMethod = factory(PaymentMethod::class)->create();
 
         $data = [
             'reference' => $this->faker->uuid,
@@ -51,7 +33,7 @@ class OrderUnitTest extends TestCase
             'customer_id' => $customer->id,
             'address_id' => $address->id,
             'order_status_id' => $orderStatus->id,
-            'payment_method_id' => $paymentMethod->id,
+            'payment' => 'paypal'
         ];
 
         $order = factory(Order::class)->create($data);
@@ -62,7 +44,7 @@ class OrderUnitTest extends TestCase
         $this->assertEquals($courier->name, $transformed->courier->name);
         $this->assertEquals($address->alias, $transformed->address->alias);
         $this->assertEquals($orderStatus->name, $transformed->status->name);
-        $this->assertEquals($paymentMethod->name, $transformed->payment->name);
+        $this->assertEquals($data['payment'], $order->payment);
     }
 
     /** @test */
@@ -70,7 +52,7 @@ class OrderUnitTest extends TestCase
     {
         $customer = factory(Customer::class)->create(['name' => 'Test Customer']);
         $order = factory(Order::class)->create(['customer_id' => $customer->id]);
-        $secondOrder = factory(Order::class)->create();
+        factory(Order::class)->create();
 
         $repo = new OrderRepository($order);
         $result = $repo->searchOrder('test');
@@ -90,7 +72,7 @@ class OrderUnitTest extends TestCase
     {
         $customer = factory(Customer::class)->create(['name' => 'Test Customer']);
         $order = factory(Order::class)->create(['customer_id' => $customer->id]);
-        $secondOrder = factory(Order::class)->create(['customer_id' => 10]);
+        factory(Order::class)->create(['customer_id' => 10]);
 
         $repo = new OrderRepository($order);
         $result = $repo->searchOrder('');
@@ -107,7 +89,6 @@ class OrderUnitTest extends TestCase
         $courier = factory(Courier::class)->create();
         $address = factory(Address::class)->create();
         $orderStatus = factory(OrderStatus::class)->create();
-        $paymentMethod = factory(PaymentMethod::class)->create();
 
         $data = [
             'reference' => $this->faker->uuid,
@@ -115,7 +96,7 @@ class OrderUnitTest extends TestCase
             'customer_id' => $customer->id,
             'address_id' => $address->id,
             'order_status_id' => $orderStatus->id,
-            'payment_method_id' => $paymentMethod->id,
+            'payment' => 'paypal',
             'discounts' => 10.50,
             'total_products' =>  100,
             'tax' => 10.00,
@@ -178,7 +159,6 @@ class OrderUnitTest extends TestCase
         $courier = factory(Courier::class)->create();
         $address = factory(Address::class)->create();
         $orderStatus = factory(OrderStatus::class)->create();
-        $paymentMethod = factory(PaymentMethod::class)->create();
 
         $data = [
             'reference' => $this->faker->uuid,
@@ -186,7 +166,7 @@ class OrderUnitTest extends TestCase
             'customer_id' => $customer->id,
             'address_id' => $address->id,
             'order_status_id' => $orderStatus->id,
-            'payment_method_id' => $paymentMethod->id,
+            'payment' => 'paypal',
             'discounts' => 10.50,
             'total_products' =>  100,
             'tax' => 10.00,
@@ -228,7 +208,6 @@ class OrderUnitTest extends TestCase
         $courier = factory(Courier::class)->create();
         $address = factory(Address::class)->create();
         $orderStatus = factory(OrderStatus::class)->create();
-        $paymentMethod = factory(PaymentMethod::class)->create();
 
         $data = [
             'reference' => $this->faker->uuid,
@@ -236,7 +215,7 @@ class OrderUnitTest extends TestCase
             'customer_id' => $customer->id,
             'address_id' => $address->id,
             'order_status_id' => $orderStatus->id,
-            'payment_method_id' => $paymentMethod->id,
+            'payment' => 'paypal',
             'discounts' => 10.50,
             'total_products' =>  100,
             'tax' => 10.00,
@@ -268,7 +247,6 @@ class OrderUnitTest extends TestCase
         $courier = factory(Courier::class)->create();
         $address = factory(Address::class)->create();
         $orderStatus = factory(OrderStatus::class)->create();
-        $paymentMethod = factory(PaymentMethod::class)->create();
 
         $update = [
             'reference' => $this->faker->uuid,
@@ -276,7 +254,7 @@ class OrderUnitTest extends TestCase
             'customer_id' => $customer->id,
             'address_id' => $address->id,
             'order_status_id' => $orderStatus->id,
-            'payment_method_id' => $paymentMethod->id,
+            'payment' => 'paypal',
             'discounts' => 10.50,
             'total_products' =>  100,
             'tax' => 10.00,
@@ -303,7 +281,6 @@ class OrderUnitTest extends TestCase
         $courier = factory(Courier::class)->create();
         $address = factory(Address::class)->create();
         $orderStatus = factory(OrderStatus::class)->create();
-        $paymentMethod = factory(PaymentMethod::class)->create();
 
         $data = [
             'reference' => $this->faker->uuid,
@@ -311,7 +288,7 @@ class OrderUnitTest extends TestCase
             'customer_id' => $customer->id,
             'address_id' => $address->id,
             'order_status_id' => $orderStatus->id,
-            'payment_method_id' => $paymentMethod->id,
+            'payment' => 'paypal',
             'discounts' => 10.50,
             'total_products' =>  100,
             'invoice' => null,
@@ -329,14 +306,13 @@ class OrderUnitTest extends TestCase
         $courier = factory(Courier::class)->create();
         $address = factory(Address::class)->create();
         $orderStatus = factory(OrderStatus::class)->create();
-        $paymentMethod = factory(PaymentMethod::class)->create();
 
         $data = [
             'reference' => $this->faker->uuid,
             'courier_id' => $courier->id,
             'address_id' => $address->id,
             'order_status_id' => $orderStatus->id,
-            'payment_method_id' => $paymentMethod->id,
+            'payment' => 'paypal',
             'discounts' => 10.50,
             'total_products' =>  100,
             'tax' => 10.00,
@@ -356,7 +332,6 @@ class OrderUnitTest extends TestCase
         $courier = factory(Courier::class)->create();
         $address = factory(Address::class)->create();
         $orderStatus = factory(OrderStatus::class)->create();
-        $paymentMethod = factory(PaymentMethod::class)->create();
 
         $data = [
             'reference' => $this->faker->uuid,
@@ -364,7 +339,7 @@ class OrderUnitTest extends TestCase
             'customer_id' => $customer->id,
             'address_id' => $address->id,
             'order_status_id' => $orderStatus->id,
-            'payment_method_id' => $paymentMethod->id,
+            'payment' => 'paypal',
             'discounts' => 10.50,
             'total_products' =>  100,
             'tax' => 10.00,

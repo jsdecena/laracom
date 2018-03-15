@@ -13,9 +13,7 @@ use App\Shop\Orders\Exceptions\OrderNotFoundException;
 use App\Shop\Orders\Order;
 use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Shop\Orders\Transformers\OrderTransformable;
-use App\Shop\PaymentMethods\PaymentMethod;
 use App\Shop\Products\Product;
-use App\Shop\Products\Repositories\ProductRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
@@ -151,9 +149,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
                 'products.name',
                 'products.description',
                 'customer.name',
-                'reference',
-                'paymentMethod.name',
-                'paymentMethod.description',
+                'reference'
             ]
         )->get();
     }
@@ -164,13 +160,5 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     public function transform()
     {
         return $this->transformOrder($this->model);
-    }
-
-    /**
-     * @return PaymentMethod
-     */
-    public function findPaymentMethod() : PaymentMethod
-    {
-        return $this->model->paymentMethod;
     }
 }

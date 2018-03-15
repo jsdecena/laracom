@@ -24,8 +24,7 @@ class CreateOrdersTable extends Migration
             $table->foreign('address_id')->references('id')->on('addresses');
             $table->integer('order_status_id')->unsigned()->index();
             $table->foreign('order_status_id')->references('id')->on('order_statuses');
-            $table->integer('payment_method_id')->unsigned()->index();
-            $table->foreign('payment_method_id')->references('id')->on('payment_methods');
+            $table->string('payment');
             $table->decimal('discounts')->default(0.00);
             $table->decimal('total_products');
             $table->decimal('tax')->default(0.00);
