@@ -9,20 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name') }}</title>
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css') }}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="{{ asset('css/skins/skin-purple.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin.min.css') }}">
 </head>
 <body class="hold-transition skin-purple login-page">
     <div class="login-box">
@@ -72,15 +59,6 @@
         <!-- /.login-box-body -->
     </div>
     <!-- /.login-box -->
-    <!-- jQuery 2.2.3 -->
-    <script src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
-    <!-- Bootstrap 3.3.6 -->
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <!-- SlimScroll -->
-    <script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script>
-    <!-- FastClick -->
-    <script src="{{ asset('js/fastclick.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('js/app.min.js') }}"></script>
+    <script src="{{ asset('js/admin.min.js') }}"></script>
 </body>
 </html>
