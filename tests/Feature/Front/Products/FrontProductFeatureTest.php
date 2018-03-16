@@ -20,6 +20,19 @@ class FrontProductFeatureTest extends TestCase
             ->assertSee("$product->quantity")
             ->assertSee("$product->price");
     }
+
+    /** @test */
+    public function it_should_not_throw_error_even_the_query_is_empty()
+    {
+        $product = factory(Product::class)->create();
+
+        $this
+            ->get(route('search.product', ['q' => '']))
+            ->assertStatus(200)
+            ->assertSee($product->name)
+            ->assertSee("$product->quantity")
+            ->assertSee("$product->price");
+    }
     
     /** @test */
     public function it_can_search_for_a_product()
