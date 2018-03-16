@@ -6,7 +6,7 @@ use App\Shop\Customers\Customer;
 use Illuminate\Auth\Events\Lockout;
 use Tests\TestCase;
 
-class FrontAccountsFeatureTest extends TestCase 
+class FrontAccountsFeatureTest extends TestCase
 {
     /** @test */
     public function it_can_show_the_reset_password_page()

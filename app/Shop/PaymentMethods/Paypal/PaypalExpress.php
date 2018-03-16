@@ -5,8 +5,6 @@ namespace App\Shop\PaymentMethods\Paypal;
 use App\Shop\Addresses\Address;
 use App\Shop\Carts\ShoppingCart;
 use App\Shop\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
-use App\Shop\Products\Product;
-use Gloudemans\Shoppingcart\CartItem;
 use Illuminate\Support\Collection;
 use PayPal\Api\Amount;
 use PayPal\Api\Details;

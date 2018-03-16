@@ -5,7 +5,7 @@ namespace Tests\Feature\Admin\AttributeValues;
 use App\Shop\Attributes\Attribute;
 use Tests\TestCase;
 
-class AttributeValuesFeatureTest extends TestCase 
+class AttributeValuesFeatureTest extends TestCase
 {
     /** @test */
     public function it_can_remove_the_attribute_value()

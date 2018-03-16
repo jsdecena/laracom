@@ -9,6 +9,7 @@ use App\Shop\Carts\ShoppingCart;
 use App\Shop\Couriers\Courier;
 use App\Shop\Customers\Customer;
 use App\Shop\Products\Product;
+use App\Shop\Products\Repositories\ProductRepository;
 use Gloudemans\Shoppingcart\Cart;
 use Gloudemans\Shoppingcart\CartItem;
 use Gloudemans\Shoppingcart\Exceptions\InvalidRowIDException;
@@ -155,5 +156,20 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
     public function openCart(Customer $customer, $instance = 'default')
     {
         return $this->model->instance($instance)->restore($customer->email);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCartItemsTransformed() : Collection
+    {
+        return $this->getCartItems()->map(function (CartItem $item) {
+            $productRepo = new ProductRepository(new Product());
+            $product = $productRepo->findProductById($item->id);
+            $item->product = $product;
+            $item->cover = $product->cover;
+            $item->description = $product->description;
+            return $item;
+        });
     }
 }

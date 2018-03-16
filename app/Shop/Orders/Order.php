@@ -6,7 +6,6 @@ use App\Shop\Addresses\Address;
 use App\Shop\Couriers\Courier;
 use App\Shop\Customers\Customer;
 use App\Shop\OrderStatuses\OrderStatus;
-use App\Shop\PaymentMethods\PaymentMethod;
 use App\Shop\Products\Product;
 use Illuminate\Database\Eloquent\Model;
 use Sofa\Eloquence\Eloquence;
@@ -26,7 +25,7 @@ class Order extends Model
         'customer_id',
         'address_id',
         'order_status_id',
-        'payment_method_id',
+        'payment',
         'discounts',
         'total_products',
         'total',
@@ -66,10 +65,5 @@ class Order extends Model
     public function orderStatus()
     {
         return $this->belongsTo(OrderStatus::class);
-    }
-
-    public function paymentMethod()
-    {
-        return $this->belongsTo(PaymentMethod::class);
     }
 }

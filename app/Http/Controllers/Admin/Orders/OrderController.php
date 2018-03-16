@@ -15,7 +15,6 @@ use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Shop\OrderStatuses\OrderStatus;
 use App\Shop\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
 use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
-use App\Shop\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
 
@@ -28,22 +27,19 @@ class OrderController extends Controller
     private $addressRepo;
     private $customerRepo;
     private $orderStatusRepo;
-    private $paymentRepo;
 
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         CourierRepositoryInterface $courierRepository,
         AddressRepositoryInterface $addressRepository,
         CustomerRepositoryInterface $customerRepository,
-        OrderStatusRepositoryInterface $orderStatusRepository,
-        PaymentMethodRepositoryInterface $paymentMethodRepository
+        OrderStatusRepositoryInterface $orderStatusRepository
     ) {
         $this->orderRepo = $orderRepository;
         $this->courierRepo = $courierRepository;
         $this->addressRepo = $addressRepository;
         $this->customerRepo = $customerRepository;
         $this->orderStatusRepo = $orderStatusRepository;
-        $this->paymentRepo = $paymentMethodRepository;
     }
 
     /**
@@ -81,7 +77,7 @@ class OrderController extends Controller
             'items' => $this->orderRepo->findProducts($order),
             'customer' => $this->customerRepo->findCustomerById($order->customer_id),
             'currentStatus' => $this->orderStatusRepo->findOrderStatusById($order->order_status_id),
-            'payment' => $this->paymentRepo->findPaymentMethodById($order->payment_method_id)
+            'payment' => $order->payment
         ]);
     }
 

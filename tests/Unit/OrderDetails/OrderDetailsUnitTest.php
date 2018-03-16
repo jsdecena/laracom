@@ -10,7 +10,6 @@ use App\Shop\OrderDetails\Repositories\OrderProductRepository;
 use App\Shop\Orders\Order;
 use App\Shop\Orders\Repositories\OrderRepository;
 use App\Shop\OrderStatuses\OrderStatus;
-use App\Shop\PaymentMethods\PaymentMethod;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\ProductRepository;
 use Tests\TestCase;
@@ -24,7 +23,6 @@ class OrderDetailsUnitTest extends TestCase
         $courier = factory(Courier::class)->create();
         $address = factory(Address::class)->create();
         $orderStatus = factory(OrderStatus::class)->create();
-        $paymentMethod = factory(PaymentMethod::class)->create();
 
         $data = [
             'reference' => $this->faker->uuid,
@@ -32,7 +30,7 @@ class OrderDetailsUnitTest extends TestCase
             'customer_id' => $customer->id,
             'address_id' => $address->id,
             'order_status_id' => $orderStatus->id,
-            'payment_method_id' => $paymentMethod->id,
+            'payment' => 'paypal',
             'discounts' => 10.50,
             'total_products' =>  100,
             'tax' => 10.00,
@@ -80,7 +78,6 @@ class OrderDetailsUnitTest extends TestCase
         $courier = factory(Courier::class)->create();
         $address = factory(Address::class)->create();
         $orderStatus = factory(OrderStatus::class)->create();
-        $paymentMethod = factory(PaymentMethod::class)->create();
 
         $data = [
             'reference' => $this->faker->uuid,
@@ -88,7 +85,7 @@ class OrderDetailsUnitTest extends TestCase
             'customer_id' => $customer->id,
             'address_id' => $address->id,
             'order_status_id' => $orderStatus->id,
-            'payment_method_id' => $paymentMethod->id,
+            'payment' => 'paypal',
             'discounts' => 10.50,
             'total_products' =>  100,
             'tax' => 10.00,

@@ -61,7 +61,8 @@ class AddressFeatureTest extends TestCase
             ->actingAs($this->employee, 'admin')
             ->get(route('admin.addresses.show', $address->id))
             ->assertStatus(200)
-            ->assertSee($address->alias);;
+            ->assertSee($address->alias);
+        ;
     }
     
     /** @test */
