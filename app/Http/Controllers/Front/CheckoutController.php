@@ -6,16 +6,21 @@ use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Shop\Cart\Requests\CartCheckoutRequest;
 use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
 use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
+use App\Shop\Customers\Repositories\CustomerRepository;
 use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Shop\OrderDetails\Repositories\Interfaces\OrderProductRepositoryInterface;
 use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Shop\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
 use App\Shop\PaymentMethods\Paypal\Repositories\PayPalExpressCheckoutRepository;
+use App\Shop\PaymentMethods\Stripe\Exceptions\StripeChargingErrorException;
+use App\Shop\PaymentMethods\Stripe\StripeRepository;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Transformations\ProductTransformable;
 use Exception;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 use PayPal\Exception\PayPalConnectionException;
 
 class CheckoutController extends Controller
@@ -104,15 +109,22 @@ class CheckoutController extends Controller
     public function store(CartCheckoutRequest $request)
     {
         $courier = $this->courierRepo->findCourierById($request->input('courier'));
+        $shippingFee = $this->cartRepo->getShippingFee($courier);
 
         switch ($request->input('payment')) {
             case 'paypal':
                 return $this->payPal->process($courier, $request);
                 break;
             case 'stripe':
-                return redirect()->back()
-                    ->with('message', 'Stripe payment is coming soon!')
-                    ->withInput();
+
+                $details = [
+                    'description' => 'Stripe payment',
+                    'metadata' => $this->cartRepo->getCartItems()->all()
+                ];
+
+                $customerRepo = new CustomerRepository($this->loggedUser());
+                $customerRepo->charge($this->cartRepo->getTotal(2, $shippingFee), $details);
+                break;
             default:
         }
     }
@@ -131,10 +143,29 @@ class CheckoutController extends Controller
             $this->cartRepo->clearCart();
 
             return redirect()->route('checkout.success');
+
         } catch (PayPalConnectionException $e) {
             throw new PaypalRequestError($e->getData());
         } catch (Exception $e) {
             throw new PaypalRequestError($e->getMessage());
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Stripe\Charge
+     */
+    public function charge(Request $request)
+    {
+        try {
+
+            $customer = auth()->user();
+            $stripeRepo = new StripeRepository($customer);
+            return $stripeRepo->execute($request->input('stripeToken'), $request);
+
+        } catch (StripeChargingErrorException $e) {
+            Log::info($e->getMessage());
+            return redirect()->route('checkout.index')->with('error', 'There is a problem processing your request.');
         }
     }
 

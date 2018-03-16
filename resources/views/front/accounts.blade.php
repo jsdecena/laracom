@@ -52,7 +52,7 @@
                                                             <table class="table">
                                                                 <thead>
                                                                     <th>Address</th>
-                                                                    <th>Payment</th>
+                                                                    <th>Payment Method</th>
                                                                     <th>Total</th>
                                                                     <th>Status</th>
                                                                 </thead>
@@ -64,7 +64,7 @@
                                                                                 {{$order['address']->address_1}} {{$order['address']->address_2}}<br>
                                                                             </address>
                                                                         </td>
-                                                                        <td>{{$order['payment']->name}}</td>
+                                                                        <td>{{$order['payment']}}</td>
                                                                         <td>{{$order['total']}}</td>
                                                                         <td>{{$order['status']->name}}</td>
                                                                     </tr>

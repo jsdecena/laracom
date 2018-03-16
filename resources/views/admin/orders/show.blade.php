@@ -106,7 +106,7 @@
                                 <tr>
                                     <td>{{ $item->sku }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->description }}</td>
+                                    <td>{!! $item->description !!}</td>
                                     <td>{{ $item->pivot->quantity }}</td>
                                     <td>{{ $item->price }}</td>
                                     <td>@include('layouts.status', ['status' => $item->status])</td>
