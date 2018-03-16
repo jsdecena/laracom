@@ -83,6 +83,9 @@ class CheckoutController extends Controller
             return config($name);
         })->filter()->all();
 
+        $courier = $this->courierRepo->findCourierById(1);
+        $shippingFee = $this->cartRepo->getShippingFee($courier);
+
         return view('front.checkout', [
             'customer' => $customer,
             'addresses' => $customer->addresses()->get(),
@@ -95,7 +98,9 @@ class CheckoutController extends Controller
             'selectedCourier' => $this->courierId,
             'selectedAddress' => $addressId,
             'selectedPayment' => $paymentId,
-            'payments' => $paymentGateways
+            'payments' => $paymentGateways,
+            'cartItems' => $this->cartRepo->getCartItemsTransformed(),
+            'shippingFee' => $shippingFee
         ]);
     }
 

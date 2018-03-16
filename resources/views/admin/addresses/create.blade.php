@@ -10,7 +10,7 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="customer">Customers </label>
-                        <select name="customer" id="status" class="form-control">
+                        <select name="customer" id="status" class="form-control select2">
                             @foreach($customers as $customer)
                                 <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                             @endforeach
@@ -38,7 +38,7 @@
                     </div>
                     <div class="form-group">
                         <label for="province_id">Province </label>
-                        <select name="province_id" id="province_id" class="form-control">
+                        <select name="province_id" id="province_id" class="form-control" disabled>
                             @foreach($provinces as $province)
                                 <option value="{{ $province->id }}">{{ $province->name }}</option>
                             @endforeach
@@ -46,7 +46,7 @@
                     </div>
                     <div id="cities" class="form-group">
                         <label for="city_id">City </label>
-                        <select name="city_id" id="city_id" class="form-control">
+                        <select name="city_id" id="city_id" class="form-control" disabled>
                             @foreach($cities as $city)
                                 <option value="{{ $city->id }}">{{ $city->name }}</option>
                             @endforeach

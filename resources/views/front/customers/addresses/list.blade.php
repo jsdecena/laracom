@@ -28,8 +28,16 @@
                                 <td><a href="{{ route('admin.customers.show', $customer->id) }}">{{ $address->alias }}</a></td>
                                 <td>{{ $address->address_1 }}</td>
                                 <td>{{ $address->country->name }}</td>
-                                <td>{{ $address->province->name }}</td>
-                                <td>{{ $address->city->name }}</td>
+                                <td>
+                                    @if(isset($address->province))
+                                        {{ $address->province->name }}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if(isset($address->city))
+                                        {{ $address->city->name }}
+                                    @endif
+                                </td>
                                 <td>{{ $address->zip }}</td>
                                 <td>@include('layouts.status', ['status' => $address->status])</td>
                                 <td>

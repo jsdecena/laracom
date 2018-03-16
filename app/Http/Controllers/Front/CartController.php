@@ -64,19 +64,11 @@ class CartController extends Controller
      */
     public function index()
     {
-        $cartItems = $this->cartRepo->getCartItems()->map(function (CartItem $item) {
-            $productRepo = new ProductRepository(new Product());
-            $product = $productRepo->findProductById($item->id);
-            $item->product = $this->transformProduct($product);
-            $item->cover = $product->cover;
-            return $item;
-        });
-
         $courier = $this->courierRepo->findCourierById(request()->session()->get('courierId', 1));
         $shippingFee = $this->cartRepo->getShippingFee($courier);
 
         return view('front.carts.cart', [
-            'cartItems' => $cartItems,
+            'cartItems' => $this->cartRepo->getCartItemsTransformed(),
             'subtotal' => $this->cartRepo->getSubTotal(),
             'tax' => $this->cartRepo->getTax(),
             'shippingFee' => $shippingFee,
