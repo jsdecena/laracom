@@ -6,6 +6,7 @@ use App\Shop\Addresses\Address;
 use App\Shop\Addresses\Repositories\AddressRepository;
 use App\Shop\Carts\Repositories\CartRepository;
 use App\Shop\Carts\ShoppingCart;
+use App\Shop\Checkout\CheckoutRepository;
 use App\Shop\Couriers\Courier;
 use App\Shop\OrderDetails\OrderProduct;
 use App\Shop\OrderDetails\Repositories\OrderProductRepository;
@@ -105,12 +106,13 @@ class PayPalExpressCheckoutRepository implements PayPalExpressCheckoutRepository
         $execution = $this->payPal->setPayerId($request->input('PayerID'));
         $trans = $payment->execute($execution, $this->payPal->getApiContext());
 
-        $orderRepo = new OrderRepository(new Order());
-        $cartRepo = new CartRepository(new ShoppingCart());
-        $orderProductRepo = new OrderProductRepository(new OrderProduct);
+        $cartRepo = new CartRepository(new ShoppingCart);
+        $transactions = $trans->getTransactions();
 
-        foreach ($trans->getTransactions() as $t) {
-            $order = $orderRepo->create([
+        foreach ($transactions as $transaction) {
+
+            $checkoutRepo = new CheckoutRepository;
+            $checkoutRepo->buildCheckoutItems([
                 'reference' => Uuid::uuid4()->toString(),
                 'courier_id' => $request->input('courier'),
                 'customer_id' => auth()->user()->id,
@@ -120,11 +122,9 @@ class PayPalExpressCheckoutRepository implements PayPalExpressCheckoutRepository
                 'discounts' => 0,
                 'total_products' => $cartRepo->getSubTotal(),
                 'total' => $cartRepo->getTotal(),
-                'total_paid' => $t->getAmount()->getTotal(),
+                'total_paid' => $transaction->getAmount()->getTotal(),
                 'tax' => $cartRepo->getTax()
             ]);
-
-            $orderProductRepo->buildOrderDetails($order, $cartRepo->getCartItems());
         }
     }
 }
