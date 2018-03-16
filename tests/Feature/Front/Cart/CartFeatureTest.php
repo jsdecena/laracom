@@ -92,12 +92,18 @@ class CartFeatureTest extends TestCase
             ->actingAs($this->customer, 'checkout')
             ->get(route('checkout.index'))
             ->assertStatus(200)
-            ->assertSee('Choose delivery address')
             ->assertSee('Choose courier')
-            ->assertSee('Choose payment method')
-            ->assertSee('Your Total')
-            ->assertSee('Review cart')
-            ->assertSee('Checkout now');
+            ->assertSee('Billing Address')
+            ->assertSee('Delivery Address')
+            ->assertSee('Choose payment')
+            ->assertSee('Cover')
+            ->assertSee('Name')
+            ->assertSee('Quantity')
+            ->assertSee('Price')
+            ->assertSee('Subtotal')
+            ->assertSee('Shipping')
+            ->assertSee('Tax')
+            ->assertSee('Total');
     }
 
     /** @test */
