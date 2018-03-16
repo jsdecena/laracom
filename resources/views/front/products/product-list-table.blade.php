@@ -20,7 +20,7 @@
             <td class="bg-warning"></td>
             <td class="bg-warning"></td>
             <td class="bg-warning"></td>
-            <td class="bg-warning">{{config('cart.currency')}} <span id="#shippingFee">{{ $shippingFee }}</span></td>
+            <td class="bg-warning">{{config('cart.currency')}} <span id="shippingFee">{{ $shippingFee }}</span></td>
         </tr>
         <tr>
             <td class="bg-warning">Tax</td>
@@ -34,7 +34,7 @@
             <td class="bg-success"></td>
             <td class="bg-success"></td>
             <td class="bg-success"></td>
-            <td class="bg-success">{{config('cart.currency')}} {{ $total }}</td>
+            <td class="bg-success">{{config('cart.currency')}} <span id="total" data-total="{{ $total }}">{{ $total }}</span></td>
         </tr>
         </tfoot>
         <tbody>

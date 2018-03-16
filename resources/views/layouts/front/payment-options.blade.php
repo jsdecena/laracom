@@ -62,8 +62,24 @@
 
 @section('js')
     <script type="text/javascript">
+
+        function setTotal(total, shippingCost) {
+            var computed = +shippingCost + parseFloat(total);
+            $('#total').html(computed.toFixed(2));
+        }
+
+        function setShippingFee(cost) {
+            $('#shippingFee').html(cost);
+        }
+
+        function setCourierDetails(courierId) {
+            $('.courier_id').val(courierId);
+        }
+
         $(document).ready(function () {
+
             var clicked = false;
+
             $('#sameDeliveryAddress').on('change', function () {
                 clicked = !clicked;
                 if (clicked) {
@@ -72,19 +88,39 @@
                     $('#sameDeliveryAddressRow').hide();
                 }
             });
-            $('input[name="billing_address"]').on('change', function () {
+
+            var billingAddress = 'input[name="billing_address"]';
+            $(billingAddress).on('change', function () {
                 var chosenAddressId = $(this).val();
                 $('.address_id').val(chosenAddressId);
                 $('.delivery_address_id').val(chosenAddressId);
             });
-            $('input[name="delivery_address"]').on('change', function () {
+
+            var deliveryAddress = 'input[name="delivery_address"]';
+            $(deliveryAddress).on('change', function () {
                 var chosenDeliveryAddressId = $(this).val();
                 $('.delivery_address_id').val(chosenDeliveryAddressId);
             });
-            $('input[name="courier"]').on('change', function () {
-                var chosenCourierId = $(this).val();
-                $('.courier_id').val(chosenCourierId);
+
+            var courier = 'input[name="courier"]';
+            $(courier).on('change', function () {
+                var shippingCost = $(this).data('cost');
+                var total = $('#total').data('total');
+
+                setCourierDetails($(this).val());
+                setShippingFee(shippingCost);
+                setTotal(total, shippingCost);
             });
+
+            if ($(courier).is(':checked')) {
+                var shippingCost = $(courier + ':checked').data('cost');
+                var courierId = $(courier + ':checked').val();
+                var total = $('#total').data('total');
+
+                setShippingFee(shippingCost);
+                setCourierDetails(courierId);
+                setTotal(total, shippingCost);
+            }
         });
     </script>
 @endsection

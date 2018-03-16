@@ -101,6 +101,7 @@
                                                 <td>
                                                     <label class="col-md-6 col-md-offset-3">
                                                         <input
+                                                                data-cost="{{ $courier->cost }}"
                                                                 type="radio"
                                                                 name="courier"
                                                                 value="{{ $courier->id }}"
