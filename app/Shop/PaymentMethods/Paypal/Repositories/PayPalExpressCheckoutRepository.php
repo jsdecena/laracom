@@ -126,5 +126,7 @@ class PayPalExpressCheckoutRepository implements PayPalExpressCheckoutRepository
                 'tax' => $cartRepo->getTax()
             ]);
         }
+
+        $cartRepo->clearCart();
     }
 }

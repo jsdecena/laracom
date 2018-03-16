@@ -15,8 +15,8 @@
         <td>
             @if(isset($payment['name']))
                 <form action="{{ route('checkout.execute') }}" method="POST">
-                    <input type="hidden" id="address_id" name="address" value="">
-                    <input type="hidden" id="courier_id" name="courier" value="">
+                    <input type="hidden" class="address_id" name="billing_address" value="">
+                    <input type="hidden" class="courier_id" name="courier" value="">
                     {{ csrf_field() }}
                     <script
                             src="{{ url('https://checkout.stripe.com/checkout.js') }}" class="stripe-button"
@@ -29,22 +29,10 @@
                             data-currency="{{ config('cart.currency') }}">
                     </script>
                 </form>
-                <script type="text/javascript">
-                    $(document).ready(function () {
-                        $('input[name="billing_address"]').on('change', function () {
-                            var chosenAddressId = $(this).val();
-                            $('#address_id').val(chosenAddressId);
-                        });
-                        $('input[name="courier"]').on('change', function () {
-                            var chosenCourierId = $(this).val();
-                            $('#courier_id').val(chosenCourierId);
-                        });
-                    });
-                </script>
             @endif
         </td>
     </tr>
-@else
+@elseif(isset($payment['name']) && $payment['name'] == 'paypal')
     <tr>
         <td>
             @if(isset($payment['name']))
@@ -59,16 +47,28 @@
             @endif
         </td>
         <td>
-            @if(isset($payment['name']))
-                <label class="col-md-2 col-md-offset-3">
-                    <input
-                            type="radio"
-                            class="form-control"
-                            name="payment"
-                            value="{{ $payment['name'] }}"
-                            @if(old('payment') == $payment['name']) checked="checked"  @endif>
-                </label>
-            @endif
+            <form action="{{ route('checkout.store') }}" method="post">
+                {{ csrf_field() }}
+                <input type="hidden" name="payment" value="{{ config('paypal.name') }}">
+                <input type="hidden" class="address_id" name="billing_address" value="">
+                <input type="hidden" class="courier_id" name="courier" value="">
+                <button type="submit" class="btn btn-success">Pay with PayPal <i class="fa fa-paypal"></i></button>
+            </form>
         </td>
     </tr>
 @endif
+
+@section('js')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('input[name="billing_address"]').on('change', function () {
+                var chosenAddressId = $(this).val();
+                $('.address_id').val(chosenAddressId);
+            });
+            $('input[name="courier"]').on('change', function () {
+                var chosenCourierId = $(this).val();
+                $('.courier_id').val(chosenCourierId);
+            });
+        });
+    </script>
+@endsection

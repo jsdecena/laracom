@@ -12,6 +12,8 @@ use App\Shop\Customers\Repositories\CustomerRepository;
 use App\Shop\PaymentMethods\Stripe\Exceptions\StripeChargingErrorException;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 use Stripe\Charge;
 
@@ -23,19 +25,10 @@ class StripeRepository
     private $customer;
 
     /**
-     * @var $cart
-     */
-    private $cart;
-
-    /**
      * StripeRepository constructor.
      * @param Customer $customer
-     * @param CartRepositoryInterface $cartRepository
      */
-    public function __construct(
-        Customer $customer,
-        CartRepositoryInterface $cartRepository
-    )
+    public function __construct(Customer $customer)
     {
         $this->customer = $customer;
     }
@@ -49,6 +42,12 @@ class StripeRepository
     public function execute(string $token, Request $request)
     {
         try {
+
+            if(!$this->validateFields($request->all())){
+                return redirect()->route('checkout.index')
+                    ->withInput()
+                    ->with('error', 'You must select the shipping and delivery address');
+            }
 
             $courierRepo = new CourierRepository(new Courier);
             $courierId = $request->input('courier');
@@ -66,7 +65,7 @@ class StripeRepository
                     'reference' => Uuid::uuid4()->toString(),
                     'courier_id' => $request->input('courier'),
                     'customer_id' => auth()->user()->id,
-                    'address_id' => $request->input('address'),
+                    'address_id' => $request->input('billing_address'),
                     'order_status_id' => 1,
                     'payment' => strtolower(config('stripe.name')),
                     'discounts' => 0,
@@ -77,10 +76,29 @@ class StripeRepository
                 ]);
 
                 Cart::destroy();
+
+                return redirect()->route('checkout.success');
             }
         } catch (\Exception $e) {
             throw new StripeChargingErrorException($e);
         }
 
+    }
+
+    /**
+     * @param array $fields
+     * @return bool
+     */
+    private function validateFields(array $fields) : bool
+    {
+        $validator = Validator::make($fields, [
+            'courier' => 'required',
+            'billing_address' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return false;
+        }
+        return true;
     }
 }

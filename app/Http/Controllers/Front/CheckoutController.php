@@ -20,6 +20,7 @@ use Exception;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 use PayPal\Exception\PayPalConnectionException;
 
 class CheckoutController extends Controller
@@ -159,10 +160,8 @@ class CheckoutController extends Controller
         try {
 
             $customer = auth()->user();
-            $stripeRepo = new StripeRepository($customer, $this->cartRepo);
-            $stripeRepo->execute($request->input('stripeToken'), $request);
-
-            return redirect()->route('checkout.success');
+            $stripeRepo = new StripeRepository($customer);
+            return $stripeRepo->execute($request->input('stripeToken'), $request);
 
         } catch (StripeChargingErrorException $e) {
             Log::info($e->getMessage());
