@@ -7,6 +7,7 @@ use App\Shop\Base\BaseRepository;
 use App\Shop\Customers\Customer;
 use App\Shop\Customers\Exceptions\CreateCustomerInvalidArgumentException;
 use App\Shop\Customers\Exceptions\CustomerNotFoundException;
+use App\Shop\Customers\Exceptions\CustomerPaymentChargingErrorException;
 use App\Shop\Customers\Exceptions\UpdateCustomerInvalidArgumentException;
 use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -138,5 +139,28 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
     public function searchCustomer(string $text) : Collection
     {
         return $this->model->search($text, ['name' => 10, 'email' => 5])->get();
+    }
+
+    /**
+     * @param int $amount
+     * @param array $options
+     * @return \Stripe\Charge
+     * @throws CustomerPaymentChargingErrorException
+     */
+    public function charge(int $amount, array $options)
+    {
+        try {
+            return $this->model->charge($amount * 100, $options);
+        } catch (\Exception $e) {
+            throw new CustomerPaymentChargingErrorException($e);
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStripeCustomer() : bool
+    {
+        return $this->model->stripe_id ?: false;
     }
 }

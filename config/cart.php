@@ -64,6 +64,7 @@ return [
 
     ],
 
-    'currency' => env('DEFAULT_CURRENCY', 'PHP')
+    'currency' => env('DEFAULT_CURRENCY', 'usd'),
+    'currency_symbol' => env('CURRENCY_SYMBOL', '$')
 
 ];

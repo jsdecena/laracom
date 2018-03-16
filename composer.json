@@ -13,6 +13,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "jsdecena/mailchimp": "~7.0",
         "jsdecena/mcpro": "1.1.*",
+        "laravel/cashier": "~7.0",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "~1.0",
         "paypal/rest-api-sdk-php": "*",

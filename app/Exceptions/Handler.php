@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -58,6 +59,7 @@ class Handler extends ExceptionHandler
                 403
             );
         } elseif ($exception instanceof HttpException) {
+            Log::info($exception->getMessage());
             return response()->view('layouts.errors.503', ['error' => $exception->getTrace()], 500);
         }
 
