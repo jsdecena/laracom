@@ -5,7 +5,7 @@ namespace Tests\Feature\Admin\Dashboard;
 use App\Shop\Employees\Employee;
 use Tests\TestCase;
 
-class DashboardFeatureTest extends TestCase 
+class DashboardFeatureTest extends TestCase
 {
     /** @test */
     public function it_should_show_the_admin_abilities_when_the_employee_is_admin()

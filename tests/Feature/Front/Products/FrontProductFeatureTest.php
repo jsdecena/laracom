@@ -5,7 +5,7 @@ namespace Tests\Feature\Front\Products;
 use App\Shop\Products\Product;
 use Tests\TestCase;
 
-class FrontProductFeatureTest extends TestCase 
+class FrontProductFeatureTest extends TestCase
 {
     /** @test */
     public function it_can_show_the_product()

@@ -39,7 +39,12 @@
                                                 </td>
                                                 <td>
                                                     <label class="col-md-2 col-md-offset-3">
-                                                        <input type="radio" class="form-control" name="billing_address" @if($selectedAddress == $address->id) checked="checked"  @endif value="{{ $address->id }}">
+                                                        <input
+                                                                type="radio"
+                                                                value="{{ $address->id }}"
+                                                                class="form-control"
+                                                                name="billing_address"
+                                                                @if(old('billing_address') == $address->id) checked="checked"  @endif>
                                                     </label>
                                                 </td>
                                             </tr>
@@ -65,7 +70,12 @@
                                                 <td>{{config('cart.currency')}} {{ $courier->cost }}</td>
                                                 <td>
                                                     <label class="col-md-2 col-md-offset-3">
-                                                        <input type="radio" class="form-control" name="courier" value="{{ $courier->id }}" @if($selectedCourier == $courier->id) checked="checked"  @endif>
+                                                        <input
+                                                                type="radio"
+                                                                class="form-control"
+                                                                name="courier"
+                                                                value="{{ $courier->id }}"
+                                                                @if(old('courier') == $courier->id) checked="checked"  @endif>
                                                     </label>
                                                 </td>
                                             </tr>
@@ -80,7 +90,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <h3> <i class="fa fa-money text-success"></i> Choose payment method</h3>
-                                    @if($payments)
+                                    @if(isset($payments) && !empty($payments))
                                         <table class="table">
                                             <thead>
                                             <th class="col-md-4">Name</th>
@@ -90,11 +100,16 @@
                                             <tbody>
                                             @foreach($payments as $payment)
                                                 <tr>
-                                                    <td>{{ $payment->name }}</td>
-                                                    <td>{{ $payment->description }}</td>
+                                                    <td>{{ $payment['name'] }}</td>
+                                                    <td>{{ $payment['description'] }}</td>
                                                     <td>
                                                         <label class="col-md-2 col-md-offset-3">
-                                                            <input type="radio" class="form-control" name="payment" value="{{ $payment->id }}" @if($selectedPayment == $payment->id) checked="checked"  @endif>
+                                                            <input
+                                                                    type="radio"
+                                                                    class="form-control"
+                                                                    name="payment"
+                                                                    value="{{ $payment['name'] }}"
+                                                                    @if(old('payment') == $payment['name']) checked="checked"  @endif>
                                                         </label>
                                                     </td>
                                                 </tr>
@@ -167,55 +182,4 @@
             </div>
         @endif
     </div>
-@endsection
-
-@section('js')
-    <script type="text/javascript">
-        $(document).ready(function () {
-            // Payment options
-            $('input[name="payment"]').on('change', function () {
-                $.ajax({
-                    type: 'post',
-                    url: '/set-payment',
-                    data: { paymentId: $(this).val(), _token: $('input[name="_token"]').val()},
-                    success: function(data){
-                        //
-                    }
-                });
-            });
-
-            // Addresses
-            $('input[name="address"]').on('change', function () {
-                $.ajax({
-                    type: 'post',
-                    url: '/set-address',
-                    data: { addressId: $(this).val(), _token: $('input[name="_token"]').val()},
-                    success: function(data){
-                        //
-                    }
-                });
-            });
-
-            // Couriers
-            $('input[name="courier"]').on('change', function () {
-                $.ajax({
-                    type: 'post',
-                    url: '/set-courier',
-                    data: { courierId: $(this).val(), _token: $('input[name="_token"]').val()},
-                    success: function(data){
-                        console.log(data);
-                        $(data.courier).each(function (idx, shipping) {
-                            $('#shippingFee').html(shipping.cost);
-                            if (shipping.cost != 0) {
-                                $('#shippingRow').fadeIn();
-                            } else {
-                                $('#shippingRow').fadeOut();
-                            }
-                        });
-                        $('#cartTotal').html(data.cartTotal);
-                    }
-                });
-            });
-        });
-    </script>
 @endsection

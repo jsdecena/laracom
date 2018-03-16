@@ -1,0 +1,659 @@
+
+
+/* **************************************************
+Theme Name: Kenakata
+Theme URI: https://www.behance.net/gallery/38757389/Kenakata-Free-eCommerce-Bootstrap-Template-PSD-HTML
+Author URI: https://www.behance.net/shuvokhan
+Description:
+Author: Shuvo Khan
+Version: 1.0.0
+License: GNU General Public License v2.0
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+************************************************** */
+
+
+
+@import url(css/font-awesome.min.css) screen;
+@import url(css/owl.carousel.css) screen;
+@import url(https://fonts.googleapis.com/css?family=Muli:400,300,300italic,400italic);
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700);
+
+
+
+
+/* ************************
+     COMMON STYLES
+************************** */
+
+html {
+    margin: 0;
+    padding: 0px;
+    position: relative;
+    min-height: 100%;
+}
+body {
+    font-family: 'Muli', sans-serif;
+    font-size: 15px;
+    line-height: 27px;
+    font-color: black;
+    margin-bottom: 170px;
+}
+::-moz-selection {
+    background: #222;
+    color: #d89522;
+}
+::selection {
+    background: #222;
+    color: #d89522;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Droid Serif', serif;
+    color: #222;
+    font-weight: 300;
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+p {
+    font-size: 15px;
+    color: #52575d;
+    line-height: 25px;
+    font-weight: 400;
+    margin-bottom: 15px;
+    margin-top: 0px;
+}
+a {
+    color: #d89522;
+    cursor: pointer;
+    text-decoration: none;
+    transition: .3s;
+}
+a:hover {
+    color: #d89522;
+    text-decoration: none;
+}
+
+.btn.focus, .btn:focus, .btn:hover {
+    text-decoration: none;
+}
+
+li.active a {
+    color: #d89522;
+    background: #eee;
+}
+ul.sidebar-menu li a {
+    display: block;
+    padding: 3px 10px;
+    margin: 3px 0;
+}
+ul.sidebar-category-sub li {
+    padding-left: 15px;
+}
+
+ul.navbar-nav > li.active > a {
+    color: #d89522 !important;
+}
+
+.t100 {
+    margin-top: 100px;
+}
+.b100 {
+    margin-bottom: 100px;
+}
+.btn-default:hover {
+    color: #222;
+    background-color: #fff;
+    border-color: #d89522;
+    transition: .3s
+}
+
+.section-title h2 {
+    text-align: center;
+    font-size: 35px;
+    line-height: 45px;
+    margin-bottom: 5px;
+}
+.section-title p {
+    text-align: center;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #919191;
+    margin: 0;
+}
+
+
+
+
+
+
+
+/* ************************
+            MENU
+************************** */
+.navbar-default .navbar-brand {
+    color: #222;
+    letter-spacing: 5px;
+    font-size: 22px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.navbar-default {
+    background-color: transparent !important;
+    border: none;
+}
+
+ul.navbar-nav li a{
+    font-size: 15px;
+    color: #52575d !important;
+    background: transparent !important;
+}
+
+ul.navbar-nav li a:hover {
+    color: #d89522 !important
+}
+
+
+
+li.menubar-cart a {
+    display: inline-block;
+
+}
+
+.menu-shopping-cart {
+    position: relative;
+}
+.fa-shopping-cart  {
+    font-size: 20px;
+    color: #222;
+}
+.cart-number {
+    color: #fff;
+    background: #d89522;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    width: 18px;
+    height: 18px;
+    line-height: 17px;
+    display: inline-block;
+    position: absolute;
+    top: 7px;
+    right: 3px;
+    border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+/* ************************
+        HERO AREA
+************************** */
+.top-area {
+    background: #fff url('../images/banner.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 760px;
+    position: relative;
+}
+.hero-title {
+    font-size: 80px;
+    line-height: 100px;
+    font-weight: 400;
+    padding-bottom: 0px;
+    color: #333;
+}
+.hero-text {
+    font-size: 18px;
+    line-height: 30px;
+}
+.hero-btn {
+    padding-top: 40px;
+}
+.btn-hero {
+    font-family: 'Lora', serif;
+    background: #d89522;
+    color: #fff;
+    font-size: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    width: 185px;
+    height: 50px;
+    transition: .3s;
+    border: 1px solid #d89522;
+
+}
+.btn-hero:hover {
+    color: #222;
+    background-color: #fff;
+    border: 1px solid #d89522;
+}
+.hero-content {
+    position: relative;
+    padding: 15% 0 15%;
+
+}
+
+
+/* ************************
+        PRODUCT
+************************** */
+
+
+.home .single-product {
+    margin-bottom: 30px;
+    min-height: 460px;
+}
+
+.single-product {
+    margin-bottom: 30px;
+}
+
+.product-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: opacity .8s ease, border .4s ease;
+    text-align: center;
+    color: #fff;
+}
+.vcenter {
+    display: table;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+.centrize {
+    display: table-cell;
+    vertical-align: middle;
+}
+.product-overlay  ul {
+    padding-left: 0px;
+    margin-bottom: 0px;
+}
+.product-overlay ul li {
+    margin-bottom: 15px;
+}
+.product {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.single-product:hover .product-overlay {
+    opacity: 1;
+    border-radius: 3px;
+}
+.product-btn {
+    border-radius: 3px;
+    font-size: 14px;
+    background: #d89522;
+    color: #fff;
+    border: 0px;
+    margin-top: 10px;
+    padding: 10px;
+    width: 120px;
+    height: 40px;
+    margin: auto;
+}
+.product-text h4 {
+    font-size: 18px;
+    margin: 20px 0 5px;
+}
+.product-text p {
+    font-size: 13px;
+    color: #838b8f;
+    margin: 0;
+}
+.product-text p span{
+    color: #d89522;
+    font-weight: bold;
+    margin: 5px 0 0;
+}
+
+
+#browse-all-btn{
+    text-align: center;
+    margin-top: 40px;
+}
+.browse-all-btn {
+    padding: 9px 43px;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #919191;
+    border-color: #d89522;
+    border-radius: 3px;
+    font-family: 'Lora', serif;
+}
+
+
+/* ************************
+        OFFER
+************************** */
+
+.offer-section  h2 {
+    color: #fff;
+    font-size: 60px;
+    line-height: 50px;
+    margin: 0;
+}
+.offer-btn {
+    padding: 0;
+}
+.offer-section {
+    background: url(images/bg.jpg) no-repeat;
+    display: block;
+    padding: 70px 0;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+    background-attachment: fixed;
+    box-shadow: inset 0 0 0 1000px rgba(4, 17, 34, 0.8);
+}
+
+
+
+
+
+
+/* ************************
+        BRAND
+************************** */
+
+
+
+#brand-logo .item {
+    margin: 0px 10px;
+}
+
+#brand-logo .item img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.brand-section {
+    background: url(images/bg.jpg) no-repeat;
+    display: block;
+    padding: 70px 0;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+    background-attachment: fixed;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.8);
+}
+
+
+
+
+/* ************************
+        BLOG
+************************** */
+
+.blog-section {
+
+}
+.main-post{
+    margin-bottom: 45px;
+}
+.post-img {
+    width: 30%;
+    float: left;
+    margin-right: 30px;
+}
+
+.post-title {
+    font-size: 18px;
+    line-height: 30px;
+    margin: 15px 0 10px;
+}
+.post-text {
+    font-size: 15px;
+    line-height: 25px;
+    color: #898989;
+}
+.read-more {
+    font-family: 'Droid Serif', serif;
+    font-size: 15px;
+}
+.read-more .glyphicon {
+    font-size: 10px;
+    color: #d89522
+}
+
+.media{
+    margin-bottom: 30px;
+}
+
+.media-left, .media > .pull-left {
+    padding-right: 30px;
+}
+.media-heading {
+    font-size: 18px;
+    padding-top: 22px;
+}
+.media-body {
+    display: table-cell;
+    vertical-align: top;
+}
+.media-body p {
+    font-size: 15px;
+    line-height: 25px;
+    color: #898989;
+    padding-top: 5px;
+    margin-bottom: 8px;
+}
+
+
+
+
+
+/* ************************
+        SUBSCRIBE
+************************** */
+
+.subscribe-section {
+
+}
+.subscribe-section h3 {
+    font-size: 35px;
+    text-align: center;
+}
+.subscribe-section p{
+    font-size: 15px;
+    padding: 10px 70px 0;
+    color: #898989;
+    line-height: 25px;
+    text-align: center;
+}
+.form-field-section {
+    width: 390px;
+    margin: 50px auto 0;
+}
+input,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea, select {
+    border: 1px solid #d89522;
+    background: #fff;
+    border-radius: 3px !important;
+    color: #c4c4c4;
+    outline: none;
+    font-size: 15px;
+    text-align: center;
+    line-height: 1;
+    vertical-align: middle;
+    font-weight: 300;
+}
+.newsletter-input {
+    height: 40px;
+    width: 250px;
+}
+.btn-subscribe {
+    border-radius: 3px;
+    font-size: 15px;
+    height: 40px;
+    width: 125px;
+    background: #d89522;
+    color: #fff;
+    margin-left: 10px;
+    transition: .3s
+}
+.btn-subscribe:hover {
+    background: #fff;
+    border: 1px solid #d89522;
+    color: #222;
+}
+
+
+
+
+/* ************************
+        FOOTER
+************************** */
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+.footer-section {
+    background-color: #222;
+    color: #fff;
+    padding: 20px 0 5px;
+}
+.footer-menu, .footer-social {
+    list-style: outside none none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+.footer-menu li {
+    display: inline-block;
+    list-style: outside none none;
+    margin: 0 15px;
+    font-size: 16px;
+}
+.footer-menu a {
+    color: #FFFFFF
+}
+.footer-menu a:hover, .footer-social a:hover {
+    color: #d89522
+}
+.footer-social li {
+    display: inline-block;
+    list-style: outside none none;
+    margin: 0 12px;
+    font-size: 22px;
+}
+.footer-social li a{
+    color: #FFFFFF
+}
+.footer-section p{
+    font-size: 12px;
+    color: #898989;
+}
+
+.product h1 > small {
+    padding-top: 20px;
+    display: block;
+}
+
+a:hover img {
+    border: 1px solid #d89522;
+}
+
+.customer-order-list .tab-pane {
+    padding-top: 15px;
+}
+
+.product-list {
+    min-height: 400px;
+}
+
+.nav.navbar-nav .dropdown {
+    top:11px;
+}
+.form-inline #search-btn {
+    border-top: 1px solid #d89522;
+    border-right: 1px solid #d89522;
+    border-bottom: 1px solid #d89522;
+    border-left: 1px solid #d8cab2;
+}
+
+.product-cover-wrap {
+    border: 1px solid #eee;
+}
+
+.product-description {
+    position: relative;
+}
+
+.excerpt {
+    display: none;
+}
+
+.modal-dialog .modal-content {
+    min-width: 800px;
+}
+
+.modal-dialog h1 {
+    font-size: 18px;
+    text-align: left;
+    line-height: 24px;
+}
+
+.modal-dialog h1 small {
+    display: block;
+    padding-top: 10px;
+}
+
+.modal-dialog .description,
+.modal-dialog .excerpt {
+    font-size: 14px;
+    line-height: 16px;
+    text-align: left;
+}
+
+.modal-dialog .description {
+    display: none;
+}
+
+.modal-dialog #quantity {
+    width: 85px;
+}
+
+.modal-dialog .modal-content {
+    padding: 15px;
+}
+
+.modal-content .excerpt {
+    display: block;
+    text-align: left;
+}
+
+#thumbnails li {
+    margin-bottom: 10px;
+}
+
+#thumbnails li img {
+    width: 100px;
+}
+
+#thumbnails li a:hover img {
+    border: 1px solid #d89522;
+}
+#productAttribute {
+    width: 312px;
+}

@@ -65,7 +65,7 @@ class ProductFeatureTest extends TestCase
 
         $this
             ->actingAs($this->employee, 'admin')
-            ->get(route('admin.product.remove.thumb',  ['src' => $image->src]))
+            ->get(route('admin.product.remove.thumb', ['src' => $image->src]))
             ->assertStatus(302)
             ->assertRedirect(url('/'))
             ->assertSessionHas('message', 'Image delete successful');

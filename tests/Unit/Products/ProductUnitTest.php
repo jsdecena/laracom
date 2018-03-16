@@ -247,7 +247,7 @@ class ProductUnitTest extends TestCase
         $productRepo = new ProductRepository(new Product);
         $products = $productRepo->listProducts();
 
-        $products->each(function ($product, $key) use($attributes) {
+        $products->each(function ($product, $key) use ($attributes) {
             foreach ($product->getFillable() as $key => $value) {
                 $this->assertArrayHasKey($key, $attributes);
             }

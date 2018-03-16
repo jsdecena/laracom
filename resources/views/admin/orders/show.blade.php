@@ -25,19 +25,19 @@
             <div class="box-body">
                 <h4> <i class="fa fa-shopping-bag"></i> Order Information</h4>
                 <table class="table">
-                    <tbody>
-                    <tr>
-                        <td class="col-md-3">Date</td>
-                        <td class="col-md-3">Customer</td>
-                        <td class="col-md-3">Payment</td>
-                        <td class="col-md-3">Status</td>
-                    </tr>
-                    </tbody>
+                    <thead>
+                        <tr>
+                            <td class="col-md-3">Date</td>
+                            <td class="col-md-3">Customer</td>
+                            <td class="col-md-3">Payment</td>
+                            <td class="col-md-3">Status</td>
+                        </tr>
+                    </thead>
                     <tbody>
                     <tr>
                         <td>{{ date('M d, Y h:i a', strtotime($order['created_at'])) }}</td>
                         <td><a href="{{ route('admin.customers.show', $customer->id) }}">{{ $customer->name }}</a></td>
-                        <td><strong>{{ $payment->name }}</strong></td>
+                        <td><strong>{{ $order['payment'] }}</strong></td>
                         <td><button type="button" class="btn btn-info btn-block">{{ $currentStatus->name }}</button></td>
                     </tr>
                     </tbody>

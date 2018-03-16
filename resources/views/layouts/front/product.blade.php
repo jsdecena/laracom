@@ -85,97 +85,15 @@
         </div>
     </div>
 </div>
-@section('css')
-    <link rel="stylesheet" href="{{ asset('front/css/drift-basic.min.css') }}">
-    <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css') }}" rel="stylesheet" />
-    <style type="text/css">
-        .product-cover-wrap {
-            border: 1px solid #eee;
-        }
-
-        .product-description {
-            position: relative;
-        }
-
-        .excerpt {
-            display: none;
-        }
-
-        .modal-dialog .modal-content {
-            min-width: 800px;
-        }
-
-        .modal-dialog h1 {
-            font-size: 18px;
-            text-align: left;
-            line-height: 24px;
-        }
-
-        .modal-dialog h1 small {
-            display: block;
-            padding-top: 10px;
-        }
-
-        .modal-dialog .description,
-        .modal-dialog .excerpt {
-            font-size: 14px;
-            line-height: 16px;
-            text-align: left;
-        }
-
-        .modal-dialog .description {
-            display: none;
-        }
-
-        .modal-dialog #quantity {
-            width: 85px;
-        }
-
-        .modal-dialog .modal-content {
-            padding: 15px;
-        }
-
-        .modal-content .excerpt {
-            display: block;
-            text-align: left;
-        }
-
-        #thumbnails li {
-            margin-bottom: 10px;
-        }
-
-        #thumbnails li img {
-            width: 100px;
-        }
-
-        #thumbnails li a:hover img {
-            border: 1px solid #d89522;
-        }
-        #productAttribute {
-            width: 312px;
-        }
-    </style>
-@endsection
 @section('js')
-    <script type="text/javascript" src="{{ asset('front/js/Drift.min.js') }}"></script>
-    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-
-            $('.select2').select2();
-
             var productPane = document.querySelector('.product-cover');
             var paneContainer = document.querySelector('.product-cover-wrap');
 
             new Drift(productPane, {
                 paneContainer: paneContainer,
                 inlinePane: false
-            });
-
-            $('#thumbnails li img').on('click', function () {
-                $('#main-image')
-                        .attr('src', $(this).attr('src') +'?w=400')
-                        .attr('data-zoom', $(this).attr('src') +'?w=1200');
             });
         });
     </script>

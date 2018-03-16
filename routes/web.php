@@ -52,7 +52,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin'], 'as' => 'admin.' ]
             Route::resource('countries.provinces', 'Provinces\ProvinceController');
             Route::resource('countries.provinces.cities', 'Cities\CityController');
             Route::resource('couriers', 'Couriers\CourierController');
-            Route::resource('payment-methods', 'PaymentMethods\PaymentMethodController');
             Route::resource('attributes', 'Attributes\AttributeController');
             Route::resource('attributes.values', 'Attributes\AttributeValueController');
         });
@@ -75,8 +74,6 @@ Route::namespace('Front')->group(function () {
         Route::get('accounts', 'AccountsController@index')->name('accounts');
         Route::get('checkout', 'CheckoutController@index')->name('checkout.index');
         Route::post('checkout', 'CheckoutController@store')->name('checkout.store');
-        Route::post('set-courier', 'CheckoutController@setCourier')->name('set.courier');
-        Route::post('set-address', 'CheckoutController@setAddress')->name('set.address');
         Route::get('checkout/execute', 'CheckoutController@execute')->name('checkout.execute');
         Route::get('checkout/cancel', 'CheckoutController@cancel')->name('checkout.cancel');
         Route::get('checkout/success', 'CheckoutController@success')->name('checkout.success');

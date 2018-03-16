@@ -88,7 +88,6 @@ class AttributeUnitTest extends TestCase
 
         $this->assertTrue($update);
         $this->assertEquals($data['name'], $attribute->name);
-
     }
 
     /** @test */

@@ -6,7 +6,7 @@ use App\Shop\Categories\Category;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
-class CategoryFeatureTest extends TestCase 
+class CategoryFeatureTest extends TestCase
 {
     /** @test */
     public function it_can_list_all_the_categories()
