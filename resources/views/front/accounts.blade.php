@@ -79,7 +79,7 @@
                                             </div>
                                         </td>
                                         <td>{{ $order['courier']->name }}</td>
-                                        <td><span class="label @if($order['total'] != $order['total_paid']) label-danger @else label-success @endif">Php {{ $order['total'] }}</span></td>
+                                        <td><span class="label @if($order['total'] != $order['total_paid']) label-danger @else label-success @endif">{{ config('cart.currency') }} {{ $order['total'] }}</span></td>
                                         <td><p class="text-center" style="color: #ffffff; background-color: {{ $order['status']->color }}">{{ $order['status']->name }}</p></td>
                                     </tr>
                                 @endforeach
