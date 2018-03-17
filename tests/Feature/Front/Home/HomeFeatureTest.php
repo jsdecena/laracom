@@ -16,7 +16,7 @@ class HomeFeatureTest extends TestCase
             'slug' => 'new-arrivals',
             'status' => 1
         ])->each(function (Category $category) {
-            factory(Product::class, 3)->make()->each(function(Product $product) use ($category) {
+            factory(Product::class, 3)->make()->each(function (Product $product) use ($category) {
                 $category->products()->save($product);
             });
         });
@@ -26,7 +26,7 @@ class HomeFeatureTest extends TestCase
             'slug' => 'featured',
             'status' => 1
         ])->each(function (Category $category) {
-            factory(Product::class, 3)->make()->each(function(Product $product) use ($category) {
+            factory(Product::class, 3)->make()->each(function (Product $product) use ($category) {
                 $category->products()->save($product);
             });
         });

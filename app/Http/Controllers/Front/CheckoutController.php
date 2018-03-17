@@ -145,12 +145,10 @@ class CheckoutController extends Controller
     public function executePayPalPayment(PayPalCheckoutExecutionRequest $request)
     {
         try {
-
             $this->payPal->execute($request);
             $this->cartRepo->clearCart();
 
             return redirect()->route('checkout.success');
-
         } catch (PayPalConnectionException $e) {
             throw new PaypalRequestError($e->getData());
         } catch (Exception $e) {
@@ -165,7 +163,6 @@ class CheckoutController extends Controller
     public function charge(StripeExecutionRequest $request)
     {
         try {
-
             $customer = auth()->user();
             $stripeRepo = new StripeRepository($customer);
 
@@ -174,7 +171,6 @@ class CheckoutController extends Controller
                 Cart::total(),
                 Cart::tax()
             );
-
         } catch (StripeChargingErrorException $e) {
             Log::info($e->getMessage());
             return redirect()->route('checkout.index')->with('error', 'There is a problem processing your request.');

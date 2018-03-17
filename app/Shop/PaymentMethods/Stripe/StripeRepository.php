@@ -38,7 +38,6 @@ class StripeRepository
     public function execute(array $data, $total, $tax) : Charge
     {
         try {
-
             $courierRepo = new CourierRepository(new Courier);
             $courierId = $data['courier'];
             $courier = $courierRepo->findCourierById($courierId);
@@ -49,7 +48,7 @@ class StripeRepository
             $options['source'] = $data['stripeToken'];
             $options['currency'] = config('cart.currency');
 
-            if($charge = $customerRepo->charge($totalComputed, $options)) {
+            if ($charge = $customerRepo->charge($totalComputed, $options)) {
                 $checkoutRepo = new CheckoutRepository;
                 $checkoutRepo->buildCheckoutItems([
                     'reference' => Uuid::uuid4()->toString(),

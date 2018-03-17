@@ -78,7 +78,6 @@ class PayPalExpressCheckoutRepository implements PayPalExpressCheckoutRepository
         }
 
         try {
-
             $response = $this->payPal->createPayment(
                 route('checkout.execute', $request->except('_token')),
                 route('checkout.cancel')
