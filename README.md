@@ -1,4 +1,4 @@
-[![Build Status](https://img.shields.io/travis/jsdecena/laracom/master.svg)](https://travis-ci.org/jsdecena/laracom)
+[![Build Status](https://travis-ci.org/Laracommerce/laracom.svg?branch=master)](https://travis-ci.org/Laracommerce/laracom)
 [![Build Status](https://img.shields.io/github/forks/jsdecena/laracom.svg)](https://github.com/jsdecena/laracom)
 [![Build Status](https://img.shields.io/github/stars/jsdecena/laracom.svg)](https://github.com/jsdecena/laracom)
 [![Test Coverage](https://img.shields.io/codecov/c/github/jsdecena/laracom/master.svg)](https://codecov.io/github/jsdecena/laracom?branch=master)
