@@ -29,13 +29,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $category2 = $this->categoryRepo->findCategoryById(2);
-        $category3 = $this->categoryRepo->findCategoryById(3);
+        $newArrivals = $this->categoryRepo->findCategoryBySlug(['slug' => 'new-arrivals']);
+        $featured = $this->categoryRepo->findCategoryBySlug(['slug' => 'featured']);
 
-        $newests = $category2->products;
-        $features = $category3->products;
-
-
-        return view('front.index', compact('newests', 'features', 'category2', 'category3'));
+        return view('front.index', compact('newArrivals', 'featured'));
     }
 }

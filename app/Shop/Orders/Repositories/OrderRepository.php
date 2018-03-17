@@ -100,7 +100,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
      * @param Order $order
      * @return mixed
      */
-    public function findProducts(Order $order)
+    public function findProducts(Order $order) : Collection
     {
         return $order->products;
     }

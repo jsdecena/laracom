@@ -20,4 +20,6 @@ interface AttributeRepositoryInterface extends BaseRepositoryInterface
     public function listAttributes($columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc') : Collection;
 
     public function listAttributeValues() : Collection;
+
+    public function associateAttributeValue(AttributeValue $attributeValue) : AttributeValue;
 }

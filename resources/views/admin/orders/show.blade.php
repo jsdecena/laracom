@@ -83,8 +83,8 @@
             @if($order->total != $order->total_paid)
                 <p class="alert alert-danger">
                     Ooops, there is discrepancy in the total amount of the order and the amount paid. <br />
-                    Total order amount: <strong>Php {{ $order->total }}</strong> <br>
-                    Total amount paid <strong>Php {{ $order->total_paid }}</strong>
+                    Total order amount: <strong>{{ config('cart.currency') }} {{ $order->total }}</strong> <br>
+                    Total amount paid <strong>{{ config('cart.currency') }} {{ $order->total_paid }}</strong>
                 </p>
 
             @endif

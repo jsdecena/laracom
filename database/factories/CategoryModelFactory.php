@@ -17,8 +17,6 @@ use Illuminate\Http\UploadedFile;
 
 $factory->define(Category::class, function (Faker\Generator $faker) {
     $name = $faker->unique()->randomElement([
-        'Newest',
-        'Featured',
         'Gear',
         'Clothing',
         'Shoes',

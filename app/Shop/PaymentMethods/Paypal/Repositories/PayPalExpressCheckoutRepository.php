@@ -5,13 +5,10 @@ namespace App\Shop\PaymentMethods\Paypal\Repositories;
 use App\Shop\Addresses\Address;
 use App\Shop\Addresses\Repositories\AddressRepository;
 use App\Shop\Carts\Repositories\CartRepository;
+use App\Shop\Carts\Requests\PayPalCheckoutExecutionRequest;
 use App\Shop\Carts\ShoppingCart;
 use App\Shop\Checkout\CheckoutRepository;
 use App\Shop\Couriers\Courier;
-use App\Shop\OrderDetails\OrderProduct;
-use App\Shop\OrderDetails\Repositories\OrderProductRepository;
-use App\Shop\Orders\Order;
-use App\Shop\Orders\Repositories\OrderRepository;
 use App\Shop\PaymentMethods\Payment;
 use App\Shop\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
 use App\Shop\PaymentMethods\Paypal\PaypalExpress;
@@ -81,7 +78,6 @@ class PayPalExpressCheckoutRepository implements PayPalExpressCheckoutRepository
         }
 
         try {
-
             $response = $this->payPal->createPayment(
                 route('checkout.execute', $request->except('_token')),
                 route('checkout.cancel')
@@ -110,7 +106,6 @@ class PayPalExpressCheckoutRepository implements PayPalExpressCheckoutRepository
         $transactions = $trans->getTransactions();
 
         foreach ($transactions as $transaction) {
-
             $checkoutRepo = new CheckoutRepository;
             $checkoutRepo->buildCheckoutItems([
                 'reference' => Uuid::uuid4()->toString(),

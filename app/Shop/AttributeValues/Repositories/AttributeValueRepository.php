@@ -5,6 +5,7 @@ namespace App\Shop\AttributeValues\Repositories;
 use App\Shop\Attributes\Attribute;
 use App\Shop\AttributeValues\AttributeValue;
 use App\Shop\Base\BaseRepository;
+use Illuminate\Support\Collection;
 
 class AttributeValueRepository extends BaseRepository implements AttributeValueRepositoryInterface
 {
@@ -16,6 +17,19 @@ class AttributeValueRepository extends BaseRepository implements AttributeValueR
     {
         parent::__construct($attributeValue);
         $this->model = $attributeValue;
+    }
+
+    /**
+     * @param Attribute $attribute
+     * @param array $data
+     * @return AttributeValue
+     */
+    public function createAttributeValue(Attribute $attribute, array $data) : AttributeValue
+    {
+        $attributeValue = new AttributeValue($data);
+        $attributeValue->attribute()->associate($attribute);
+        $attributeValue->save();
+        return $attributeValue;
     }
 
     /**
@@ -37,5 +51,13 @@ class AttributeValueRepository extends BaseRepository implements AttributeValueR
     public function dissociateFromAttribute() : bool
     {
         return $this->model->delete();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function findProductAttributes() : Collection
+    {
+        return $this->model->productAttributes()->get();
     }
 }

@@ -70,12 +70,6 @@ class AddressController extends Controller
         $countries = $this->countryRepo->listCountries();
         $country = $this->countryRepo->findCountryById(1);
 
-        if (env('COUNTRY_ID')) {
-            $philippines = $countries->find(['id' => env('COUNTRY_ID')])->first();
-            $countries->prepend($philippines);
-            $country = $this->countryRepo->findCountryById($philippines->id);
-        }
-
         $customers = $this->customerRepo->listCustomers();
 
         return view('admin.addresses.create', [

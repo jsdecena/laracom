@@ -29,7 +29,7 @@
                                     @endif
                                 </td>
                                 <td>{{ $product->quantity }}</td>
-                                <td>Php {{ $product->price }}</td>
+                                <td>{{ config('cart.currency') }} {{ $product->price }}</td>
                             </tr>
                         </tbody>
                     </table>

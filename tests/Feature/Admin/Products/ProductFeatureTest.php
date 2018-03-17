@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Shop\Categories\Category;
-use App\Shop\ProductImages\ProductImage;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\ProductRepository;
 use Illuminate\Http\UploadedFile;

@@ -29,13 +29,17 @@ trait AddressTransformable
         $obj->address_2 = $address->address_2;
         $obj->zip = $address->zip;
 
-        $cityRepo = new CityRepository(new City);
-        $city = $cityRepo->findCityById($address->city_id);
-        $obj->city = $city->name;
+        if (isset($address->city_id)) {
+            $cityRepo = new CityRepository(new City);
+            $city = $cityRepo->findCityById($address->city_id);
+            $obj->city = $city->name;
+        }
 
-        $provinceRepo = new ProvinceRepository(new Province);
-        $province = $provinceRepo->findProvinceById($address->province_id);
-        $obj->province = $province->name;
+        if (isset($address->province_id)) {
+            $provinceRepo = new ProvinceRepository(new Province);
+            $province = $provinceRepo->findProvinceById($address->province_id);
+            $obj->province = $province->name;
+        }
 
         $countryRepo = new CountryRepository(new Country);
         $country = $countryRepo->findCountryById($address->country_id);

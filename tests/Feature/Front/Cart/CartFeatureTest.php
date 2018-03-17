@@ -7,12 +7,53 @@ use App\Shop\Carts\Repositories\CartRepository;
 use App\Shop\Carts\ShoppingCart;
 use App\Shop\Cities\City;
 use App\Shop\Customers\Customer;
+use App\Shop\ProductAttributes\ProductAttribute;
 use App\Shop\Products\Product;
 use Illuminate\Auth\Events\Lockout;
 use Tests\TestCase;
 
 class CartFeatureTest extends TestCase
 {
+    /** @test */
+    public function it_can_see_the_success_page()
+    {
+        $this
+            ->actingAs($this->customer, 'web')
+            ->get(route('checkout.success'))
+            ->assertStatus(200);
+    }
+
+    /** @test */
+    public function it_can_see_the_cancel_page()
+    {
+        $this
+            ->actingAs($this->customer, 'web')
+            ->get(route('checkout.cancel'))
+            ->assertStatus(200);
+    }
+
+    /** @test */
+    public function it_can_add_to_cart_products_with_combination()
+    {
+        $product = factory(Product::class)->create();
+
+        $productAttribute = factory(ProductAttribute::class)->create([
+            'product_id' => $product->id
+        ]);
+
+        $data = [
+            'product' => $product->id,
+            'quantity' => 1,
+            'productAttribute' => $productAttribute->id
+        ];
+
+        $this
+            ->post(route('cart.store', $data))
+            ->assertStatus(302)
+            ->assertSessionHas('message', 'Add to cart successful')
+            ->assertRedirect(route('cart.index'));
+    }
+
     /** @test */
     public function it_shows_the_checkout_page_after_successful_login()
     {
@@ -92,12 +133,18 @@ class CartFeatureTest extends TestCase
             ->actingAs($this->customer, 'checkout')
             ->get(route('checkout.index'))
             ->assertStatus(200)
-            ->assertSee('Choose delivery address')
             ->assertSee('Choose courier')
-            ->assertSee('Choose payment method')
-            ->assertSee('Your Total')
-            ->assertSee('Review cart')
-            ->assertSee('Checkout now');
+            ->assertSee('Billing Address')
+            ->assertSee('Delivery Address')
+            ->assertSee('Choose payment')
+            ->assertSee('Cover')
+            ->assertSee('Name')
+            ->assertSee('Quantity')
+            ->assertSee('Price')
+            ->assertSee('Subtotal')
+            ->assertSee('Shipping')
+            ->assertSee('Tax')
+            ->assertSee('Total');
     }
 
     /** @test */
