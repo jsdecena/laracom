@@ -155,12 +155,4 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
             throw new CustomerPaymentChargingErrorException($e);
         }
     }
-
-    /**
-     * @return bool
-     */
-    public function isStripeCustomer() : bool
-    {
-        return $this->model->stripe_id ?: false;
-    }
 }

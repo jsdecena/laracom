@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Front;
 use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Shop\Cart\Requests\CartCheckoutRequest;
 use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
+use App\Shop\Carts\Requests\PayPalCheckoutExecutionRequest;
+use App\Shop\Carts\Requests\StripeExecutionRequest;
 use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
 use App\Shop\Customers\Repositories\CustomerRepository;
 use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
@@ -18,9 +20,9 @@ use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Transformations\ProductTransformable;
 use Exception;
 use App\Http\Controllers\Controller;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redirect;
 use PayPal\Exception\PayPalConnectionException;
 
 class CheckoutController extends Controller
@@ -137,10 +139,10 @@ class CheckoutController extends Controller
     /**
      * Execute the PayPal payment
      *
-     * @param Request $request
+     * @param PayPalCheckoutExecutionRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function execute(Request $request)
+    public function executePayPalPayment(PayPalCheckoutExecutionRequest $request)
     {
         try {
 
@@ -157,16 +159,21 @@ class CheckoutController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param StripeExecutionRequest $request
      * @return \Stripe\Charge
      */
-    public function charge(Request $request)
+    public function charge(StripeExecutionRequest $request)
     {
         try {
 
             $customer = auth()->user();
             $stripeRepo = new StripeRepository($customer);
-            return $stripeRepo->execute($request->input('stripeToken'), $request);
+
+            return $stripeRepo->execute(
+                $request->all(),
+                Cart::total(),
+                Cart::tax()
+            );
 
         } catch (StripeChargingErrorException $e) {
             Log::info($e->getMessage());

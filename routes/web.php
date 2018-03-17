@@ -74,7 +74,7 @@ Route::namespace('Front')->group(function () {
         Route::get('accounts', 'AccountsController@index')->name('accounts');
         Route::get('checkout', 'CheckoutController@index')->name('checkout.index');
         Route::post('checkout', 'CheckoutController@store')->name('checkout.store');
-        Route::get('checkout/execute', 'CheckoutController@execute')->name('checkout.execute');
+        Route::get('checkout/execute', 'CheckoutController@executePayPalPayment')->name('checkout.execute');
         Route::post('checkout/execute', 'CheckoutController@charge')->name('checkout.execute');
         Route::get('checkout/cancel', 'CheckoutController@cancel')->name('checkout.cancel');
         Route::get('checkout/success', 'CheckoutController@success')->name('checkout.success');

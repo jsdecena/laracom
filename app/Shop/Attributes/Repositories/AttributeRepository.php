@@ -99,4 +99,13 @@ class AttributeRepository extends BaseRepository implements AttributeRepositoryI
     {
         return $this->model->values()->get();
     }
+
+    /**
+     * @param AttributeValue $attributeValue
+     * @return AttributeValue
+     */
+    public function associateAttributeValue(AttributeValue $attributeValue) : AttributeValue
+    {
+        return $this->model->values()->save($attributeValue);
+    }
 }

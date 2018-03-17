@@ -3,6 +3,8 @@
 namespace Tests\Unit\OrderDetails;
 
 use App\Shop\Addresses\Address;
+use App\Shop\Carts\Repositories\CartRepository;
+use App\Shop\Carts\ShoppingCart;
 use App\Shop\Couriers\Courier;
 use App\Shop\Customers\Customer;
 use App\Shop\OrderDetails\OrderProduct;
@@ -16,6 +18,32 @@ use Tests\TestCase;
 
 class OrderDetailsUnitTest extends TestCase
 {
+    /** @test */
+    public function it_can_build_the_order_details()
+    {
+        $cartRepo = new CartRepository(new ShoppingCart);
+        $cartRepo->addToCart($this->product, 1);
+        $cartRepo->saveCart($this->customer);
+
+        $order = factory(Order::class)->create();
+
+        $orderProductRepo = new OrderProductRepository(new OrderProduct);
+        $orderProductRepo->buildOrderDetails($order, $cartRepo->getCartItems());
+
+        $orderRepo = new OrderRepository(new Order);
+        $products = $orderRepo->findProducts($order);
+
+        $products->each(function (Product $product) {
+            $this->assertEquals($this->product->name, $product->name);
+            $this->assertEquals($this->product->sku, $product->sku);
+            $this->assertEquals($this->product->slug, $product->slug);
+            $this->assertEquals($this->product->description, $product->description);
+            $this->assertEquals($this->product->cover, $product->cover);
+            $this->assertEquals($this->product->price, $product->price);
+            $this->assertEquals($this->product->status, $product->status);
+        });
+    }
+    
     /** @test */
     public function it_can_show_all_the_products_attached_to_an_order()
     {

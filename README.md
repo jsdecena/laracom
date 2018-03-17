@@ -74,7 +74,7 @@
 
 - Run: `npm install`
 
-- Then: `npm run dev` and wait for it to compile (currently, only admin assets are being compiled) 
+- Then: `npm run dev` for dev environment and `npm run production` for live. Wait for it to be compiled and refresh the page. 
 
 ## Support open source
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=jeff.decena@yahoo.com&item_name=Laracom%20E-Commerce%20development&bn=PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest)
