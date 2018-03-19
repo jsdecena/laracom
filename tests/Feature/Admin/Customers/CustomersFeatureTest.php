@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Shop\Addresses\Address;
-use App\Shop\Cities\City;
-use App\Shop\Countries\Country;
-use App\Shop\Customers\Customer;
-use App\Shop\Customers\Repositories\CustomerRepository;
-use App\Shop\Provinces\Province;
+use Laracommerce\Core\Addresses\Address;
+use Laracommerce\Core\Cities\City;
+use Laracommerce\Core\Countries\Country;
+use Laracommerce\Core\Customers\Customer;
+use Laracommerce\Core\Customers\Repositories\CustomerRepository;
+use Laracommerce\Core\Provinces\Province;
 use Tests\TestCase;
 
 class CustomersFeatureTest extends TestCase

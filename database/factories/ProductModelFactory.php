@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Shop\Products\Product;
+use Laracommerce\Core\Products\Product;
 use Illuminate\Http\UploadedFile;
 
 $factory->define(Product::class, function (Faker\Generator $faker) {

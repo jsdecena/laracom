@@ -2,17 +2,17 @@
 
 namespace Tests\Unit\Address;
 
-use App\Shop\Addresses\Address;
-use App\Shop\Addresses\Exceptions\AddressInvalidArgumentException;
-use App\Shop\Addresses\Exceptions\AddressNotFoundException;
-use App\Shop\Addresses\Repositories\AddressRepository;
-use App\Shop\Addresses\Transformations\AddressTransformable;
-use App\Shop\Customers\Customer;
-use App\Shop\Customers\Repositories\CustomerRepository;
-use App\Shop\Orders\Order;
-use App\Shop\Provinces\Province;
-use App\Shop\Cities\City;
-use App\Shop\Countries\Country;
+use Laracommerce\Core\Addresses\Address;
+use Laracommerce\Core\Addresses\Exceptions\AddressInvalidArgumentException;
+use Laracommerce\Core\Addresses\Exceptions\AddressNotFoundException;
+use Laracommerce\Core\Addresses\Repositories\AddressRepository;
+use Laracommerce\Core\Addresses\Transformations\AddressTransformable;
+use Laracommerce\Core\Customers\Customer;
+use Laracommerce\Core\Customers\Repositories\CustomerRepository;
+use Laracommerce\Core\Orders\Order;
+use Laracommerce\Core\Provinces\Province;
+use Laracommerce\Core\Cities\City;
+use Laracommerce\Core\Countries\Country;
 use Tests\TestCase;
 
 class AddressUnitTest extends TestCase

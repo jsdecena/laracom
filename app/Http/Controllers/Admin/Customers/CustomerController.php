@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Customers;
 
-use App\Shop\Customers\Customer;
-use App\Shop\Customers\Repositories\CustomerRepository;
-use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
-use App\Shop\Customers\Requests\CreateCustomerRequest;
-use App\Shop\Customers\Requests\UpdateCustomerRequest;
-use App\Shop\Customers\Transformations\CustomerTransformable;
+use Laracommerce\Core\Customers\Customer;
+use Laracommerce\Core\Customers\Repositories\CustomerRepository;
+use Laracommerce\Core\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
+use Laracommerce\Core\Customers\Requests\CreateCustomerRequest;
+use Laracommerce\Core\Customers\Requests\UpdateCustomerRequest;
+use Laracommerce\Core\Customers\Transformations\CustomerTransformable;
 use App\Http\Controllers\Controller;
 
 class CustomerController extends Controller

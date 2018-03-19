@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
+use Laracommerce\Core\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Shop\Products\Transformations\ProductTransformable;
+use Laracommerce\Core\Products\Transformations\ProductTransformable;
 
 class HomeController extends Controller
 {

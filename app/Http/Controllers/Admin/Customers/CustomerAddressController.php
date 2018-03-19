@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Customers;
 
-use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
-use App\Shop\Countries\Repositories\Interfaces\CountryRepositoryInterface;
+use Laracommerce\Core\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
+use Laracommerce\Core\Countries\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Shop\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
+use Laracommerce\Core\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
 
 class CustomerAddressController extends Controller
 {

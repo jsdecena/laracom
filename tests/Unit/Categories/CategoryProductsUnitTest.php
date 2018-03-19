@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Categories;
 
-use App\Shop\Categories\Category;
-use App\Shop\Categories\Repositories\CategoryRepository;
+use Laracommerce\Core\Categories\Category;
+use Laracommerce\Core\Categories\Repositories\CategoryRepository;
 use Tests\TestCase;
 
 class CategoryProductsUnitTest extends TestCase

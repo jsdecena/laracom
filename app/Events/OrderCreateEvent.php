@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Shop\Orders\Order;
+use Laracommerce\Core\Orders\Order;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;

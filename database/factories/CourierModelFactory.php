@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Shop\Couriers\Courier;
+use Laracommerce\Core\Couriers\Courier;
 
 $factory->define(Courier::class, function (Faker\Generator $faker) {
 

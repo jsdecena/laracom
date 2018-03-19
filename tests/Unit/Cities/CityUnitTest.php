@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Cities;
 
-use App\Shop\Cities\Exceptions\CityNotFoundException;
-use App\Shop\Cities\Repositories\CityRepository;
-use App\Shop\Cities\City;
+use Laracommerce\Core\Cities\Exceptions\CityNotFoundException;
+use Laracommerce\Core\Cities\Repositories\CityRepository;
+use Laracommerce\Core\Cities\City;
 use Tests\TestCase;
 
 class CityUnitTest extends TestCase

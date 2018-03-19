@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\AttributeValues;
 
-use App\Shop\Attributes\Attribute;
-use App\Shop\AttributeValues\AttributeValue;
-use App\Shop\AttributeValues\Repositories\AttributeValueRepository;
+use Laracommerce\Core\Attributes\Attribute;
+use Laracommerce\Core\AttributeValues\AttributeValue;
+use Laracommerce\Core\AttributeValues\Repositories\AttributeValueRepository;
 use Tests\TestCase;
 
 class AttributeValueUnitTest extends TestCase

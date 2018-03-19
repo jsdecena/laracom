@@ -1,7 +1,7 @@
 <?php
 
-use App\Shop\Employees\Employee;
-use App\Shop\Roles\Role;
+use Laracommerce\Core\Employees\Employee;
+use Laracommerce\Core\Roles\Role;
 use Illuminate\Database\Seeder;
 
 class EmployeesTableSeeder extends Seeder

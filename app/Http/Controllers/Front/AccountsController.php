@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
-use App\Shop\Customers\Repositories\CustomerRepository;
-use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
+use Laracommerce\Core\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
+use Laracommerce\Core\Customers\Repositories\CustomerRepository;
+use Laracommerce\Core\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Shop\Orders\Order;
-use App\Shop\Orders\Transformers\OrderTransformable;
+use Laracommerce\Core\Orders\Order;
+use Laracommerce\Core\Orders\Transformers\OrderTransformable;
 
 class AccountsController extends Controller
 {

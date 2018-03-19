@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\Front\Cart;
 
-use App\Shop\Addresses\Address;
-use App\Shop\Carts\Repositories\CartRepository;
-use App\Shop\Carts\ShoppingCart;
-use App\Shop\Cities\City;
-use App\Shop\Customers\Customer;
-use App\Shop\ProductAttributes\ProductAttribute;
-use App\Shop\Products\Product;
+use Laracommerce\Core\Addresses\Address;
+use Laracommerce\Core\Carts\Repositories\CartRepository;
+use Laracommerce\Core\Carts\ShoppingCart;
+use Laracommerce\Core\Cities\City;
+use Laracommerce\Core\Customers\Customer;
+use Laracommerce\Core\ProductAttributes\ProductAttribute;
+use Laracommerce\Core\Products\Product;
 use Illuminate\Auth\Events\Lockout;
 use Tests\TestCase;
 

@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Shop\Countries\Country;
+use Laracommerce\Core\Countries\Country;
 
 $factory->define(Country::class, function (Faker\Generator $faker) {
 

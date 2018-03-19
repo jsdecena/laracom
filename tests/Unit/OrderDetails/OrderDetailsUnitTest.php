@@ -2,18 +2,18 @@
 
 namespace Tests\Unit\OrderDetails;
 
-use App\Shop\Addresses\Address;
-use App\Shop\Carts\Repositories\CartRepository;
-use App\Shop\Carts\ShoppingCart;
-use App\Shop\Couriers\Courier;
-use App\Shop\Customers\Customer;
-use App\Shop\OrderDetails\OrderProduct;
-use App\Shop\OrderDetails\Repositories\OrderProductRepository;
-use App\Shop\Orders\Order;
-use App\Shop\Orders\Repositories\OrderRepository;
-use App\Shop\OrderStatuses\OrderStatus;
-use App\Shop\Products\Product;
-use App\Shop\Products\Repositories\ProductRepository;
+use Laracommerce\Core\Addresses\Address;
+use Laracommerce\Core\Carts\Repositories\CartRepository;
+use Laracommerce\Core\Carts\ShoppingCart;
+use Laracommerce\Core\Couriers\Courier;
+use Laracommerce\Core\Customers\Customer;
+use Laracommerce\Core\OrderDetails\OrderProduct;
+use Laracommerce\Core\OrderDetails\Repositories\OrderProductRepository;
+use Laracommerce\Core\Orders\Order;
+use Laracommerce\Core\Orders\Repositories\OrderRepository;
+use Laracommerce\Core\OrderStatuses\OrderStatus;
+use Laracommerce\Core\Products\Product;
+use Laracommerce\Core\Products\Repositories\ProductRepository;
 use Tests\TestCase;
 
 class OrderDetailsUnitTest extends TestCase

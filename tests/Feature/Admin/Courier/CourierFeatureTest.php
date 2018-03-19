@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Shop\Couriers\Courier;
+use Laracommerce\Core\Couriers\Courier;
 use Tests\TestCase;
 
 class CourierFeatureTest extends TestCase

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Admin\Categories;
 
-use App\Shop\Categories\Category;
+use Laracommerce\Core\Categories\Category;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 

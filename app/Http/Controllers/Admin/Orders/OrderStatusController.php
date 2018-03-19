@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Orders;
 
-use App\Shop\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
-use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
-use App\Shop\OrderStatuses\Requests\CreateOrderStatusRequest;
-use App\Shop\OrderStatuses\Requests\UpdateOrderStatusRequest;
+use Laracommerce\Core\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
+use Laracommerce\Core\OrderStatuses\Repositories\OrderStatusRepository;
+use Laracommerce\Core\OrderStatuses\Requests\CreateOrderStatusRequest;
+use Laracommerce\Core\OrderStatuses\Requests\UpdateOrderStatusRequest;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

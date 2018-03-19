@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Attributes;
 
-use App\Shop\Attributes\Attribute;
-use App\Shop\Attributes\Exceptions\AttributeNotFoundException;
-use App\Shop\Attributes\Exceptions\CreateAttributeErrorException;
-use App\Shop\Attributes\Exceptions\UpdateAttributeErrorException;
-use App\Shop\Attributes\Repositories\AttributeRepository;
+use Laracommerce\Core\Attributes\Attribute;
+use Laracommerce\Core\Attributes\Exceptions\AttributeNotFoundException;
+use Laracommerce\Core\Attributes\Exceptions\CreateAttributeErrorException;
+use Laracommerce\Core\Attributes\Exceptions\UpdateAttributeErrorException;
+use Laracommerce\Core\Attributes\Repositories\AttributeRepository;
 use Tests\TestCase;
 
 class AttributeUnitTest extends TestCase

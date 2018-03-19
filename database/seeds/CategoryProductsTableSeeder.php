@@ -1,7 +1,7 @@
 <?php
 
-use App\Shop\Categories\Category;
-use App\Shop\Products\Product;
+use Laracommerce\Core\Categories\Category;
+use Laracommerce\Core\Products\Product;
 use Illuminate\Database\Seeder;
 
 class CategoryProductsTableSeeder extends Seeder

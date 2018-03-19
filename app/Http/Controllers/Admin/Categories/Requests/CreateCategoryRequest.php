@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Shop\Categories\Requests;
+namespace Laracommerce\Core\Categories\Requests;
 
-use App\Shop\Base\BaseFormRequest;
+use Laracommerce\Core\Base\BaseFormRequest;
 
 class CreateCategoryRequest extends BaseFormRequest
 {

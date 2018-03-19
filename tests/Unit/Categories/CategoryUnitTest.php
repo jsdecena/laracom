@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\Categories;
 
-use App\Shop\Categories\Category;
-use App\Shop\Categories\Exceptions\CategoryInvalidArgumentException;
-use App\Shop\Categories\Exceptions\CategoryNotFoundException;
-use App\Shop\Categories\Repositories\CategoryRepository;
+use Laracommerce\Core\Categories\Category;
+use Laracommerce\Core\Categories\Exceptions\CategoryInvalidArgumentException;
+use Laracommerce\Core\Categories\Exceptions\CategoryNotFoundException;
+use Laracommerce\Core\Categories\Repositories\CategoryRepository;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 

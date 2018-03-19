@@ -1,6 +1,6 @@
 <?php
 
-use App\Shop\Couriers\Courier;
+use Laracommerce\Core\Couriers\Courier;
 use Illuminate\Database\Seeder;
 
 class CourierTableSeeder extends Seeder

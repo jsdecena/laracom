@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Cities;
 
-use App\Shop\Cities\Repositories\CityRepository;
-use App\Shop\Cities\Repositories\Interfaces\CityRepositoryInterface;
-use App\Shop\Cities\Requests\UpdateCityRequest;
+use Laracommerce\Core\Cities\Repositories\CityRepository;
+use Laracommerce\Core\Cities\Repositories\Interfaces\CityRepositoryInterface;
+use Laracommerce\Core\Cities\Requests\UpdateCityRequest;
 use App\Http\Controllers\Controller;
 
 class CityController extends Controller

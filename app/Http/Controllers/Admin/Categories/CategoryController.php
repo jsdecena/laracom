@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Categories;
 
-use App\Shop\Categories\Repositories\CategoryRepository;
-use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
-use App\Shop\Categories\Requests\CreateCategoryRequest;
-use App\Shop\Categories\Requests\UpdateCategoryRequest;
+use Laracommerce\Core\Categories\Repositories\CategoryRepository;
+use Laracommerce\Core\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
+use Laracommerce\Core\Categories\Requests\CreateCategoryRequest;
+use Laracommerce\Core\Categories\Requests\UpdateCategoryRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

@@ -2,15 +2,15 @@
 
 namespace Tests\Unit\ProductAttributes;
 
-use App\Shop\Attributes\Attribute;
-use App\Shop\Attributes\Repositories\AttributeRepository;
-use App\Shop\AttributeValues\AttributeValue;
-use App\Shop\AttributeValues\Repositories\AttributeValueRepository;
-use App\Shop\ProductAttributes\Exceptions\ProductAttributeNotFoundException;
-use App\Shop\ProductAttributes\ProductAttribute;
-use App\Shop\ProductAttributes\Repositories\ProductAttributeRepository;
-use App\Shop\Products\Product;
-use App\Shop\Products\Repositories\ProductRepository;
+use Laracommerce\Core\Attributes\Attribute;
+use Laracommerce\Core\Attributes\Repositories\AttributeRepository;
+use Laracommerce\Core\AttributeValues\AttributeValue;
+use Laracommerce\Core\AttributeValues\Repositories\AttributeValueRepository;
+use Laracommerce\Core\ProductAttributes\Exceptions\ProductAttributeNotFoundException;
+use Laracommerce\Core\ProductAttributes\ProductAttribute;
+use Laracommerce\Core\ProductAttributes\Repositories\ProductAttributeRepository;
+use Laracommerce\Core\Products\Product;
+use Laracommerce\Core\Products\Repositories\ProductRepository;
 use Tests\TestCase;
 
 class ProductAttributeUnitTest extends TestCase

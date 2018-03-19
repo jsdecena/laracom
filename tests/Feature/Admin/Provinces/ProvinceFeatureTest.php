@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Admin\Provinces;
 
-use App\Shop\Countries\Country;
-use App\Shop\Provinces\Province;
+use Laracommerce\Core\Countries\Country;
+use Laracommerce\Core\Provinces\Province;
 use Tests\TestCase;
 
 class ProvinceFeatureTest extends TestCase

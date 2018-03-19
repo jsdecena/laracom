@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Admin\Attributes;
 
-use App\Shop\Attributes\Attribute;
-use App\Shop\AttributeValues\AttributeValue;
-use App\Shop\AttributeValues\Repositories\AttributeValueRepository;
-use App\Shop\ProductAttributes\ProductAttribute;
-use App\Shop\Products\Product;
-use App\Shop\Products\Repositories\ProductRepository;
+use Laracommerce\Core\Attributes\Attribute;
+use Laracommerce\Core\AttributeValues\AttributeValue;
+use Laracommerce\Core\AttributeValues\Repositories\AttributeValueRepository;
+use Laracommerce\Core\ProductAttributes\ProductAttribute;
+use Laracommerce\Core\Products\Product;
+use Laracommerce\Core\Products\Repositories\ProductRepository;
 use Tests\TestCase;
 
 class AttributesFeatureTest extends TestCase

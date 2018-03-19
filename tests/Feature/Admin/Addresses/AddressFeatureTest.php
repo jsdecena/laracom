@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Admin\Addresses;
 
-use App\Shop\Addresses\Address;
-use App\Shop\Customers\Customer;
-use App\Shop\Provinces\Province;
-use App\Shop\Cities\City;
-use App\Shop\Countries\Country;
+use Laracommerce\Core\Addresses\Address;
+use Laracommerce\Core\Customers\Customer;
+use Laracommerce\Core\Provinces\Province;
+use Laracommerce\Core\Cities\City;
+use Laracommerce\Core\Countries\Country;
 use Tests\TestCase;
 
 class AddressFeatureTest extends TestCase

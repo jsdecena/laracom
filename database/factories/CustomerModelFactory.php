@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Shop\Customers\Customer;
+use Laracommerce\Core\Customers\Customer;
 
 $factory->define(Customer::class, function (Faker\Generator $faker) {
     static $password;

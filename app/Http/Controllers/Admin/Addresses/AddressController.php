@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Admin\Addresses;
 
-use App\Shop\Addresses\Address;
-use App\Shop\Addresses\Repositories\AddressRepository;
-use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
-use App\Shop\Addresses\Requests\CreateAddressRequest;
-use App\Shop\Addresses\Requests\UpdateAddressRequest;
-use App\Shop\Addresses\Transformations\AddressTransformable;
-use App\Shop\Cities\City;
-use App\Shop\Cities\Repositories\Interfaces\CityRepositoryInterface;
-use App\Shop\Countries\Country;
-use App\Shop\Countries\Repositories\CountryRepository;
-use App\Shop\Countries\Repositories\Interfaces\CountryRepositoryInterface;
-use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
+use Laracommerce\Core\Addresses\Address;
+use Laracommerce\Core\Addresses\Repositories\AddressRepository;
+use Laracommerce\Core\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
+use Laracommerce\Core\Addresses\Requests\CreateAddressRequest;
+use Laracommerce\Core\Addresses\Requests\UpdateAddressRequest;
+use Laracommerce\Core\Addresses\Transformations\AddressTransformable;
+use Laracommerce\Core\Cities\City;
+use Laracommerce\Core\Cities\Repositories\Interfaces\CityRepositoryInterface;
+use Laracommerce\Core\Countries\Country;
+use Laracommerce\Core\Countries\Repositories\CountryRepository;
+use Laracommerce\Core\Countries\Repositories\Interfaces\CountryRepositoryInterface;
+use Laracommerce\Core\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Shop\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
+use Laracommerce\Core\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
 
 class AddressController extends Controller
 {

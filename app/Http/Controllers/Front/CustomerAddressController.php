@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
-use App\Shop\Addresses\Requests\CreateAddressRequest;
-use App\Shop\Cities\Repositories\Interfaces\CityRepositoryInterface;
-use App\Shop\Countries\Repositories\Interfaces\CountryRepositoryInterface;
-use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
+use Laracommerce\Core\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
+use Laracommerce\Core\Addresses\Requests\CreateAddressRequest;
+use Laracommerce\Core\Cities\Repositories\Interfaces\CityRepositoryInterface;
+use Laracommerce\Core\Countries\Repositories\Interfaces\CountryRepositoryInterface;
+use Laracommerce\Core\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Http\Controllers\Controller;
 
 class CustomerAddressController extends Controller

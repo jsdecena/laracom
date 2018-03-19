@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Provinces;
 
-use App\Shop\Countries\Country;
-use App\Shop\Provinces\Exceptions\ProvinceNotFoundException;
-use App\Shop\Provinces\Province;
-use App\Shop\Provinces\Repositories\ProvinceRepository;
-use App\Shop\Cities\City;
+use Laracommerce\Core\Countries\Country;
+use Laracommerce\Core\Provinces\Exceptions\ProvinceNotFoundException;
+use Laracommerce\Core\Provinces\Province;
+use Laracommerce\Core\Provinces\Repositories\ProvinceRepository;
+use Laracommerce\Core\Cities\City;
 use Tests\TestCase;
 
 class ProvincesUnitTest extends TestCase

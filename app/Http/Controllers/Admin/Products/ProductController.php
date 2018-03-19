@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Admin\Products;
 
-use App\Shop\Attributes\Repositories\AttributeRepositoryInterface;
-use App\Shop\AttributeValues\Repositories\AttributeValueRepositoryInterface;
-use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
-use App\Shop\ProductAttributes\ProductAttribute;
-use App\Shop\Products\Product;
-use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Shop\Products\Repositories\ProductRepository;
-use App\Shop\Products\Requests\CreateAttributeCombination;
-use App\Shop\Products\Requests\CreateProductRequest;
-use App\Shop\Products\Requests\UpdateProductRequest;
+use Laracommerce\Core\Attributes\Repositories\AttributeRepositoryInterface;
+use Laracommerce\Core\AttributeValues\Repositories\AttributeValueRepositoryInterface;
+use Laracommerce\Core\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
+use Laracommerce\Core\ProductAttributes\ProductAttribute;
+use Laracommerce\Core\Products\Product;
+use Laracommerce\Core\Products\Repositories\Interfaces\ProductRepositoryInterface;
+use Laracommerce\Core\Products\Repositories\ProductRepository;
+use Laracommerce\Core\Products\Requests\CreateAttributeCombination;
+use Laracommerce\Core\Products\Requests\CreateProductRequest;
+use Laracommerce\Core\Products\Requests\UpdateProductRequest;
 use App\Http\Controllers\Controller;
-use App\Shop\Products\Transformations\ProductTransformable;
-use App\Shop\Tools\UploadableTrait;
+use Laracommerce\Core\Products\Transformations\ProductTransformable;
+use Laracommerce\Core\Tools\UploadableTrait;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;

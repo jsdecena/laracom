@@ -1,0 +1,47 @@
+{
+    "name": "laracommerce/core",
+    "description": "Ecommerce for Laravel",
+    "keywords": [
+        "ecommerce",
+        "shopping-cart",
+        "laravel",
+        "package"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Laracommerce\\Core\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Laracommerce\\Core\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=7.1.3",
+        "illuminate/database": "~5.5.0|~5.6.0",
+        "illuminate/http": "~5.5.0|~5.6.0",
+        "illuminate/notifications": "~5.5.0|~5.6.0",
+        "illuminate/pagination": "~5.5.0|~5.6.0",
+        "illuminate/support": "~5.5.0|~5.6.0",
+        "illuminate/validation": "~5.5.0|~5.6.0"
+    },
+    "require-dev": {
+        "fzaninotto/faker": "~1.4",
+        "mockery/mockery": "~1.0",
+        "phpunit/phpunit": "~7.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Laracommerce\\Core\\Providers\\GlobalTemplateServiceProvider",
+                "Laracommerce\\Core\\Providers\\RepositoryServiceProvider"
+            ],
+            "aliases": {}
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

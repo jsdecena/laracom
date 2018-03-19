@@ -1,7 +1,7 @@
 <?php
 
-use App\Shop\Addresses\Address;
-use App\Shop\Customers\Customer;
+use Laracommerce\Core\Addresses\Address;
+use Laracommerce\Core\Customers\Customer;
 use Illuminate\Database\Seeder;
 
 class CustomerAddressesTableSeeder extends Seeder

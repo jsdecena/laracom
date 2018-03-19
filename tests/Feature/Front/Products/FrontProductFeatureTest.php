@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Front\Products;
 
-use App\Shop\Products\Product;
+use Laracommerce\Core\Products\Product;
 use Tests\TestCase;
 
 class FrontProductFeatureTest extends TestCase

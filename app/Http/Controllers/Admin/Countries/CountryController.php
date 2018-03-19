@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Countries;
 
-use App\Shop\Countries\Repositories\CountryRepository;
-use App\Shop\Countries\Repositories\Interfaces\CountryRepositoryInterface;
-use App\Shop\Countries\Requests\UpdateCountryRequest;
+use Laracommerce\Core\Countries\Repositories\CountryRepository;
+use Laracommerce\Core\Countries\Repositories\Interfaces\CountryRepositoryInterface;
+use Laracommerce\Core\Countries\Requests\UpdateCountryRequest;
 use App\Http\Controllers\Controller;
 
 class CountryController extends Controller

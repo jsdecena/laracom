@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => App\Shop\Customers\Customer::class,
+        'model' => Laracommerce\Core\Customers\Customer::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

@@ -1,6 +1,6 @@
 <?php
 
-use App\Shop\Products\Product;
+use Laracommerce\Core\Products\Product;
 use Illuminate\Database\Seeder;
 
 class ProductsTableSeeder extends Seeder

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Front\Accounts;
 
-use App\Shop\Customers\Customer;
+use Laracommerce\Core\Customers\Customer;
 use Illuminate\Auth\Events\Lockout;
 use Tests\TestCase;
 

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin\Attributes;
 
 use App\Http\Controllers\Controller;
-use App\Shop\Attributes\Exceptions\AttributeNotFoundException;
-use App\Shop\Attributes\Exceptions\CreateAttributeErrorException;
-use App\Shop\Attributes\Exceptions\UpdateAttributeErrorException;
-use App\Shop\Attributes\Repositories\AttributeRepository;
-use App\Shop\Attributes\Repositories\AttributeRepositoryInterface;
-use App\Shop\Attributes\Requests\CreateAttributeRequest;
-use App\Shop\Attributes\Requests\UpdateAttributeRequest;
+use Laracommerce\Core\Attributes\Exceptions\AttributeNotFoundException;
+use Laracommerce\Core\Attributes\Exceptions\CreateAttributeErrorException;
+use Laracommerce\Core\Attributes\Exceptions\UpdateAttributeErrorException;
+use Laracommerce\Core\Attributes\Repositories\AttributeRepository;
+use Laracommerce\Core\Attributes\Repositories\AttributeRepositoryInterface;
+use Laracommerce\Core\Attributes\Requests\CreateAttributeRequest;
+use Laracommerce\Core\Attributes\Requests\UpdateAttributeRequest;
 
 class AttributeController extends Controller
 {

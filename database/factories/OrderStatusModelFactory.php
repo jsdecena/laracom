@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Shop\OrderStatuses\OrderStatus;
+use Laracommerce\Core\OrderStatuses\OrderStatus;
 
 $factory->define(OrderStatus::class, function (Faker\Generator $faker) {
 

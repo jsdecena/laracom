@@ -11,7 +11,7 @@
 |
 */
 
-use App\Shop\Attributes\Attribute;
+use Laracommerce\Core\Attributes\Attribute;
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(Attribute::class, function (Faker\Generator $faker) {
     return [

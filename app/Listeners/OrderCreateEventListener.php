@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\OrderCreateEvent;
-use App\Shop\Orders\Repositories\OrderRepository;
+use Laracommerce\Core\Orders\Repositories\OrderRepository;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 

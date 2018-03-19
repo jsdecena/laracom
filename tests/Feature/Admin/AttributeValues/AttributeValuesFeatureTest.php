@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Admin\AttributeValues;
 
-use App\Shop\Attributes\Attribute;
+use Laracommerce\Core\Attributes\Attribute;
 use Tests\TestCase;
 
 class AttributeValuesFeatureTest extends TestCase

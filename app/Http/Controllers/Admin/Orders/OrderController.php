@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Admin\Orders;
 
-use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
-use App\Shop\Addresses\Transformations\AddressTransformable;
-use App\Shop\Couriers\Courier;
-use App\Shop\Couriers\Repositories\CourierRepository;
-use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
-use App\Shop\Customers\Customer;
-use App\Shop\Customers\Repositories\CustomerRepository;
-use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
-use App\Shop\Orders\Order;
-use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
-use App\Shop\OrderStatuses\OrderStatus;
-use App\Shop\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
-use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
+use Laracommerce\Core\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
+use Laracommerce\Core\Addresses\Transformations\AddressTransformable;
+use Laracommerce\Core\Couriers\Courier;
+use Laracommerce\Core\Couriers\Repositories\CourierRepository;
+use Laracommerce\Core\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
+use Laracommerce\Core\Customers\Customer;
+use Laracommerce\Core\Customers\Repositories\CustomerRepository;
+use Laracommerce\Core\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
+use Laracommerce\Core\Orders\Order;
+use Laracommerce\Core\Orders\Repositories\Interfaces\OrderRepositoryInterface;
+use Laracommerce\Core\OrderStatuses\OrderStatus;
+use Laracommerce\Core\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
+use Laracommerce\Core\OrderStatuses\Repositories\OrderStatusRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
 

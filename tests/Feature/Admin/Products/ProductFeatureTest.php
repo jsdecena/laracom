@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Shop\Categories\Category;
-use App\Shop\Products\Product;
-use App\Shop\Products\Repositories\ProductRepository;
+use Laracommerce\Core\Categories\Category;
+use Laracommerce\Core\Products\Product;
+use Laracommerce\Core\Products\Repositories\ProductRepository;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 

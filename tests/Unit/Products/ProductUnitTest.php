@@ -2,13 +2,13 @@
 
 namespace Tests\Unit\Products;
 
-use App\Shop\Categories\Category;
-use App\Shop\ProductImages\ProductImage;
-use App\Shop\ProductImages\ProductImageRepository;
-use App\Shop\Products\Exceptions\ProductInvalidArgumentException;
-use App\Shop\Products\Exceptions\ProductNotFoundException;
-use App\Shop\Products\Product;
-use App\Shop\Products\Repositories\ProductRepository;
+use Laracommerce\Core\Categories\Category;
+use Laracommerce\Core\ProductImages\ProductImage;
+use Laracommerce\Core\ProductImages\ProductImageRepository;
+use Laracommerce\Core\Products\Exceptions\ProductInvalidArgumentException;
+use Laracommerce\Core\Products\Exceptions\ProductNotFoundException;
+use Laracommerce\Core\Products\Product;
+use Laracommerce\Core\Products\Repositories\ProductRepository;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;

@@ -2,10 +2,10 @@
 
 namespace Test\Unit\Checkout;
 
-use App\Shop\Checkout\CheckoutRepository;
-use App\Shop\Orders\Order;
-use App\Shop\Orders\Repositories\OrderRepository;
-use App\Shop\OrderStatuses\OrderStatus;
+use Laracommerce\Core\Checkout\CheckoutRepository;
+use Laracommerce\Core\Orders\Order;
+use Laracommerce\Core\Orders\Repositories\OrderRepository;
+use Laracommerce\Core\OrderStatuses\OrderStatus;
 use Tests\TestCase;
 
 class CheckoutUnitTest extends TestCase

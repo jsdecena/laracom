@@ -1,6 +1,6 @@
 <?php
 
-use App\Shop\Categories\Category;
+use Laracommerce\Core\Categories\Category;
 use Illuminate\Database\Seeder;
 
 class CategoriesTableSeeder extends Seeder

@@ -77,12 +77,12 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Shop\Customers\Customer::class,
+            'model' => Laracommerce\Core\Customers\Customer::class,
         ],
 
          'admin' => [
              'driver' => 'eloquent',
-             'model' => App\Shop\Employees\Employee::class,
+             'model' => Laracommerce\Core\Employees\Employee::class,
          ],
     ],
 

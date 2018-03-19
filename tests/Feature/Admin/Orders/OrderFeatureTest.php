@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Admin\Orders;
 
-use App\Shop\Addresses\Address;
-use App\Shop\Cities\City;
-use App\Shop\Couriers\Courier;
-use App\Shop\Customers\Customer;
-use App\Shop\Orders\Order;
+use Laracommerce\Core\Addresses\Address;
+use Laracommerce\Core\Cities\City;
+use Laracommerce\Core\Couriers\Courier;
+use Laracommerce\Core\Customers\Customer;
+use Laracommerce\Core\Orders\Order;
 use Tests\TestCase;
 
 class OrderFeatureTest extends TestCase

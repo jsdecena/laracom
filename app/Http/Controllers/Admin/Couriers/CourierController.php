@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Couriers;
 
-use App\Shop\Couriers\Repositories\CourierRepository;
-use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
-use App\Shop\Couriers\Requests\CreateCourierRequest;
-use App\Shop\Couriers\Requests\UpdateCourierRequest;
+use Laracommerce\Core\Couriers\Repositories\CourierRepository;
+use Laracommerce\Core\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
+use Laracommerce\Core\Couriers\Requests\CreateCourierRequest;
+use Laracommerce\Core\Couriers\Requests\UpdateCourierRequest;
 use App\Http\Controllers\Controller;
 
 class CourierController extends Controller

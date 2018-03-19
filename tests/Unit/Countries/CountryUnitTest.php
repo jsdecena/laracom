@@ -2,12 +2,12 @@
 
 namespace Tests\Unit\Countries;
 
-use App\Shop\Countries\Exceptions\CountryInvalidArgumentException;
-use App\Shop\Countries\Exceptions\CountryNotFoundException;
-use App\Shop\Countries\Repositories\CountryRepository;
-use App\Shop\Provinces\Province;
-use App\Shop\Provinces\Repositories\ProvinceRepository;
-use App\Shop\Countries\Country;
+use Laracommerce\Core\Countries\Exceptions\CountryInvalidArgumentException;
+use Laracommerce\Core\Countries\Exceptions\CountryNotFoundException;
+use Laracommerce\Core\Countries\Repositories\CountryRepository;
+use Laracommerce\Core\Provinces\Province;
+use Laracommerce\Core\Provinces\Repositories\ProvinceRepository;
+use Laracommerce\Core\Countries\Country;
 use Tests\TestCase;
 
 class CountryUnitTest extends TestCase

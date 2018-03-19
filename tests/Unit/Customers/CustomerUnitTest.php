@@ -2,14 +2,14 @@
 
 namespace Tests\Unit\Customers;
 
-use App\Shop\Addresses\Address;
-use App\Shop\Customers\Customer;
-use App\Shop\Customers\Exceptions\CreateCustomerInvalidArgumentException;
-use App\Shop\Customers\Exceptions\CustomerNotFoundException;
-use App\Shop\Customers\Exceptions\UpdateCustomerInvalidArgumentException;
-use App\Shop\Customers\Repositories\CustomerRepository;
-use App\Shop\Customers\Transformations\CustomerTransformable;
-use App\Shop\Orders\Order;
+use Laracommerce\Core\Addresses\Address;
+use Laracommerce\Core\Customers\Customer;
+use Laracommerce\Core\Customers\Exceptions\CreateCustomerInvalidArgumentException;
+use Laracommerce\Core\Customers\Exceptions\CustomerNotFoundException;
+use Laracommerce\Core\Customers\Exceptions\UpdateCustomerInvalidArgumentException;
+use Laracommerce\Core\Customers\Repositories\CustomerRepository;
+use Laracommerce\Core\Customers\Transformations\CustomerTransformable;
+use Laracommerce\Core\Orders\Order;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;

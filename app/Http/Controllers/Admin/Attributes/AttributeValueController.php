@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin\Attributes;
 
 use App\Http\Controllers\Controller;
-use App\Shop\Attributes\Repositories\AttributeRepositoryInterface;
-use App\Shop\AttributeValues\AttributeValue;
-use App\Shop\AttributeValues\Repositories\AttributeValueRepository;
-use App\Shop\AttributeValues\Repositories\AttributeValueRepositoryInterface;
-use App\Shop\AttributeValues\Requests\CreateAttributeValueRequest;
+use Laracommerce\Core\Attributes\Repositories\AttributeRepositoryInterface;
+use Laracommerce\Core\AttributeValues\AttributeValue;
+use Laracommerce\Core\AttributeValues\Repositories\AttributeValueRepository;
+use Laracommerce\Core\AttributeValues\Repositories\AttributeValueRepositoryInterface;
+use Laracommerce\Core\AttributeValues\Requests\CreateAttributeValueRequest;
 
 class AttributeValueController extends Controller
 {

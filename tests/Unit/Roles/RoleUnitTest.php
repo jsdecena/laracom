@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Roles;
 
-use App\Shop\Roles\Exceptions\CreateRoleErrorException;
-use App\Shop\Roles\Repositories\RoleRepository;
-use App\Shop\Roles\Role;
+use Laracommerce\Core\Roles\Exceptions\CreateRoleErrorException;
+use Laracommerce\Core\Roles\Repositories\RoleRepository;
+use Laracommerce\Core\Roles\Role;
 use Tests\TestCase;
 
 class RoleUnitTest extends TestCase

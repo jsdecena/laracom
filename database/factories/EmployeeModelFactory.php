@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Shop\Employees\Employee;
+use Laracommerce\Core\Employees\Employee;
 
 $factory->define(Employee::class, function (Faker\Generator $faker) {
     static $password;

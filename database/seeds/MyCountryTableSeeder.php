@@ -1,6 +1,6 @@
 <?php
 
-use App\Shop\Countries\Country;
+use Laracommerce\Core\Countries\Country;
 use Illuminate\Database\Seeder;
 
 class MyCountryTableSeeder extends Seeder

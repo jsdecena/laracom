@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Cart;
 
-use App\Shop\Carts\Exceptions\ProductInCartNotFoundException;
-use App\Shop\Carts\Repositories\CartRepository;
-use App\Shop\Carts\ShoppingCart;
+use Laracommerce\Core\Carts\Exceptions\ProductInCartNotFoundException;
+use Laracommerce\Core\Carts\Repositories\CartRepository;
+use Laracommerce\Core\Carts\ShoppingCart;
 use Gloudemans\Shoppingcart\CartItem;
 use Gloudemans\Shoppingcart\Exceptions\InvalidRowIDException;
 use Tests\TestCase;

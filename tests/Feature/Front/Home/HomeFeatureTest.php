@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Front\Home;
 
-use App\Shop\Categories\Category;
-use App\Shop\Products\Product;
+use Laracommerce\Core\Categories\Category;
+use Laracommerce\Core\Products\Product;
 use Tests\TestCase;
 
 class HomeFeatureTest extends TestCase

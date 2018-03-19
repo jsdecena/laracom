@@ -1,6 +1,6 @@
 <?php
 
-use App\Shop\OrderStatuses\OrderStatus;
+use Laracommerce\Core\OrderStatuses\OrderStatus;
 use Illuminate\Database\Seeder;
 
 class OrderStatusTableSeeder extends Seeder

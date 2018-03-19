@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Shop\Employees\Employee;
-use App\Shop\Employees\Repositories\EmployeeRepository;
-use App\Shop\Roles\Repositories\RoleRepository;
-use App\Shop\Roles\Role;
+use Laracommerce\Core\Employees\Employee;
+use Laracommerce\Core\Employees\Repositories\EmployeeRepository;
+use Laracommerce\Core\Roles\Repositories\RoleRepository;
+use Laracommerce\Core\Roles\Role;
 use Tests\TestCase;
 
 class CreateProductPageTest extends TestCase

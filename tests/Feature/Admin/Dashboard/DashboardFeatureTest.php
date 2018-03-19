@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Admin\Dashboard;
 
-use App\Shop\Employees\Employee;
+use Laracommerce\Core\Employees\Employee;
 use Tests\TestCase;
 
 class DashboardFeatureTest extends TestCase

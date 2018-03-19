@@ -2,18 +2,18 @@
 
 namespace Tests\Unit\Orders;
 
-use App\Shop\Addresses\Address;
-use App\Shop\Couriers\Courier;
-use App\Shop\Customers\Customer;
+use Laracommerce\Core\Addresses\Address;
+use Laracommerce\Core\Couriers\Courier;
+use Laracommerce\Core\Customers\Customer;
 use App\Events\OrderCreateEvent;
 use App\Mail\sendEmailNotificationToAdminMailable;
 use App\Mail\SendOrderToCustomerMailable;
-use App\Shop\Orders\Exceptions\OrderInvalidArgumentException;
-use App\Shop\Orders\Exceptions\OrderNotFoundException;
-use App\Shop\Orders\Order;
-use App\Shop\Orders\Repositories\OrderRepository;
-use App\Shop\OrderStatuses\OrderStatus;
-use App\Shop\Products\Product;
+use Laracommerce\Core\Orders\Exceptions\OrderInvalidArgumentException;
+use Laracommerce\Core\Orders\Exceptions\OrderNotFoundException;
+use Laracommerce\Core\Orders\Order;
+use Laracommerce\Core\Orders\Repositories\OrderRepository;
+use Laracommerce\Core\OrderStatuses\OrderStatus;
+use Laracommerce\Core\Products\Product;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 

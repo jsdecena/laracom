@@ -2,8 +2,8 @@
 
 namespace App\Mail;
 
-use App\Shop\Addresses\Transformations\AddressTransformable;
-use App\Shop\Orders\Order;
+use Laracommerce\Core\Addresses\Transformations\AddressTransformable;
+use Laracommerce\Core\Orders\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;

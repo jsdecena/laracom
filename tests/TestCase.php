@@ -2,19 +2,19 @@
 
 namespace Tests;
 
-use App\Shop\Addresses\Address;
-use App\Shop\Addresses\Repositories\AddressRepository;
-use App\Shop\Categories\Category;
-use App\Shop\Couriers\Courier;
-use App\Shop\Couriers\Repositories\CourierRepository;
-use App\Shop\Employees\Employee;
-use App\Shop\Customers\Customer;
-use App\Shop\Employees\Repositories\EmployeeRepository;
-use App\Shop\OrderStatuses\OrderStatus;
-use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
-use App\Shop\Products\Product;
-use App\Shop\Roles\Repositories\RoleRepository;
-use App\Shop\Roles\Role;
+use Laracommerce\Core\Addresses\Address;
+use Laracommerce\Core\Addresses\Repositories\AddressRepository;
+use Laracommerce\Core\Categories\Category;
+use Laracommerce\Core\Couriers\Courier;
+use Laracommerce\Core\Couriers\Repositories\CourierRepository;
+use Laracommerce\Core\Employees\Employee;
+use Laracommerce\Core\Customers\Customer;
+use Laracommerce\Core\Employees\Repositories\EmployeeRepository;
+use Laracommerce\Core\OrderStatuses\OrderStatus;
+use Laracommerce\Core\OrderStatuses\Repositories\OrderStatusRepository;
+use Laracommerce\Core\Products\Product;
+use Laracommerce\Core\Roles\Repositories\RoleRepository;
+use Laracommerce\Core\Roles\Role;
 use Gloudemans\Shoppingcart\Cart;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

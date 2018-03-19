@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Shop\Categories\Repositories\CategoryRepository;
-use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
+use Laracommerce\Core\Categories\Repositories\CategoryRepository;
+use Laracommerce\Core\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
@@ -19,7 +19,7 @@ class CategoryController extends Controller
      * Find the category via the slug
      *
      * @param string $slug
-     * @return \App\Shop\Categories\Category
+     * @return \Laracommerce\Core\Categories\Category
      */
     public function getCategory(string $slug)
     {

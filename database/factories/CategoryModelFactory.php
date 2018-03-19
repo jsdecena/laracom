@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Shop\Categories\Category;
+use Laracommerce\Core\Categories\Category;
 use Illuminate\Http\UploadedFile;
 
 $factory->define(Category::class, function (Faker\Generator $faker) {

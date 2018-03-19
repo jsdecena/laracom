@@ -12,8 +12,8 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Shop\Provinces\Province;
-use App\Shop\Countries\Country;
+use Laracommerce\Core\Provinces\Province;
+use Laracommerce\Core\Countries\Country;
 
 $factory->define(Province::class, function (Faker\Generator $faker) {
 
