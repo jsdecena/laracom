@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Unit\Provinces;
+namespace Laracommerce\Core\Tests\Unit\Provinces;
 
 use Laracommerce\Core\Countries\Country;
 use Laracommerce\Core\Provinces\Exceptions\ProvinceNotFoundException;
 use Laracommerce\Core\Provinces\Province;
 use Laracommerce\Core\Provinces\Repositories\ProvinceRepository;
 use Laracommerce\Core\Cities\City;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class ProvincesUnitTest extends TestCase
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Unit\OrderStatuses;
+namespace Laracommerce\Core\Tests\Unit\OrderStatuses;
 
 use Laracommerce\Core\Orders\Order;
 use Laracommerce\Core\OrderStatuses\Exceptions\OrderStatusInvalidArgumentException;
 use Laracommerce\Core\OrderStatuses\Exceptions\OrderStatusNotFoundException;
 use Laracommerce\Core\OrderStatuses\OrderStatus;
 use Laracommerce\Core\OrderStatuses\Repositories\OrderStatusRepository;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class OrderStatusUnitTest extends TestCase
 {

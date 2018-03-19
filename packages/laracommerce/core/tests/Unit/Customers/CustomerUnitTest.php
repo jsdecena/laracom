@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Customers;
+namespace Laracommerce\Core\Tests\Unit\Customers;
 
 use Laracommerce\Core\Addresses\Address;
 use Laracommerce\Core\Customers\Customer;
@@ -12,7 +12,7 @@ use Laracommerce\Core\Customers\Transformations\CustomerTransformable;
 use Laracommerce\Core\Orders\Order;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class CustomerUnitTest extends TestCase
 {

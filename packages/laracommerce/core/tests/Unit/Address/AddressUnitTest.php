@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Address;
+namespace Laracommerce\Core\Tests\Unit\Address;
 
 use Laracommerce\Core\Addresses\Address;
 use Laracommerce\Core\Addresses\Exceptions\AddressInvalidArgumentException;
@@ -13,7 +13,7 @@ use Laracommerce\Core\Orders\Order;
 use Laracommerce\Core\Provinces\Province;
 use Laracommerce\Core\Cities\City;
 use Laracommerce\Core\Countries\Country;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class AddressUnitTest extends TestCase
 {

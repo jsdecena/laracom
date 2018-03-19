@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Products;
+namespace Laracommerce\Core\Tests\Unit\Products;
 
 use Laracommerce\Core\Categories\Category;
 use Laracommerce\Core\ProductImages\ProductImage;
@@ -11,7 +11,7 @@ use Laracommerce\Core\Products\Product;
 use Laracommerce\Core\Products\Repositories\ProductRepository;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class ProductUnitTest extends TestCase
 {

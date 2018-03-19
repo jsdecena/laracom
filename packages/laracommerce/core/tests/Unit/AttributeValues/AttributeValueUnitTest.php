@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit\AttributeValues;
+namespace Laracommerce\Core\Tests\Unit\AttributeValues;
 
 use Laracommerce\Core\Attributes\Attribute;
 use Laracommerce\Core\AttributeValues\AttributeValue;
 use Laracommerce\Core\AttributeValues\Repositories\AttributeValueRepository;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class AttributeValueUnitTest extends TestCase
 {

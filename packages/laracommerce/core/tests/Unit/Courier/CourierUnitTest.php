@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Unit\Courier;
+namespace Laracommerce\Core\Tests\Unit\Courier;
 
 use Laracommerce\Core\Couriers\Courier;
 use Laracommerce\Core\Couriers\Exceptions\CourierInvalidArgumentException;
 use Laracommerce\Core\Couriers\Exceptions\CourierNotFoundException;
 use Laracommerce\Core\Couriers\Repositories\CourierRepository;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class CourierUnitTest extends TestCase
 {

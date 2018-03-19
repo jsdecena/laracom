@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\OrderDetails;
+namespace Laracommerce\Core\Tests\Unit\OrderDetails;
 
 use Laracommerce\Core\Addresses\Address;
 use Laracommerce\Core\Carts\Repositories\CartRepository;
@@ -14,7 +14,7 @@ use Laracommerce\Core\Orders\Repositories\OrderRepository;
 use Laracommerce\Core\OrderStatuses\OrderStatus;
 use Laracommerce\Core\Products\Product;
 use Laracommerce\Core\Products\Repositories\ProductRepository;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class OrderDetailsUnitTest extends TestCase
 {

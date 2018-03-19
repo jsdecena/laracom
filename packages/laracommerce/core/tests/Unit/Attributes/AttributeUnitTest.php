@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Unit\Attributes;
+namespace Laracommerce\Core\Tests\Unit\Attributes;
 
 use Laracommerce\Core\Attributes\Attribute;
 use Laracommerce\Core\Attributes\Exceptions\AttributeNotFoundException;
 use Laracommerce\Core\Attributes\Exceptions\CreateAttributeErrorException;
 use Laracommerce\Core\Attributes\Exceptions\UpdateAttributeErrorException;
 use Laracommerce\Core\Attributes\Repositories\AttributeRepository;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class AttributeUnitTest extends TestCase
 {

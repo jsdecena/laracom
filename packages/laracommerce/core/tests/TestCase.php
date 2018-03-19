@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Laracommerce\Core\Tests;
 
 use Laracommerce\Core\Addresses\Address;
 use Laracommerce\Core\Addresses\Repositories\AddressRepository;
@@ -13,17 +13,16 @@ use Laracommerce\Core\Employees\Repositories\EmployeeRepository;
 use Laracommerce\Core\OrderStatuses\OrderStatus;
 use Laracommerce\Core\OrderStatuses\Repositories\OrderStatusRepository;
 use Laracommerce\Core\Products\Product;
+use Laracommerce\Core\Providers\GlobalTemplateServiceProvider;
+use Laracommerce\Core\Providers\RepositoryServiceProvider;
 use Laracommerce\Core\Roles\Repositories\RoleRepository;
 use Laracommerce\Core\Roles\Role;
 use Gloudemans\Shoppingcart\Cart;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Orchestra\Testbench\TestCase as Orchestra;
 use Faker\Factory as Faker;
 
-abstract class TestCase extends BaseTestCase
+abstract class TestCase extends Orchestra
 {
-    use CreatesApplication, DatabaseMigrations, DatabaseTransactions;
 
     protected $faker;
     protected $employee;
@@ -44,6 +43,9 @@ abstract class TestCase extends BaseTestCase
     public function setUp()
     {
         parent::setUp();
+
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->withFactories(__DIR__.'/../database/factories');
 
         $this->faker = Faker::create();
         $this->employee = factory(Employee::class)->create();
@@ -86,9 +88,18 @@ abstract class TestCase extends BaseTestCase
         $this->cart = new Cart($session, $events);
     }
 
-    public function tearDown()
+    /**
+     * @param \Illuminate\Foundation\Application $app
+     *
+     * @return array
+     */
+    protected function getPackageProviders($app)
     {
-        $this->artisan('migrate:reset');
-        parent::tearDown();
+        return [
+            GlobalTemplateServiceProvider::class,
+            RepositoryServiceProvider::class
+        ];
     }
+
+
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Unit\Categories;
+namespace Laracommerce\Core\Tests\Unit\Categories;
 
 use Laracommerce\Core\Categories\Category;
 use Laracommerce\Core\Categories\Repositories\CategoryRepository;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class CategoryProductsUnitTest extends TestCase
 {

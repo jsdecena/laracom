@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\ProductAttributes;
+namespace Laracommerce\Core\Tests\Unit\ProductAttributes;
 
 use Laracommerce\Core\Attributes\Attribute;
 use Laracommerce\Core\Attributes\Repositories\AttributeRepository;
@@ -11,7 +11,7 @@ use Laracommerce\Core\ProductAttributes\ProductAttribute;
 use Laracommerce\Core\ProductAttributes\Repositories\ProductAttributeRepository;
 use Laracommerce\Core\Products\Product;
 use Laracommerce\Core\Products\Repositories\ProductRepository;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class ProductAttributeUnitTest extends TestCase
 {

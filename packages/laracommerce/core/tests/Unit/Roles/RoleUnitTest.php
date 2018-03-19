@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit\Roles;
+namespace Laracommerce\Core\Tests\Unit\Roles;
 
 use Laracommerce\Core\Roles\Exceptions\CreateRoleErrorException;
 use Laracommerce\Core\Roles\Repositories\RoleRepository;
 use Laracommerce\Core\Roles\Role;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class RoleUnitTest extends TestCase
 {

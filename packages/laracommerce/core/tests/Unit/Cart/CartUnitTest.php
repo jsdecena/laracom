@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Unit\Cart;
+namespace Laracommerce\Core\Tests\Unit\Cart;
 
 use Laracommerce\Core\Carts\Exceptions\ProductInCartNotFoundException;
 use Laracommerce\Core\Carts\Repositories\CartRepository;
 use Laracommerce\Core\Carts\ShoppingCart;
 use Gloudemans\Shoppingcart\CartItem;
 use Gloudemans\Shoppingcart\Exceptions\InvalidRowIDException;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class CartUnitTest extends TestCase
 {

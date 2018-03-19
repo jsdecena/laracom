@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Countries;
+namespace Laracommerce\Core\Tests\Unit\Countries;
 
 use Laracommerce\Core\Countries\Exceptions\CountryInvalidArgumentException;
 use Laracommerce\Core\Countries\Exceptions\CountryNotFoundException;
@@ -8,7 +8,7 @@ use Laracommerce\Core\Countries\Repositories\CountryRepository;
 use Laracommerce\Core\Provinces\Province;
 use Laracommerce\Core\Provinces\Repositories\ProvinceRepository;
 use Laracommerce\Core\Countries\Country;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class CountryUnitTest extends TestCase
 {

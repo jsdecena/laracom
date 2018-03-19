@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Unit\Employees;
+namespace Laracommerce\Core\Tests\Unit\Employees;
 
 use Laracommerce\Core\Employees\Employee;
 use Laracommerce\Core\Employees\Repositories\EmployeeRepository;
 use Laracommerce\Core\Roles\Repositories\RoleRepository;
 use Laracommerce\Core\Roles\Role;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class EmployeeUnitTest extends TestCase
 {

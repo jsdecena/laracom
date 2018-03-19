@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Unit\Categories;
+namespace Laracommerce\Core\Tests\Unit\Categories;
 
 use Laracommerce\Core\Categories\Category;
 use Laracommerce\Core\Categories\Exceptions\CategoryInvalidArgumentException;
 use Laracommerce\Core\Categories\Exceptions\CategoryNotFoundException;
 use Laracommerce\Core\Categories\Repositories\CategoryRepository;
 use Illuminate\Http\UploadedFile;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class CategoryUnitTest extends TestCase
 {

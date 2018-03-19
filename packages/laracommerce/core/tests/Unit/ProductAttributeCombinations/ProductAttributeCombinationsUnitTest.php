@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\ProductAttributeCombinations;
+namespace Laracommerce\Core\Tests\Unit\ProductAttributeCombinations;
 
 use Laracommerce\Core\Attributes\Attribute;
 use Laracommerce\Core\AttributeValues\AttributeValue;
@@ -8,7 +8,7 @@ use Laracommerce\Core\AttributeValues\Repositories\AttributeValueRepository;
 use Laracommerce\Core\ProductAttributes\ProductAttribute;
 use Laracommerce\Core\Products\Product;
 use Laracommerce\Core\Products\Repositories\ProductRepository;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class ProductAttributeCombinationsUnitTest extends TestCase
 {

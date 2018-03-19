@@ -6,7 +6,7 @@ use Laracommerce\Core\Checkout\CheckoutRepository;
 use Laracommerce\Core\Orders\Order;
 use Laracommerce\Core\Orders\Repositories\OrderRepository;
 use Laracommerce\Core\OrderStatuses\OrderStatus;
-use Tests\TestCase;
+use Laracommerce\Core\Tests\TestCase;
 
 class CheckoutUnitTest extends TestCase
 {
