@@ -2,7 +2,6 @@
 
 namespace Laracommerce\Core\Tests;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Laracommerce\Core\Addresses\Address;
 use Laracommerce\Core\Addresses\Repositories\AddressRepository;
@@ -22,13 +21,13 @@ use Laracommerce\Core\Roles\Repositories\RoleRepository;
 use Laracommerce\Core\Roles\Role;
 use Gloudemans\Shoppingcart\Cart;
 use Laracommerce\Core\Teams\Team;
+use Laratrust\LaratrustServiceProvider;
+use Laravel\Cashier\CashierServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Faker\Factory as Faker;
 
 abstract class TestCase extends Orchestra
 {
-    use RefreshDatabase;
-
     protected $faker;
     protected $employee;
     protected $customer;
@@ -103,8 +102,10 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
+            LaratrustServiceProvider::class,
             GlobalTemplateServiceProvider::class,
-            RepositoryServiceProvider::class
+            RepositoryServiceProvider::class,
+            CashierServiceProvider::class,
         ];
     }
 
