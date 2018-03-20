@@ -30,6 +30,7 @@
         "illuminate/pagination": "~5.5.0|~5.6.0",
         "illuminate/support": "~5.5.0|~5.6.0",
         "illuminate/validation": "~5.5.0|~5.6.0",
+        "laravel/cashier": "^7.0",
         "paypal/rest-api-sdk-php": "*",
         "santigarcor/laratrust": "5.0.*",
         "sofa/eloquence": "^5.5"
