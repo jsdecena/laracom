@@ -5,7 +5,7 @@ namespace Laracommerce\Core\Orders\Repositories;
 use Laracommerce\Core\Base\BaseRepository;
 use Laracommerce\Core\Employees\Employee;
 use Laracommerce\Core\Employees\Repositories\EmployeeRepository;
-use App\Events\OrderCreateEvent;
+use Laracommerce\Core\Orders\Events\OrderCreateEvent;
 use App\Mail\sendEmailNotificationToAdminMailable;
 use App\Mail\SendOrderToCustomerMailable;
 use Laracommerce\Core\Orders\Exceptions\OrderInvalidArgumentException;

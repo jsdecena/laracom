@@ -13,7 +13,7 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\OrderCreateEvent' => [
+        'Laracommerce\Core\Orders\Events\OrderCreateEvent' => [
             'App\Listeners\OrderCreateEventListener',
         ],
     ];

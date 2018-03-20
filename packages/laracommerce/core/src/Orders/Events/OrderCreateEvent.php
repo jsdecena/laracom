@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Events;
+namespace Laracommerce\Core\Orders\Events;
 
 use Laracommerce\Core\Orders\Order;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class OrderCreateEvent
 {

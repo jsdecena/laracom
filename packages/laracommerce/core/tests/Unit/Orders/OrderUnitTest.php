@@ -5,7 +5,7 @@ namespace Laracommerce\Core\Tests\Unit\Orders;
 use Laracommerce\Core\Addresses\Address;
 use Laracommerce\Core\Couriers\Courier;
 use Laracommerce\Core\Customers\Customer;
-use App\Events\OrderCreateEvent;
+use Laracommerce\Core\Orders\Events\OrderCreateEvent;
 use App\Mail\sendEmailNotificationToAdminMailable;
 use App\Mail\SendOrderToCustomerMailable;
 use Laracommerce\Core\Orders\Exceptions\OrderInvalidArgumentException;
