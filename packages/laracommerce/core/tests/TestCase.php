@@ -2,9 +2,7 @@
 
 namespace Laracommerce\Core\Tests;
 
-use Illuminate\Support\Facades\Config;
 use Laracommerce\Core\Addresses\Address;
-use Laracommerce\Core\Addresses\Repositories\AddressRepository;
 use Laracommerce\Core\Categories\Category;
 use Laracommerce\Core\Couriers\Courier;
 use Laracommerce\Core\Couriers\Repositories\CourierRepository;
