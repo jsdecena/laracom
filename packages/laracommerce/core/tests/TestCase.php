@@ -2,6 +2,8 @@
 
 namespace Laracommerce\Core\Tests;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Config;
 use Laracommerce\Core\Addresses\Address;
 use Laracommerce\Core\Addresses\Repositories\AddressRepository;
 use Laracommerce\Core\Categories\Category;
@@ -12,17 +14,20 @@ use Laracommerce\Core\Customers\Customer;
 use Laracommerce\Core\Employees\Repositories\EmployeeRepository;
 use Laracommerce\Core\OrderStatuses\OrderStatus;
 use Laracommerce\Core\OrderStatuses\Repositories\OrderStatusRepository;
+use Laracommerce\Core\Permissions\Permission;
 use Laracommerce\Core\Products\Product;
 use Laracommerce\Core\Providers\GlobalTemplateServiceProvider;
 use Laracommerce\Core\Providers\RepositoryServiceProvider;
 use Laracommerce\Core\Roles\Repositories\RoleRepository;
 use Laracommerce\Core\Roles\Role;
 use Gloudemans\Shoppingcart\Cart;
+use Laracommerce\Core\Teams\Team;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Faker\Factory as Faker;
 
 abstract class TestCase extends Orchestra
 {
+    use RefreshDatabase;
 
     protected $faker;
     protected $employee;
@@ -45,6 +50,7 @@ abstract class TestCase extends Orchestra
         parent::setUp();
 
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
         $this->withFactories(__DIR__.'/../database/factories');
 
         $this->faker = Faker::create();
@@ -86,6 +92,7 @@ abstract class TestCase extends Orchestra
         $session = $this->app->make('session');
         $events = $this->app->make('events');
         $this->cart = new Cart($session, $events);
+
     }
 
     /**
@@ -99,6 +106,31 @@ abstract class TestCase extends Orchestra
             GlobalTemplateServiceProvider::class,
             RepositoryServiceProvider::class
         ];
+    }
+
+    /**
+     * Define environment setup.
+     *
+     * @param  \Illuminate\Foundation\Application   $app
+     *
+     * @return void
+     */
+    protected function getEnvironmentSetUp($app)
+    {
+        $app['config']->set('cache.default', 'array');
+        $app['config']->set('database.default', 'testing');
+        $app['config']->set('database.connections.testing', [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ]);
+
+        $app['config']->set('laratrust.user_models.users', Employee::class);
+        $app['config']->set('laratrust.models', [
+            'role' => Role::class,
+            'permission' => Permission::class,
+            'team' => Team::class,
+        ]);
     }
 
 
