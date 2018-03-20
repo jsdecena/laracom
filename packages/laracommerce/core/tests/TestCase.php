@@ -23,6 +23,7 @@ use Laratrust\LaratrustServiceProvider;
 use Laravel\Cashier\CashierServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Faker\Factory as Faker;
+use Sofa\Eloquence\BaseServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
@@ -104,6 +105,7 @@ abstract class TestCase extends Orchestra
             GlobalTemplateServiceProvider::class,
             RepositoryServiceProvider::class,
             CashierServiceProvider::class,
+            BaseServiceProvider::class
         ];
     }
 
