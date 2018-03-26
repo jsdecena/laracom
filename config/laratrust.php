@@ -8,10 +8,10 @@
  * @package Laratrust
  */
 
-use Laracommerce\Core\Employees\Employee;
-use Laracommerce\Core\Permissions\Permission;
-use Laracommerce\Core\Roles\Role;
-use Laracommerce\Core\Teams\Team;
+use App\Shop\Employees\Employee;
+use App\Shop\Permissions\Permission;
+use App\Shop\Roles\Role;
+use App\Shop\Teams\Team;
 
 return [
     /*

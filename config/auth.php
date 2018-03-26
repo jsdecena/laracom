@@ -82,7 +82,7 @@ return [
 
          'admin' => [
              'driver' => 'eloquent',
-             'model' => Laracommerce\Core\Employees\Employee::class,
+             'model' => App\Shop\Employees\Employee::class,
          ],
     ],
 

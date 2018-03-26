@@ -164,9 +164,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Laracommerce\Core\Providers\GlobalTemplateServiceProvider::class,
-        Laracommerce\Core\Providers\RepositoryServiceProvider::class,
+        App\Providers\GlobalTemplateServiceProvider::class,
         Laratrust\LaratrustServiceProvider::class,
+        Laracommerce\Core\Providers\RepositoryServiceProvider::class
     ],
 
     /*
