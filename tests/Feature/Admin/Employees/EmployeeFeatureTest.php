@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Admin\Employees;
 
-use Laracommerce\Core\Employees\Employee;
+use App\Shop\Employees\Employee;
 use Illuminate\Auth\Events\Lockout;
 use Tests\TestCase;
 

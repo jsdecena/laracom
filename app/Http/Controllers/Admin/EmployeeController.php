@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Laracommerce\Core\Admins\Requests\CreateEmployeeRequest;
-use Laracommerce\Core\Admins\Requests\UpdateEmployeeRequest;
-use Laracommerce\Core\Employees\Repositories\EmployeeRepository;
-use Laracommerce\Core\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
+use App\Shop\Employees\Requests\CreateEmployeeRequest;
+use App\Shop\Employees\Requests\UpdateEmployeeRequest;
+use App\Shop\Employees\Repositories\EmployeeRepository;
+use App\Shop\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
 use App\Http\Controllers\Controller;
 
 class EmployeeController extends Controller

@@ -1,6 +1,6 @@
 <?php
 
-namespace Laracommerce\Core\Countries\Requests;
+namespace App\Http\Controllers\Admin\Countries\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

@@ -5,11 +5,8 @@ namespace App\Http\Controllers\Auth;
 use Laracommerce\Core\Customers\Customer;
 use App\Http\Controllers\Controller;
 use Laracommerce\Core\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
-use Laracommerce\Core\Customers\Requests\CreateCustomerRequest;
 use Laracommerce\Core\Customers\Requests\RegisterCustomerRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller

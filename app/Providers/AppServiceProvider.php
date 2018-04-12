@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Shop\Employees\Repositories\EmployeeRepository;
+use App\Shop\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
 
@@ -24,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(EmployeeRepositoryInterface::class, EmployeeRepository::class);
     }
 }

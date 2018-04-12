@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Laracommerce\Core\Admins\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
+use App\Shop\Employees\Requests\LoginRequest;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller

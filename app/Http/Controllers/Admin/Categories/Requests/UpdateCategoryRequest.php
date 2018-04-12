@@ -1,6 +1,6 @@
 <?php
 
-namespace Laracommerce\Core\Categories\Requests;
+namespace App\Http\Controllers\Admin\Categories\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;

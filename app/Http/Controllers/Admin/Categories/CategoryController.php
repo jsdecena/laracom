@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin\Categories;
 
 use Laracommerce\Core\Categories\Repositories\CategoryRepository;
 use Laracommerce\Core\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
-use Laracommerce\Core\Categories\Requests\CreateCategoryRequest;
-use Laracommerce\Core\Categories\Requests\UpdateCategoryRequest;
+use App\Http\Controllers\Admin\Categories\Requests\CreateCategoryRequest;
+use App\Http\Controllers\Admin\Categories\Requests\UpdateCategoryRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
