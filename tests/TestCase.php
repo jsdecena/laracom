@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Illuminate\Database\Eloquent\Factory;
 use Laracommerce\Core\Addresses\Address;
 use Laracommerce\Core\Addresses\Repositories\AddressRepository;
 use Laracommerce\Core\Categories\Category;
@@ -46,6 +47,18 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         $this->faker = Faker::create();
+
+        // use Laracommerce Core package factories
+        $this->app->singleton(Factory::class, function () {
+            return Factory::construct($this->faker, base_path().'/vendor/laracommerce/core/database/factories');
+        });
+
+        $this->artisan('vendor:publish', [
+            '--provider' => 'Laracommerce\Core\LaracomCoreServiceProvider',
+            '--tag' => 'migrations'
+        ]);
+        $this->artisan('migrate');
+
         $this->employee = factory(Employee::class)->create();
 
         $adminData = ['name' => 'admin'];
