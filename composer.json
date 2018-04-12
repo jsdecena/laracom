@@ -12,7 +12,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "jsdecena/mailchimp": "~7.0",
         "jsdecena/mcpro": "1.1.*",
-        "laracommerce/core": "@dev",
+        "laracommerce/core": "dev-develop",
         "laravel/cashier": "~7.0",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "~1.0",
