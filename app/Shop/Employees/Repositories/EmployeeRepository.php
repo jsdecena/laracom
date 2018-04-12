@@ -2,12 +2,13 @@
 
 namespace App\Shop\Employees\Repositories;
 
-use App\Shop\Base\BaseRepository;
+
 use App\Shop\Employees\Employee;
 use App\Shop\Employees\Exceptions\EmployeeNotFoundException;
 use App\Shop\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
+use Laracommerce\Core\Base\BaseRepository;
 
 class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInterface
 {

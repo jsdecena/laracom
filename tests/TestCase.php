@@ -8,14 +8,14 @@ use Laracommerce\Core\Addresses\Repositories\AddressRepository;
 use Laracommerce\Core\Categories\Category;
 use Laracommerce\Core\Couriers\Courier;
 use Laracommerce\Core\Couriers\Repositories\CourierRepository;
-use Laracommerce\Core\Employees\Employee;
+use App\Shop\Employees\Employee;
 use Laracommerce\Core\Customers\Customer;
-use Laracommerce\Core\Employees\Repositories\EmployeeRepository;
+use App\Shop\Employees\Repositories\EmployeeRepository;
 use Laracommerce\Core\OrderStatuses\OrderStatus;
 use Laracommerce\Core\OrderStatuses\Repositories\OrderStatusRepository;
 use Laracommerce\Core\Products\Product;
-use Laracommerce\Core\Roles\Repositories\RoleRepository;
-use Laracommerce\Core\Roles\Role;
+use App\Shop\Roles\Repositories\RoleRepository;
+use App\Shop\Roles\Role;
 use Gloudemans\Shoppingcart\Cart;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -46,18 +46,16 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        $this->faker = Faker::create();
+        $factory = app()->make(Factory::class);
 
-        // use Laracommerce Core package factories
-        $this->app->singleton(Factory::class, function () {
-            return Factory::construct($this->faker, base_path().'/vendor/laracommerce/core/database/factories');
-        });
+        $factory->load(base_path().'/vendor/laracommerce/core/database/factories');
 
         $this->artisan('vendor:publish', [
             '--provider' => 'Laracommerce\Core\LaracomCoreServiceProvider',
             '--tag' => 'migrations'
         ]);
-        $this->artisan('migrate');
+
+        $this->faker = Faker::create();
 
         $this->employee = factory(Employee::class)->create();
 

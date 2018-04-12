@@ -2,10 +2,11 @@
 
 namespace App\Shop\Roles\Repositories;
 
-use App\Shop\Base\BaseRepository;
+
 use App\Shop\Roles\Exceptions\CreateRoleErrorException;
 use App\Shop\Roles\Role;
 use Illuminate\Database\QueryException;
+use Laracommerce\Core\Base\BaseRepository;
 
 class RoleRepository extends BaseRepository implements RoleRepositoryInterface
 {

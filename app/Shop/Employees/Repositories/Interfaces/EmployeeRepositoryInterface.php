@@ -2,9 +2,10 @@
 
 namespace App\Shop\Employees\Repositories\Interfaces;
 
-use App\Shop\Base\Interfaces\BaseRepositoryInterface;
+
 use App\Shop\Employees\Employee;
 use Illuminate\Support\Collection;
+use Laracommerce\Core\Base\Interfaces\BaseRepositoryInterface;
 
 interface EmployeeRepositoryInterface extends BaseRepositoryInterface
 {
