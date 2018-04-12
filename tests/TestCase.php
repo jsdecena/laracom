@@ -3,6 +3,9 @@
 namespace Tests;
 
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laracommerce\Core\Addresses\Address;
 use Laracommerce\Core\Addresses\Repositories\AddressRepository;
 use Laracommerce\Core\Categories\Category;
@@ -17,14 +20,12 @@ use Laracommerce\Core\Products\Product;
 use App\Shop\Roles\Repositories\RoleRepository;
 use App\Shop\Roles\Role;
 use Gloudemans\Shoppingcart\Cart;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Faker\Factory as Faker;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication, DatabaseMigrations, DatabaseTransactions;
+    use CreatesApplication, DatabaseTransactions, DatabaseMigrations;
 
     protected $faker;
     protected $employee;
@@ -39,6 +40,8 @@ abstract class TestCase extends BaseTestCase
     protected $orderStatus;
     protected $cart;
 
+    protected static $migrated = false;
+
     /**
      * Set up the test
      */
@@ -46,14 +49,17 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        $factory = app()->make(Factory::class);
-
-        $factory->load(base_path().'/vendor/laracommerce/core/database/factories');
-
         $this->artisan('vendor:publish', [
             '--provider' => 'Laracommerce\Core\LaracomCoreServiceProvider',
             '--tag' => 'migrations'
         ]);
+
+        $factory = app()->make(Factory::class);
+        $factory->load(base_path().'/vendor/laracommerce/core/database/factories');
+
+
+        $this->artisan('migrate');
+
 
         $this->faker = Faker::create();
 
