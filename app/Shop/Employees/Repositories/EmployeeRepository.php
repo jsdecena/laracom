@@ -77,13 +77,15 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
     {
         $fields = [
             "name" => $params['name'],
-            "email" => $params['email']
+            "email" => $params['email'],
+            "status" => $params['status']
         ];
 
         if (isset($params['password']) && !is_null($params['password'])) {
             $fields = [
                 "name" => $params['name'],
                 "email" => $params['email'],
+                "status" => $params['status'],
                 "password" => bcrypt($params['password'])
             ];
         }
