@@ -9,16 +9,13 @@ use App\Shop\ProductAttributes\ProductAttribute;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Repositories\ProductRepository;
-use App\Shop\Products\Requests\CreateAttributeCombination;
 use App\Shop\Products\Requests\CreateProductRequest;
 use App\Shop\Products\Requests\UpdateProductRequest;
 use App\Http\Controllers\Controller;
 use App\Shop\Products\Transformations\ProductTransformable;
 use App\Shop\Tools\UploadableTrait;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -153,6 +150,7 @@ class ProductController extends Controller
     {
         $product = $this->productRepo->findProductById($id);
         $productAttributes = $product->attributes()->get();
+
         $qty = $productAttributes->map(function ($item) {
             return $item->quantity;
         })->sum();
