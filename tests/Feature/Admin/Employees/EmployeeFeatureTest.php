@@ -194,7 +194,7 @@ class EmployeeFeatureTest extends TestCase
     }
 
     /** @test */
-    public function it_can_update_the_employees_password()
+    public function it_should_update_the_employee_password()
     {
         $employee = factory(Employee::class)->create();
 
@@ -218,7 +218,8 @@ class EmployeeFeatureTest extends TestCase
     {
         $update = [
             'name' => $this->faker->name,
-            'email' => $this->faker->unique()->email
+            'email' => $this->faker->unique()->email,
+            'status' => 0
         ];
 
         $this->actingAs($this->employee, 'admin')
