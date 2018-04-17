@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 interface EmployeeRepositoryInterface extends BaseRepositoryInterface
 {
-    public function listEmployees(string $order = 'id', string $sort = 'desc') : array;
+    public function listEmployees(string $order = 'id', string $sort = 'desc'): Collection;
 
     public function createEmployee(array $params) : Employee;
 

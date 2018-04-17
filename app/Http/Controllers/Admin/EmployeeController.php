@@ -34,7 +34,7 @@ class EmployeeController extends Controller
         $list = $this->employeeRepo->listEmployees('created_at', 'desc');
 
         return view('admin.employees.list', [
-            'employees' => $this->employeeRepo->paginateArrayResults($list)
+            'employees' => $this->employeeRepo->paginateArrayResults($list->all())
         ]);
     }
 
@@ -94,7 +94,14 @@ class EmployeeController extends Controller
      */
     public function update(UpdateEmployeeRequest $request, $id)
     {
-        $this->updateEmployee($request, $id);
+        $employee = $this->employeeRepo->findEmployeeById($id);
+
+        $empRepo = new EmployeeRepository($employee);
+        $empRepo->updateEmployee($request->except('_token', '_method', 'password'));
+
+        if ($request->has('password')) {
+            $empRepo->updateEmployee(['password' => bcrypt($request->input('password'))]);
+        }
 
         $request->session()->flash('message', 'Update successful');
         return redirect()->route('admin.employees.edit', $id);

@@ -28,11 +28,9 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
      * @param string $sort
      * @return array
      */
-    public function listEmployees(string $order = 'id', string $sort = 'desc') : array
+    public function listEmployees(string $order = 'id', string $sort = 'desc'): Collection
     {
-        $list = $this->model->orderBy($order, $sort)->get();
-
-        return collect($list)->all();
+        return $this->all(['*'], $order, $sort);
     }
 
     /**
@@ -41,7 +39,7 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
      * @param array $params
      * @return Employee
      */
-    public function createEmployee(array $params) : Employee
+    public function createEmployee(array $params): Employee
     {
         $collection = collect($params);
 
@@ -58,7 +56,7 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
      * @param int $id
      * @return Employee
      */
-    public function findEmployeeById(int $id) : Employee
+    public function findEmployeeById(int $id): Employee
     {
         try {
             return $this->findOneOrFail($id);
@@ -73,22 +71,9 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
      * @param array $params
      * @return bool
      */
-    public function updateEmployee(array $params) : bool
+    public function updateEmployee(array $params): bool
     {
-        $fields = [
-            "name" => $params['name'],
-            "email" => $params['email']
-        ];
-
-        if (isset($params['password']) && !is_null($params['password'])) {
-            $fields = [
-                "name" => $params['name'],
-                "email" => $params['email'],
-                "password" => bcrypt($params['password'])
-            ];
-        }
-
-        return $this->model->update($fields);
+        return $this->model->update($params);
     }
 
     /**
@@ -102,7 +87,7 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
     /**
      * @return Collection
      */
-    public function listRoles() : Collection
+    public function listRoles(): Collection
     {
         return $this->model->roles()->get();
     }
@@ -111,7 +96,7 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
      * @param string $roleName
      * @return bool
      */
-    public function hasRole(string $roleName) : bool
+    public function hasRole(string $roleName): bool
     {
         return $this->model->hasRole($roleName);
     }
