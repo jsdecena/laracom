@@ -8,7 +8,7 @@
                             @if(isset($selectedIds) && in_array($category->id, $selectedIds))checked="checked" @endif
                             name="categories[]"
                             value="{{ $category->id }}">
-                            {{ $category->name }}
+                    {{ $category->name }}
                 </label>
             </div>
         </li>
