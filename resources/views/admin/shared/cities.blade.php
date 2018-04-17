@@ -1,9 +1,9 @@
 <table class="table">
     <thead>
-        <tr>
-            <td class="col-md-4">Name</td>
-            <td class="col-md-4">Actions</td>
-        </tr>
+    <tr>
+        <td class="col-md-4">Name</td>
+        <td class="col-md-4">Actions</td>
+    </tr>
     </thead>
     <tbody>
     @foreach($cities as $city)
