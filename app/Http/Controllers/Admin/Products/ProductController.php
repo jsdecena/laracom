@@ -20,6 +20,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Laracommerce\Core\Warehouse\Repositories\WarehouseRepository;
+use Laracommerce\Core\Warehouse\Warehouse;
 
 class ProductController extends Controller
 {
@@ -283,9 +285,14 @@ class ProductController extends Controller
         $quantity = $fields['productAttributeQuantity'];
         $price = $fields['productAttributePrice'];
 
+        $warehouseRepo = new WarehouseRepository(new Warehouse());
+        $warehouse = $warehouseRepo->getWarehouseByName('default');
+
         $attributeValues = $request->input('attributeValue');
         $productRepo = new ProductRepository($product);
         $productAttribute = $productRepo->saveProductAttributes(new ProductAttribute(compact('quantity', 'price')));
+
+        $stock = $warehouseRepo->saveStock($warehouse, $product, $productAttribute);
 
         // save the combinations
         return collect($attributeValues)->each(function ($attributeId) use ($productRepo, $productAttribute) {
@@ -296,6 +303,8 @@ class ProductController extends Controller
 
     /**
      * @param array $data
+     *
+     * @return \Illuminate\Contracts\Validation\Validator|null
      */
     private function validateFields(array $data)
     {
