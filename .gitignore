@@ -26,3 +26,4 @@ storage/app/public/storage
 \.php_cs\.cache
 public/css
 public/js
+phpunit.local.xml
