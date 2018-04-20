@@ -7,7 +7,7 @@ use Laracommerce\Core\Customers\Repositories\CustomerRepository;
 use Laracommerce\Core\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Http\Controllers\Controller;
 use Laracommerce\Core\Orders\Order;
-use Laracommerce\Core\Orders\Transformers\OrderTransformable;
+use Laracommerce\Core\Orders\Transformations\OrderTransformable;
 
 class AccountsController extends Controller
 {

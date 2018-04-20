@@ -124,6 +124,8 @@ class ProductController extends Controller
         $product = $this->productRepo->createProduct($data);
         $this->saveProductImages($request, $product);
 
+        $this->updateStockLevels($request->get('warehouse', 'default'), $product);
+
         if ($request->has('categories')) {
             $product->categories()->sync($request->input('categories'));
         } else {
@@ -163,6 +165,11 @@ class ProductController extends Controller
             $pa = $productAttributes->where('id', request()->input('pa'))->first();
             $pa->attributesValues()->detach();
             $pa->delete();
+
+            if ($product->attributes->count() === 0) {
+                // lets create a stock level for a product without any attributes
+                $this->updateStockLevels(request()->get('warehouse', 'default'), $product);
+            }
 
             request()->session()->flash('message', 'Delete successful');
             return redirect()->route('admin.products.edit', [$product->id, 'combination' => 1]);
@@ -206,6 +213,12 @@ class ProductController extends Controller
         $this->saveProductImages($request, $product);
 
         $this->productRepo->updateProduct($data, $id);
+
+        if ($product->attributes->count() === 0) {
+            // we have to load once again $product with current quantity and price to store the stock level.
+            $product = $this->productRepo->findProductById($id);
+            $this->updateStockLevels($request->get('warehouse', 'default'), $product);
+        }
 
         if ($request->has('categories')) {
             $product->categories()->sync($request->input('categories'));
@@ -285,20 +298,33 @@ class ProductController extends Controller
         $quantity = $fields['productAttributeQuantity'];
         $price = $fields['productAttributePrice'];
 
-        $warehouseRepo = new WarehouseRepository(new Warehouse());
-        $warehouse = $warehouseRepo->getWarehouseByName('default');
-
         $attributeValues = $request->input('attributeValue');
         $productRepo = new ProductRepository($product);
         $productAttribute = $productRepo->saveProductAttributes(new ProductAttribute(compact('quantity', 'price')));
 
-        $stock = $warehouseRepo->saveStock($warehouse, $product, $productAttribute);
+        $stock = $this->updateStockLevels($request->get('warehouse', 'default'), $product, $productAttribute);
 
         // save the combinations
         return collect($attributeValues)->each(function ($attributeId) use ($productRepo, $productAttribute) {
             $attribute = $this->attributeValueRepository->find($attributeId);
             return $productRepo->saveCombination($productAttribute, $attribute);
         })->count();
+    }
+
+    /**
+     * @param string $warehouseName
+     * @param Product $product
+     * @param ProductAttribute|null $productAttribute
+     *
+     * @return \Laracommerce\Core\Warehouse\Stock
+     */
+    private function updateStockLevels(string $warehouseName, Product $product, ProductAttribute $productAttribute = null)
+    {
+        $warehouseRepo = new WarehouseRepository(new Warehouse());
+        $warehouse = $warehouseRepo->getWarehouseByName($warehouseName);
+        $warehouseRepo = new WarehouseRepository($warehouse);
+
+        return $warehouseRepo->saveStock($product, $productAttribute);
     }
 
     /**

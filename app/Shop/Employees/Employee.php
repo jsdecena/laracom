@@ -11,6 +11,8 @@ class Employee extends Authenticatable
 {
     use Notifiable, SoftDeletes, LaratrustUserTrait;
 
+    protected $table = 'ecom_employees';
+
     /**
      * The attributes that are mass assignable.
      *

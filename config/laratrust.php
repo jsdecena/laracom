@@ -9,7 +9,7 @@
  */
 
 use App\Shop\Employees\Employee;
-use App\Shop\Permissions\Permission;
+use App\Shop\Roles\Permission;
 use App\Shop\Roles\Role;
 use App\Shop\Teams\Team;
 
@@ -115,32 +115,32 @@ return [
         /**
          * Roles table.
          */
-        'roles' => 'roles',
+        'roles' => 'ecom_roles',
 
         /**
          * Permissions table.
          */
-        'permissions' => 'permissions',
+        'permissions' => 'ecom_permissions',
 
         /**
          * Teams table.
          */
-        'teams' => 'teams',
+        'teams' => 'ecom_teams',
 
         /**
          * Role - User intermediate table.
          */
-        'role_user' => 'role_user',
+        'role_user' => 'ecom_role_user',
 
         /**
          * Permission - User intermediate table.
          */
-        'permission_user' => 'permission_user',
+        'permission_user' => 'ecom_permission_user',
 
         /**
          * Permission - Role intermediate table.
          */
-        'permission_role' => 'permission_role',
+        'permission_role' => 'ecom_permission_role',
 
     ],
 
