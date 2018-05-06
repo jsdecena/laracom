@@ -13,6 +13,7 @@
                             <td class="col-md-4">ID</td>
                             <td class="col-md-4">Name</td>
                             <td class="col-md-4">Email</td>
+                            <td class="col-md-4">Roles</td>
                         </tr>
                     </tbody>
                     <tbody>
@@ -20,6 +21,9 @@
                         <td>{{ $employee->id }}</td>
                         <td>{{ $employee->name }}</td>
                         <td>{{ $employee->email }}</td>
+                        <td>
+                            {{ $employee->roles()->get()->implode('name', ', ') }}
+                        </td>
                     </tr>
                     </tbody>
                 </table>

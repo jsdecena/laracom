@@ -8,6 +8,8 @@ use App\Shop\Employees\Exceptions\EmployeeNotFoundException;
 use App\Shop\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+
 
 class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInterface
 {
@@ -100,4 +102,20 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
     {
         return $this->model->hasRole($roleName);
     }
+
+    /**
+     * @param Employee $employee
+     * @return bool
+     */
+    public function isAuthUser(Employee $employee): bool
+    {
+        $isAuthUser = false;
+        if (Auth::guard('admin')->user()->id == $employee->id)
+        {
+           $isAuthUser = true;
+        }
+        return $isAuthUser;
+    }
+
+
 }

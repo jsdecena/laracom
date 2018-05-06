@@ -6,7 +6,9 @@ use App\Shop\Admins\Requests\CreateEmployeeRequest;
 use App\Shop\Admins\Requests\UpdateEmployeeRequest;
 use App\Shop\Employees\Repositories\EmployeeRepository;
 use App\Shop\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
+use App\Shop\Roles\Repositories\RoleRepositoryInterface;
 use App\Http\Controllers\Controller;
+
 
 class EmployeeController extends Controller
 {
@@ -14,14 +16,19 @@ class EmployeeController extends Controller
      * @var EmployeeRepositoryInterface
      */
     private $employeeRepo;
+    /**
+     * @var RoleRepositoryInterface
+     */
+    private $roleRepo;
 
     /**
      * EmployeeController constructor.
      * @param EmployeeRepositoryInterface $employeeRepository
      */
-    public function __construct(EmployeeRepositoryInterface $employeeRepository)
+    public function __construct(EmployeeRepositoryInterface $employeeRepository, RoleRepositoryInterface $roleRepository)
     {
         $this->employeeRepo = $employeeRepository;
+        $this->roleRepo = $roleRepository;
     }
 
     /**
@@ -82,7 +89,16 @@ class EmployeeController extends Controller
     public function edit(int $id)
     {
         $employee = $this->employeeRepo->findEmployeeById($id);
-        return view('admin.employees.edit', ['employee' => $employee]);
+        $allRoles = $this->roleRepo->listRoles('created_at', 'desc');
+        $isCurrentUser = $this->employeeRepo->isAuthUser($employee);
+
+        return view(
+          'admin.employees.edit', [
+            'employee' => $employee,
+            'allRoles' => $allRoles,
+            'isCurrentUser' => $isCurrentUser,
+            'selectedIds' => $employee->roles()->pluck('role_id')->all()
+        ]);
     }
 
     /**
@@ -95,12 +111,19 @@ class EmployeeController extends Controller
     public function update(UpdateEmployeeRequest $request, $id)
     {
         $employee = $this->employeeRepo->findEmployeeById($id);
+        $isCurrentUser = $this->employeeRepo->isAuthUser($employee);
 
         $empRepo = new EmployeeRepository($employee);
         $empRepo->updateEmployee($request->except('_token', '_method', 'password'));
 
         if ($request->has('password')) {
             $empRepo->updateEmployee(['password' => bcrypt($request->input('password'))]);
+        }
+
+        if ($request->has('roles') And !$isCurrentUser) {
+            $employee->roles()->sync($request->input('roles'));
+        } else if(!$isCurrentUser){
+            $employee->roles()->detach($request->input('roles'));
         }
 
         $request->session()->flash('message', 'Update successful');
