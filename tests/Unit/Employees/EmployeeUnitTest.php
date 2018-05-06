@@ -30,7 +30,7 @@ class EmployeeUnitTest extends TestCase
         });
     }
     /** @test */
-    public function it_can_attach_or_detach_the_employee_role_()
+    public function it_can_attach_or_detach_the_employee_role()
     {
         $employee = factory(Employee::class)->create();
         $role = factory(Role::class)->create();
