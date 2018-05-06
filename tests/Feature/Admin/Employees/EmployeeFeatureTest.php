@@ -3,7 +3,6 @@
 namespace Tests\Feature\Admin\Employees;
 
 use App\Shop\Employees\Employee;
-use App\Shop\Roles\Role;
 use Illuminate\Auth\Events\Lockout;
 use Tests\TestCase;
 
@@ -258,22 +257,4 @@ class EmployeeFeatureTest extends TestCase
 
         $this->assertDatabaseHas('employees', $created->all());
     }
-
-    /** @test */
-    public function it_can_attach_or_detach_the_employee_role_()
-    {
-        $employee = factory(Employee::class)->create();
-        $role = factory(Role::class)->create();
-
-        $employee->roles()->attach($role);
-        $this->assertTrue($employee->hasRole($role->name));
-
-        $employee->roles()->detach($role);
-        $this->assertFalse($employee->hasRole($role->name));
-
-    }
-
-
-
-
 }
