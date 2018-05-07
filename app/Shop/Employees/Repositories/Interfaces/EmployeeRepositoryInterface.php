@@ -21,4 +21,6 @@ interface EmployeeRepositoryInterface extends BaseRepositoryInterface
     public function listRoles() : Collection;
 
     public function hasRole(string $roleName) : bool;
+
+    public function isAuthUser(Employee $employee): bool;
 }

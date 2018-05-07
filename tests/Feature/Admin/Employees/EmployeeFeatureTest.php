@@ -17,7 +17,7 @@ class EmployeeFeatureTest extends TestCase
             ->assertStatus(302)
             ->assertRedirect(route('admin.dashboard'));
     }
-    
+
     /** @test */
     public function it_can_show_the_admin_login_form()
     {
@@ -130,7 +130,7 @@ class EmployeeFeatureTest extends TestCase
             ->get(route('admin.employees.edit', 999))
             ->assertStatus(404);
     }
-    
+
     /** @test */
     public function it_errors_when_looking_for_an_employee_that_is_not_found()
     {
@@ -138,7 +138,7 @@ class EmployeeFeatureTest extends TestCase
             ->get(route('admin.employees.show', 999))
             ->assertStatus(404);
     }
-    
+
     /** @test */
     public function it_can_list_all_the_employees()
     {
@@ -179,7 +179,7 @@ class EmployeeFeatureTest extends TestCase
             ->assertStatus(302)
             ->assertSessionHas(['errors']);
     }
-    
+
     /** @test */
     public function it_can_only_soft_delete_an_employee()
     {
@@ -212,7 +212,7 @@ class EmployeeFeatureTest extends TestCase
         $collection = collect($update)->except('password');
         $this->assertDatabaseHas('employees', $collection->all());
     }
-    
+
     /** @test */
     public function it_can_update_the_employee()
     {
@@ -229,7 +229,7 @@ class EmployeeFeatureTest extends TestCase
 
         $this->assertDatabaseHas('employees', $update);
     }
-    
+
     /** @test */
     public function it_can_show_the_employee()
     {
@@ -238,7 +238,7 @@ class EmployeeFeatureTest extends TestCase
             ->assertStatus(200)
             ->assertViewHas('employee');
     }
-    
+
     /** @test */
     public function it_can_create_an_employee()
     {
