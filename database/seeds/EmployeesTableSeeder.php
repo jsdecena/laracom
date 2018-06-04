@@ -13,7 +13,6 @@ class EmployeesTableSeeder extends Seeder
                 $employee->roles()->save($role);
             });
         });
-
         factory(Employee::class)->create();
     }
 }

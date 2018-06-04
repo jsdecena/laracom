@@ -17,6 +17,7 @@
             </div>
             <!-- /.box -->
         @endif
+
     </section>
     <!-- /.content -->
 @endsection

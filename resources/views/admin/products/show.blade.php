@@ -11,13 +11,13 @@
                 <div class="box-body">
                     <table class="table">
                         <thead>
-                            <tr>
-                                <td class="col-md-2">Name</td>
-                                <td class="col-md-3">Description</td>
-                                <td class="col-md-3">Cover</td>
-                                <td class="col-md-2">Quantity</td>
-                                <td class="col-md-2">Price</td>
-                            </tr>
+                        <tr>
+                            <td class="col-md-2">Name</td>
+                            <td class="col-md-3">Description</td>
+                            <td class="col-md-3">Cover</td>
+                            <td class="col-md-2">Quantity</td>
+                            <td class="col-md-2">Price</td>
+                        </tr>
                         </thead>
                         <tbody>
                             <tr>

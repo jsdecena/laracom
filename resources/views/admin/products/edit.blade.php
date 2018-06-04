@@ -86,17 +86,24 @@
                                                 <label for="price">Price</label>
                                                 @if($productAttributes->isEmpty())
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">PHP</span>
+                                                        <span class="input-group-addon">{{ config('cart.currency') }}</span>
                                                         <input type="text" name="price" id="price" placeholder="Price" class="form-control" value="{!! $product->price !!}">
                                                     </div>
                                                 @else
                                                     <input type="hidden" name="price" value="{!! $product->price !!}">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">PHP</span>
+                                                        <span class="input-group-addon">{{ config('cart.currency') }}</span>
                                                         <input type="text" id="price" placeholder="Price" class="form-control" value="{!! $product->price !!}" disabled>
                                                     </div>
                                                 @endif
                                                 @if(!$productAttributes->isEmpty())<span class="text-danger">Note: Price is disabled. Price is derived based on the combination.</span> @endif
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="sale_price">Sale Price</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">{{ config('cart.currency') }}</span>
+                                                    <input type="text" name="sale_price" id="sale_price" placeholder="Sale Price" class="form-control" value="{{ $product->sale_price }}">
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 @include('admin.shared.status-select', ['status' => $product->status])
