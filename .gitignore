@@ -19,6 +19,7 @@ yarn-error.log
 .DS_Store
 /public/.DS_Store
 yarn.lock
+package-lock.json
 /build
 Envoy.blade.php
 /coverage
