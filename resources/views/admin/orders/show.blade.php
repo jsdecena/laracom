@@ -99,7 +99,6 @@
                             <th class="col-md-2">Description</th>
                             <th class="col-md-2">Quantity</th>
                             <th class="col-md-2">Price</th>
-                            <th class="col-md-2">Status</th>
                             </thead>
                             <tbody>
                             @foreach($items as $item)
@@ -109,7 +108,6 @@
                                     <td>{!! $item->description !!}</td>
                                     <td>{{ $item->pivot->quantity }}</td>
                                     <td>{{ $item->price }}</td>
-                                    <td>@include('layouts.status', ['status' => $item->status])</td>
                                 </tr>
                             @endforeach
                             </tbody>

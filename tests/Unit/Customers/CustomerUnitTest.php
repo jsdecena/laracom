@@ -71,8 +71,6 @@ class CustomerUnitTest extends TestCase
     public function it_errors_updating_the_customer_name_with_null_value()
     {
         $this->expectException(UpdateCustomerInvalidArgumentException::class);
-        $this->expectExceptionMessage('Cannot update customer');
-        $this->expectExceptionCode(500);
 
         $cust = factory(Customer::class)->create();
 
@@ -149,7 +147,6 @@ class CustomerUnitTest extends TestCase
     public function it_fails_when_the_customer_is_not_found()
     {
         $this->expectException(CustomerNotFoundException::class);
-        $this->expectExceptionMessage('Customer not found.');
 
         $customer = new CustomerRepository(new Customer);
         $customer->findCustomerById(999);

@@ -195,7 +195,6 @@ class OrderUnitTest extends TestCase
     public function it_errors_looking_for_the_order_that_is_not_found()
     {
         $this->expectException(OrderNotFoundException::class);
-        $this->expectExceptionMessage('Order not found.');
 
         $orderRepo = new OrderRepository(new Order);
         $orderRepo->findOrderById(999);

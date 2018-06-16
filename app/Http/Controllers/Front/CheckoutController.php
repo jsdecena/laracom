@@ -110,8 +110,10 @@ class CheckoutController extends Controller
      * Checkout the items
      *
      * @param CartCheckoutRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      * @codeCoverageIgnore
+     * @throws \App\Shop\Customers\Exceptions\CustomerPaymentChargingErrorException
      */
     public function store(CartCheckoutRequest $request)
     {
@@ -129,7 +131,8 @@ class CheckoutController extends Controller
                     'metadata' => $this->cartRepo->getCartItems()->all()
                 ];
 
-                $customerRepo = new CustomerRepository($this->loggedUser());
+                $customer = $this->customerRepo->findCustomerById(auth()->id());
+                $customerRepo = new CustomerRepository($customer);
                 $customerRepo->charge($this->cartRepo->getTotal(2, $shippingFee), $details);
                 break;
             default:
@@ -145,6 +148,7 @@ class CheckoutController extends Controller
     public function executePayPalPayment(PayPalCheckoutExecutionRequest $request)
     {
         try {
+
             $this->payPal->execute($request);
             $this->cartRepo->clearCart();
 
@@ -163,7 +167,8 @@ class CheckoutController extends Controller
     public function charge(StripeExecutionRequest $request)
     {
         try {
-            $customer = auth()->user();
+
+            $customer = $this->customerRepo->findCustomerById(auth()->id());
             $stripeRepo = new StripeRepository($customer);
 
             $stripeRepo->execute(

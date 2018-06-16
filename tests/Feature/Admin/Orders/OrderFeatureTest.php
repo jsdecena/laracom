@@ -2,11 +2,10 @@
 
 namespace Tests\Feature\Admin\Orders;
 
-use App\Shop\Addresses\Address;
-use App\Shop\Cities\City;
-use App\Shop\Couriers\Courier;
 use App\Shop\Customers\Customer;
 use App\Shop\Orders\Order;
+use App\Shop\Orders\Repositories\OrderRepository;
+use App\Shop\Products\Product;
 use Tests\TestCase;
 
 class OrderFeatureTest extends TestCase
@@ -14,9 +13,6 @@ class OrderFeatureTest extends TestCase
     /** @test */
     public function it_can_search_for_the_order()
     {
-        factory(Courier::class)->create();
-        factory(City::class)->create();
-        factory(Address::class)->create();
         $customer = factory(Customer::class)->create();
         factory(Order::class)->create([
             'customer_id' => $customer->id
@@ -32,21 +28,30 @@ class OrderFeatureTest extends TestCase
     /** @test */
     public function it_can_show_the_order()
     {
-        factory(Courier::class)->create();
-        factory(City::class)->create();
-        factory(Address::class)->create();
         $order = factory(Order::class)->create();
+
+        $product = factory(Product::class)->create();
+
+        $orderRepo = new OrderRepository($order);
+        $orderRepo->associateProduct($product);
 
         $this
             ->actingAs($this->employee, 'admin')
             ->get(route('admin.orders.show', $order->id))
             ->assertStatus(200)
-            ->assertSee($order->reference);
+            ->assertSee($order->reference)
+            ->assertSee('SKU')
+            ->assertSee('Name')
+            ->assertSee('Description')
+            ->assertSee('Quantity')
+            ->assertSee('Price');
     }
 
     /** @test */
     public function it_can_list_all_the_orders()
     {
+        factory(Order::class)->create();
+
         $this
             ->actingAs($this->employee, 'admin')
             ->get(route('admin.orders.index'))

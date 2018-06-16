@@ -12,10 +12,12 @@ use App\Shop\Customers\Repositories\CustomerRepository;
 use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Shop\Orders\Order;
 use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
+use App\Shop\Orders\Repositories\OrderRepository;
 use App\Shop\OrderStatuses\OrderStatus;
 use App\Shop\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
 use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
 use App\Http\Controllers\Controller;
+use App\Shop\Products\Product;
 use Illuminate\Support\Collection;
 
 class OrderController extends Controller
@@ -72,9 +74,13 @@ class OrderController extends Controller
         $order->courier = $this->courierRepo->findCourierById($order->courier_id);
         $order->address = $this->addressRepo->findAddressById($order->address_id);
 
+        $orderRepo = new OrderRepository($order);
+
+        $items = $orderRepo->listOrderedProducts();
+
         return view('admin.orders.show', [
             'order' => $order,
-            'items' => $this->orderRepo->findProducts($order),
+            'items' => $items,
             'customer' => $this->customerRepo->findCustomerById($order->customer_id),
             'currentStatus' => $this->orderStatusRepo->findOrderStatusById($order->order_status_id),
             'payment' => $order->payment

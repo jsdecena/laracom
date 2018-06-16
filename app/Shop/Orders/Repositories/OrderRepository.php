@@ -78,7 +78,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         try {
             return $this->findOneOrFail($id);
         } catch (ModelNotFoundException $e) {
-            throw new OrderNotFoundException($e->getMessage());
+            throw new OrderNotFoundException($e);
         }
     }
 
@@ -111,7 +111,13 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
      */
     public function associateProduct(Product $product, int $quantity = 1)
     {
-        $this->model->products()->attach($product, ['quantity' => $quantity]);
+        $this->model->products()->attach($product, [
+            'quantity' => $quantity,
+            'product_name' => $product->name,
+            'product_sku' => $product->sku,
+            'product_description' => $product->description,
+            'product_price' => $product->price
+        ]);
         $product->quantity = ($product->quantity - $quantity);
         $product->save();
     }
@@ -143,7 +149,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
      */
     public function searchOrder(string $text) : Collection
     {
-        return $this->model->search(
+        return $this->model->searchOrder(
             $text,
             [
                 'products.name',
@@ -160,5 +166,20 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     public function transform()
     {
         return $this->transformOrder($this->model);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function listOrderedProducts() : Collection
+    {
+        return $this->model->products->map(function (Product $product) {
+            $product->name = $product->pivot->product_name;
+            $product->sku = $product->pivot->product_sku;
+            $product->description = $product->pivot->product_description;
+            $product->price = $product->pivot->product_price;
+            $product->quantity = $product->pivot->quantity;
+            return $product;
+        });
     }
 }
