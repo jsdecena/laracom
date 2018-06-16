@@ -22,14 +22,10 @@ use App\Shop\Customers\Repositories\CustomerRepository;
 use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Shop\Employees\Repositories\EmployeeRepository;
 use App\Shop\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
-use App\Shop\OrderDetails\Repositories\Interfaces\OrderProductRepositoryInterface;
-use App\Shop\OrderDetails\Repositories\OrderProductRepository;
 use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Shop\Orders\Repositories\OrderRepository;
 use App\Shop\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
 use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
-use App\Shop\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
-use App\Shop\PaymentMethods\Repositories\PaymentMethodRepository;
 use App\Shop\ProductAttributes\Repositories\ProductAttributeRepository;
 use App\Shop\ProductAttributes\Repositories\ProductAttributeRepositoryInterface;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
@@ -44,11 +40,6 @@ class RepositoryServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->bind(
-            OrderProductRepositoryInterface::class,
-            OrderProductRepository::class
-        );
-
         $this->app->bind(
             ProductAttributeRepositoryInterface::class,
             ProductAttributeRepository::class
@@ -117,11 +108,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             CourierRepositoryInterface::class,
             CourierRepository::class
-        );
-
-        $this->app->bind(
-            PaymentMethodRepositoryInterface::class,
-            PaymentMethodRepository::class
         );
 
         $this->app->bind(

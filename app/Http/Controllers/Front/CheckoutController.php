@@ -10,7 +10,6 @@ use App\Shop\Carts\Requests\StripeExecutionRequest;
 use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
 use App\Shop\Customers\Repositories\CustomerRepository;
 use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
-use App\Shop\OrderDetails\Repositories\Interfaces\OrderProductRepositoryInterface;
 use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Shop\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
 use App\Shop\PaymentMethods\Paypal\Repositories\PayPalExpressCheckoutRepository;
@@ -36,7 +35,6 @@ class CheckoutController extends Controller
     private $productRepo;
     private $orderRepo;
     private $courierId;
-    private $orderProductRepo;
     private $payPal;
 
     public function __construct(
@@ -45,8 +43,7 @@ class CheckoutController extends Controller
         AddressRepositoryInterface $addressRepository,
         CustomerRepositoryInterface $customerRepository,
         ProductRepositoryInterface $productRepository,
-        OrderRepositoryInterface $orderRepository,
-        OrderProductRepositoryInterface $orderProductRepository
+        OrderRepositoryInterface $orderRepository
     ) {
         $this->cartRepo = $cartRepository;
         $this->courierRepo = $courierRepository;
@@ -54,7 +51,6 @@ class CheckoutController extends Controller
         $this->customerRepo = $customerRepository;
         $this->productRepo = $productRepository;
         $this->orderRepo = $orderRepository;
-        $this->orderProductRepo = $orderProductRepository;
 
         $payPalRepo = new PayPalExpressCheckoutRepository();
         $this->payPal = $payPalRepo;

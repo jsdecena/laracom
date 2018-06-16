@@ -4,8 +4,6 @@ namespace App\Shop\Checkout;
 
 use App\Shop\Carts\Repositories\CartRepository;
 use App\Shop\Carts\ShoppingCart;
-use App\Shop\OrderDetails\OrderProduct;
-use App\Shop\OrderDetails\Repositories\OrderProductRepository;
 use App\Shop\Orders\Order;
 use App\Shop\Orders\Repositories\OrderRepository;
 
@@ -13,13 +11,13 @@ class CheckoutRepository
 {
     /**
      * @param array $data
+     *
      * @return Order
      */
     public function buildCheckoutItems(array $data) : Order
     {
         $orderRepo = new OrderRepository(new Order);
         $cartRepo = new CartRepository(new ShoppingCart);
-        $orderProductRepo = new OrderProductRepository(new OrderProduct);
 
         $order = $orderRepo->create([
             'reference' => $data['reference'],
@@ -35,7 +33,8 @@ class CheckoutRepository
             'tax' => $data['tax']
         ]);
 
-        $orderProductRepo->buildOrderDetails($order, $cartRepo->getCartItems());
+        $orderRepo = new OrderRepository($order);
+        $orderRepo->buildOrderDetails($cartRepo->getCartItems());
 
         return $order;
     }

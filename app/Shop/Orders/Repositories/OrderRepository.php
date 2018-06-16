@@ -14,6 +14,7 @@ use App\Shop\Orders\Order;
 use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Shop\Orders\Transformers\OrderTransformable;
 use App\Shop\Products\Product;
+use App\Shop\Products\Repositories\ProductRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
@@ -180,6 +181,18 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
             $product->price = $product->pivot->product_price;
             $product->quantity = $product->pivot->quantity;
             return $product;
+        });
+    }
+
+    /**
+     * @param Collection $items
+     */
+    public function buildOrderDetails(Collection $items)
+    {
+        $items->each(function ($item) {
+            $productRepo = new ProductRepository(new Product);
+            $product = $productRepo->find($item->id);
+            $this->associateProduct($product, $item->qty);
         });
     }
 }

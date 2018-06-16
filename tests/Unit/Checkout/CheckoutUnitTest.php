@@ -2,6 +2,8 @@
 
 namespace Test\Unit\Checkout;
 
+use App\Shop\Carts\Repositories\CartRepository;
+use App\Shop\Carts\ShoppingCart;
 use App\Shop\Checkout\CheckoutRepository;
 use App\Shop\Orders\Order;
 use App\Shop\Orders\Repositories\OrderRepository;
@@ -16,7 +18,7 @@ class CheckoutUnitTest extends TestCase
         $orderStatus = factory(OrderStatus::class)->create();
 
         $data = [
-            'reference' => $this->faker->uuid,
+            'reference' => $this->product->sku,
             'courier_id' => $this->courier->id,
             'customer_id' => $this->customer->id,
             'address_id' => $this->address->id,
@@ -29,8 +31,13 @@ class CheckoutUnitTest extends TestCase
             'tax' => 0
         ];
 
+        $cartRepo = new CartRepository(new ShoppingCart);
+        $qty = 1;
+        $cartRepo->addToCart($this->product, $qty);
+        $cartRepo->saveCart($this->customer);
+
         $checkoutRepo = new CheckoutRepository;
-        $checkoutRepo->buildCheckoutItems($data);
+        $checkoutRepo->buildCheckoutItems($data, $cartRepo->getCartItems());
 
         $orderRepo = new OrderRepository(new Order);
         $orders = $orderRepo->listOrders();
