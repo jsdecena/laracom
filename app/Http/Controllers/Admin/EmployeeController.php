@@ -9,7 +9,6 @@ use App\Shop\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
 use App\Shop\Roles\Repositories\RoleRepositoryInterface;
 use App\Http\Controllers\Controller;
 
-
 class EmployeeController extends Controller
 {
     /**
@@ -93,12 +92,14 @@ class EmployeeController extends Controller
         $isCurrentUser = $this->employeeRepo->isAuthUser($employee);
 
         return view(
-          'admin.employees.edit', [
+          'admin.employees.edit',
+            [
             'employee' => $employee,
             'allRoles' => $allRoles,
             'isCurrentUser' => $isCurrentUser,
             'selectedIds' => $employee->roles()->pluck('role_id')->all()
-        ]);
+        ]
+        );
     }
 
     /**
@@ -120,9 +121,9 @@ class EmployeeController extends Controller
             $empRepo->updateEmployee(['password' => bcrypt($request->input('password'))]);
         }
 
-        if ($request->has('roles') And !$isCurrentUser) {
+        if ($request->has('roles') and !$isCurrentUser) {
             $employee->roles()->sync($request->input('roles'));
-        } else if(!$isCurrentUser){
+        } elseif (!$isCurrentUser) {
             $employee->roles()->detach($request->input('roles'));
         }
 

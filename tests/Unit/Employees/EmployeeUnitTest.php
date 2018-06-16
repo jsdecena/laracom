@@ -40,6 +40,5 @@ class EmployeeUnitTest extends TestCase
 
         $employee->roles()->detach($role);
         $this->assertFalse($employee->hasRole($role->name));
-
     }
 }

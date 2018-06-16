@@ -144,7 +144,6 @@ class CheckoutController extends Controller
     public function executePayPalPayment(PayPalCheckoutExecutionRequest $request)
     {
         try {
-
             $this->payPal->execute($request);
             $this->cartRepo->clearCart();
 
@@ -163,7 +162,6 @@ class CheckoutController extends Controller
     public function charge(StripeExecutionRequest $request)
     {
         try {
-
             $customer = $this->customerRepo->findCustomerById(auth()->id());
             $stripeRepo = new StripeRepository($customer);
 

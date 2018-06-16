@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
-
 class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInterface
 {
     /**
@@ -110,12 +109,9 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
     public function isAuthUser(Employee $employee): bool
     {
         $isAuthUser = false;
-        if (Auth::guard('admin')->user()->id == $employee->id)
-        {
-           $isAuthUser = true;
+        if (Auth::guard('admin')->user()->id == $employee->id) {
+            $isAuthUser = true;
         }
         return $isAuthUser;
     }
-
-
 }
