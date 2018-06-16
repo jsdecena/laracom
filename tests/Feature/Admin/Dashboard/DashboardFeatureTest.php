@@ -18,7 +18,9 @@ class DashboardFeatureTest extends TestCase
             ->assertSee('List products')
             ->assertSee('Create product')
             ->assertSee('List categories')
-            ->assertSee('Create category');
+            ->assertSee('Create category')
+            ->assertSee('List brands')
+            ->assertSee('Create brand');
     }
 
     /** @test */
@@ -34,6 +36,8 @@ class DashboardFeatureTest extends TestCase
             ->assertDontSee('List products')
             ->assertDontSee('Create product')
             ->assertDontSee('List categories')
-            ->assertDontSee('Create category');
+            ->assertDontSee('Create category')
+            ->assertDontSee('List brands')
+            ->assertDontSee('Create brand');
     }
 }

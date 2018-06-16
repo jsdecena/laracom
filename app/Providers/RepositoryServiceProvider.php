@@ -8,6 +8,8 @@ use App\Shop\Attributes\Repositories\AttributeRepository;
 use App\Shop\Attributes\Repositories\AttributeRepositoryInterface;
 use App\Shop\AttributeValues\Repositories\AttributeValueRepository;
 use App\Shop\AttributeValues\Repositories\AttributeValueRepositoryInterface;
+use App\Shop\Brands\Repositories\BrandRepository;
+use App\Shop\Brands\Repositories\BrandRepositoryInterface;
 use App\Shop\Carts\Repositories\CartRepository;
 use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
 use App\Shop\Categories\Repositories\CategoryRepository;
@@ -40,6 +42,11 @@ class RepositoryServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        $this->app->bind(
+            BrandRepositoryInterface::class,
+            BrandRepository::class
+        );
+
         $this->app->bind(
             ProductAttributeRepositoryInterface::class,
             ProductAttributeRepository::class
