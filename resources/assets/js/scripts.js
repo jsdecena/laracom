@@ -7,7 +7,9 @@ $(document).ready(function () {
             $('#delivery_cost').fadeOut();
         }
     });
-    $('.select2').select2();
+    $('.select2').select2({
+        placeholder: 'Select'
+    });
     $('.table').DataTable({
         'info' : false,
         'paging' : false,

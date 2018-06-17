@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Products;
 
 use App\Shop\Attributes\Repositories\AttributeRepositoryInterface;
 use App\Shop\AttributeValues\Repositories\AttributeValueRepositoryInterface;
+use App\Shop\Brands\Repositories\BrandRepositoryInterface;
 use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Shop\ProductAttributes\ProductAttribute;
 use App\Shop\Products\Product;
@@ -42,28 +43,37 @@ class ProductController extends Controller
      */
     private $attributeValueRepository;
 
+    /**
+     * @var ProductAttribute
+     */
     private $productAttribute;
+
+    private $brandRepo;
 
     /**
      * ProductController constructor.
+     *
      * @param ProductRepositoryInterface $productRepository
      * @param CategoryRepositoryInterface $categoryRepository
      * @param AttributeRepositoryInterface $attributeRepository
      * @param AttributeValueRepositoryInterface $attributeValueRepository
      * @param ProductAttribute $productAttribute
+     * @param BrandRepositoryInterface $brandRepository
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         CategoryRepositoryInterface $categoryRepository,
         AttributeRepositoryInterface $attributeRepository,
         AttributeValueRepositoryInterface $attributeValueRepository,
-        ProductAttribute $productAttribute
+        ProductAttribute $productAttribute,
+        BrandRepositoryInterface $brandRepository
     ) {
         $this->productRepo = $productRepository;
         $this->categoryRepo = $categoryRepository;
         $this->attributeRepo = $attributeRepository;
         $this->attributeValueRepository = $attributeValueRepository;
         $this->productAttribute = $productAttribute;
+        $this->brandRepo = $brandRepository;
     }
 
     /**
@@ -95,9 +105,11 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $categories = $this->categoryRepo->listCategories('name', 'asc')->where('parent_id', 1);
+
         return view('admin.products.create', [
-            'categories' => $this->categoryRepo->listCategories('name', 'asc')->where('parent_id', 1),
-            'selectedIds' => []
+            'categories' => $categories,
+            'brands' => $this->brandRepo->listBrands()
         ]);
     }
 
@@ -125,8 +137,9 @@ class ProductController extends Controller
             $product->categories()->detach();
         }
 
-        $request->session()->flash('message', 'Create successful');
-        return redirect()->route('admin.products.edit', $product->id);
+        return redirect()
+            ->route('admin.products.edit', $product->id)
+            ->with('message', 'Create successful');
     }
 
     /**
@@ -137,7 +150,8 @@ class ProductController extends Controller
      */
     public function show(int $id)
     {
-        return view('admin.products.show', ['product' => $this->productRepo->findProductById($id)]);
+        $product = $this->productRepo->findProductById($id);
+        return view('admin.products.show', compact('product'));
     }
 
     /**
@@ -164,14 +178,18 @@ class ProductController extends Controller
             return redirect()->route('admin.products.edit', [$product->id, 'combination' => 1]);
         }
 
+        $categories = $this->categoryRepo->listCategories('name', 'asc')
+            ->where('parent_id', 1);
+
         return view('admin.products.edit', [
             'product' => $product,
             'images' => $product->images()->get(['src']),
-            'categories' => $this->categoryRepo->listCategories('name', 'asc')->where('parent_id', 1),
+            'categories' => $categories,
             'selectedIds' => $product->categories()->pluck('category_id')->all(),
             'attributes' => $this->attributeRepo->listAttributes(),
             'productAttributes' => $productAttributes,
-            'qty' => $qty
+            'qty' => $qty,
+            'brands' => $this->brandRepo->listBrands()
         ]);
     }
 
@@ -209,9 +227,8 @@ class ProductController extends Controller
             $product->categories()->detach();
         }
 
-        $request->session()->flash('message', 'Update successful');
-
-        return redirect()->route('admin.products.edit', $id);
+        return redirect()->route('admin.products.edit', $id)
+            ->with('message', 'Update successful');
     }
 
     /**

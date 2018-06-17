@@ -105,6 +105,17 @@
                                                     <input type="text" name="sale_price" id="sale_price" placeholder="Sale Price" class="form-control" value="{{ $product->sale_price }}">
                                                 </div>
                                             </div>
+                                            @if(!$brands->isEmpty())
+                                                <div class="form-group">
+                                                    <label for="brand_id">Brand </label>
+                                                    <select name="brand_id" id="brand_id" class="form-control select2">
+                                                        <option value=""></option>
+                                                        @foreach($brands as $brand)
+                                                            <option @if(!is_null($product->brand_id) && $brand->id == $product->brand_id) selected="selected" @endif value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            @endif
                                             <div class="form-group">
                                                 @include('admin.shared.status-select', ['status' => $product->status])
                                             </div>

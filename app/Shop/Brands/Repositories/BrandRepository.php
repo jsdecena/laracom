@@ -8,6 +8,7 @@ use App\Shop\Brands\Exceptions\BrandNotFoundErrorException;
 use App\Shop\Brands\Exceptions\CreateBrandErrorException;
 use App\Shop\Brands\Exceptions\DeletingBrandErrorException;
 use App\Shop\Brands\Exceptions\UpdateBrandErrorException;
+use App\Shop\Products\Product;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
@@ -96,5 +97,21 @@ class BrandRepository extends BaseRepository implements BrandRepositoryInterface
     public function listBrands($columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc') : Collection
     {
         return $this->all($columns, $orderBy, $sortBy);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function listProducts() : Collection
+    {
+        return $this->model->products()->get();
+    }
+
+    /**
+     * @param Product $product
+     */
+    public function saveProduct(Product $product)
+    {
+        $this->model->products()->save($product);
     }
 }

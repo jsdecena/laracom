@@ -268,7 +268,6 @@ class ProductUnitTest extends TestCase
     public function it_errors_finding_a_product()
     {
         $this->expectException(ProductNotFoundException::class);
-        $this->expectExceptionMessage('Product not found.');
 
         $product = new ProductRepository(new Product);
         $product->findProductById(999);

@@ -4,6 +4,7 @@ namespace App\Shop\Products\Repositories;
 
 use App\Shop\AttributeValues\AttributeValue;
 use App\Shop\Base\BaseRepository;
+use App\Shop\Brands\Brand;
 use App\Shop\ProductAttributes\ProductAttribute;
 use App\Shop\ProductImages\ProductImage;
 use App\Shop\Products\Exceptions\ProductInvalidArgumentException;
@@ -81,14 +82,16 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      * Find the product by ID
      *
      * @param int $id
+     *
      * @return Product
+     * @throws ProductNotFoundException
      */
     public function findProductById(int $id) : Product
     {
         try {
             return $this->transformProduct($this->findOneOrFail($id));
         } catch (ModelNotFoundException $e) {
-            throw new ProductNotFoundException($e->getMessage());
+            throw new ProductNotFoundException($e);
         }
     }
 
@@ -96,7 +99,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      * Delete the product
      *
      * @param Product $product
+     *
      * @return bool
+     * @throws \Exception
      */
     public function deleteProduct(Product $product) : bool
     {
@@ -155,14 +160,16 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      * Get the product via slug
      *
      * @param array $slug
+     *
      * @return Product
+     * @throws ProductNotFoundException
      */
     public function findProductBySlug(array $slug) : Product
     {
         try {
             return $this->findOneByOrFail($slug);
         } catch (ModelNotFoundException $e) {
-            throw new ProductNotFoundException($e->getMessage());
+            throw new ProductNotFoundException($e);
         }
     }
 
@@ -217,7 +224,8 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      */
     public function saveProductAttributes(ProductAttribute $productAttribute) : ProductAttribute
     {
-        return $this->model->attributes()->save($productAttribute);
+        $this->model->attributes()->save($productAttribute);
+        return $productAttribute;
     }
 
     /**
@@ -234,7 +242,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      * Delete the attribute from the product
      *
      * @param ProductAttribute $productAttribute
+     *
      * @return bool|null
+     * @throws \Exception
      */
     public function removeProductAttribute(ProductAttribute $productAttribute) : ?bool
     {
@@ -243,7 +253,8 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
     /**
      * @param ProductAttribute $productAttribute
-     * @param \App\Shop\AttributeValues\AttributeValue[] ...$attributeValues
+     * @param AttributeValue ...$attributeValues
+     *
      * @return Collection
      */
     public function saveCombination(ProductAttribute $productAttribute, AttributeValue ...$attributeValues) : Collection
@@ -278,5 +289,21 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         })->transform(function (AttributeValue $value) {
             return $value->value;
         });
+    }
+
+    /**
+     * @param Brand $brand
+     */
+    public function saveBrand(Brand $brand)
+    {
+        $this->model->brand()->associate($brand);
+    }
+
+    /**
+     * @return Brand
+     */
+    public function findBrand()
+    {
+        return $this->model->brand;
     }
 }
