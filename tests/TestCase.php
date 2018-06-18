@@ -36,6 +36,7 @@ abstract class TestCase extends BaseTestCase
     protected $courier;
     protected $orderStatus;
     protected $cart;
+    protected $role;
 
     /**
      * Set up the test
@@ -51,6 +52,7 @@ abstract class TestCase extends BaseTestCase
 
         $roleRepo = new RoleRepository(new Role);
         $admin = $roleRepo->createRole($adminData);
+        $this->role = $admin;
 
         $employeeRepo = new EmployeeRepository($this->employee);
         $employeeRepo->syncRoles([$admin->id]);

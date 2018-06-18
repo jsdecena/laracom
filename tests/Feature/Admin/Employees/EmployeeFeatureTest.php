@@ -3,6 +3,7 @@
 namespace Tests\Feature\Admin\Employees;
 
 use App\Shop\Employees\Employee;
+use App\Shop\Employees\Repositories\EmployeeRepository;
 use Illuminate\Auth\Events\Lockout;
 use Tests\TestCase;
 
@@ -93,12 +94,10 @@ class EmployeeFeatureTest extends TestCase
             ->get(route('admin.employees.create'))
             ->assertStatus(200);
 
-        $employee = factory(Employee::class)->create();
-
         $this->actingAs($this->employee, 'admin')
-            ->get(route('admin.employees.edit', $employee->id))
+            ->get(route('admin.employees.edit', $this->employee->id))
             ->assertStatus(200)
-            ->assertSee(htmlentities($employee->name, ENT_QUOTES));
+            ->assertSee(htmlentities($this->employee->name, ENT_QUOTES));
     }
 
     /** @test */
@@ -245,7 +244,8 @@ class EmployeeFeatureTest extends TestCase
         $data = [
             'name' => $this->faker->name,
             'email' => $this->faker->email,
-            'password' => 'secret!!'
+            'password' => 'secret!!',
+            'role' => $this->role->id
         ];
 
         $this->actingAs($this->employee, 'admin')
@@ -253,7 +253,7 @@ class EmployeeFeatureTest extends TestCase
             ->assertStatus(302)
             ->assertRedirect(route('admin.employees.index'));
 
-        $created = collect($data)->except('password');
+        $created = collect($data)->except('password', 'role');
 
         $this->assertDatabaseHas('employees', $created->all());
     }

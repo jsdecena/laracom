@@ -9,6 +9,7 @@ use App\Shop\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInterface
 {
@@ -37,18 +38,13 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
     /**
      * Create the employee
      *
-     * @param array $params
+     * @param array $data
      * @return Employee
      */
-    public function createEmployee(array $params): Employee
+    public function createEmployee(array $data): Employee
     {
-        $collection = collect($params);
-
-        $employee = new Employee(($collection->except('password'))->all());
-        $employee->password = bcrypt($collection->only('password'));
-        $employee->save();
-
-        return $employee;
+        $data['password'] = Hash::make($data['password']);
+        return $this->create($data);
     }
 
     /**
