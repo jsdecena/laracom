@@ -202,7 +202,8 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     /**
      * @param Collection $collection
      * @param Product $product
-     * @return Collection
+     *
+     * @return void
      */
     public function saveProductImages(Collection $collection, Product $product)
     {

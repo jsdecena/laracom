@@ -206,8 +206,8 @@ class ProductController extends Controller
 
         if ($request->has('attributeValue')) {
             $this->saveProductCombinations($request, $product);
-            $request->session()->flash('message', 'Attribute combination created successful');
-            return redirect()->route('admin.products.edit', [$id, 'combination' => 1]);
+            return redirect()->route('admin.products.edit', [$id, 'combination' => 1])
+                ->with('message', 'Attribute combination created successful');
         }
 
         $data = $request->except('categories', '_token', '_method');
@@ -288,7 +288,12 @@ class ProductController extends Controller
      */
     private function saveProductCombinations(Request $request, Product $product)
     {
-        $fields = $request->only('productAttributeQuantity', 'productAttributePrice');
+        $fields = $request->only(
+            'productAttributeQuantity',
+            'productAttributePrice',
+            'salePrice',
+            'default'
+        );
 
         if ($errors = $this->validateFields($fields)) {
             return redirect()->route('admin.products.edit', [$product->id, 'combination' => 1])
@@ -297,20 +302,33 @@ class ProductController extends Controller
 
         $quantity = $fields['productAttributeQuantity'];
         $price = $fields['productAttributePrice'];
+        $sale_price = $fields['salePrice'];
+        $default = $fields['default'];
 
         $attributeValues = $request->input('attributeValue');
         $productRepo = new ProductRepository($product);
-        $productAttribute = $productRepo->saveProductAttributes(new ProductAttribute(compact('quantity', 'price')));
+
+        $hasDefault = $productRepo->listProductAttributes()->where('default', 1)->count();
+
+        if ($default == 1 && $hasDefault > 0) {
+            $default = 0;
+        }
+
+        $productAttribute = $productRepo->saveProductAttributes(
+            new ProductAttribute(compact('quantity', 'price', 'sale_price', 'default'))
+        );
 
         // save the combinations
-        return collect($attributeValues)->each(function ($attributeId) use ($productRepo, $productAttribute) {
-            $attribute = $this->attributeValueRepository->find($attributeId);
+        return collect($attributeValues)->each(function ($attributeValueId) use ($productRepo, $productAttribute) {
+            $attribute = $this->attributeValueRepository->find($attributeValueId);
             return $productRepo->saveCombination($productAttribute, $attribute);
         })->count();
     }
 
     /**
      * @param array $data
+     *
+     * @return
      */
     private function validateFields(array $data)
     {
