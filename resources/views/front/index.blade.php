@@ -9,25 +9,25 @@
 @section('content')
     @include('layouts.front.home-slider')
 
-    @if(!$newArrivals->products->isEmpty())
+    @if(!$cat1->products->isEmpty())
         <section class="new-product t100 home">
             <div class="container">
                 <div class="section-title b50">
-                    <h2>New Arrivals</h2>
+                    <h2>{{ $cat1->name }}</h2>
                 </div>
-                @include('front.products.product-list', ['products' => $newArrivals->products])
-                <div id="browse-all-btn"> <a class="btn btn-default browse-all-btn" href="{{ route('front.category.slug', $newArrivals->slug) }}" role="button">browse all items</a></div>
+                @include('front.products.product-list', ['products' => $cat1->products])
+                <div id="browse-all-btn"> <a class="btn btn-default browse-all-btn" href="{{ route('front.category.slug', $cat1->slug) }}" role="button">browse all items</a></div>
             </div>
         </section>
     @endif
     <hr>
-    @if(!$featured->products->isEmpty())
+    @if(!$cat2->products->isEmpty())
         <div class="container">
             <div class="section-title b100">
-                <h2>Featured Products</h2>
+                <h2>{{ $cat2->name }}</h2>
             </div>
-            @include('front.products.product-list', ['products' => $featured->products])
-            <div id="browse-all-btn"> <a class="btn btn-default browse-all-btn" href="{{ route('front.category.slug', $featured->slug) }}" role="button">browse all items</a></div>
+            @include('front.products.product-list', ['products' => $cat2->products])
+            <div id="browse-all-btn"> <a class="btn btn-default browse-all-btn" href="{{ route('front.category.slug', $cat2->slug) }}" role="button">browse all items</a></div>
         </div>
     @endif
     <hr />

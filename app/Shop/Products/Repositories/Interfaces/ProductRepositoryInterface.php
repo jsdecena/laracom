@@ -4,6 +4,7 @@ namespace App\Shop\Products\Repositories\Interfaces;
 
 use App\Shop\AttributeValues\AttributeValue;
 use App\Shop\Base\Interfaces\BaseRepositoryInterface;
+use App\Shop\Brands\Brand;
 use App\Shop\ProductAttributes\ProductAttribute;
 use App\Shop\Products\Product;
 use Illuminate\Http\UploadedFile;
@@ -52,4 +53,8 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
     public function listCombinations() : Collection;
 
     public function findProductCombination(ProductAttribute $attribute);
+
+    public function saveBrand(Brand $brand);
+
+    public function findBrand();
 }

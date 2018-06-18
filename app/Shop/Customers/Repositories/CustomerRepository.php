@@ -69,14 +69,16 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      * Update the customer
      *
      * @param array $params
+     *
      * @return bool
+     * @throws UpdateCustomerInvalidArgumentException
      */
     public function updateCustomer(array $params) : bool
     {
         try {
             return $this->model->update($params);
         } catch (QueryException $e) {
-            throw new UpdateCustomerInvalidArgumentException('Cannot update customer', 500, $e);
+            throw new UpdateCustomerInvalidArgumentException($e);
         }
     }
 
@@ -84,14 +86,16 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      * Find the customer or fail
      *
      * @param int $id
+     *
      * @return Customer
+     * @throws CustomerNotFoundException
      */
     public function findCustomerById(int $id) : Customer
     {
         try {
             return $this->findOneOrFail($id);
         } catch (ModelNotFoundException $e) {
-            throw new CustomerNotFoundException('Cannot find customer', $e);
+            throw new CustomerNotFoundException($e);
         }
     }
 
@@ -99,6 +103,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      * Delete a customer
      *
      * @return bool
+     * @throws \Exception
      */
     public function deleteCustomer() : bool
     {
@@ -111,7 +116,8 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      */
     public function attachAddress(Address $address) : Address
     {
-        return $this->model->addresses()->save($address);
+        $this->model->addresses()->save($address);
+        return $address;
     }
 
     /**
@@ -138,7 +144,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      */
     public function searchCustomer(string $text) : Collection
     {
-        return $this->model->search($text, ['name' => 10, 'email' => 5])->get();
+        return $this->model->searchCustomer($text, ['name' => 10, 'email' => 5])->get();
     }
 
     /**

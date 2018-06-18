@@ -8,6 +8,8 @@ use App\Shop\Attributes\Repositories\AttributeRepository;
 use App\Shop\Attributes\Repositories\AttributeRepositoryInterface;
 use App\Shop\AttributeValues\Repositories\AttributeValueRepository;
 use App\Shop\AttributeValues\Repositories\AttributeValueRepositoryInterface;
+use App\Shop\Brands\Repositories\BrandRepository;
+use App\Shop\Brands\Repositories\BrandRepositoryInterface;
 use App\Shop\Carts\Repositories\CartRepository;
 use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
 use App\Shop\Categories\Repositories\CategoryRepository;
@@ -22,14 +24,10 @@ use App\Shop\Customers\Repositories\CustomerRepository;
 use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Shop\Employees\Repositories\EmployeeRepository;
 use App\Shop\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
-use App\Shop\OrderDetails\Repositories\Interfaces\OrderProductRepositoryInterface;
-use App\Shop\OrderDetails\Repositories\OrderProductRepository;
 use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Shop\Orders\Repositories\OrderRepository;
 use App\Shop\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
 use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
-use App\Shop\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
-use App\Shop\PaymentMethods\Repositories\PaymentMethodRepository;
 use App\Shop\ProductAttributes\Repositories\ProductAttributeRepository;
 use App\Shop\ProductAttributes\Repositories\ProductAttributeRepositoryInterface;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
@@ -45,8 +43,8 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
-            OrderProductRepositoryInterface::class,
-            OrderProductRepository::class
+            BrandRepositoryInterface::class,
+            BrandRepository::class
         );
 
         $this->app->bind(
@@ -117,11 +115,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             CourierRepositoryInterface::class,
             CourierRepository::class
-        );
-
-        $this->app->bind(
-            PaymentMethodRepositoryInterface::class,
-            PaymentMethodRepository::class
         );
 
         $this->app->bind(

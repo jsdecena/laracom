@@ -41,29 +41,61 @@ class Order extends Model
      */
     protected $hidden = [];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function products()
     {
         return $this->belongsToMany(Product::class)
-                    ->withPivot(['quantity']);
+                    ->withPivot([
+                        'quantity',
+                        'product_name',
+                        'product_sku',
+                        'product_description',
+                        'product_price'
+                    ]);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function customer()
     {
         return $this->belongsTo(Customer::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function courier()
     {
         return $this->belongsTo(Courier::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function address()
     {
         return $this->belongsTo(Address::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function orderStatus()
     {
         return $this->belongsTo(OrderStatus::class);
+    }
+
+    /**
+     * @param string $term
+     * @param array $options
+     *
+     * @return mixed
+     */
+    public function searchOrder(string $term, array $options)
+    {
+        return static::search($term, $options);
     }
 }

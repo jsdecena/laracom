@@ -22,4 +22,8 @@ interface OrderRepositoryInterface extends BaseRepositoryInterface
     public function associateProduct(Product $product, int $quantity);
 
     public function searchOrder(string $text) : Collection;
+
+    public function listOrderedProducts() : Collection;
+
+    public function buildOrderDetails(Collection $items);
 }

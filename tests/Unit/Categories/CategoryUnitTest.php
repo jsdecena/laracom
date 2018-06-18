@@ -147,7 +147,6 @@ class CategoryUnitTest extends TestCase
     public function it_errors_finding_a_category()
     {
         $this->expectException(CategoryNotFoundException::class);
-        $this->expectExceptionMessage('Category not found.');
 
         $category = new CategoryRepository(new Category);
         $category->findCategoryById(999);

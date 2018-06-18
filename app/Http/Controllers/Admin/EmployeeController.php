@@ -8,7 +8,7 @@ use App\Shop\Employees\Repositories\EmployeeRepository;
 use App\Shop\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
 use App\Shop\Roles\Repositories\RoleRepositoryInterface;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
 {
@@ -23,10 +23,13 @@ class EmployeeController extends Controller
 
     /**
      * EmployeeController constructor.
+     *
      * @param EmployeeRepositoryInterface $employeeRepository
      */
-    public function __construct(EmployeeRepositoryInterface $employeeRepository, RoleRepositoryInterface $roleRepository)
-    {
+    public function __construct(
+        EmployeeRepositoryInterface $employeeRepository,
+        RoleRepositoryInterface $roleRepository
+    ) {
         $this->employeeRepo = $employeeRepository;
         $this->roleRepo = $roleRepository;
     }
@@ -52,18 +55,26 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('admin.employees.create');
+        $roles = $this->roleRepo->listRoles();
+
+        return view('admin.employees.create', compact('roles'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  CreateEmployeeRequest  $request
+     * @param  CreateEmployeeRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(CreateEmployeeRequest $request)
     {
-        $this->employeeRepo->createEmployee($request->all());
+        $employee = $this->employeeRepo->createEmployee($request->all());
+
+        if ($request->has('role')) {
+            $employeeRepo = new EmployeeRepository($employee);
+            $employeeRepo->syncRoles([$request->input('role')]);
+        }
 
         return redirect()->route('admin.employees.index');
     }
@@ -71,7 +82,8 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(int $id)
@@ -83,22 +95,24 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(int $id)
     {
         $employee = $this->employeeRepo->findEmployeeById($id);
-        $allRoles = $this->roleRepo->listRoles('created_at', 'desc');
+        $roles = $this->roleRepo->listRoles('created_at', 'desc');
         $isCurrentUser = $this->employeeRepo->isAuthUser($employee);
 
-        return view(
-          'admin.employees.edit', [
-            'employee' => $employee,
-            'allRoles' => $allRoles,
-            'isCurrentUser' => $isCurrentUser,
-            'selectedIds' => $employee->roles()->pluck('role_id')->all()
-        ]);
+        return view('admin.employees.edit', [
+                'employee' => $employee,
+                'roles' => $roles,
+                'isCurrentUser' => $isCurrentUser,
+                'selectedIds' => $employee->roles()->pluck('role_id')->all(),
+                'roleId' => $employee->roles()->first()->id
+            ]
+        );
     }
 
     /**
@@ -106,6 +120,7 @@ class EmployeeController extends Controller
      *
      * @param UpdateEmployeeRequest $request
      * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateEmployeeRequest $request, $id)
@@ -116,24 +131,26 @@ class EmployeeController extends Controller
         $empRepo = new EmployeeRepository($employee);
         $empRepo->updateEmployee($request->except('_token', '_method', 'password'));
 
-        if ($request->has('password')) {
-            $empRepo->updateEmployee(['password' => bcrypt($request->input('password'))]);
+        if ($request->has('password') && !empty($request->input('password'))) {
+            $employee->password = Hash::make($request->input('password'));
+            $employee->save();
         }
 
-        if ($request->has('roles') And !$isCurrentUser) {
-            $employee->roles()->sync($request->input('roles'));
-        } else if(!$isCurrentUser){
-            $employee->roles()->detach($request->input('roles'));
+        if ($request->has('role') and !$isCurrentUser) {
+            $employee->roles()->sync($request->input('role'));
+        } elseif (!$isCurrentUser) {
+            $employee->roles()->detach($request->input('role'));
         }
 
-        $request->session()->flash('message', 'Update successful');
-        return redirect()->route('admin.employees.edit', $id);
+        return redirect()->route('admin.employees.edit', $id)
+            ->with('message', 'Update successful');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(int $id)
@@ -146,6 +163,7 @@ class EmployeeController extends Controller
 
     /**
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getProfile($id)
@@ -157,6 +175,7 @@ class EmployeeController extends Controller
     /**
      * @param UpdateEmployeeRequest $request
      * @param $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function updateProfile(UpdateEmployeeRequest $request, $id)

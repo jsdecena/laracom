@@ -53,4 +53,15 @@ class Customer extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
+    /**
+     * @param $term
+     * @param array $options
+     *
+     * @return mixed
+     */
+    public function searchCustomer($term, array $options)
+    {
+        return static::search($term, $options);
+    }
 }

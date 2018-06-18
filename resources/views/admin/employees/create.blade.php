@@ -24,12 +24,15 @@
                         <input type="password" name="password" id="password" placeholder="xxxxx" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="status">Status </label>
-                        <select name="status" id="status" class="form-control">
-                            <option value="0">Disable</option>
-                            <option value="1">Enable</option>
+                        <label for="role">Role </label>
+                        <select name="role" id="role" class="form-control select2">
+                            <option></option>
+                            @foreach($roles as $role)
+                                <option value="{{ $role->id }}">{{ ucfirst($role->name) }}</option>
+                            @endforeach
                         </select>
                     </div>
+                    @include('admin.shared.status-select', ['status' => 0])
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">

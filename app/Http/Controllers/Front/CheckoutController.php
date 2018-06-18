@@ -10,7 +10,6 @@ use App\Shop\Carts\Requests\StripeExecutionRequest;
 use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
 use App\Shop\Customers\Repositories\CustomerRepository;
 use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
-use App\Shop\OrderDetails\Repositories\Interfaces\OrderProductRepositoryInterface;
 use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Shop\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
 use App\Shop\PaymentMethods\Paypal\Repositories\PayPalExpressCheckoutRepository;
@@ -36,7 +35,6 @@ class CheckoutController extends Controller
     private $productRepo;
     private $orderRepo;
     private $courierId;
-    private $orderProductRepo;
     private $payPal;
 
     public function __construct(
@@ -45,8 +43,7 @@ class CheckoutController extends Controller
         AddressRepositoryInterface $addressRepository,
         CustomerRepositoryInterface $customerRepository,
         ProductRepositoryInterface $productRepository,
-        OrderRepositoryInterface $orderRepository,
-        OrderProductRepositoryInterface $orderProductRepository
+        OrderRepositoryInterface $orderRepository
     ) {
         $this->cartRepo = $cartRepository;
         $this->courierRepo = $courierRepository;
@@ -54,7 +51,6 @@ class CheckoutController extends Controller
         $this->customerRepo = $customerRepository;
         $this->productRepo = $productRepository;
         $this->orderRepo = $orderRepository;
-        $this->orderProductRepo = $orderProductRepository;
 
         $payPalRepo = new PayPalExpressCheckoutRepository();
         $this->payPal = $payPalRepo;
@@ -110,8 +106,10 @@ class CheckoutController extends Controller
      * Checkout the items
      *
      * @param CartCheckoutRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      * @codeCoverageIgnore
+     * @throws \App\Shop\Customers\Exceptions\CustomerPaymentChargingErrorException
      */
     public function store(CartCheckoutRequest $request)
     {
@@ -129,7 +127,8 @@ class CheckoutController extends Controller
                     'metadata' => $this->cartRepo->getCartItems()->all()
                 ];
 
-                $customerRepo = new CustomerRepository($this->loggedUser());
+                $customer = $this->customerRepo->findCustomerById(auth()->id());
+                $customerRepo = new CustomerRepository($customer);
                 $customerRepo->charge($this->cartRepo->getTotal(2, $shippingFee), $details);
                 break;
             default:
@@ -163,7 +162,7 @@ class CheckoutController extends Controller
     public function charge(StripeExecutionRequest $request)
     {
         try {
-            $customer = auth()->user();
+            $customer = $this->customerRepo->findCustomerById(auth()->id());
             $stripeRepo = new StripeRepository($customer);
 
             $stripeRepo->execute(

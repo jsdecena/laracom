@@ -46,8 +46,10 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
      * Create the category
      *
      * @param array $params
+     *
      * @return Category
      * @throws CategoryInvalidArgumentException
+     * @throws CategoryNotFoundException
      */
     public function createCategory(array $params) : Category
     {
@@ -81,7 +83,9 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
      * Update the category
      *
      * @param array $params
+     *
      * @return Category
+     * @throws CategoryNotFoundException
      */
     public function updateCategory(array $params) : Category
     {
@@ -121,6 +125,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
      * Delete a category
      *
      * @return bool
+     * @throws \Exception
      */
     public function deleteCategory() : bool
     {
@@ -180,14 +185,16 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
      * Return the category by using the slug as the parameter
      *
      * @param array $slug
+     *
      * @return Category
+     * @throws CategoryNotFoundException
      */
     public function findCategoryBySlug(array $slug) : Category
     {
         try {
             return $this->findOneByOrFail($slug);
         } catch (ModelNotFoundException $e) {
-            throw new CategoryNotFoundException($e->getMessage());
+            throw new CategoryNotFoundException($e);
         }
     }
 
