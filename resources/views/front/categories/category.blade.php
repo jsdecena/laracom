@@ -15,7 +15,7 @@
         <div class="row">
             <div class="category-top col-md-12">
                 <h2>{{ $category->name }}</h2>
-                {{ $category->description }}
+                {!! $category->description !!}
             </div>
         </div>
         <hr>
