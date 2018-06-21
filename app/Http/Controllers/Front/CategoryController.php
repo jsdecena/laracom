@@ -8,8 +8,16 @@ use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
+    /**
+     * @var CategoryRepositoryInterface
+     */
     private $categoryRepo;
 
+    /**
+     * CategoryController constructor.
+     *
+     * @param CategoryRepositoryInterface $categoryRepository
+     */
     public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
         $this->categoryRepo = $categoryRepository;
@@ -27,9 +35,11 @@ class CategoryController extends Controller
 
         $repo = new CategoryRepository($category);
 
+        $products = $repo->findProducts()->where('status', 1)->all();
+
         return view('front.categories.category', [
             'category' => $category,
-            'products' => $repo->findProducts()
+            'products' => $repo->paginateArrayResults($products, 20)
         ]);
     }
 }
