@@ -291,8 +291,7 @@ class ProductController extends Controller
         $fields = $request->only(
             'productAttributeQuantity',
             'productAttributePrice',
-            'salePrice',
-            'default'
+            'sale_price'
         );
 
         if ($errors = $this->validateFields($fields)) {
@@ -302,13 +301,21 @@ class ProductController extends Controller
 
         $quantity = $fields['productAttributeQuantity'];
         $price = $fields['productAttributePrice'];
-        $sale_price = $fields['salePrice'];
-        $default = $fields['default'];
+
+        $sale_price = null;
+        if (isset($fields['sale_price'])) {
+            $sale_price = $fields['sale_price'];
+        }
 
         $attributeValues = $request->input('attributeValue');
         $productRepo = new ProductRepository($product);
 
         $hasDefault = $productRepo->listProductAttributes()->where('default', 1)->count();
+
+        $default = 0;
+        if($request->has('default')) {
+            $default = $fields['default'];
+        }
 
         if ($default == 1 && $hasDefault > 0) {
             $default = 0;
