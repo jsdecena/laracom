@@ -114,4 +114,15 @@ class BrandRepository extends BaseRepository implements BrandRepositoryInterface
     {
         $this->model->products()->save($product);
     }
+
+    /**
+     * Dissociate the products
+     */
+    public function dissociateProducts()
+    {
+        $this->model->products()->each(function (Product $product) {
+            $product->brand_id = null;
+            $product->save();
+        });
+    }
 }
