@@ -109,7 +109,7 @@ class ProductController extends Controller
 
         return view('admin.products.create', [
             'categories' => $categories,
-            'brands' => $this->brandRepo->listBrands()
+            'brands' => $this->brandRepo->listBrands(['*'], 'name', 'asc')
         ]);
     }
 
@@ -189,7 +189,7 @@ class ProductController extends Controller
             'attributes' => $this->attributeRepo->listAttributes(),
             'productAttributes' => $productAttributes,
             'qty' => $qty,
-            'brands' => $this->brandRepo->listBrands()
+            'brands' => $this->brandRepo->listBrands(['*'], 'name', 'asc')
         ]);
     }
 
