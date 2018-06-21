@@ -17,6 +17,8 @@ use App\Shop\Products\Transformations\ProductTransformable;
 use App\Shop\Tools\UploadableTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -241,11 +243,17 @@ class ProductController extends Controller
     {
         $product = $this->productRepo->findProductById($id);
         $product->categories()->sync([]);
+        $productAttr = $product->attributes();
+
+        $productAttr->each(function ($pa) {
+            DB::table('attribute_value_product_attribute')->where('product_attribute_id', $pa->id)->delete();
+        });
+
+        $productAttr->where('product_id', $product->id)->delete();
 
         $this->productRepo->delete($id);
 
-        request()->session()->flash('message', 'Delete successful');
-        return redirect()->route('admin.products.index');
+        return redirect()->route('admin.products.index')->with('message', 'Delete successful');
     }
 
     /**
