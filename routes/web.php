@@ -22,9 +22,9 @@ Route::namespace('Admin')->group(function () {
     Route::post('admin/login', 'LoginController@login')->name('admin.login');
     Route::get('admin/logout', 'LoginController@logout')->name('admin.logout');
 });
-Route::group(['prefix' => 'admin', 'middleware' => ['admin'], 'as' => 'admin.' ], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.' ], function () {
     Route::namespace('Admin')->group(function () {
-        Route::group(['middleware' => ['role:admin|superadmin, guard:admin']], function () {
+        Route::group(['middleware' => ['role:admin|superadmin, guard:employee']], function () {
             Route::get('/', 'DashboardController@index')->name('dashboard');
             Route::namespace('Products')->group(function () {
                 Route::resource('products', 'ProductController');
@@ -44,9 +44,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin'], 'as' => 'admin.' ]
                 Route::resource('order-statuses', 'OrderStatusController');
                 Route::get('orders/{id}/invoice', 'OrderController@generateInvoice')->name('orders.invoice.generate');
             });
-            Route::resource('employees', 'EmployeeController');
-            Route::get('employees/{id}/profile', 'EmployeeController@getProfile')->name('employee.profile');
-            Route::put('employees/{id}/profile', 'EmployeeController@updateProfile')->name('employee.profile.update');
             Route::resource('addresses', 'Addresses\AddressController');
             Route::resource('countries', 'Countries\CountryController');
             Route::resource('countries.provinces', 'Provinces\ProvinceController');
@@ -55,6 +52,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin'], 'as' => 'admin.' ]
             Route::resource('attributes', 'Attributes\AttributeController');
             Route::resource('attributes.values', 'Attributes\AttributeValueController');
             Route::resource('brands', 'Brands\BrandController');
+
+            Route::resource('employees', 'EmployeeController');
+            Route::get('employees/{id}/profile', 'EmployeeController@getProfile')->name('employee.profile');
+            Route::put('employees/{id}/profile', 'EmployeeController@updateProfile')->name('employee.profile.update');
             Route::resource('roles', 'Roles\RoleController');
         });
     });

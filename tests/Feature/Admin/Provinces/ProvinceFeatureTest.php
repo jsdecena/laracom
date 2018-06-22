@@ -17,7 +17,7 @@ class ProvinceFeatureTest extends TestCase
         ]);
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->put(route('admin.countries.provinces.update', [$country->id, $province->id]), ['name' => 'test'])
             ->assertStatus(302)
             ->assertRedirect(route('admin.countries.provinces.edit', [$country->id, $province->id]))
@@ -33,7 +33,7 @@ class ProvinceFeatureTest extends TestCase
         ]);
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.countries.provinces.edit', [$country->id, $province->id]))
             ->assertStatus(200)
             ->assertSee($province->name);
@@ -48,7 +48,7 @@ class ProvinceFeatureTest extends TestCase
         ]);
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.countries.provinces.show', [$country->id, $province->id]))
             ->assertStatus(200)
             ->assertSee($province->name);

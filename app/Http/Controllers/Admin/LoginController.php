@@ -25,7 +25,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        if (auth()->guard('admin')->check()) {
+        if (auth()->guard('employee')->check()) {
             return redirect()->route('admin.dashboard');
         }
 
@@ -33,10 +33,12 @@ class LoginController extends Controller
     }
 
     /**
-     * Login the admin
+     * Login the employee
      *
      * @param LoginRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function login(LoginRequest $request)
     {
@@ -53,7 +55,7 @@ class LoginController extends Controller
 
         $details = $request->only('email', 'password');
         $details['status'] = 1;
-        if (auth()->guard('admin')->attempt($details)) {
+        if (auth()->guard('employee')->attempt($details)) {
             return $this->sendLoginResponse($request);
         }
 

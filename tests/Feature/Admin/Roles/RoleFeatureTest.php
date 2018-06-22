@@ -10,7 +10,7 @@ class RoleFeatureTest extends TestCase
     /** @test */
     public function it_can_see_the_list_of_roles()
     {
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->get(route('admin.roles.index'))
             ->assertSee('Name')
             ->assertSee('Display Name')
@@ -30,7 +30,7 @@ class RoleFeatureTest extends TestCase
             'description' => 'Super administrator user'
         ];
 
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->put(route('admin.roles.update', $role->id), $data)
             ->assertSessionHas('message', 'Update role successful!')
             ->assertStatus(302)
@@ -47,7 +47,7 @@ class RoleFeatureTest extends TestCase
 
         $role = factory(Role::class)->create($data);
 
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->get(route('admin.roles.edit', $role->id))
             ->assertSee('Name')
             ->assertSee($role->name)
@@ -67,7 +67,7 @@ class RoleFeatureTest extends TestCase
             'description' => 'Super admin user'
         ];
 
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->post(route('admin.roles.store'), $data)
             ->assertSessionHas('message', 'Create role successful!')
             ->assertStatus(302)
@@ -77,7 +77,7 @@ class RoleFeatureTest extends TestCase
     /** @test */
     public function it_can_show_the_create_role_form()
     {
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->get(route('admin.roles.create'))
             ->assertSee('Name')
             ->assertSee('Display name')

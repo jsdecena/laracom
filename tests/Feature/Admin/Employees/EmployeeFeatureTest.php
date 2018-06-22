@@ -13,7 +13,7 @@ class EmployeeFeatureTest extends TestCase
     public function it_should_go_directly_to_dashboard_when_employee_is_already_logged_in()
     {
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.login'))
             ->assertStatus(302)
             ->assertRedirect(route('admin.dashboard'));
@@ -90,11 +90,11 @@ class EmployeeFeatureTest extends TestCase
     /** @test */
     public function it_can_show_the_create_and_edit_employee_page()
     {
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->get(route('admin.employees.create'))
             ->assertStatus(200);
 
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->get(route('admin.employees.edit', $this->employee->id))
             ->assertStatus(200)
             ->assertSee(htmlentities($this->employee->name, ENT_QUOTES));
@@ -105,7 +105,7 @@ class EmployeeFeatureTest extends TestCase
     {
         $data = ['name' => 'King Kong', 'email' => 'test@test.com'];
 
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->put(route('admin.employee.profile.update', $this->employee->id), $data)
             ->assertStatus(302)
             ->assertSessionHas(['message' => 'Update successful']);
@@ -116,7 +116,7 @@ class EmployeeFeatureTest extends TestCase
     {
         $employee = factory(Employee::class)->create();
 
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->get(route('admin.employee.profile', $employee->id))
             ->assertStatus(200)
             ->assertSee(htmlentities($employee->name, ENT_QUOTES));
@@ -125,7 +125,7 @@ class EmployeeFeatureTest extends TestCase
     /** @test */
     public function it_errors_when_editing_an_employee_that_is_not_found()
     {
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->get(route('admin.employees.edit', 999))
             ->assertStatus(404);
     }
@@ -133,7 +133,7 @@ class EmployeeFeatureTest extends TestCase
     /** @test */
     public function it_errors_when_looking_for_an_employee_that_is_not_found()
     {
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->get(route('admin.employees.show', 999))
             ->assertStatus(404);
     }
@@ -143,7 +143,7 @@ class EmployeeFeatureTest extends TestCase
     {
         $employee = factory(Employee::class)->create();
 
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->get(route('admin.employees.index'))
             ->assertStatus(200)
             ->assertSee(htmlentities($employee->name, ENT_QUOTES));
@@ -158,7 +158,7 @@ class EmployeeFeatureTest extends TestCase
             'password' => 'secret'
         ];
 
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->post(route('admin.employees.store'), $data)
             ->assertStatus(302)
             ->assertSessionHas(['errors']);
@@ -173,7 +173,7 @@ class EmployeeFeatureTest extends TestCase
             'password' => 'secret'
         ];
 
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->post(route('admin.employees.store'), $data)
             ->assertStatus(302)
             ->assertSessionHas(['errors']);
@@ -184,7 +184,7 @@ class EmployeeFeatureTest extends TestCase
     {
         $employee = factory(Employee::class)->create();
 
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->delete(route('admin.employees.destroy', $employee->id))
             ->assertStatus(302)
             ->assertRedirect(route('admin.employees.index'));
@@ -203,7 +203,7 @@ class EmployeeFeatureTest extends TestCase
             'password' => 'secret!!'
         ];
 
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->put(route('admin.employees.update', $employee->id), $update)
             ->assertStatus(302)
             ->assertRedirect(route('admin.employees.edit', $employee->id));
@@ -221,7 +221,7 @@ class EmployeeFeatureTest extends TestCase
             'status' => 0
         ];
 
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->put(route('admin.employees.update', $this->employee->id), $update)
             ->assertStatus(302)
             ->assertRedirect(route('admin.employees.edit', $this->employee->id));
@@ -232,7 +232,7 @@ class EmployeeFeatureTest extends TestCase
     /** @test */
     public function it_can_show_the_employee()
     {
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->get(route('admin.employees.show', $this->employee->id))
             ->assertStatus(200)
             ->assertViewHas('employee');
@@ -248,7 +248,7 @@ class EmployeeFeatureTest extends TestCase
             'role' => $this->role->id
         ];
 
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->post(route('admin.employees.store'), $data)
             ->assertStatus(302)
             ->assertRedirect(route('admin.employees.index'));

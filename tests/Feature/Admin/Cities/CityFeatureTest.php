@@ -21,7 +21,7 @@ class CityFeatureTest extends TestCase
         ]);
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.countries.provinces.cities.edit', [$country->id, $province->id, $city->id]))
             ->assertStatus(200)
             ->assertSee($city->name);
@@ -36,7 +36,7 @@ class CityFeatureTest extends TestCase
         $city2 = factory(City::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->put(route('admin.countries.provinces.cities.update', [$country->id, $province->id, $city->id]), ['name' => $city2->name])
             ->assertSessionHasErrors();
     }
@@ -49,7 +49,7 @@ class CityFeatureTest extends TestCase
         $city = factory(City::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->put(route('admin.countries.provinces.cities.update', [$country->id, $province->id, $city->id]), ['name' => 'manila'])
             ->assertStatus(302)
             ->assertSessionHas('message', 'Update successful');

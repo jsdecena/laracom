@@ -100,6 +100,6 @@ class CountryUnitTest extends TestCase
 
         $countryRepo = new CountryRepository($country);
 
-        $this->assertCount(1, $countryRepo->listCountries());
+        $this->assertCount(2, $countryRepo->listCountries());
     }
 }

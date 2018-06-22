@@ -35,7 +35,7 @@ class AttributesFeatureTest extends TestCase
         ];
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->put(route('admin.products.update', $product->id), $data)
             ->assertStatus(302)
             ->assertRedirect(route('admin.products.edit', [$product->id, 'combination' => 1]))
@@ -70,7 +70,7 @@ class AttributesFeatureTest extends TestCase
         $productRepo->saveCombination($created, $createdValue1, $createdValue2);
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.products.edit', [$product->id, 'delete' => 1, 'pa' => $created->id]))
             ->assertStatus(302)
             ->assertRedirect(route('admin.products.edit', [$product->id, 'combination' => 1]))
@@ -81,7 +81,7 @@ class AttributesFeatureTest extends TestCase
     public function it_error_when_the_attribute_is_not_found()
     {
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.attributes.show', 999))
             ->assertStatus(302)
             ->assertRedirect(route('admin.attributes.index'))
@@ -94,7 +94,7 @@ class AttributesFeatureTest extends TestCase
         $attribute = factory(Attribute::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.attributes.show', $attribute->id))
             ->assertStatus(200)
             ->assertSee('Attribute name')
@@ -107,7 +107,7 @@ class AttributesFeatureTest extends TestCase
         $attribute = factory(Attribute::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->delete(route('admin.attributes.destroy', $attribute->id))
             ->assertStatus(302)
             ->assertRedirect(route('admin.attributes.index'))
@@ -122,7 +122,7 @@ class AttributesFeatureTest extends TestCase
         ];
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->post(route('admin.attributes.store'), $data)
             ->assertStatus(302)
             ->assertRedirect(route('admin.attributes.edit', 1));
@@ -132,7 +132,7 @@ class AttributesFeatureTest extends TestCase
     public function it_should_show_the_create_attribute_page()
     {
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.attributes.create'))
             ->assertStatus(200)
             ->assertSee('Attribute name')
@@ -148,7 +148,7 @@ class AttributesFeatureTest extends TestCase
         $data = ['name' => null];
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->put(route('admin.attributes.update', $attribute->id), $data)
             ->assertStatus(302)
             ->assertRedirect(route('admin.attributes.edit', $attribute->id))
@@ -165,7 +165,7 @@ class AttributesFeatureTest extends TestCase
         ];
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->put(route('admin.attributes.update', $attribute->id), $data)
             ->assertStatus(302)
             ->assertRedirect(route('admin.attributes.edit', $attribute->id))
@@ -178,7 +178,7 @@ class AttributesFeatureTest extends TestCase
         $attribute = factory(Attribute::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.attributes.edit', $attribute->id))
             ->assertStatus(200)
             ->assertSee('Attribute name')
@@ -192,7 +192,7 @@ class AttributesFeatureTest extends TestCase
         factory(Attribute::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.attributes.index'))
             ->assertStatus(200)
             ->assertSee('Attribute name')
