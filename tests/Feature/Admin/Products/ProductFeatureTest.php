@@ -16,7 +16,7 @@ class ProductFeatureTest extends TestCase
         $product = factory(Product::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.products.show', $product->id))
             ->assertStatus(200)
             ->assertSee($product->name);
@@ -28,7 +28,7 @@ class ProductFeatureTest extends TestCase
         $product = factory(Product::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.products.index', ['q' => str_limit($product->name, 5, '')]))
             ->assertStatus(200)
             ->assertSee($product->name);
@@ -63,7 +63,7 @@ class ProductFeatureTest extends TestCase
         $image = $repo->findProductImages()->first();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.product.remove.thumb', ['src' => $image->src]))
             ->assertStatus(302)
             ->assertRedirect(url('/'))
@@ -76,7 +76,7 @@ class ProductFeatureTest extends TestCase
         $product = factory(Product::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.product.remove.image', ['product' => $product->id, 'image' => substr($product->cover, 9)]))
             ->assertStatus(302)
             ->assertRedirect(url('/'))
@@ -89,7 +89,7 @@ class ProductFeatureTest extends TestCase
         $product = factory(Product::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->delete(route('admin.products.destroy', $product->id))
             ->assertStatus(302)
             ->assertRedirect(route('admin.products.index'))
@@ -102,7 +102,7 @@ class ProductFeatureTest extends TestCase
         $product = factory(Product::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.products.index'))
             ->assertStatus(200)
             ->assertSee($product->name);
@@ -114,7 +114,7 @@ class ProductFeatureTest extends TestCase
         $product = factory(Product::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.products.edit', $product->id))
             ->assertStatus(200)
             ->assertSee($product->name);
@@ -124,7 +124,7 @@ class ProductFeatureTest extends TestCase
     public function it_can_show_the_product_create()
     {
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.products.create'))
             ->assertStatus(200);
     }
@@ -161,7 +161,7 @@ class ProductFeatureTest extends TestCase
         ];
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->post(route('admin.products.store'), $params)
             ->assertStatus(302)
             ->assertRedirect(route('admin.products.edit', 2))
@@ -193,7 +193,7 @@ class ProductFeatureTest extends TestCase
         ];
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->post(route('admin.products.store'), $params)
             ->assertStatus(302)
             ->assertRedirect(route('admin.products.edit', 2))
@@ -204,7 +204,7 @@ class ProductFeatureTest extends TestCase
     public function it_errors_creating_the_product_when_the_required_fields_are_not_filled()
     {
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->post(route('admin.products.store'), [])
             ->assertStatus(302)
             ->assertSessionHasErrors();
@@ -226,7 +226,7 @@ class ProductFeatureTest extends TestCase
             'status' => 1
         ];
 
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->put(route('admin.products.update', $this->product->id), $params)
             ->assertSessionHas(['message'])
             ->assertRedirect(route('admin.products.edit', $this->product->id));
@@ -257,7 +257,7 @@ class ProductFeatureTest extends TestCase
             'categories' => $categories
         ];
 
-        $this->actingAs($this->employee, 'admin')
+        $this->actingAs($this->employee, 'employee')
             ->put(route('admin.products.update', $this->product->id), $params)
             ->assertSessionHas(['message'])
             ->assertRedirect(route('admin.products.edit', $this->product->id));

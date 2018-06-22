@@ -19,7 +19,7 @@ class OrderFeatureTest extends TestCase
         ]);
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.orders.index', ['q' => str_limit($customer->name, 5, '')]))
             ->assertStatus(200)
             ->assertSee($customer->name);
@@ -36,7 +36,7 @@ class OrderFeatureTest extends TestCase
         $orderRepo->associateProduct($product);
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.orders.show', $order->id))
             ->assertStatus(200)
             ->assertSee($order->reference)
@@ -53,7 +53,7 @@ class OrderFeatureTest extends TestCase
         factory(Order::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.orders.index'))
             ->assertStatus(200);
     }

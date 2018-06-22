@@ -14,7 +14,7 @@ class CountryFeatureTest extends TestCase
         $country = factory(Country::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->put(route('admin.countries.update', $country->id), $data)
             ->assertStatus(302)
             ->assertRedirect(route('admin.countries.edit', $country->id))
@@ -27,7 +27,7 @@ class CountryFeatureTest extends TestCase
         $country = factory(Country::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.countries.show', $country->id))
             ->assertStatus(200)
             ->assertSee(htmlentities($country->name, ENT_QUOTES));
@@ -39,7 +39,7 @@ class CountryFeatureTest extends TestCase
         $country = factory(Country::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.countries.index'))
             ->assertStatus(200)
             ->assertSee(htmlentities($country->name, ENT_QUOTES));
@@ -51,7 +51,7 @@ class CountryFeatureTest extends TestCase
         $country = factory(Country::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.countries.edit', $country->id))
             ->assertStatus(200)
             ->assertSee(htmlentities($country->name, ENT_QUOTES));

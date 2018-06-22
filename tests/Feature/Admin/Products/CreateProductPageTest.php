@@ -24,7 +24,7 @@ class CreateProductPageTest extends TestCase
     public function it_should_show_to_admin_role()
     {
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.products.create'))
             ->assertStatus(200);
     }
@@ -41,7 +41,7 @@ class CreateProductPageTest extends TestCase
         $employeeRepo->syncRoles([$admin->id]);
 
         $this
-            ->actingAs($employee, 'admin')
+            ->actingAs($employee, 'employee')
             ->get(route('admin.products.create'))
             ->assertStatus(403)
             ->assertSee('Sorry, this page is restricted to authorized users only.');
@@ -53,7 +53,7 @@ class CreateProductPageTest extends TestCase
         $employee = factory(Employee::class)->create();
 
         $this
-            ->actingAs($employee, 'admin')
+            ->actingAs($employee, 'employee')
             ->get(route('admin.products.create'))
             ->assertStatus(403)
             ->assertSee('Sorry, this page is restricted to authorized users only.');

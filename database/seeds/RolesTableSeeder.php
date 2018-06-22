@@ -8,9 +8,6 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         factory(Role::class)->create(['name' => 'admin']);
-        factory(Role::class)->create(['name' => 'logistics']);
-        factory(Role::class)->create(['name' => 'sales']);
-        factory(Role::class)->create(['name' => 'accounts']);
         factory(Role::class)->create(['name' => 'clerk']);
     }
 }

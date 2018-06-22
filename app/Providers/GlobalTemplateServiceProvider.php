@@ -25,9 +25,8 @@ class GlobalTemplateServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('layouts.admin.app', function ($view) {
-            $view->with('user', Auth::guard('admin')->user());
-            $view->with('admin', $this->isAdmin(Auth::guard('admin')->user()));
+        view()->composer(['layouts.admin.app', 'layouts.admin.sidebar'], function (View $view) {
+            $view->with('admin', Auth::guard('employee')->user());
         });
 
         view()->composer(['layouts.front.app', 'front.categories.sidebar-category'], function ($view) {

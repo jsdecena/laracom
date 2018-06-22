@@ -11,7 +11,7 @@ class DashboardFeatureTest extends TestCase
     public function it_should_show_the_admin_abilities_when_the_employee_is_admin()
     {
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.dashboard'))
             ->assertStatus(200)
             ->assertSee('Dashboard')
@@ -29,7 +29,7 @@ class DashboardFeatureTest extends TestCase
         $employee = factory(Employee::class)->create();
 
         $this
-            ->actingAs($employee, 'admin')
+            ->actingAs($employee, 'employee')
             ->get(route('admin.dashboard'))
             ->assertStatus(200)
             ->assertSee('Dashboard')

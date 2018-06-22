@@ -14,7 +14,7 @@ class CategoryFeatureTest extends TestCase
         $category = factory(Category::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.categories.index'))
             ->assertStatus(200)
             ->assertSee($category->name);
@@ -26,7 +26,7 @@ class CategoryFeatureTest extends TestCase
         $category = factory(Category::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.category.remove.image', ['category' => $category->id]))
             ->assertStatus(302)
             ->assertRedirect(route('admin.categories.edit', $category->id))
@@ -39,7 +39,7 @@ class CategoryFeatureTest extends TestCase
         $category = factory(Category::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->delete(route('admin.categories.destroy', $category->id))
             ->assertStatus(302)
             ->assertRedirect(route('admin.categories.index'))
@@ -56,7 +56,7 @@ class CategoryFeatureTest extends TestCase
         $category = factory(Category::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->put(route('admin.categories.update', $category->id), $data)
             ->assertStatus(302)
             ->assertRedirect(route('admin.categories.edit', $category->id))
@@ -69,7 +69,7 @@ class CategoryFeatureTest extends TestCase
         $category = factory(Category::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.categories.edit', $category->id))
             ->assertStatus(200)
             ->assertSee($category->name)
@@ -82,7 +82,7 @@ class CategoryFeatureTest extends TestCase
         $category = factory(Category::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.categories.show', $category->id))
             ->assertStatus(200)
             ->assertSee($category->name)
@@ -95,7 +95,7 @@ class CategoryFeatureTest extends TestCase
         $category = factory(Category::class)->create();
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->get(route('admin.categories.create'))
             ->assertStatus(200)
             ->assertSee($category->name);
@@ -118,7 +118,7 @@ class CategoryFeatureTest extends TestCase
         ];
 
         $this
-            ->actingAs($this->employee, 'admin')
+            ->actingAs($this->employee, 'employee')
             ->post(route('admin.categories.store'), $params)
             ->assertStatus(302)
             ->assertRedirect(route('admin.categories.index'))

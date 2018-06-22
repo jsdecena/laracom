@@ -4,6 +4,7 @@ namespace Tests;
 
 use App\Shop\Addresses\Address;
 use App\Shop\Categories\Category;
+use App\Shop\Countries\Country;
 use App\Shop\Couriers\Courier;
 use App\Shop\Couriers\Repositories\CourierRepository;
 use App\Shop\Employees\Employee;
@@ -60,6 +61,8 @@ abstract class TestCase extends BaseTestCase
         $this->product = factory(Product::class)->create();
         $this->category = factory(Category::class)->create();
         $this->customer = factory(Customer::class)->create();
+
+        $this->country = factory(Country::class)->create();
 
         $this->address = factory(Address::class)->create();
 
