@@ -8,10 +8,37 @@ class EmployeesTableSeeder extends Seeder
 {
     public function run()
     {
-        factory(Employee::class)->create()->each(function (Employee $employee) {
-            factory(Role::class)->create(['name' => 'superadmin'])->each(function(Role $role) use ($employee) {
-                $employee->roles()->save($role);
-            });
-        });
+        $employee = factory(Employee::class)->create([
+            'email' => 'john@doe.com'
+        ]);
+
+        $super = factory(Role::class)->create([
+            'name' => 'superadmin',
+            'display_name' => 'Super Admin'
+        ]);
+
+        $employee->roles()->save($super);
+
+        $employee = factory(Employee::class)->create([
+            'email' => 'admin@doe.com'
+        ]);
+
+        $admin = factory(Role::class)->create([
+            'name' => 'admin',
+            'display_name' => 'Admin'
+        ]);
+
+        $employee->roles()->save($admin);
+
+        $employee = factory(Employee::class)->create([
+            'email' => 'clerk@doe.com'
+        ]);
+
+        $clerk = factory(Role::class)->create([
+            'name' => 'clerk',
+            'display_name' => 'Clerk'
+        ]);
+
+        $employee->roles()->save($clerk);
     }
 }

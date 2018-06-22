@@ -12,7 +12,6 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <td>Name</td>
                                 <td>Display Name</td>
                                 <td>Description</td>
                                 <td>Actions</td>
@@ -21,9 +20,6 @@
                         <tbody>
                         @foreach ($roles as $role)
                             <tr>
-                                <td>
-                                    <a href="{{ route('admin.roles.show', $role->id) }}">{{ $role->name }}</a>
-                                </td>
                                 <td>
                                     {{ $role->display_name }}
                                 </td>

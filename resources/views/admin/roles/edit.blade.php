@@ -10,11 +10,7 @@
                     {{ csrf_field() }}
                     <input type="hidden" value="put" name="_method">
                     <div class="form-group">
-                        <label for="name">Name <span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" placeholder="Name" class="form-control" value="{{ $role->name }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="display_name">Display name</label>
+                        <label for="display_name">Display Name <span class="text text-danger">*</span></label>
                         <input type="text" name="display_name" id="display_name" placeholder="Display name" class="form-control" value="{{ $role->display_name }}">
                     </div>
                     <div class="form-group">

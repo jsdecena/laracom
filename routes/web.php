@@ -24,7 +24,7 @@ Route::namespace('Admin')->group(function () {
 });
 Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.' ], function () {
     Route::namespace('Admin')->group(function () {
-        Route::group(['middleware' => ['role:admin|superadmin, guard:employee']], function () {
+        Route::group(['middleware' => ['role:admin|superadmin|clerk, guard:employee']], function () {
             Route::get('/', 'DashboardController@index')->name('dashboard');
             Route::namespace('Products')->group(function () {
                 Route::resource('products', 'ProductController');
@@ -53,6 +53,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
             Route::resource('attributes.values', 'Attributes\AttributeValueController');
             Route::resource('brands', 'Brands\BrandController');
 
+        });
+        Route::group(['middleware' => ['role:admin|superadmin, guard:employee']], function () {
             Route::resource('employees', 'EmployeeController');
             Route::get('employees/{id}/profile', 'EmployeeController@getProfile')->name('employee.profile');
             Route::put('employees/{id}/profile', 'EmployeeController@updateProfile')->name('employee.profile.update');
