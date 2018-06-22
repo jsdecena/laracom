@@ -21,8 +21,8 @@ $factory->define(Address::class, function (Faker\Generator $faker) {
 
     return [
         'alias' => $faker->word,
-        'address_1' => $faker->streetName,
-        'address_2' => $faker->streetAddress,
+        'address_1' => $faker->streetAddress,
+        'address_2' => null,
         'zip' => $faker->postcode,
         'city_id' => 1,
         'province_id' => 1,

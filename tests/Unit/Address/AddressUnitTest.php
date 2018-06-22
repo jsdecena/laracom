@@ -91,11 +91,9 @@ class AddressUnitTest extends TestCase
         ]);
 
         $repo = new AddressRepository(new Address());
-        $results = $repo->searchAddress($address->address_1);
+        $results = $repo->searchAddress(str_limit(5, $address->address_1));
 
-        $results->each(function ($item) use ($address1) {
-            $this->assertEquals($address1, $item->address_1);
-        });
+        $this->assertCount(1, $results->all());
     }
 
     /** @test */
