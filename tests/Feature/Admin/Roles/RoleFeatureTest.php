@@ -49,8 +49,6 @@ class RoleFeatureTest extends TestCase
 
         $this->actingAs($this->employee, 'employee')
             ->get(route('admin.roles.edit', $role->id))
-            ->assertSee('Name')
-            ->assertSee($role->name)
             ->assertSee('Display name')
             ->assertSee($role->display_name)
             ->assertSee('Description')

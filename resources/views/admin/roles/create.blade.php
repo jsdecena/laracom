@@ -9,11 +9,7 @@
                 <div class="box-body">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="name">Name <span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" placeholder="Name" class="form-control" value="{{ old('name') }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="display_name">Display name</label>
+                        <label for="display_name">Name</label>
                         <input type="text" name="display_name" id="display_name" placeholder="Display name" class="form-control" value="{{ old('display_name') }}">
                     </div>
                     <div class="form-group">
