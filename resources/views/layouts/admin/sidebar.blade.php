@@ -105,7 +105,7 @@
                     </ul>
                 </li>
                 <li class="header">CONFIG</li>
-                <li class="treeview @if(request()->segment(2) == 'employees') active @endif">
+                <li class="treeview @if(request()->segment(2) == 'employees' || request()->segment(2) == 'roles') active @endif">
                     <a href="#">
                         <i class="fa fa-star"></i> <span>Employees</span>
                         <span class="pull-right-container">
@@ -115,6 +115,17 @@
                     <ul class="treeview-menu">
                         <li><a href="{{ route('admin.employees.index') }}"><i class="fa fa-circle-o"></i> List employees</a></li>
                         <li><a href="{{ route('admin.employees.create') }}"><i class="fa fa-plus"></i> Create employee</a></li>
+                        <li class="@if(request()->segment(2) == 'roles') active @endif">
+                            <a href="#">
+                                <i class="fa fa-star-o"></i> <span>Roles</span>
+                                <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="{{ route('admin.roles.index') }}"><i class="fa fa-circle-o"></i> List roles</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li class="treeview @if(request()->segment(2) == 'attributes') active @endif">

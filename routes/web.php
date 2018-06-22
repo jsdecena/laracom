@@ -24,8 +24,8 @@ Route::namespace('Admin')->group(function () {
 });
 Route::group(['prefix' => 'admin', 'middleware' => ['admin'], 'as' => 'admin.' ], function () {
     Route::namespace('Admin')->group(function () {
-        Route::get('/', 'DashboardController@index')->name('dashboard');
-        Route::group(['middleware' => ['role:admin,guard:admin']], function () {
+        Route::group(['middleware' => ['role:admin|superadmin, guard:admin']], function () {
+            Route::get('/', 'DashboardController@index')->name('dashboard');
             Route::namespace('Products')->group(function () {
                 Route::resource('products', 'ProductController');
                 Route::get('remove-image-product', 'ProductController@removeImage')->name('product.remove.image');
@@ -55,6 +55,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin'], 'as' => 'admin.' ]
             Route::resource('attributes', 'Attributes\AttributeController');
             Route::resource('attributes.values', 'Attributes\AttributeValueController');
             Route::resource('brands', 'Brands\BrandController');
+            Route::resource('roles', 'Roles\RoleController');
         });
     });
 });

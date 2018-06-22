@@ -11,4 +11,9 @@ interface RoleRepositoryInterface extends BaseRepositoryInterface
     public function createRole(array $data) : Role;
 
     public function listRoles(string $order = 'id', string $sort = 'desc') : Collection;
+
+    public function findRoleById(int $id);
+
+    public function updateRole(array $data, int $id) : bool;
+
 }
