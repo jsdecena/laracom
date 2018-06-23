@@ -16,5 +16,5 @@ interface PermissionRepositoryInterface extends BaseRepositoryInterface
 
     public function deletePermissionById(int $id) : bool;
 
-    public function listPermissions() : Collection;
+    public function listPermissions($columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc') : Collection;
 }

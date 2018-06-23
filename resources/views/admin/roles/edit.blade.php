@@ -11,11 +11,23 @@
                     <input type="hidden" value="put" name="_method">
                     <div class="form-group">
                         <label for="display_name">Display Name <span class="text text-danger">*</span></label>
-                        <input type="text" name="display_name" id="display_name" placeholder="Display name" class="form-control" value="{{ $role->display_name }}">
+                        <input type="text" name="display_name" id="display_name" placeholder="Display name" class="form-control" value="{{ old('display_name') ?: $role->display_name }}">
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea name="description" id="description" class="form-control ckeditor" placeholder="Description">{!! $role->description !!}</textarea>
+                        <textarea name="description" id="description" class="form-control ckeditor" placeholder="Description"> {!! old('description') ?: $role->description !!}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="roles">Roles</label>
+                        <select name="roles[]" id="roles" class="form-control select2" multiple="multiple">
+                            @foreach($permissions as $permission)
+                                @if(in_array($permission->id, $attachedPermissionsArrayIds))
+                                    <option selected="selected" value="{{ $permission->id }}">{{ $permission->display_name }}</option>
+                                @else
+                                    <option value="{{ $permission->id }}">{{ $permission->display_name }}</option>
+                                @endif
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <!-- /.box-body -->

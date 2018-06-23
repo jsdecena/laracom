@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Roles;
 
 use App\Http\Controllers\Controller;
+use App\Shop\Permissions\Repositories\Interfaces\PermissionRepositoryInterface;
+use App\Shop\Roles\Repositories\RoleRepository;
 use App\Shop\Roles\Repositories\RoleRepositoryInterface;
 use App\Shop\Roles\Requests\CreateRoleRequest;
 use App\Shop\Roles\Requests\UpdateRoleRequest;
@@ -15,13 +17,23 @@ class RoleController extends Controller
     private $roleRepo;
 
     /**
+     * @var PermissionRepositoryInterface
+     */
+    private $permissionRepository;
+
+    /**
      * RoleController constructor.
      *
      * @param RoleRepositoryInterface $roleRepository
+     * @param PermissionRepositoryInterface $permissionRepository
      */
-    public function __construct(RoleRepositoryInterface $roleRepository)
+    public function __construct(
+        RoleRepositoryInterface $roleRepository,
+        PermissionRepositoryInterface $permissionRepository
+    )
     {
         $this->roleRepo = $roleRepository;
+        $this->permissionRepository = $permissionRepository;
     }
 
     /**
@@ -67,7 +79,15 @@ class RoleController extends Controller
     {
         $role = $this->roleRepo->findRoleById($id);
 
-        return view('admin.roles.edit', compact('role'));
+        $roleRepo = new RoleRepository($role);
+        $attachedPermissionsArrayIds = $roleRepo->listPermissions()->pluck('id')->all();
+        $permissions = $this->permissionRepository->listPermissions(['*'], 'name', 'asc');
+
+        return view('admin.roles.edit', compact(
+            'role',
+            'permissions',
+            'attachedPermissionsArrayIds'
+        ));
     }
 
     /**
@@ -78,6 +98,13 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, $id)
     {
+        $role = $this->roleRepo->findRoleById($id);
+
+        if ($request->has('roles')) {
+            $roleRepo = new RoleRepository($role);
+            $roleRepo->syncPermissions($request->input('roles'));
+        }
+
         $this->roleRepo->updateRole($request->except('_method', '_token'), $id);
 
         return redirect()->route('admin.roles.edit', $id)

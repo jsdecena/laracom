@@ -1,14 +1,31 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Permissions;
 
 use App\Shop\Permissions\Permission;
 use App\Shop\Permissions\Repositories\PermissionRepository;
+use App\Shop\Roles\Repositories\RoleRepository;
+use App\Shop\Roles\Role;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
 
 class PermissionUnitTest extends TestCase
 {
+    /** @test */
+    public function it_can_attach_permission_to_role()
+    {
+        $role = factory(Role::class)->create();
+        $permission = factory(Permission::class)->create();
+
+        $roleRepo = new RoleRepository($role);
+        $roleRepo->attachToPermission($permission);
+        $attachedPermissions =  $roleRepo->listPermissions();
+
+        $attachedPermissions->each(function (Permission $item) use ($permission) {
+            $this->assertEquals($permission->name, $item->name);
+        });
+    }
+
     /** @test */
     public function it_can_list_all_permissions()
     {
@@ -18,7 +35,7 @@ class PermissionUnitTest extends TestCase
         $list = $permissionRepo->listPermissions();
 
         $this->assertInstanceOf(Collection::class, $list);
-        $this->assertCount(5, $list->all());
+        $this->assertCount(9, $list->all());
     }
 
     /** @test */

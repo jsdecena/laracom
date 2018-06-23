@@ -59,6 +59,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
             Route::get('employees/{id}/profile', 'EmployeeController@getProfile')->name('employee.profile');
             Route::put('employees/{id}/profile', 'EmployeeController@updateProfile')->name('employee.profile.update');
             Route::resource('roles', 'Roles\RoleController');
+            Route::resource('permissions', 'Permissions\PermissionController');
         });
     });
 });

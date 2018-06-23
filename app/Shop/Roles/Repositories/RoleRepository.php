@@ -2,6 +2,7 @@
 namespace App\Shop\Roles\Repositories;
 
 use App\Shop\Base\BaseRepository;
+use App\Shop\Permissions\Permission;
 use App\Shop\Roles\Exceptions\CreateRoleErrorException;
 use App\Shop\Roles\Exceptions\DeleteRoleErrorException;
 use App\Shop\Roles\Exceptions\RoleNotFoundErrorException;
@@ -96,5 +97,37 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface
         } catch (QueryException $e) {
             throw new DeleteRoleErrorException($e);
         }
+    }
+
+    /**
+     * @param Permission $permission
+     */
+    public function attachToPermission(Permission $permission)
+    {
+        $this->model->attachPermission($permission);
+    }
+
+    /**
+     * @param Permission ...$permissions
+     */
+    public function attachToPermissions(... $permissions)
+    {
+        $this->model->attachPermissions($permissions);
+    }
+
+    /**
+     * @param array $ids
+     */
+    public function syncPermissions(array $ids)
+    {
+        $this->model->syncPermissions($ids);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function listPermissions() : Collection
+    {
+        return $this->model->permissions()->get();
     }
 }

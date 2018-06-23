@@ -93,7 +93,7 @@ class AddressUnitTest extends TestCase
         $repo = new AddressRepository(new Address());
         $results = $repo->searchAddress(str_limit(5, $address->address_1));
 
-        $this->assertCount(1, $results->all());
+        $this->assertTrue((bool) $results->count());
     }
 
     /** @test */
