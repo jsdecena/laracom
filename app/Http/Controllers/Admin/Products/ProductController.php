@@ -18,7 +18,6 @@ use App\Shop\Tools\UploadableTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -50,6 +49,9 @@ class ProductController extends Controller
      */
     private $productAttribute;
 
+    /**
+     * @var BrandRepositoryInterface
+     */
     private $brandRepo;
 
     /**
@@ -76,6 +78,11 @@ class ProductController extends Controller
         $this->attributeValueRepository = $attributeValueRepository;
         $this->productAttribute = $productAttribute;
         $this->brandRepo = $brandRepository;
+
+        $this->middleware(['permission:create-product, guard:employee'], ['only' => ['create', 'store']]);
+        $this->middleware(['permission:update-product, guard:employee'], ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:delete-product, guard:employee'], ['only' => ['destroy']]);
+        $this->middleware(['permission:view-product, guard:employee'], ['only' => [ 'index', 'show']]);
     }
 
     /**

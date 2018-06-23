@@ -14,7 +14,8 @@ class UpdateRoleRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'display_name' => ['required']
+            'display_name' => ['required'],
+            'roles' => ['array']
         ];
     }
 }

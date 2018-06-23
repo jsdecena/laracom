@@ -259,7 +259,8 @@ class ProductFeatureTest extends TestCase
 
         $this->actingAs($this->employee, 'employee')
             ->put(route('admin.products.update', $this->product->id), $params)
-            ->assertSessionHas(['message'])
-            ->assertRedirect(route('admin.products.edit', $this->product->id));
+            ->assertStatus(302)
+            ->assertRedirect(route('admin.products.edit', $this->product->id))
+            ->assertSessionHas('message', 'Update successful');
     }
 }

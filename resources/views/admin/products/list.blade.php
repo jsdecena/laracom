@@ -5,7 +5,7 @@
     <section class="content">
     @include('layouts.errors-and-messages')
     <!-- Default box -->
-        @if($products)
+        @if(!$products->isEmpty())
             <div class="box">
                 <div class="box-body">
                     <h2>Products</h2>
