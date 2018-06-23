@@ -100,9 +100,9 @@ class RoleController extends Controller
     {
         $role = $this->roleRepo->findRoleById($id);
 
-        if ($request->has('roles')) {
+        if ($request->has('permissions')) {
             $roleRepo = new RoleRepository($role);
-            $roleRepo->syncPermissions($request->input('roles'));
+            $roleRepo->syncPermissions($request->input('permissions'));
         }
 
         $this->roleRepo->updateRole($request->except('_method', '_token'), $id);

@@ -109,8 +109,7 @@ class EmployeeController extends Controller
                 'employee' => $employee,
                 'roles' => $roles,
                 'isCurrentUser' => $isCurrentUser,
-                'selectedIds' => $employee->roles()->pluck('role_id')->all(),
-                'roleId' => $employee->roles()->first()->id
+                'selectedIds' => $employee->roles()->pluck('role_id')->all()
             ]
         );
     }
@@ -136,10 +135,10 @@ class EmployeeController extends Controller
             $employee->save();
         }
 
-        if ($request->has('role') and !$isCurrentUser) {
-            $employee->roles()->sync($request->input('role'));
+        if ($request->has('roles') and !$isCurrentUser) {
+            $employee->roles()->sync($request->input('roles'));
         } elseif (!$isCurrentUser) {
-            $employee->roles()->detach($request->input('role'));
+            $employee->roles()->detach();
         }
 
         return redirect()->route('admin.employees.edit', $id)
