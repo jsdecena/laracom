@@ -14,7 +14,6 @@
                             <tr>
                                 <td>Display Name</td>
                                 <td>Description</td>
-                                <td>Actions</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -25,16 +24,6 @@
                                 </td>
                                 <td>
                                     {!! $permission->description !!}
-                                </td>
-                                <td>
-                                    <form action="{{ route('admin.permissions.destroy', $permission->id) }}" method="post" class="form-horizontal">
-                                        {{ csrf_field() }}
-                                        <input type="hidden" name="_method" value="delete">
-                                        <div class="btn-group">
-                                            <a href="{{ route('admin.permissions.edit', $permission->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
-                                            <button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete</button>
-                                        </div>
-                                    </form>
                                 </td>
                             </tr>
                         @endforeach
