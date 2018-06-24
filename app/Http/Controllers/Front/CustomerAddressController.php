@@ -7,6 +7,7 @@ use App\Shop\Addresses\Requests\CreateAddressRequest;
 use App\Shop\Cities\Repositories\Interfaces\CityRepositoryInterface;
 use App\Shop\Countries\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
+use App\Shop\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
 use App\Http\Controllers\Controller;
 
 class CustomerAddressController extends Controller
@@ -15,17 +16,20 @@ class CustomerAddressController extends Controller
     private $customerRepo;
     private $countryRepo;
     private $cityRepo;
+    private $provinceRepo;
 
     public function __construct(
         AddressRepositoryInterface $addressRepository,
         CustomerRepositoryInterface $customerRepository,
         CountryRepositoryInterface $countryRepository,
-        CityRepositoryInterface $cityRepository
+        CityRepositoryInterface $cityRepository,
+        ProvinceRepositoryInterface $provinceRepository
     ) {
         $this->addressRepo = $addressRepository;
         $this->customerRepo = $customerRepository;
         $this->countryRepo = $countryRepository;
         $this->cityRepo = $cityRepository;
+        $this->provinceRepo = $provinceRepository;
     }
 
     /**
@@ -53,7 +57,9 @@ class CustomerAddressController extends Controller
         return view('front.customers.addresses.create', [
             'customers' => $this->customerRepo->listCustomers(),
             'customer' => $this->customerRepo->findCustomerById($customerId),
-            'countries' => $countries
+            'countries' => $countries,
+            'cities' => $this->cityRepo->listCities(),
+            'provinces' => $this->provinceRepo->listProvinces()
         ]);
     }
 
