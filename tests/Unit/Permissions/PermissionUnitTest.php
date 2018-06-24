@@ -80,7 +80,6 @@ class PermissionUnitTest extends TestCase
         $this->assertInstanceOf(Permission::class, $found);
         $this->assertEquals($permission->name, $found->name);
         $this->assertEquals($permission->display_name, $found->display_name);
-
     }
 
     /** @test */

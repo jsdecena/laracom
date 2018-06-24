@@ -105,7 +105,9 @@ class EmployeeController extends Controller
         $roles = $this->roleRepo->listRoles('created_at', 'desc');
         $isCurrentUser = $this->employeeRepo->isAuthUser($employee);
 
-        return view('admin.employees.edit', [
+        return view(
+            'admin.employees.edit',
+            [
                 'employee' => $employee,
                 'roles' => $roles,
                 'isCurrentUser' => $isCurrentUser,

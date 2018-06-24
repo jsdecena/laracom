@@ -87,11 +87,9 @@ class CartController extends Controller
         $product = $this->productRepo->findProductById($request->input('product'));
 
         if ($product->attributes()->count() > 0) {
-
             $productAttr = $product->attributes()->where('default', 1)->first();
 
             if (isset($productAttr->sale_price)) {
-
                 $product->price = $productAttr->price;
 
                 if (!is_null($productAttr->sale_price)) {

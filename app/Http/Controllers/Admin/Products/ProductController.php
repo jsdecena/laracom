@@ -328,7 +328,7 @@ class ProductController extends Controller
         $hasDefault = $productRepo->listProductAttributes()->where('default', 1)->count();
 
         $default = 0;
-        if($request->has('default')) {
+        if ($request->has('default')) {
             $default = $fields['default'];
         }
 

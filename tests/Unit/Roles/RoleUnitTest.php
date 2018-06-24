@@ -44,7 +44,7 @@ class RoleUnitTest extends TestCase
         ];
 
         $roleRepo = new RoleRepository(new Role);
-        $updated = $roleRepo->updateRole($data , $roleFactory->id);
+        $updated = $roleRepo->updateRole($data, $roleFactory->id);
 
         $role = $roleRepo->findRoleById($roleFactory->id);
 

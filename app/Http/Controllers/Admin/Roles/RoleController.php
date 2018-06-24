@@ -30,8 +30,7 @@ class RoleController extends Controller
     public function __construct(
         RoleRepositoryInterface $roleRepository,
         PermissionRepositoryInterface $permissionRepository
-    )
-    {
+    ) {
         $this->roleRepo = $roleRepository;
         $this->permissionRepository = $permissionRepository;
     }
@@ -46,7 +45,6 @@ class RoleController extends Controller
         $roles = $this->roleRepo->paginateArrayResults($list);
 
         return view('admin.roles.list', compact('roles'));
-
     }
 
     /**

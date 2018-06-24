@@ -26,5 +26,4 @@ interface RoleRepositoryInterface extends BaseRepositoryInterface
     public function syncPermissions(array $ids);
 
     public function listPermissions() : Collection;
-
 }
