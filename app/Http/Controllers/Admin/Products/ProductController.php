@@ -103,7 +103,7 @@ class ProductController extends Controller
         })->all();
 
         return view('admin.products.list', [
-            'products' => $this->productRepo->paginateArrayResults($products, 10)
+            'products' => $this->productRepo->paginateArrayResults($products, 25)
         ]);
     }
 

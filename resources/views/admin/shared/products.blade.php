@@ -2,12 +2,12 @@
     <table class="table">
         <thead>
         <tr>
-            <td class="col-md-2">Name</td>
-            <td class="col-md-2">Cover</td>
-            <td class="col-md-2">Quantity</td>
-            <td class="col-md-2">Price</td>
-            <td class="col-md-1">Status</td>
-            <td class="col-md-3">Actions</td>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Quantity</td>
+            <td>Price</td>
+            <td>Status</td>
+            <td>Actions</td>
         </tr>
         </thead>
         <tbody>
@@ -20,9 +20,6 @@
                     @else
                         {{ $product->name }}
                     @endif
-                </td>
-                <td>
-                    {{ $product->quantity }}
                 </td>
                 <td>{{ $product->quantity }}</td>
                 <td>{{ config('cart.currency') }} {{ $product->price }}</td>
