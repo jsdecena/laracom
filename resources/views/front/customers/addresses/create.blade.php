@@ -22,6 +22,22 @@
                         <input type="text" name="address_2" id="address_2" placeholder="Address 2" class="form-control" value="{{ old('address_2') }}">
                     </div>
                     <div class="form-group">
+                        <label for="country_id">City </label>
+                        <select name="city_id" id="city_id" class="form-control select_city">
+                            @foreach($cities as $city)
+                                <option value="{{ $city->id }}">{{ $city->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="country_id">Province </label>
+                        <select name="province_id" id="province_id" class="form-control select_province">
+                            @foreach($provinces as $province)
+                                <option value="{{ $province->id }}">{{ $province->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="country_id">Country </label>
                         <select name="country_id" id="country_id" class="form-control select2">
                             @foreach($countries as $country)
@@ -118,6 +134,18 @@
                 findProvinceOrState(countryId);
             });
             $('.select2').select2();
+
+            $('#city_id').on('change', function () {
+                cityId = $(this).val();
+                findProvinceOrState(countryId);
+            });
+            $('.select_city').select2();
+
+            $('#province_id').on('change', function () {
+                provinceId = $(this).val();
+                findProvinceOrState(countryId);
+            });
+            $('.select_province').select2();
         });
     </script>
 @endsection
