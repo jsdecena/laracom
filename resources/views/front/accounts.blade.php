@@ -108,9 +108,9 @@
                                             <td>{{$address->alias}}</td>
                                             <td>{{$address->address_1}}</td>
                                             <td>{{$address->address_1}}</td>
-                                            <td>{{$address->city_id}}</td>
-                                            <td>{{$address->province_id}}</td>
-                                            <td>{{$address->country_id}}</td>
+                                            <td>{{$address->city->name}}</td>
+                                            <td>{{$address->province->name}}</td>
+                                            <td>{{$address->country->name}}</td>
                                             <td>{{$address->zip}}</td>
                                         </tr>
                                     @endforeach
