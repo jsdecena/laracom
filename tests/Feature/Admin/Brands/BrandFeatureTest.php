@@ -52,7 +52,7 @@ class BrandFeatureTest extends TestCase
         $this->actingAs($this->employee, 'employee')
             ->get(route('admin.brands.index'))
             ->assertStatus(200)
-            ->assertSee($brand->name);
+            ->assertSee(htmlentities($brand->name, ENT_QUOTES));
     }
     
     /** @test */
