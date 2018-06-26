@@ -22,26 +22,10 @@
                         <input type="text" name="address_2" id="address_2" placeholder="Address 2" class="form-control" value="{{ old('address_2') }}">
                     </div>
                     <div class="form-group">
-                        <label for="country_id">City </label>
-                        <select name="city_id" id="city_id" class="form-control select_city">
-                            @foreach($cities as $city)
-                                <option value="{{ $city->id }}">{{ $city->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="country_id">Province </label>
-                        <select name="province_id" id="province_id" class="form-control select_province">
-                            @foreach($provinces as $province)
-                                <option value="{{ $province->id }}">{{ $province->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label for="country_id">Country </label>
                         <select name="country_id" id="country_id" class="form-control select2">
                             @foreach($countries as $country)
-                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                <option @if(env('SHOP_COUNTRY_ISO') == $country->iso) selected="selected" @endif value="{{ $country->id }}">{{ $country->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -81,7 +65,7 @@
                 contentType: 'json',
                 success: function (res) {
                     if (res.data.length > 0) {
-                        var html = '<label for="province_id">Provinces </label>';
+                        let html = '<label for="province_id">Provinces </label>';
                         html += '<select name="province_id" id="province_id" class="form-control select2">';
                         $(res.data).each(function (idx, v) {
                             html += '<option value="'+ v.id+'">'+ v.name +'</option>';
@@ -110,7 +94,7 @@
                 url: '/api/v1/country/' + countryId + '/province/' + provinceOrStateId + '/city',
                 contentType: 'json',
                 success: function (data) {
-                    var html = '<label for="city_id">City </label>';
+                    let html = '<label for="city_id">City </label>';
                     html += '<select name="city_id" id="city_id" class="form-control select2">';
                     $(data.data).each(function (idx, v) {
                         html += '<option value="'+ v.id+'">'+ v.name +'</option>';
@@ -126,26 +110,26 @@
             });
         }
 
-        var countryId = null;
+        let countryId = "{{ env('SHOP_COUNTRY_ID') }}";
 
         $(document).ready(function () {
+
+            findProvinceOrState(countryId);
+
             $('#country_id').on('change', function () {
                 countryId = $(this).val();
                 findProvinceOrState(countryId);
             });
-            $('.select2').select2();
 
             $('#city_id').on('change', function () {
                 cityId = $(this).val();
                 findProvinceOrState(countryId);
             });
-            $('.select_city').select2();
 
             $('#province_id').on('change', function () {
                 provinceId = $(this).val();
                 findProvinceOrState(countryId);
             });
-            $('.select_province').select2();
         });
     </script>
 @endsection

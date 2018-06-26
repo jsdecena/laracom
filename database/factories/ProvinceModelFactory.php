@@ -17,7 +17,7 @@ use App\Shop\Provinces\Province;
 $factory->define(Province::class, function (Faker\Generator $faker) {
 
     return [
-        'name' => $faker->country,
+        'name' => $faker->city,
         'country_id' => 1
     ];
 });
