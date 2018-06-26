@@ -5,27 +5,31 @@
     <section class="container content">
         @include('layouts.errors-and-messages')
         <div class="box">
-            <form action="{{ route('customer.address.store', $customer->id) }}" method="post" class="form" enctype="multipart/form-data">
+            <form action="{{ route('customer.address.update', [$customer->id, $address->id]) }}" method="post" class="form" enctype="multipart/form-data">
                 <input type="hidden" name="status" value="1">
+                <input type="hidden" id="address_country_id" value="{{ $address->country_id }}">
+                <input type="hidden" id="address_province_id" value="{{ $address->province_id }}">
+                <input type="hidden" id="address_city_id" value="{{ $address->city_id }}">
+                <input type="hidden" name="_method" value="put">
                 <div class="box-body">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="alias">Alias <span class="text-danger">*</span></label>
-                        <input type="text" name="alias" id="alias" placeholder="Home or Office" class="form-control" value="{{ old('alias') }}">
+                        <input type="text" name="alias" id="alias" placeholder="Home or Office" class="form-control" value="{{ old('alias') ?? $address->alias }}">
                     </div>
                     <div class="form-group">
                         <label for="address_1">Address 1 <span class="text-danger">*</span></label>
-                        <input type="text" name="address_1" id="address_1" placeholder="Address 1" class="form-control" value="{{ old('address_1') }}">
+                        <input type="text" name="address_1" id="address_1" placeholder="Address 1" class="form-control" value="{{ old('address_1') ?? $address->address_1 }}">
                     </div>
                     <div class="form-group">
                         <label for="address_2">Address 2 </label>
-                        <input type="text" name="address_2" id="address_2" placeholder="Address 2" class="form-control" value="{{ old('address_2') }}">
+                        <input type="text" name="address_2" id="address_2" placeholder="Address 2" class="form-control" value="{{ old('address_2') ?? $address->address_2 }}">
                     </div>
                     <div class="form-group">
                         <label for="country_id">Country </label>
                         <select name="country_id" id="country_id" class="form-control select2">
                             @foreach($countries as $country)
-                                <option @if(env('SHOP_COUNTRY_ISO') == $country->iso) selected="selected" @endif value="{{ $country->id }}">{{ $country->name }}</option>
+                                <option @if($address->country_id == $country->id) selected="selected" @endif value="{{ $country->id }}">{{ $country->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -33,14 +37,14 @@
                     <div id="cities" class="form-group" style="display: none;"></div>
                     <div class="form-group">
                         <label for="zip">Zip Code </label>
-                        <input type="text" name="zip" id="zip" placeholder="Zip code" class="form-control" value="{{ old('zip') }}">
+                        <input type="text" name="zip" id="zip" placeholder="Zip code" class="form-control" value="{{ old('zip') ?? $address->zip }}">
                     </div>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <div class="btn-group">
                         <a href="{{ route('accounts', ['tab' => 'address']) }}" class="btn btn-default">Back</a>
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </div>
             </form>
@@ -65,17 +69,22 @@
                 contentType: 'json',
                 success: function (res) {
                     if (res.data.length > 0) {
+                        let province = jQuery('#address_province_id').val();
                         let html = '<label for="province_id">Provinces </label>';
                         html += '<select name="province_id" id="province_id" class="form-control select2">';
                         $(res.data).each(function (idx, v) {
-                            html += '<option value="'+ v.id+'">'+ v.name +'</option>';
+                            html += '<option';
+                            if (+province === v.id) {
+                                html += ' selected="selected"';
+                            }
+                            html += ' value="'+ v.id+'">'+ v.name +'</option>';
                         });
                         html += '</select>';
 
                         $('#provinces').html(html).show();
                         $('.select2').select2();
 
-                        findCity(countryId, 1);
+                        findCity(countryId, province);
 
                         $('#province_id').change(function () {
                             var provinceId = $(this).val();
@@ -95,9 +104,15 @@
                 contentType: 'json',
                 success: function (data) {
                     let html = '<label for="city_id">City </label>';
-                    html += '<select name="city_id" id="city_id" class="form-control select2">';
+                    html += '<select name="city_id" id="city_id" class="form-control">';
                     $(data.data).each(function (idx, v) {
-                        html += '<option value="'+ v.id+'">'+ v.name +'</option>';
+                        let city = jQuery('#address_city_id').val();
+                        console.log(city);
+                        html += '<option ';
+                        if (+city === v.id) {
+                            html += ' selected="selected" ';
+                        }
+                        html +=' value="'+ v.id+'">'+ v.name +'</option>';
                     });
                     html += '</select>';
 
@@ -105,12 +120,12 @@
                     $('.select2').select2();
                 },
                 errors: function (data) {
-                    console.log(data);
+                    // console.log(data);
                 }
             });
         }
 
-        let countryId = "{{ env('SHOP_COUNTRY_ID') }}";
+        let countryId = jQuery('#address_country_id').val();
 
         $(document).ready(function () {
 

@@ -48,7 +48,7 @@
                 <input type="hidden" class="delivery_address_id" name="delivery_address" value="">
                 <input type="hidden" class="courier_id" name="courier" value="">
                 <input type="hidden" id="shippingFeeC" value="0">
-                <button type="submit" class="btn btn-success pull-right">Pay with PayPal <i class="fa fa-paypal"></i></button>
+                <button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-success pull-right">Pay with PayPal <i class="fa fa-paypal"></i></button>
             </form>
         </td>
     </tr>

@@ -21,7 +21,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <table class="table table-striped">
                                     <thead>
                                         <th>Alias</th>
@@ -46,7 +46,7 @@
                                                                 type="radio"
                                                                 value="{{ $address->id }}"
                                                                 name="billing_address"
-                                                                @if(old('billing_address') == $address->id || $key == 0) checked="checked"  @endif>
+                                                                @if(old('billing_address') == $address->id) checked="checked"  @endif>
                                                     </label>
                                                 </td>
                                                 <td>
@@ -84,37 +84,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                            </div>
-                            <div class="col-md-6">
-                                @if(!$couriers->isEmpty())
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <th>Name</th>
-                                        <th>Cost</th>
-                                        <th>Choose courier</th>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($couriers as $courier)
-                                            <tr>
-                                                <td>{{ $courier->name }}</td>
-                                                <td>{{config('cart.currency')}} {{ $courier->cost }}</td>
-                                                <td>
-                                                    <label class="col-md-6 col-md-offset-3">
-                                                        <input
-                                                                data-cost="{{ $courier->cost }}"
-                                                                type="radio"
-                                                                name="courier"
-                                                                value="{{ $courier->id }}"
-                                                                @if(old('courier') == $courier->id) checked="checked"  @endif>
-                                                    </label>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                @else
-                                    <p class="alert alert-danger">No courier set</p>
-                                @endif
                             </div>
                         </div>
                         <div class="row">

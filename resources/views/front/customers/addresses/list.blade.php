@@ -9,7 +9,8 @@
             <div class="box">
                 <div class="box-body">
                     <h2>Addresses</h2>
-                    <table class="table">
+                    @if(!$addresses->isEmpty())
+                        <table class="table">
                         <tbody>
                         <tr>
                             <td class="col-md-1">Alias</td>
@@ -54,6 +55,10 @@
                         @endforeach
                         </tbody>
                     </table>
+                        <a href="{{ route('accounts', ['tab' => 'profile']) }}" class="btn btn-default">Back to My Account</a>
+                    @else
+                        <p class="alert alert-warning">No address created yet. <a href="{{ route('customer.address.create', auth()->id()) }}">Create</a></p>
+                    @endif
                 </div>
                 <!-- /.box-body -->
             </div>

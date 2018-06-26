@@ -113,6 +113,7 @@ class CheckoutController extends Controller
      */
     public function store(CartCheckoutRequest $request)
     {
+        dd($request->all());
         $courier = $this->courierRepo->findCourierById($request->input('courier'));
         $shippingFee = $this->cartRepo->getShippingFee($courier);
 

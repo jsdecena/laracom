@@ -63,7 +63,7 @@
             <div class="pull-right">
                 <ul class="nav navbar-nav navbar-right">
                     @if(auth()->check())
-                        <li><a href="{{ route('accounts') }}"><i class="fa fa-home"></i> My Account</a></li>
+                        <li><a href="{{ route('accounts', ['tab' => 'profile']) }}"><i class="fa fa-home"></i> My Account</a></li>
                         <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
                     @else
                         <li><a href="{{ route('login') }}"> <i class="fa fa-lock"></i> Login</a></li>

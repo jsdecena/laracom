@@ -13,9 +13,22 @@ class AccountsController extends Controller
 {
     use OrderTransformable;
 
+    /**
+     * @var CustomerRepositoryInterface
+     */
     private $customerRepo;
+
+    /**
+     * @var CourierRepositoryInterface
+     */
     private $courierRepo;
 
+    /**
+     * AccountsController constructor.
+     *
+     * @param CourierRepositoryInterface $courierRepository
+     * @param CustomerRepositoryInterface $customerRepository
+     */
     public function __construct(
         CourierRepositoryInterface $courierRepository,
         CustomerRepositoryInterface $customerRepository

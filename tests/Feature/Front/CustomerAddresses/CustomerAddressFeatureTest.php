@@ -2,8 +2,10 @@
 
 namespace Tests\Feature\Front\CustomerAddresses;
 
+use App\Shop\Addresses\Address;
 use App\Shop\Cities\City;
 use App\Shop\Countries\Country;
+use App\Shop\Customers\Repositories\CustomerRepository;
 use App\Shop\Provinces\Province;
 use Tests\TestCase;
 
@@ -12,6 +14,11 @@ class CustomerAddressFeatureTest extends TestCase
     /** @test */
     public function it_can_show_the_list_of_address_of_the_customer()
     {
+        $address = factory(Address::class)->create();
+
+        $customerRepo = new CustomerRepository($this->customer);
+        $customerRepo->attachAddress($address);
+
         $this
             ->actingAs($this->customer, 'web')
             ->get(route('customer.address.index', $this->customer->id))
@@ -47,7 +54,7 @@ class CustomerAddressFeatureTest extends TestCase
             ->actingAs($this->customer, 'web')
             ->post(route('customer.address.store', $this->customer->id), $data)
             ->assertStatus(302)
-            ->assertRedirect(route('checkout.index'));
+            ->assertRedirect(route('customer.address.index', $this->customer->id));
     }
 
     /** @test */
