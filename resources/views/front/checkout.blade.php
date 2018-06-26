@@ -46,7 +46,7 @@
                                                                 type="radio"
                                                                 value="{{ $address->id }}"
                                                                 name="billing_address"
-                                                                @if(old('') == $address->id) checked="checked"  @endif>
+                                                                @if(old('billing_address') == $address->id || $key == 0) checked="checked"  @endif>
                                                     </label>
                                                 </td>
                                                 <td>
