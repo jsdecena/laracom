@@ -179,7 +179,11 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      */
     public function searchProduct(string $text) : Collection
     {
-        return $this->model->searchProduct($text);
+        if (!empty($text)) {
+            return $this->model->searchProduct($text);
+        } else {
+            return $this->listProducts();
+        }
     }
 
     /**

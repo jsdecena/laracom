@@ -9,13 +9,23 @@ use App\Shop\ProductImages\ProductImage;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Sofa\Eloquence\Eloquence;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Product extends Model implements Buyable
 {
-    use Eloquence;
+    use SearchableTrait;
 
-    protected $searchableColumns = ['name', 'description'];
+    /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    protected $searchable = [
+        'columns' => [
+            'products.name' => 10,
+            'products.description' => 5
+        ]
+    ];
 
     /**
      * The attributes that are mass assignable.

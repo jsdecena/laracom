@@ -8,11 +8,34 @@ use App\Shop\Customers\Customer;
 use App\Shop\OrderStatuses\OrderStatus;
 use App\Shop\Products\Product;
 use Illuminate\Database\Eloquent\Model;
-use Sofa\Eloquence\Eloquence;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Order extends Model
 {
-    use Eloquence;
+    use SearchableTrait;
+
+    /**
+     * Searchable rules.
+     *
+     * Columns and their priority in search results.
+     * Columns with higher values are more important.
+     * Columns with equal values have equal importance.
+     *
+     * @var array
+     */
+    protected $searchable = [
+        'columns' => [
+            'customers.name' => 10,
+            'orders.reference' => 8,
+            'products.name' => 5
+        ],
+        'joins' => [
+            'customers' => ['customers.id', 'orders.customer_id'],
+            'order_product' => ['orders.id', 'order_product.order_id'],
+            'products' => ['products.id', 'order_product.product_id'],
+        ],
+        'groupBy' => ['orders.id']
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -90,12 +113,11 @@ class Order extends Model
 
     /**
      * @param string $term
-     * @param array $options
      *
      * @return mixed
      */
-    public function searchOrder(string $term, array $options)
+    public function searchOrder(string $term)
     {
-        return static::search($term, $options);
+        return self::search($term);
     }
 }
