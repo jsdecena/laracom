@@ -113,13 +113,11 @@ class CheckoutController extends Controller
      */
     public function store(CartCheckoutRequest $request)
     {
-        dd($request->all());
-        $courier = $this->courierRepo->findCourierById($request->input('courier'));
-        $shippingFee = $this->cartRepo->getShippingFee($courier);
+        $shippingFee = 0;
 
         switch ($request->input('payment')) {
             case 'paypal':
-                return $this->payPal->process($courier, $request);
+                return $this->payPal->process($shippingFee, $request);
                 break;
             case 'stripe':
 
