@@ -15,6 +15,24 @@ class Product extends Model implements Buyable
 {
     use SearchableTrait;
 
+    public const MASS_UNIT = [
+        'MILIGRAMS' => 'mgs',
+        'GRAMS' => 'gms',
+        'KILOGRAMS' => 'kgs',
+        'OUNCES' => 'oz',
+        'POUNDS' => 'lbs',
+        'PIECES' => 'pcs'
+    ];
+
+    public const DISTANCE_UNIT = [
+        'CENTIMETER' => 'cm',
+        'METER' => 'mtr',
+        'INCH' => 'in',
+        'MILIMETER' => 'mm',
+        'FOOT' => 'ft',
+        'YARD' => 'yd'
+    ];
+
     /**
      * Searchable rules.
      *
@@ -41,6 +59,8 @@ class Product extends Model implements Buyable
         'cover',
         'quantity',
         'price',
+        'weight',
+        'mass_unit',
         'status'
     ];
 
