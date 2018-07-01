@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'name' => env('PAYMENT_METHODS', 'paypal')
+    'name' => env('PAYMENT_METHODS')
 ];

@@ -46,11 +46,11 @@
                                                                 type="radio"
                                                                 value="{{ $address->id }}"
                                                                 name="billing_address"
-                                                                @if(old('billing_address') == $address->id) checked="checked"  @endif>
+                                                                @if($billingAddress->id == $address->id) checked="checked"  @endif>
                                                     </label>
                                                 </td>
                                                 <td>
-                                                    @if($key === 0)
+                                                    @if($billingAddress->id == $address->id)
                                                         <label for="sameDeliveryAddress">
                                                             <input type="checkbox" id="sameDeliveryAddress" checked="checked"> Same as billing
                                                         </label>

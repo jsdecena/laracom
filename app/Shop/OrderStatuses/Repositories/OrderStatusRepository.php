@@ -66,7 +66,7 @@ class OrderStatusRepository extends BaseRepository implements OrderStatusReposit
         try {
             return $this->findOneOrFail($id);
         } catch (ModelNotFoundException $e) {
-            throw new OrderStatusNotFoundException($e->getMessage());
+            throw new OrderStatusNotFoundException('Order status not found.');
         }
     }
 
@@ -93,5 +93,15 @@ class OrderStatusRepository extends BaseRepository implements OrderStatusReposit
     public function findOrders() : Collection
     {
         return $this->model->orders()->get();
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return mixed
+     */
+    public function findByName(string $name)
+    {
+        return $this->model->where('name', $name)->first();
     }
 }

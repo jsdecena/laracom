@@ -82,8 +82,8 @@
                             findCity(countryId, provinceId);
                         });
                     } else {
-                        $('#provinces').hide();
-                        $('#cities').hide();
+                        $('#provinces').hide().html('');
+                        $('#cities').hide().html('');
                     }
                 }
             });

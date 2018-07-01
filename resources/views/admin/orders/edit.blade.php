@@ -38,7 +38,22 @@
                         <td>{{ date('M d, Y h:i a', strtotime($order['created_at'])) }}</td>
                         <td><a href="{{ route('admin.customers.show', $customer->id) }}">{{ $customer->name }}</a></td>
                         <td><strong>{{ $order['payment'] }}</strong></td>
-                        <td><button type="button" class="btn btn-info btn-block">{{ $currentStatus->name }}</button></td>
+                        <td>
+                            <form action="{{ route('admin.orders.update', $order->id) }}" method="post">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="put">
+                                <label for="order_status_id" class="hidden">Update status</label>
+                                <input type="text" name="total_paid" class="form-control" placeholder="Total paid" style="margin-bottom: 5px; display: none" value="{{ old('total_paid') ?? $order->total_paid }}" />
+                                <div class="input-group">
+                                    <select name="order_status_id" id="order_status_id" class="form-control select2">
+                                        @foreach($statuses as $status)
+                                            <option @if($currentStatus->id == $status->id) selected="selected" @endif value="{{ $status->id }}">{{ $status->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span class="input-group-btn"><button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-primary">Update</button></span>
+                                </div>
+                            </form>
+                        </td>
                     </tr>
                     </tbody>
                     <tbody>
@@ -168,12 +183,25 @@
             <!-- /.box -->
             <div class="box-footer">
                 <div class="btn-group">
-                    <a href="{{ route('admin.orders.index') }}" class="btn btn-default">Back</a>
-                    @if($user->hasPermission('update-order'))<a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-primary">Edit</a>@endif
+                    <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-default">Back</a>
                 </div>
             </div>
         @endif
 
     </section>
     <!-- /.content -->
+@endsection
+@section('js')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            let osElement = $('#order_status_id');
+            osElement.change(function () {
+                if (+$(this).val() === 1) {
+                    $('input[name="total_paid"]').fadeIn();
+                } else {
+                    $('input[name="total_paid"]').fadeOut();
+                }
+            });
+        })
+    </script>
 @endsection

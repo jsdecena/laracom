@@ -20,7 +20,7 @@
             <td class="bg-warning"></td>
             <td class="bg-warning"></td>
             <td class="bg-warning"></td>
-            <td class="bg-warning">{{config('cart.currency')}} <span id="shippingFee">{{ $shippingFee }}</span></td>
+            <td class="bg-warning">{{config('cart.currency')}} <span id="shippingFee">{{ number_format($shipping, 2) }}</span></td>
         </tr>
         <tr>
             <td class="bg-warning">Tax</td>

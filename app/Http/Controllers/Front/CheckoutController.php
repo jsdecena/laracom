@@ -28,13 +28,39 @@ class CheckoutController extends Controller
 {
     use ProductTransformable;
 
+    /**
+     * @var CartRepositoryInterface
+     */
     private $cartRepo;
+
+    /**
+     * @var CourierRepositoryInterface
+     */
     private $courierRepo;
+
+    /**
+     * @var AddressRepositoryInterface
+     */
     private $addressRepo;
+
+    /**
+     * @var CustomerRepositoryInterface
+     */
     private $customerRepo;
+
+    /**
+     * @var ProductRepositoryInterface
+     */
     private $productRepo;
+
+    /**
+     * @var OrderRepositoryInterface
+     */
     private $orderRepo;
-    private $courierId;
+
+    /**
+     * @var PayPalExpressCheckoutRepository
+     */
     private $payPal;
 
     public function __construct(
@@ -52,7 +78,7 @@ class CheckoutController extends Controller
         $this->productRepo = $productRepository;
         $this->orderRepo = $orderRepository;
 
-        $payPalRepo = new PayPalExpressCheckoutRepository();
+        $payPalRepo = new PayPalExpressCheckoutRepository;
         $this->payPal = $payPalRepo;
     }
 
@@ -65,40 +91,26 @@ class CheckoutController extends Controller
     {
         $customer = $this->customerRepo->findCustomerById($this->loggedUser()->id);
 
-        $this->courierId = request()->session()->get('courierId', 1);
-        $courier = $this->courierRepo->findCourierById($this->courierId);
+        $shippingCost = 0;
 
-        $shippingCost = $this->cartRepo->getShippingFee($courier);
-
-        $addressId = request()->session()->get('addressId', 1);
-        $paymentId = request()->session()->get('paymentName', 'paypal');
-
-        // Get payees
-        $paymentMethods = config('payees.name');
-        $payees = explode(',', $paymentMethods);
-
-        $paymentGateways = collect($payees)->transform(function ($name) {
+        // Get payment gateways
+        $paymentGateways = collect(explode(',', config('payees.name')))->transform(function ($name) {
             return config($name);
-        })->filter()->all();
+        })->all();
 
-        $courier = $this->courierRepo->findCourierById(1);
-        $shippingFee = $this->cartRepo->getShippingFee($courier);
+        $billingAddress = $customer->addresses()->first();
 
         return view('front.checkout', [
             'customer' => $customer,
+            'billingAddress' => $billingAddress,
             'addresses' => $customer->addresses()->get(),
             'products' => $this->cartRepo->getCartItems(),
             'subtotal' => $this->cartRepo->getSubTotal(),
             'shipping' => $shippingCost,
             'tax' => $this->cartRepo->getTax(),
             'total' => $this->cartRepo->getTotal(2, $shippingCost),
-            'couriers' => $this->courierRepo->listCouriers(),
-            'selectedCourier' => $this->courierId,
-            'selectedAddress' => $addressId,
-            'selectedPayment' => $paymentId,
             'payments' => $paymentGateways,
-            'cartItems' => $this->cartRepo->getCartItemsTransformed(),
-            'shippingFee' => $shippingFee
+            'cartItems' => $this->cartRepo->getCartItemsTransformed()
         ]);
     }
 

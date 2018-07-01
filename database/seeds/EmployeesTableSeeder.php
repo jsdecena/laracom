@@ -30,6 +30,11 @@ class EmployeesTableSeeder extends Seeder
             'display_name' => 'Delete product'
         ]);
 
+        $updateOrderPerm = factory(Permission::class)->create([
+            'name' => 'update-order',
+            'display_name' => 'Update order'
+        ]);
+
         $employee = factory(Employee::class)->create([
             'email' => 'john@doe.com'
         ]);
@@ -44,6 +49,7 @@ class EmployeesTableSeeder extends Seeder
         $roleSuperRepo->attachToPermission($viewProductPerm);
         $roleSuperRepo->attachToPermission($updateProductPerm);
         $roleSuperRepo->attachToPermission($deleteProductPerm);
+        $roleSuperRepo->attachToPermission($updateOrderPerm);
 
         $employee->roles()->save($super);
 
@@ -61,6 +67,7 @@ class EmployeesTableSeeder extends Seeder
         $roleAdminRepo->attachToPermission($viewProductPerm);
         $roleAdminRepo->attachToPermission($updateProductPerm);
         $roleAdminRepo->attachToPermission($deleteProductPerm);
+        $roleAdminRepo->attachToPermission($updateOrderPerm);
 
         $employee->roles()->save($admin);
 

@@ -114,8 +114,16 @@
                                             <td>{{$address->alias}}</td>
                                             <td>{{$address->address_1}}</td>
                                             <td>{{$address->address_1}}</td>
-                                            <td>{{$address->city->name}}</td>
-                                            <td>{{$address->province->name}}</td>
+                                            <td>
+                                                @if(isset($address->city))
+                                                    {{$address->city->name}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($address->province))
+                                                    {{$address->province->name}}
+                                                @endif
+                                            </td>
                                             <td>{{$address->country->name}}</td>
                                             <td>{{$address->zip}}</td>
                                             <td>

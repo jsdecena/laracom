@@ -19,4 +19,6 @@ interface OrderStatusRepositoryInterface extends BaseRepositoryInterface
     public function deleteOrderStatus(OrderStatus $os) : bool;
 
     public function findOrders(): Collection;
+
+    public function findByName(string $name);
 }

@@ -77,6 +77,12 @@ Route::namespace('Auth')->group(function () {
 Route::namespace('Front')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::group(['middleware' => ['auth']], function () {
+
+        Route::namespace('Payments')->group(function () {
+            Route::get('bank-transfer', 'BankTransferController@index')->name('bank-transfer.index');
+            Route::post('bank-transfer', 'BankTransferController@store')->name('bank-transfer.store');
+        });
+
         Route::get('accounts', 'AccountsController@index')->name('accounts');
         Route::get('checkout', 'CheckoutController@index')->name('checkout.index');
         Route::post('checkout', 'CheckoutController@store')->name('checkout.store');
