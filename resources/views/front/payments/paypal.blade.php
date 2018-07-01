@@ -23,3 +23,9 @@
         </form>
     </td>
 </tr>
+<script type="text/javascript">
+    $(document).ready(function () {
+        let billingAddressId = $('input[name="billing_address"]').val();
+        $('.address_id').val(billingAddressId);
+    });
+</script>
