@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Shop\AttributeValues\AttributeValue;
-use App\Shop\ProductAttributes\ProductAttribute;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Shop\Products\Transformations\ProductTransformable;
-use Illuminate\Support\Collection;
 
 class ProductController extends Controller
 {

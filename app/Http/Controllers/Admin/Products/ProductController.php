@@ -312,7 +312,8 @@ class ProductController extends Controller
         $fields = $request->only(
             'productAttributeQuantity',
             'productAttributePrice',
-            'sale_price'
+            'sale_price',
+            'default'
         );
 
         if ($errors = $this->validateFields($fields)) {
