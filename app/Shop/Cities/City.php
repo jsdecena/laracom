@@ -17,6 +17,8 @@ class City extends Model
         'province_id'
     ];
 
+    public $timestamps = false;
+
     /**
      * The attributes that should be hidden for arrays.
      *

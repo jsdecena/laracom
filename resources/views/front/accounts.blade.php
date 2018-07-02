@@ -29,10 +29,9 @@
                                 <table class="table">
                                 <tbody>
                                 <tr>
-                                    <td class="col-md-3">Date</td>
-                                    <td class="col-md-2">Courier</td>
-                                    <td class="col-md-2">Total</td>
-                                    <td class="col-md-2">Status</td>
+                                    <td>Date</td>
+                                    <td>Total</td>
+                                    <td>Status</td>
                                 </tr>
                                 </tbody>
                                 <tbody>
@@ -66,8 +65,8 @@
                                                                             </address>
                                                                         </td>
                                                                         <td>{{$order['payment']}}</td>
-                                                                        <td>{{$order['total']}}</td>
-                                                                        <td>{{$order['status']->name}}</td>
+                                                                        <td>{{ config('cart.currency_symbol') }} {{$order['total']}}</td>
+                                                                        <td><p class="text-center" style="color: #ffffff; background-color: {{ $order['status']->color }}">{{ $order['status']->name }}</p></td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -79,13 +78,13 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>{{ $order['courier']->name }}</td>
                                         <td><span class="label @if($order['total'] != $order['total_paid']) label-danger @else label-success @endif">{{ config('cart.currency') }} {{ $order['total'] }}</span></td>
                                         <td><p class="text-center" style="color: #ffffff; background-color: {{ $order['status']->color }}">{{ $order['status']->name }}</p></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
+                                {{ $orders->links() }}
                             @else
                                 <p class="alert alert-warning">No orders yet. <a href="{{ route('home') }}">Shop now!</a></p>
                             @endif

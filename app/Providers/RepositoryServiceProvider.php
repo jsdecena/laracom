@@ -30,8 +30,6 @@ use App\Shop\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterfac
 use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
 use App\Shop\Permissions\Repositories\PermissionRepository;
 use App\Shop\Permissions\Repositories\Interfaces\PermissionRepositoryInterface;
-use App\Shop\PaymentMethods\Repositories\PaymentMethodRepository;
-use App\Shop\PaymentMethods\Repositories\Interfaces\PaymentMethodRepositoryInterface;
 use App\Shop\ProductAttributes\Repositories\ProductAttributeRepository;
 use App\Shop\ProductAttributes\Repositories\ProductAttributeRepositoryInterface;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
@@ -40,12 +38,19 @@ use App\Shop\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
 use App\Shop\Provinces\Repositories\ProvinceRepository;
 use App\Shop\Roles\Repositories\RoleRepository;
 use App\Shop\Roles\Repositories\RoleRepositoryInterface;
+use App\Shop\Shipping\ShippingInterface;
+use App\Shop\Shipping\Shippo\ShippoShipment;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        $this->app->bind(
+            ShippingInterface::class,
+            ShippoShipment::class
+        );
+
         $this->app->bind(
             BrandRepositoryInterface::class,
             BrandRepository::class
