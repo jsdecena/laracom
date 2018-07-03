@@ -108,8 +108,10 @@ class CheckoutController extends Controller
 
         if (env('ACTIVATE_SHIPPING') == 1) {
             $shipment = $this->createShippingProcess($customer, $products);
-            $shipment_object_id = $shipment->object_id;
-            $rates = $shipment->rates;
+            if (!is_null($shipment)) {
+                $shipment_object_id = $shipment->object_id;
+                $rates = $shipment->rates;
+            }
         }
 
         // Get payment gateways
@@ -240,12 +242,12 @@ class CheckoutController extends Controller
         $customerRepo = new CustomerRepository($customer);
 
         if ($customerRepo->findAddresses()->count() > 0 && $products->count() > 0) {
-            $billingAddress = $customerRepo->findAddresses()->first();
-            $deliveryAddress = $customerRepo->findAddresses()->first();
 
+            $billingAddress = $customerRepo->findAddresses()->first();
             $this->shippingRepo->setBillingAddress($billingAddress);
-            $this->shippingRepo->setDeliveryAddress($deliveryAddress);
+            $this->shippingRepo->setDeliveryAddress($billingAddress);
             $this->shippingRepo->readyParcel($this->cartRepo->getCartItems());
+
             return $this->shippingRepo->readyShipment();
         }
     }

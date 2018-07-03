@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 use Shippo;
 use Shippo_Shipment;
 
-class ShippoShipment implements ShippingInterface
+class ShippoShipmentRepository implements ShippingInterface
 {
     /**
      * @var Customer
@@ -37,13 +37,16 @@ class ShippoShipment implements ShippingInterface
         $this->customer = $customer;
     }
 
+    /**
+     * @param Address $address
+     */
     public function setBillingAddress(Address $address)
     {
         $billing = [
             'name' => $address->alias,
             'street1' => $address->address_1,
-            'city' => '',
-            'state' => '',
+            'city' => $address->city,
+            'state' => $address->state_code,
             'zip' => $address->zip,
             'country' => $address->country->iso,
             'phone' => '',
@@ -53,13 +56,16 @@ class ShippoShipment implements ShippingInterface
         $this->billingAddress = $billing;
     }
 
+    /**
+     * @param Address $address
+     */
     public function setDeliveryAddress(Address $address)
     {
         $delivery =  [
             'name' => $address->alias,
             'street1' => $address->address_1,
-            'city' => '',
-            'state' => '',
+            'city' => $address->city,
+            'state' => $address->state_code,
             'zip' => $address->zip,
             'country' => $address->country->iso,
             'phone' => '',
@@ -77,7 +83,7 @@ class ShippoShipment implements ShippingInterface
         $shipment = Shippo_Shipment::create(array(
                 'address_from'=> $this->billingAddress,
                 'address_to'=> $this->deliveryAddress,
-                'parcels'=> [$this->parcel],
+                'parcels'=> $this->parcel,
                 'async'=> false
             )
         );
@@ -99,7 +105,7 @@ class ShippoShipment implements ShippingInterface
     /**
      * @param Collection $collection
      *
-     * @return array
+     * @return void
      */
     public function readyParcel(Collection $collection)
     {

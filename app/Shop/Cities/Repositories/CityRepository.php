@@ -29,7 +29,7 @@ class CityRepository extends BaseRepository implements CityRepositoryInterface
      *
      * @return mixed
      */
-    public function listCities($columns = ['*'], string $orderBy = 'id', string $sortBy = 'asc')
+    public function listCities($columns = ['*'], string $orderBy = 'name', string $sortBy = 'asc')
     {
         return $this->all($columns, $orderBy, $sortBy);
     }

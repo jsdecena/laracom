@@ -131,12 +131,10 @@ class BankTransferController extends Controller
         $transaction = Shippo_Transaction::create($details);
 
         if ($transaction["status"] == "SUCCESS"){
-            echo( $transaction["label_url"] );
-            echo("\n");
-            echo( $transaction["tracking_number"] );
-            die;
+            dump($transaction["label_url"]);
+            dd($transaction["tracking_number"]);
         }else {
-            echo( $transaction["messages"] ); die;
+            dd($transaction["messages"]);
         }
 
         Cart::destroy();

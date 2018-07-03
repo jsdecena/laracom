@@ -90,10 +90,10 @@ class CustomerAddressController extends Controller
      */
     public function store(CreateAddressRequest $request, $customerId)
     {
-        $request['customer'] = $customerId;
+        $request['customer_id'] = $request->user()->id;
         $this->addressRepo->createAddress($request->except('_token', '_method'));
 
-        return redirect()->route('customer.address.index', $customerId)
+        return redirect()->route('accounts', ['tab' => 'address'])
             ->with('message', 'Address creation successful');
     }
 
@@ -131,7 +131,7 @@ class CustomerAddressController extends Controller
         $request['customer'] = $customerId;
         $addressRepo->updateAddress($request->except('_token', '_method'));
 
-        return redirect()->route('customer.address.edit', [$customerId, $addressId])
+        return redirect()->route('accounts', ['tab' => 'address'])
             ->with('message', 'Address update successful');
     }
 

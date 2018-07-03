@@ -37,9 +37,10 @@
                                                     <td>{{ $address->alias }}</td>
                                                     <td>
                                                         {{ $address->address_1 }} {{ $address->address_2 }} <br />
-                                                        @if(!is_null($address->province) || !is_null($address->city))
+                                                        @if(!is_null($address->province))
                                                             {{ $address->city }} {{ $address->province->name }} <br />
                                                         @endif
+                                                        {{ $address->city }} {{ $address->state_code }} <br>
                                                         {{ $address->country->name }} {{ $address->zip }}
                                                     </td>
                                                     <td>
@@ -67,9 +68,10 @@
                                                     <td>{{ $address->alias }}</td>
                                                     <td>
                                                         {{ $address->address_1 }} {{ $address->address_2 }} <br />
-                                                        @if(!is_null($address->province) || !is_null($address->city))
+                                                        @if(!is_null($address->province))
                                                             {{ $address->city }} {{ $address->province->name }} <br />
                                                         @endif
+                                                        {{ $address->city }} {{ $address->state_code }} <br>
                                                         {{ $address->country->name }} {{ $address->zip }}
                                                     </td>
                                                     <td></td>

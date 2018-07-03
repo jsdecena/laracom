@@ -26,7 +26,6 @@ class CustomerAddressFeatureTest extends TestCase
             ->assertSee('Alias')
             ->assertSee('Address 1')
             ->assertSee('Country')
-            ->assertSee('Province')
             ->assertSee('City')
             ->assertSee('Zip Code');
     }
@@ -35,9 +34,11 @@ class CustomerAddressFeatureTest extends TestCase
     public function it_can_save_the_customer_address()
     {
         $country = factory(Country::class)->create();
+
         $province = factory(Province::class)->create([
             'country_id' => $country->id
         ]);
+
         $city = factory(City::class)->create([
             'province_id' => $province->id
         ]);
@@ -54,7 +55,7 @@ class CustomerAddressFeatureTest extends TestCase
             ->actingAs($this->customer, 'web')
             ->post(route('customer.address.store', $this->customer->id), $data)
             ->assertStatus(302)
-            ->assertRedirect(route('customer.address.index', $this->customer->id));
+            ->assertRedirect(route('accounts', ['tab' => 'address']));
     }
 
     /** @test */

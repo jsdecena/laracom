@@ -20,12 +20,13 @@ class Address extends Model
      *
      * @var array
      */
-    protected $fillable = [
+    public $fillable = [
         'alias',
         'address_1',
         'address_2',
         'zip',
         'city',
+        'state_code',
         'province_id',
         'country_id',
         'customer_id',

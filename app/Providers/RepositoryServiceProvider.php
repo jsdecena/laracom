@@ -39,7 +39,7 @@ use App\Shop\Provinces\Repositories\ProvinceRepository;
 use App\Shop\Roles\Repositories\RoleRepository;
 use App\Shop\Roles\Repositories\RoleRepositoryInterface;
 use App\Shop\Shipping\ShippingInterface;
-use App\Shop\Shipping\Shippo\ShippoShipment;
+use App\Shop\Shipping\Shippo\ShippoShipmentRepository;
 use App\Shop\States\Repositories\StateRepository;
 use App\Shop\States\Repositories\StateRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -55,7 +55,7 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind(
             ShippingInterface::class,
-            ShippoShipment::class
+            ShippoShipmentRepository::class
         );
 
         $this->app->bind(

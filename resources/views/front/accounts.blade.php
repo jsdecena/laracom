@@ -102,7 +102,10 @@
                                     <th>Address 1</th>
                                     <th>Address 2</th>
                                     <th>City</th>
+                                    @if(isset($address->province))
                                     <th>Province</th>
+                                    @endif
+                                    <th>State</th>
                                     <th>Country</th>
                                     <th>Zip</th>
                                     <th>Actions</th>
@@ -113,16 +116,11 @@
                                             <td>{{$address->alias}}</td>
                                             <td>{{$address->address_1}}</td>
                                             <td>{{$address->address_1}}</td>
-                                            <td>
-                                                @if(isset($address->city))
-                                                    {{$address->city}}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if(isset($address->province))
-                                                    {{$address->province->name}}
-                                                @endif
-                                            </td>
+                                            <td>{{$address->city}}</td>
+                                            @if(isset($address->province))
+                                            <td>{{$address->province->name}}</td>
+                                            @endif
+                                            <td>{{$address->state_code}}</td>
                                             <td>{{$address->country->name}}</td>
                                             <td>{{$address->zip}}</td>
                                             <td>
