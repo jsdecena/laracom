@@ -7,6 +7,7 @@ use App\Shop\Addresses\Exceptions\AddressInvalidArgumentException;
 use App\Shop\Addresses\Exceptions\AddressNotFoundException;
 use App\Shop\Addresses\Repositories\AddressRepository;
 use App\Shop\Addresses\Transformations\AddressTransformable;
+use App\Shop\Cities\Repositories\CityRepository;
 use App\Shop\Customers\Customer;
 use App\Shop\Customers\Repositories\CustomerRepository;
 use App\Shop\Orders\Order;
@@ -44,13 +45,15 @@ class AddressUnitTest extends TestCase
         $address = factory(Address::class)->create([
             'country_id' => $country->id,
             'province_id' => $province->id,
-            'city_id' => $city->id
+            'city' => $city->name
         ]);
 
         $repo = new AddressRepository($address);
         $foundCountry = $repo->findCountry();
         $foundProvince = $repo->findProvince();
-        $foundCity = $repo->findCity();
+
+        $cityRepo = new CityRepository($city);
+        $foundCity = $cityRepo->findCityByName($address->city);
 
         $this->assertInstanceOf(Country::class, $foundCountry);
         $this->assertInstanceOf(Province::class, $foundProvince);
@@ -68,7 +71,7 @@ class AddressUnitTest extends TestCase
         $country = factory(Country::class)->create();
         $customer = factory(Customer::class)->create();
         $address = factory(Address::class)->create([
-            'city_id' => $city->id,
+            'city' => $city->name,
             'province_id' => $province->id,
             'country_id' => $country->id,
             'customer_id' => $customer->id,
@@ -220,7 +223,7 @@ class AddressUnitTest extends TestCase
             'address_1' => $this->faker->streetName,
             'address_2' => $this->faker->streetAddress,
             'zip' => $this->faker->postcode,
-            'city_id' => $city->id,
+            'city' => $city->name,
             'province_id' => $province->id,
             'country_id' => $country->id,
             'customer' => $customer->id,

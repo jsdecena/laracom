@@ -147,11 +147,7 @@
                                 <tr>
                                     <td>{{ $order->address->address_1 }}</td>
                                     <td>{{ $order->address->address_2 }}</td>
-                                    <td>
-                                        @if(isset($order->address->city))
-                                            {{ $order->address->city->name }}
-                                        @endif
-                                    </td>
+                                    <td>$order->address->city</td>
                                     <td>
                                         @if(isset($order->address->province))
                                             {{ $order->address->province->name }}

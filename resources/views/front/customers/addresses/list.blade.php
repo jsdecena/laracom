@@ -36,7 +36,7 @@
                                 </td>
                                 <td>
                                     @if(isset($address->city))
-                                        {{ $address->city->name }}
+                                        {{ $address->city }}
                                     @endif
                                 </td>
                                 <td>{{ $address->zip }}</td>

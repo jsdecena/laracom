@@ -99,14 +99,16 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
      * Return the address
      *
      * @param int $id
+     *
      * @return Address
+     * @throws AddressNotFoundException
      */
     public function findAddressById(int $id) : Address
     {
         try {
             return $this->findOneOrFail($id);
         } catch (ModelNotFoundException $e) {
-            throw new AddressNotFoundException($e->getMessage());
+            throw new AddressNotFoundException('Address not found.');
         }
     }
 
@@ -130,7 +132,6 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
             'address_1' => 10,
             'address_2' => 5,
             'province.name' => 5,
-            'city.name' => 5,
             'country.name' => 5
         ])->get();
     }

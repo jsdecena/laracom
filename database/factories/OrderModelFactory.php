@@ -28,7 +28,7 @@ $factory->define(Order::class, function (Faker\Generator $faker) {
     $city = factory(City::class)->create();
     $address = factory(Address::class)->create([
         'country_id' => 1,
-        'city_id' => $city->id,
+        'city' => $city->name,
         'customer_id' => $customer->id
     ]);
 

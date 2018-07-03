@@ -115,7 +115,7 @@
                                             <td>{{$address->address_1}}</td>
                                             <td>
                                                 @if(isset($address->city))
-                                                    {{$address->city->name}}
+                                                    {{$address->city}}
                                                 @endif
                                             </td>
                                             <td>

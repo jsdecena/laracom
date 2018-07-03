@@ -24,7 +24,7 @@ $factory->define(Address::class, function (Faker\Generator $faker) {
         'address_1' => $faker->streetAddress,
         'address_2' => null,
         'zip' => $faker->postcode,
-        'city_id' => 1,
+        'city' => $faker->city,
         'province_id' => 1,
         'country_id' => 1,
         'customer_id' => $customer->id,

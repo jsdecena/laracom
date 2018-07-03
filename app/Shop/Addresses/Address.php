@@ -25,7 +25,7 @@ class Address extends Model
         'address_1',
         'address_2',
         'zip',
-        'city_id',
+        'city',
         'province_id',
         'country_id',
         'customer_id',
@@ -56,9 +56,14 @@ class Address extends Model
         return $this->belongsTo(Province::class);
     }
 
+    /**
+     * @deprecated
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function city()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class, 'city');
     }
 
     public function orders()

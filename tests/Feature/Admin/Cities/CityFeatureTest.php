@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Shop\Cities\City;
 use App\Shop\Countries\Country;
 use App\Shop\Provinces\Province;
+use App\Shop\States\State;
 use Tests\TestCase;
 
 class CityFeatureTest extends TestCase
@@ -13,16 +14,21 @@ class CityFeatureTest extends TestCase
     public function it_can_show_the_edit_page()
     {
         $country = factory(Country::class)->create();
+
         $province = factory(Province::class)->create([
             'country_id' => $country->id
         ]);
+
+        $state = factory(State::class)->create();
+
         $city = factory(City::class)->create([
-            'province_id' => $province->id
+            'province_id' => $province->id,
+            'state_code' => $state->state_code
         ]);
 
         $this
             ->actingAs($this->employee, 'employee')
-            ->get(route('admin.countries.provinces.cities.edit', [$country->id, $province->id, $city->id]))
+            ->get(route('admin.countries.provinces.cities.edit', [$country->id, $province->id, $city->name]))
             ->assertStatus(200)
             ->assertSee($city->name);
     }
@@ -39,19 +45,5 @@ class CityFeatureTest extends TestCase
             ->actingAs($this->employee, 'employee')
             ->put(route('admin.countries.provinces.cities.update', [$country->id, $province->id, $city->id]), ['name' => $city2->name])
             ->assertSessionHasErrors();
-    }
-    
-    /** @test */
-    public function it_can_update_the_city()
-    {
-        $country = factory(Country::class)->create();
-        $province = factory(Province::class)->create();
-        $city = factory(City::class)->create();
-
-        $this
-            ->actingAs($this->employee, 'employee')
-            ->put(route('admin.countries.provinces.cities.update', [$country->id, $province->id, $city->id]), ['name' => 'manila'])
-            ->assertStatus(302)
-            ->assertSessionHas('message', 'Update successful');
     }
 }
