@@ -40,12 +40,19 @@ use App\Shop\Roles\Repositories\RoleRepository;
 use App\Shop\Roles\Repositories\RoleRepositoryInterface;
 use App\Shop\Shipping\ShippingInterface;
 use App\Shop\Shipping\Shippo\ShippoShipment;
+use App\Shop\States\Repositories\StateRepository;
+use App\Shop\States\Repositories\StateRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        $this->app->bind(
+            StateRepositoryInterface::class,
+            StateRepository::class
+        );
+
         $this->app->bind(
             ShippingInterface::class,
             ShippoShipment::class

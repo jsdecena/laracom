@@ -83,6 +83,11 @@ Route::namespace('Front')->group(function () {
             Route::post('bank-transfer', 'BankTransferController@store')->name('bank-transfer.store');
         });
 
+        Route::namespace('Addresses')->group(function () {
+            Route::resource('country.state', 'CountryStateController');
+            Route::resource('state.city', 'StateCityController');
+        });
+
         Route::get('accounts', 'AccountsController@index')->name('accounts');
         Route::get('checkout', 'CheckoutController@index')->name('checkout.index');
         Route::post('checkout', 'CheckoutController@store')->name('checkout.store');
