@@ -68,17 +68,6 @@
                                 </select>
                             </div><hr>
                         @endif
-                        <div class="form-group">
-                            <input type="number"
-                                   class="form-control"
-                                   name="quantity"
-                                   id="quantity"
-                                   placeholder="Quantity"
-                                   value="{{ old('quantity') }}"
-                                   required
-                            />
-                        </div>
-                        <br><br>
                         @if(isset($category) && $category->slug == 'eyewear')
                         @foreach(config('eyewear_options') as $key => $value)
                             <label class="radio">{{$value['name']}}
@@ -121,6 +110,7 @@
                             @endforeach
                         @endif
                         <br><br>
+                        <input type="hidden" name="quantity" id="quantity" value="1" />
                         <input type="hidden" name="product" value="{{ $product->id }}" />
                         <button type="submit" class="btn btn-warning"><i
                                     class="fa fa-cart-plus"></i> Add to cart

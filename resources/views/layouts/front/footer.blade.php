@@ -16,8 +16,7 @@
                     <li> <a href=""> <i class="fa fa-pinterest-p" aria-hidden="true"></i>  </a> </li>
                 </ul>
 
-                <p>&copy; <a href="{{ config('app.url') }}">{{ config('app.name') }}</a> | All Rights Reserved</p>
-
+                <p>&copy; <a href="{{ config('app.url') }}">{{ config('app.name') }} - The Online Store. </a> Designed & Developed by <a href="http://webworkstodo.com" target="_blank">WebWorksToDo</a> | All Rights Reserved</p>
             </div>
         </div>
     </div>
