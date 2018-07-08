@@ -101,6 +101,11 @@ class CartController extends Controller
             }
         }
 
+        if(isset($request['sub-option']) && !is_null($request['sub-option'])) {
+            $extraAmount = (int)explode('-', $request['sub-option'])[1];
+            $product->price = $product->price + $extraAmount;
+        }
+
         $this->cartRepo->addToCart($product, $request->input('quantity'), $options);
 
         $request->session()->flash('message', 'Add to cart successful');

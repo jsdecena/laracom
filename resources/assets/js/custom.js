@@ -15,4 +15,19 @@ $(document).ready(function () {
                 .attr('data-zoom', $(this).attr('src') +'?w=1200');
         });
     }
+
+    $("input[name$='eyewear_options']").click(function() {
+        var modalToLoad = $(this).val();
+        $('#'+modalToLoad).css({'padding-right': '35%'});
+        $('#'+modalToLoad).modal({backdrop: 'static', keyboard: false});
+        $('#'+modalToLoad).modal('show');
+    });
+
+    $("#modal-close").click(function(){
+        $("input[name$='eyewear_options']").prop('checked', false);
+    });
+
+    $("#modal_close_x").click(function(){
+        $("input[name$='eyewear_options']").prop('checked', false);
+    });
 });

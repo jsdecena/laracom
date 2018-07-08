@@ -69,15 +69,61 @@
                             </div><hr>
                         @endif
                         <div class="form-group">
-                            <input type="text"
+                            <input type="number"
                                    class="form-control"
                                    name="quantity"
                                    id="quantity"
                                    placeholder="Quantity"
-                                   value="{{ old('quantity') }}" />
-                            <input type="hidden" name="product" value="{{ $product->id }}" />
+                                   value="{{ old('quantity') }}"
+                                   required
+                            />
                         </div>
-                        <button type="submit" class="btn btn-warning"><i class="fa fa-cart-plus"></i> Add to cart
+                        <br><br>
+                        @if(isset($category) && $category->slug == 'eyewear')
+                        @foreach(config('eyewear_options') as $key => $value)
+                            <label class="radio">{{$value['name']}}
+                                <input type="radio" name="eyewear_options" required value="{{$key}}">
+                                <span class="checkround"></span>
+                            </label>
+                                <div class="modal fade" id="{{$key}}" role="dialog">
+                                    <div class="modal-dialog modal-sm vertical-align-center">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" id="modal_close_x" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title"> Select the appropriate lenses for {{$value['name']}}</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="col-container-eyewear-options">
+                                                    @foreach($value['options'] as $option)
+                                                        <div class="col-eyewear-details">
+                                                            <label class="radio">{{$option['name']}}
+                                                            <input type="radio" name="sub-option" required value="{{$option['name']}}-{{$option['price']}}">
+                                                            <span class="checkround"></span>
+                                                            </label><br>
+                                                            <label class="radio">Price : {{ config('cart.currency') }} {{$option['price']}}</label>
+                                                            <br>
+                                                            <span>
+                                                                {{$option['description']}}
+                                                            </span>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-warning"><i
+                                                            class="fa fa-cart-plus"></i> Add to cart
+                                                </button>
+                                                <button type="button" data-dismiss="modal" class="btn btn-default" id="modal-close">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                        <br><br>
+                        <input type="hidden" name="product" value="{{ $product->id }}" />
+                        <button type="submit" class="btn btn-warning"><i
+                                    class="fa fa-cart-plus"></i> Add to cart
                         </button>
                     </form>
                 </div>
