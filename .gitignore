@@ -27,3 +27,4 @@ storage/app/public/storage
 \.php_cs\.cache
 public/css
 public/js
+storgae/app/public/public
