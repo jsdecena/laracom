@@ -79,7 +79,7 @@
             </div>
         </div>
     </div>
-    <header id="header-section">
+    <header id="header-section" style="padding-bottom: 3%;">
         <nav class="navbar navbar-default">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -90,7 +90,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name') }}</a>
+                    <a class="navbar-brand" href="{{ route('home') }}"><img src={{URL::asset('images/db_logo.png')}} style="width:100%;"/></a>
                 </div>
                 <div class="col-md-10">
                     @include('layouts.front.header-cart')
