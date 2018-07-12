@@ -67,6 +67,9 @@ Route::namespace('Auth')->group(function () {
     Route::get('cart/login', 'CartLoginController@showLoginForm')->name('cart.login');
     Route::post('cart/login', 'CartLoginController@login')->name('cart.login');
     Route::get('logout', 'LoginController@logout');
+    //Social Links
+    Route::get( '/login/{social}', 'LoginController@getSocialRedirect' )->middleware('guest');
+    Route::get( '/login/{social}/callback', 'LoginController@getSocialCallback' )->middleware('guest');
 });
 
 Route::namespace('Front')->group(function () {

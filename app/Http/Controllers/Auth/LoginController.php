@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Shop\Admins\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Socialite;
+use App\Shop\Customers\Customer;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -73,5 +76,53 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+    }
+
+    /**
+     * @param $account
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function getSocialRedirect($account)
+    {
+        try {
+            return Socialite::with( $account )->redirect();
+        }
+        catch (\InvalidArgumentException $exception)
+        {
+            return redirect('/login');
+        }
+    }
+
+    public function getSocialCallback($account)
+    {
+        $socialUser = Socialite::with( $account )->user();
+
+        $existingCustomer = Customer::where( 'email', '=', $socialUser->email )->first();
+
+        if( $existingCustomer == null ){
+            $newCustomer = new Customer();
+            $newCustomer->name        = $socialUser->getName();
+            $newCustomer->email       = $socialUser->getEmail() == '' ? '' : $socialUser->getEmail();
+            $newCustomer->avatar      = $socialUser->getAvatar();
+            $newCustomer->password    = '';
+            $newCustomer->provider    = $account;
+            $newCustomer->provider_id = $socialUser->getId();
+            $newCustomer->save();
+            return $this->loginUserAndRedirect($newCustomer);
+        } else {
+            $existingCustomer->provider = $account;
+            $existingCustomer->provider_id = $socialUser->getId();
+            $existingCustomer->avatar = $socialUser->getAvatar();
+            $existingCustomer->update();
+            return $this->loginUserAndRedirect($existingCustomer);
+        }
+    }
+
+    public function loginUserAndRedirect($customer)
+    {
+        if(!empty($customer)) {
+            Auth::login( $customer );
+            return redirect('/');
+        }
     }
 }
