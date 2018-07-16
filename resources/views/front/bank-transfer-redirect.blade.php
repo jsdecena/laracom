@@ -35,7 +35,12 @@
                             <div class="btn-group">
                                 <a href="{{ route('checkout.index') }}" class="btn btn-default">Back</a>
                                 <button onclick="return confirm('Are you sure?')" class="btn btn-primary">Pay now with Bank Transfer</button>
-                                <input type="hidden" id="billing_address" name="billing_address" value="{{ request()->input('billing_address') }}">
+                                <input type="hidden" id="billing_address" name="billing_address" value="{{ $billingAddress }}">
+                                <input type="hidden" name="shipment_obj_id" value="{{ $shipmentObjId }}">
+                                <input type="hidden" name="rate" value="{{ $rateObjectId }}">
+                                @if(request()->has('courier'))
+                                    <input type="hidden" name="courier" value="{{ request()->input('courier') }}">
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -16,12 +16,9 @@ class Product extends Model implements Buyable
     use SearchableTrait;
 
     public const MASS_UNIT = [
-        'MILIGRAMS' => 'mgs',
-        'GRAMS' => 'gms',
-        'KILOGRAMS' => 'kgs',
         'OUNCES' => 'oz',
-        'POUNDS' => 'lbs',
-        'PIECES' => 'pcs'
+        'GRAMS' => 'gms',
+        'POUNDS' => 'lbs'
     ];
 
     public const DISTANCE_UNIT = [

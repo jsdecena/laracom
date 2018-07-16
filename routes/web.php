@@ -76,11 +76,16 @@ Route::namespace('Auth')->group(function () {
 
 Route::namespace('Front')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
-    Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['auth', 'web']], function () {
 
         Route::namespace('Payments')->group(function () {
             Route::get('bank-transfer', 'BankTransferController@index')->name('bank-transfer.index');
             Route::post('bank-transfer', 'BankTransferController@store')->name('bank-transfer.store');
+        });
+
+        Route::namespace('Addresses')->group(function () {
+            Route::resource('country.state', 'CountryStateController');
+            Route::resource('state.city', 'StateCityController');
         });
 
         Route::get('accounts', 'AccountsController@index')->name('accounts');

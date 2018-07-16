@@ -18,7 +18,8 @@
         "laravel/tinker": "~1.0",
         "nicolaslopezj/searchable": "^1.10",
         "paypal/rest-api-sdk-php": "*",
-        "santigarcor/laratrust": "5.0.*"
+        "santigarcor/laratrust": "5.0.*",
+        "shippo/shippo-php": "^1.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

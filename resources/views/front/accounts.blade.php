@@ -4,6 +4,9 @@
     <!-- Main content -->
     <section class="container content">
         <div class="row">
+            <div class="box-body">
+                @include('layouts.errors-and-messages')
+            </div>
             <div class="col-md-12">
                 <h2> <i class="fa fa-home"></i> My Account</h2>
                 <hr>
@@ -29,10 +32,9 @@
                                 <table class="table">
                                 <tbody>
                                 <tr>
-                                    <td class="col-md-3">Date</td>
-                                    <td class="col-md-2">Courier</td>
-                                    <td class="col-md-2">Total</td>
-                                    <td class="col-md-2">Status</td>
+                                    <td>Date</td>
+                                    <td>Total</td>
+                                    <td>Status</td>
                                 </tr>
                                 </tbody>
                                 <tbody>
@@ -66,8 +68,8 @@
                                                                             </address>
                                                                         </td>
                                                                         <td>{{$order['payment']}}</td>
-                                                                        <td>{{$order['total']}}</td>
-                                                                        <td>{{$order['status']->name}}</td>
+                                                                        <td>{{ config('cart.currency_symbol') }} {{$order['total']}}</td>
+                                                                        <td><p class="text-center" style="color: #ffffff; background-color: {{ $order['status']->color }}">{{ $order['status']->name }}</p></td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -79,13 +81,13 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>{{ $order['courier']->name }}</td>
                                         <td><span class="label @if($order['total'] != $order['total_paid']) label-danger @else label-success @endif">{{ config('cart.currency') }} {{ $order['total'] }}</span></td>
                                         <td><p class="text-center" style="color: #ffffff; background-color: {{ $order['status']->color }}">{{ $order['status']->name }}</p></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
+                                {{ $orders->links() }}
                             @else
                                 <p class="alert alert-warning">No orders yet. <a href="{{ route('home') }}">Shop now!</a></p>
                             @endif
@@ -103,9 +105,13 @@
                                     <th>Address 1</th>
                                     <th>Address 2</th>
                                     <th>City</th>
+                                    @if(isset($address->province))
                                     <th>Province</th>
+                                    @endif
+                                    <th>State</th>
                                     <th>Country</th>
                                     <th>Zip</th>
+                                    <th>Phone</th>
                                     <th>Actions</th>
                                 </thead>
                                 <tbody>
@@ -114,18 +120,14 @@
                                             <td>{{$address->alias}}</td>
                                             <td>{{$address->address_1}}</td>
                                             <td>{{$address->address_1}}</td>
-                                            <td>
-                                                @if(isset($address->city))
-                                                    {{$address->city->name}}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if(isset($address->province))
-                                                    {{$address->province->name}}
-                                                @endif
-                                            </td>
+                                            <td>{{$address->city}}</td>
+                                            @if(isset($address->province))
+                                            <td>{{$address->province->name}}</td>
+                                            @endif
+                                            <td>{{$address->state_code}}</td>
                                             <td>{{$address->country->name}}</td>
                                             <td>{{$address->zip}}</td>
+                                            <td>{{$address->phone}}</td>
                                             <td>
                                                 <form method="post" action="{{ route('customer.address.destroy', [auth()->user()->id, $address->id]) }}" class="form-horizontal">
                                                     <div class="btn-group">

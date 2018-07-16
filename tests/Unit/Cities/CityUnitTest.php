@@ -25,9 +25,9 @@ class CityUnitTest extends TestCase
         $cityRepo = new CityRepository($city);
 
         $update = ['name' => 'Manila'];
-        $cityRepo->updateCity($update);
+        $updated = $cityRepo->updateCity($update);
 
-        $this->assertEquals($update['name'], $city->name);
+        $this->assertTrue($updated);
     }
     
     /** @test */
@@ -36,7 +36,7 @@ class CityUnitTest extends TestCase
         $this->expectException(CityNotFoundException::class);
 
         $cityRepo = new CityRepository(new City);
-        $cityRepo->findCityById(999);
+        $cityRepo->findCityByName('unknown');
     }
 
     /** @test */
@@ -44,7 +44,7 @@ class CityUnitTest extends TestCase
     {
         $city = factory(City::class)->create();
         $cityRepo = new CityRepository(new City);
-        $found = $cityRepo->findCityById($city->id);
+        $found = $cityRepo->findCityByName($city->name);
 
         $this->assertEquals($city->name, $found->name);
     }

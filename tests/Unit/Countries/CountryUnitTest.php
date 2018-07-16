@@ -6,12 +6,35 @@ use App\Shop\Countries\Exceptions\CountryInvalidArgumentException;
 use App\Shop\Countries\Exceptions\CountryNotFoundException;
 use App\Shop\Countries\Repositories\CountryRepository;
 use App\Shop\Provinces\Province;
-use App\Shop\Provinces\Repositories\ProvinceRepository;
 use App\Shop\Countries\Country;
+use App\Shop\States\State;
+use Illuminate\Support\Collection;
 use Tests\TestCase;
 
 class CountryUnitTest extends TestCase
 {
+    /** @test */
+    public function it_can_list_states()
+    {
+        $country = factory(Country::class)->create([
+            'iso' => 'US'
+        ]);
+
+        $usState = factory(State::class)->create([
+            'country_id' => $country->id
+        ]);
+
+        $countryRepo = new CountryRepository($country);
+        $states = $countryRepo->listStates();
+
+        $this->assertInstanceOf(Collection::class, $states);
+
+        $states->each(function ($state) use ($usState) {
+            $this->assertEquals($state->state, $usState->state);
+        });
+
+    }
+
     /** @test */
     public function it_can_create_the_country()
     {

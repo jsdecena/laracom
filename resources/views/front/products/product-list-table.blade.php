@@ -20,7 +20,7 @@
             <td class="bg-warning"></td>
             <td class="bg-warning"></td>
             <td class="bg-warning"></td>
-            <td class="bg-warning">{{config('cart.currency')}} <span id="shippingFee">{{ number_format($shipping, 2) }}</span></td>
+            <td class="bg-warning">{{config('cart.currency')}} <span id="shippingFee">{{ number_format(0, 2) }}</span></td>
         </tr>
         <tr>
             <td class="bg-warning">Tax</td>
@@ -34,7 +34,7 @@
             <td class="bg-success"></td>
             <td class="bg-success"></td>
             <td class="bg-success"></td>
-            <td class="bg-success">{{config('cart.currency')}} <span id="total" data-total="{{ $total }}">{{ $total }}</span></td>
+            <td class="bg-success">{{config('cart.currency')}} <span id="grandTotal" data-total="{{ $total }}">{{ $total }}</span></td>
         </tr>
         </tfoot>
         <tbody>
@@ -83,3 +83,16 @@
         </tbody>
     </table>
 @endif
+<script type="text/javascript">
+    $(document).ready(function () {
+        let courierRadioBtn = $('input[name="rate"]');
+        courierRadioBtn.click(function () {
+            $('#shippingFee').text($(this).data('fee'));
+            let totalElement = $('span#grandTotal');
+            let shippingFee = $(this).data('fee');
+            let total = totalElement.data('total');
+            let grandTotal = parseFloat(shippingFee) + parseFloat(total);
+            totalElement.html(grandTotal.toFixed(2));
+        });
+    });
+</script>

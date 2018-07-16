@@ -12,15 +12,23 @@
         @endif
     </td>
     <td>
-        <a id="bankTransferHref" data-href="{{ route('bank-transfer.index') }}" href="#" class="btn btn-warning pull-right">Pay with {{ ucwords($payment['name']) }} <i class="fa fa-bank"></i></a>
+        <form action="{{ route('bank-transfer.index') }}">
+            <input type="hidden" class="billing_address" name="billing_address" value="">
+            <input type="hidden" class="rate" name="rate" value="">
+            <input type="hidden" name="shipment_obj_id" value="{{ $shipment_object_id }}">
+            <button type="submit" class="btn btn-warning pull-right">Pay with {{ ucwords($payment['name']) }} <i class="fa fa-bank"></i></button>
+        </form>
     </td>
+
 </tr>
 <script type="text/javascript">
     $(document).ready(function () {
-        let BTElement = $('#bankTransferHref');
-        let btLink = BTElement.data('href');
         let billingAddressId = $('input[name="billing_address"]').val();
+        $('.billing_address').val(billingAddressId);
 
-        BTElement.attr('href', btLink + '?billing_address=' + billingAddressId)
+        let courierRadioBtn = $('input[name="rate"]');
+        courierRadioBtn.click(function () {
+            $('.rate').val($(this).val())
+        });
     });
 </script>

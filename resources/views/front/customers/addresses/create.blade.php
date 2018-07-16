@@ -25,7 +25,7 @@
                         <label for="country_id">Country </label>
                         <select name="country_id" id="country_id" class="form-control select2">
                             @foreach($countries as $country)
-                                <option @if(env('SHOP_COUNTRY_ISO') == $country->iso) selected="selected" @endif value="{{ $country->id }}">{{ $country->name }}</option>
+                                <option @if(env('SHOP_COUNTRY_ID') == $country->id) selected="selected" @endif value="{{ $country->id }}">{{ $country->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -34,6 +34,10 @@
                     <div class="form-group">
                         <label for="zip">Zip Code </label>
                         <input type="text" name="zip" id="zip" placeholder="Zip code" class="form-control" value="{{ old('zip') }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Your Phone </label>
+                        <input type="text" name="phone" id="phone" placeholder="Phone number" class="form-control" value="{{ old('phone') }}">
                     </div>
                 </div>
                 <!-- /.box-body -->
@@ -109,16 +113,83 @@
                 }
             });
         }
+        
+        function findUsStates() {
+            $.ajax({
+                url : '/country/' + countryId + '/state',
+                contentType: 'json',
+                success: function (res) {
+                    if (res.data.length > 0) {
+                        let html = '<label for="state_code">States </label>';
+                        html += '<select name="state_code" id="state_code" class="form-control select2">';
+                        $(res.data).each(function (idx, v) {
+                            html += '<option value="'+ v.state_code+'">'+ v.state +'</option>';
+                        });
+                        html += '</select>';
 
-        let countryId = "{{ env('SHOP_COUNTRY_ID') }}";
+                        $('#provinces').html(html).show();
+                        $('.select2').select2();
+
+                        findUsCities('AK');
+
+                        $('#state_code').change(function () {
+                            let state_code = $(this).val();
+                            findUsCities(state_code);
+                        });
+                    } else {
+                        $('#provinces').hide().html('');
+                        $('#cities').hide().html('');
+                    }
+                }
+            });
+        }
+
+        function findUsCities(state_code) {
+            $.ajax({
+                url : '/state/' + state_code + '/city',
+                contentType: 'json',
+                success: function (res) {
+                    if (res.data.length > 0) {
+                        let html = '<label for="city">City </label>';
+                        html += '<select name="city" id="city" class="form-control select2">';
+                        $(res.data).each(function (idx, v) {
+                            html += '<option value="'+ v.name+'">'+ v.name +'</option>';
+                        });
+                        html += '</select>';
+
+                         $('#cities').html(html).show();
+                         $('.select2').select2();
+
+                        $('#state_code').change(function () {
+                            let state_code = $(this).val();
+                            findUsCities(state_code);
+                        });
+                    } else {
+                        $('#provinces').hide().html('');
+                        $('#cities').hide().html('');
+                    }
+                }
+            });
+        }
+
+        let countryId = +"{{ env('SHOP_COUNTRY_ID') }}";
 
         $(document).ready(function () {
 
-            findProvinceOrState(countryId);
+            if (countryId === 226) {
+                findUsStates(countryId);
+            } else {
+                findProvinceOrState(countryId);
+            }
 
             $('#country_id').on('change', function () {
-                countryId = $(this).val();
-                findProvinceOrState(countryId);
+                countryId = +$(this).val();
+                if (countryId === 226) {
+                    findUsStates(countryId);
+                } else {
+                    findProvinceOrState(countryId);
+                }
+
             });
 
             $('#city_id').on('change', function () {
