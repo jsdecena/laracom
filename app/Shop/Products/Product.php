@@ -48,17 +48,22 @@ class Product extends Model implements Buyable
      * @var array
      */
     protected $fillable = [
-        'brand_id',
         'sku',
         'name',
-        'slug',
         'description',
         'cover',
         'quantity',
         'price',
+        'sale_price',
+        'brand_id',
+        'status',
         'weight',
         'mass_unit',
-        'status'
+        'length',
+        'width',
+        'height',
+        'distance_unit',
+        'slug',
     ];
 
     /**

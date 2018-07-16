@@ -111,7 +111,7 @@
                                                     <select name="brand_id" id="brand_id" class="form-control select2">
                                                         <option value=""></option>
                                                         @foreach($brands as $brand)
-                                                            <option @if(!is_null($product->brand_id) && $brand->id == $product->brand_id) selected="selected" @endif value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                            <option @if($brand->id == $product->brand_id) selected="selected" @endif value="{{ $brand->id }}">{{ $brand->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

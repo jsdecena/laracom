@@ -7,6 +7,8 @@ use App\Shop\AttributeValues\Repositories\AttributeValueRepositoryInterface;
 use App\Shop\Brands\Repositories\BrandRepositoryInterface;
 use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Shop\ProductAttributes\ProductAttribute;
+use App\Shop\Products\Exceptions\ProductInvalidArgumentException;
+use App\Shop\Products\Exceptions\ProductNotFoundException;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Repositories\ProductRepository;
@@ -18,6 +20,7 @@ use App\Shop\Tools\UploadableTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -82,7 +85,7 @@ class ProductController extends Controller
         $this->middleware(['permission:create-product, guard:employee'], ['only' => ['create', 'store']]);
         $this->middleware(['permission:update-product, guard:employee'], ['only' => ['edit', 'update']]);
         $this->middleware(['permission:delete-product, guard:employee'], ['only' => ['destroy']]);
-        $this->middleware(['permission:view-product, guard:employee'], ['only' => [ 'index', 'show']]);
+        $this->middleware(['permission:view-product, guard:employee'], ['only' => ['index', 'show']]);
     }
 
     /**
@@ -129,6 +132,7 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  CreateProductRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(CreateProductRequest $request)
@@ -141,23 +145,27 @@ class ProductController extends Controller
         }
 
         $product = $this->productRepo->createProduct($data);
-        $this->saveProductImages($request, $product);
 
-        if ($request->has('categories')) {
-            $product->categories()->sync($request->input('categories'));
-        } else {
-            $product->categories()->detach();
+        $productRepo = new ProductRepository($product);
+
+        if ($request->hasFile('image')) {
+            $productRepo->saveProductImages(collect($request->file('image')));
         }
 
-        return redirect()
-            ->route('admin.products.edit', $product->id)
-            ->with('message', 'Create successful');
+        if ($request->has('categories')) {
+            $productRepo->syncCategories($request->input('categories'));
+        } else {
+            $productRepo->detachCategories();
+        }
+
+        return redirect()->route('admin.products.edit', $product->id)->with('message', 'Create successful');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(int $id)
@@ -170,6 +178,7 @@ class ProductController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(int $id)
@@ -213,37 +222,54 @@ class ProductController extends Controller
      *
      * @param  UpdateProductRequest $request
      * @param  int $id
+     *
      * @return \Illuminate\Http\Response
+     * @throws ProductInvalidArgumentException
      */
     public function update(UpdateProductRequest $request, int $id)
     {
-        $product = $this->productRepo->findProductById($id);
+        try {
 
-        if ($request->has('attributeValue')) {
-            $this->saveProductCombinations($request, $product);
-            return redirect()->route('admin.products.edit', [$id, 'combination' => 1])
-                ->with('message', 'Attribute combination created successful');
+            $product = $this->productRepo->findProductById($id);
+            $productRepo = new ProductRepository($product);
+
+            if ($request->has('attributeValue')) {
+                $this->saveProductCombinations($request, $product);
+                return redirect()->route('admin.products.edit', [$id, 'combination' => 1])
+                    ->with('message', 'Attribute combination created successful');
+            }
+
+            $data = $request->except('categories', '_token', '_method', 'default', 'image');
+            $data['slug'] = str_slug($request->input('name'));
+
+            if ($request->hasFile('cover')) {
+                $data['cover'] = $this->storeFile($request->file('cover'));
+            }
+
+            if ($request->hasFile('image')) {
+                $productRepo->saveProductImages(collect($request->file('image')));
+            }
+
+            if ($request->has('categories')) {
+                $productRepo->syncCategories($request->input('categories'));
+            } else {
+                $productRepo->detachCategories();
+            }
+
+            $updated = $productRepo->updateProduct($data);
+
+            if (!$updated) {
+                return redirect()->route('admin.products.edit', $id)
+                    ->with('error', 'Ooops, something is wrong. Product is not updated.');
+            }
+
+            return redirect()->route('admin.products.edit', $id)->with('message', 'Update successful');
+
+        } catch (ProductNotFoundException $e) {
+
+            Log::error(json_encode($e->getMessage()));
+            return redirect()->route('admin.products.edit', $id)->with('error', $e->getMessage());
         }
-
-        $data = $request->except('categories', '_token', '_method');
-        $data['slug'] = str_slug($request->input('name'));
-
-        if ($request->hasFile('cover') && $request->file('cover') instanceof UploadedFile) {
-            $data['cover'] = $this->productRepo->saveCoverImage($request->file('cover'));
-        }
-
-        $this->saveProductImages($request, $product);
-
-        $this->productRepo->updateProduct($data, $id);
-
-        if ($request->has('categories')) {
-            $product->categories()->sync($request->input('categories'));
-        } else {
-            $product->categories()->detach();
-        }
-
-        return redirect()->route('admin.products.edit', $id)
-            ->with('message', 'Update successful');
     }
 
     /**
@@ -273,6 +299,7 @@ class ProductController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function removeImage(Request $request)
@@ -284,6 +311,7 @@ class ProductController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function removeThumbnail(Request $request)
@@ -296,20 +324,10 @@ class ProductController extends Controller
     /**
      * @param Request $request
      * @param Product $product
-     */
-    private function saveProductImages(Request $request, Product $product)
-    {
-        if ($request->hasFile('image')) {
-            $this->productRepo->saveProductImages(collect($request->file('image')), $product);
-        }
-    }
-
-    /**
-     * @param Request $request
-     * @param Product $product
+     *
      * @return boolean
      */
-    private function saveProductCombinations(Request $request, Product $product)
+    private function saveProductCombinations(Request $request, Product $product): bool
     {
         $fields = $request->only(
             'productAttributeQuantity',

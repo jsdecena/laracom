@@ -235,7 +235,7 @@ class ProductUnitTest extends TestCase
     public function it_can_delete_a_product()
     {
         $product = factory(Product::class)->create();
-        $productRepo = new ProductRepository(new Product);
+        $productRepo = new ProductRepository($product);
 
         $thumbnails = [
             UploadedFile::fake()->image('file.png', 200, 200),
@@ -243,7 +243,7 @@ class ProductUnitTest extends TestCase
             UploadedFile::fake()->image('file2.png', 200, 200)
         ];
 
-        $productRepo->saveProductImages(collect($thumbnails), $product);
+        $productRepo->saveProductImages(collect($thumbnails));
         $deleted = $productRepo->deleteProduct($product);
 
         $this->assertTrue($deleted);
@@ -298,7 +298,7 @@ class ProductUnitTest extends TestCase
         $productName = 'apple';
         $cover = UploadedFile::fake()->image('file.png', 600, 600);
 
-        $params = [
+        $data = [
             'sku' => '11111',
             'name' => $productName,
             'slug' => str_slug($productName),
@@ -315,7 +315,7 @@ class ProductUnitTest extends TestCase
         ];
 
         $productRepo = new ProductRepository($product);
-        $updated = $productRepo->updateProduct($params, $product->id);
+        $updated = $productRepo->updateProduct($data);
 
         $this->assertTrue($updated);
     }
