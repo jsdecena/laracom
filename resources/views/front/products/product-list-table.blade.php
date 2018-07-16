@@ -92,7 +92,7 @@
             let shippingFee = $(this).data('fee');
             let total = totalElement.data('total');
             let grandTotal = parseFloat(shippingFee) + parseFloat(total);
-            totalElement.html(grandTotal);
+            totalElement.html(grandTotal.toFixed(2));
         });
     });
 </script>

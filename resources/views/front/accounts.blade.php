@@ -4,6 +4,9 @@
     <!-- Main content -->
     <section class="container content">
         <div class="row">
+            <div class="box-body">
+                @include('layouts.errors-and-messages')
+            </div>
             <div class="col-md-12">
                 <h2> <i class="fa fa-home"></i> My Account</h2>
                 <hr>
@@ -108,6 +111,7 @@
                                     <th>State</th>
                                     <th>Country</th>
                                     <th>Zip</th>
+                                    <th>Phone</th>
                                     <th>Actions</th>
                                 </thead>
                                 <tbody>
@@ -123,6 +127,7 @@
                                             <td>{{$address->state_code}}</td>
                                             <td>{{$address->country->name}}</td>
                                             <td>{{$address->zip}}</td>
+                                            <td>{{$address->phone}}</td>
                                             <td>
                                                 <form method="post" action="{{ route('customer.address.destroy', [auth()->user()->id, $address->id]) }}" class="form-horizontal">
                                                     <div class="btn-group">

@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Front\Payments;
 use App\Http\Controllers\Controller;
 use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
 use App\Shop\Checkout\CheckoutRepository;
+use App\Shop\Orders\Repositories\OrderRepository;
 use App\Shop\OrderStatuses\OrderStatus;
 use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
 use App\Shop\Shipping\ShippingInterface;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
 use Shippo_Shipment;
 use Shippo_Transaction;
@@ -102,7 +104,7 @@ class BankTransferController extends Controller
         $orderStatusRepo = new OrderStatusRepository(new OrderStatus);
         $os = $orderStatusRepo->findByName('ordered');
 
-        $checkoutRepo->buildCheckoutItems([
+        $order = $checkoutRepo->buildCheckoutItems([
             'reference' => Uuid::uuid4()->toString(),
             'courier_id' => 1, // @deprecated
             'customer_id' => $request->user()->id,
@@ -130,15 +132,20 @@ class BankTransferController extends Controller
 
         $transaction = Shippo_Transaction::create($details);
 
-        if ($transaction["status"] == "SUCCESS"){
-            dump($transaction["label_url"]);
-            dd($transaction["tracking_number"]);
-        }else {
-            dd($transaction["messages"]);
+        if ($transaction['status'] != 'SUCCESS'){
+            Log::error($transaction['messages']);
+            return redirect()->route('checkout.index')->with('error', 'There is an error in the shipment details. Check logs.');
         }
+
+        $orderRepo = new OrderRepository($order);
+        $orderRepo->updateOrder([
+            'courier' => $this->carrier->provider,
+            'label_url' => $transaction['label_url'],
+            'tracking_number' => $transaction['tracking_number']
+        ]);
 
         Cart::destroy();
 
-        return redirect()->route('accounts', ['tab' => 'orders']);
+        return redirect()->route('accounts', ['tab' => 'orders'])->with('message', 'Order successful!');
     }
 }

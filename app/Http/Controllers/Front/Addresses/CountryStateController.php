@@ -30,10 +30,8 @@ class CountryStateController extends Controller
         $country = $this->countryRepo->findCountryById($countryId);
 
         $countryRepo = new CountryRepository($country);
-        $states = $countryRepo->listStates();
+        $data = $countryRepo->listStates();
 
-        $data = $this->countryRepo->paginateArrayResults($states->all());
-
-        return response()->json($data);
+        return response()->json(compact('data'));
     }
 }

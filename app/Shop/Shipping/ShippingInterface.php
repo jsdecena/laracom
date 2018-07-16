@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 interface ShippingInterface
 {
-    public function setBillingAddress(Address $address);
+    public function setPickupAddress();
 
     public function setDeliveryAddress(Address $address);
 

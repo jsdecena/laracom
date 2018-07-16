@@ -30,10 +30,8 @@ class StateCityController extends Controller
         $state = $this->stateRepo->findOneBy(compact('state_code'));
 
         $stateRepo = new StateRepository($state);
-        $cities = $stateRepo->listCities();
+        $data = $stateRepo->listCities();
 
-        $data = $stateRepo->paginateArrayResults($cities->all());
-
-        return response()->json($data);
+        return response()->json(compact('data'));
     }
 }
