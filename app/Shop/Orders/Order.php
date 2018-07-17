@@ -44,7 +44,8 @@ class Order extends Model
      */
     protected $fillable = [
         'reference',
-        'courier_id',
+        'courier_id', // @deprecated
+        'courier',
         'customer_id',
         'address_id',
         'order_status_id',
@@ -55,6 +56,8 @@ class Order extends Model
         'tax',
         'total_paid',
         'invoice',
+        'label_url',
+        'tracking_number'
     ];
 
     /**
@@ -116,7 +119,7 @@ class Order extends Model
      *
      * @return mixed
      */
-    public function searchOrder(string $term)
+    public function searchForOrder(string $term)
     {
         return self::search($term);
     }

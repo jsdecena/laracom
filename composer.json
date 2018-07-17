@@ -11,6 +11,7 @@
         "fideloper/proxy": "~4.0",
         "gloudemans/shoppingcart": "^2.5",
         "guzzlehttp/guzzle": "^6.3",
+        "jsdecena/baserepo": "^1.0",
         "jsdecena/mailchimp": "~7.0",
         "jsdecena/mcpro": "1.1.*",
         "laravel/cashier": "~7.0",

@@ -25,10 +25,10 @@ class RoleUnitTest extends TestCase
     /** @test */
     public function it_can_delete_the_role()
     {
-        $roleFactory = factory(Role::class)->create();
+        $role = factory(Role::class)->create();
 
-        $roleRepo = new RoleRepository(new Role);
-        $deleted = $roleRepo->deleteRoleById($roleFactory->id);
+        $roleRepo = new RoleRepository($role);
+        $deleted = $roleRepo->deleteRoleById();
 
         $this->assertTrue($deleted);
     }
@@ -36,17 +36,17 @@ class RoleUnitTest extends TestCase
     /** @test */
     public function it_can_update_the_role()
     {
-        $roleFactory = factory(Role::class)->create();
+        $role = factory(Role::class)->create();
 
         $data = [
             'name' => 'user',
             'display_name' => 'Website user'
         ];
 
-        $roleRepo = new RoleRepository(new Role);
-        $updated = $roleRepo->updateRole($data, $roleFactory->id);
+        $roleRepo = new RoleRepository($role);
+        $updated = $roleRepo->updateRole($data);
 
-        $role = $roleRepo->findRoleById($roleFactory->id);
+        $role = $roleRepo->findRoleById($role->id);
 
         $this->assertTrue($updated);
         $this->assertEquals($data['name'], $role->name);

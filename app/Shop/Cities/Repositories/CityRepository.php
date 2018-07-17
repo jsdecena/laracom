@@ -2,7 +2,7 @@
 
 namespace App\Shop\Cities\Repositories;
 
-use App\Shop\Base\BaseRepository;
+use Jsdecena\Baserepo\BaseRepository;
 use App\Shop\Cities\Exceptions\CityNotFoundException;
 use App\Shop\Cities\Repositories\Interfaces\CityRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

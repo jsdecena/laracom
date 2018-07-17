@@ -2,7 +2,7 @@
 
 namespace App\Shop\Categories\Repositories;
 
-use App\Shop\Base\BaseRepository;
+use Jsdecena\Baserepo\BaseRepository;
 use App\Shop\Categories\Category;
 use App\Shop\Categories\Exceptions\CategoryInvalidArgumentException;
 use App\Shop\Categories\Exceptions\CategoryNotFoundException;

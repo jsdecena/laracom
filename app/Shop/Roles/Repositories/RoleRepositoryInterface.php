@@ -2,7 +2,7 @@
 
 namespace App\Shop\Roles\Repositories;
 
-use App\Shop\Base\Interfaces\BaseRepositoryInterface;
+use Jsdecena\Baserepo\BaseRepositoryInterface;
 use App\Shop\Permissions\Permission;
 use App\Shop\Roles\Role;
 use Illuminate\Support\Collection;
@@ -15,9 +15,9 @@ interface RoleRepositoryInterface extends BaseRepositoryInterface
 
     public function findRoleById(int $id);
 
-    public function updateRole(array $data, int $id) : bool;
+    public function updateRole(array $data) : bool;
 
-    public function deleteRoleById(int $id) : bool;
+    public function deleteRoleById() : bool;
 
     public function attachToPermission(Permission $permission);
 

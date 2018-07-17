@@ -2,7 +2,7 @@
 
 namespace App\Shop\OrderStatuses\Repositories;
 
-use App\Shop\Base\BaseRepository;
+use Jsdecena\Baserepo\BaseRepository;
 use App\Shop\OrderStatuses\Exceptions\OrderStatusInvalidArgumentException;
 use App\Shop\OrderStatuses\Exceptions\OrderStatusNotFoundException;
 use App\Shop\OrderStatuses\OrderStatus;
@@ -42,15 +42,15 @@ class OrderStatusRepository extends BaseRepository implements OrderStatusReposit
     /**
      * Update the order status
      *
-     * @param array $update
-     * @return OrderStatus
+     * @param array $data
+     *
+     * @return bool
      * @throws OrderStatusInvalidArgumentException
      */
-    public function updateOrderStatus(array $update) : OrderStatus
+    public function updateOrderStatus(array $data) : bool
     {
         try {
-            $this->update($update, $this->model->id);
-            return $this->find($this->model->id);
+            return $this->update($data);
         } catch (QueryException $e) {
             throw new OrderStatusInvalidArgumentException($e->getMessage());
         }
@@ -79,12 +79,12 @@ class OrderStatusRepository extends BaseRepository implements OrderStatusReposit
     }
 
     /**
-     * @param OrderStatus $os
      * @return bool
+     * @throws \Exception
      */
-    public function deleteOrderStatus(OrderStatus $os) : bool
+    public function deleteOrderStatus() : bool
     {
-        return $this->delete($os->id);
+        return $this->delete();
     }
 
     /**

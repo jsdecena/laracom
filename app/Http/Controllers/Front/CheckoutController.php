@@ -243,9 +243,9 @@ class CheckoutController extends Controller
 
         if ($customerRepo->findAddresses()->count() > 0 && $products->count() > 0) {
 
-            $billingAddress = $customerRepo->findAddresses()->first();
-            $this->shippingRepo->setBillingAddress($billingAddress);
-            $this->shippingRepo->setDeliveryAddress($billingAddress);
+            $this->shippingRepo->setPickupAddress();
+            $deliveryAddress = $customerRepo->findAddresses()->first();
+            $this->shippingRepo->setDeliveryAddress($deliveryAddress);
             $this->shippingRepo->readyParcel($this->cartRepo->getCartItems());
 
             return $this->shippingRepo->readyShipment();

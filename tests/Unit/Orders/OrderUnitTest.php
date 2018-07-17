@@ -53,7 +53,11 @@ class OrderUnitTest extends TestCase
         $this->markTestSkipped('not returning result during test ...');
 
         $customer = factory(Customer::class)->create(['name' => 'Test Customer']);
-        $order = factory(Order::class)->create(['customer_id' => $customer->id]);
+        $order = factory(Order::class)->create([
+            'customer_id' => $customer->id,
+            'reference' => 'testing-12345'
+        ]);
+
         factory(Order::class)->create();
 
         $repo = new OrderRepository($order);
@@ -249,7 +253,7 @@ class OrderUnitTest extends TestCase
         $address = factory(Address::class)->create();
         $orderStatus = factory(OrderStatus::class)->create();
 
-        $update = [
+        $data = [
             'reference' => $this->faker->uuid,
             'courier_id' => $courier->id,
             'customer_id' => $customer->id,
@@ -264,13 +268,14 @@ class OrderUnitTest extends TestCase
             'invoice' => null,
         ];
 
-        $updated = $orderRepo->updateOrder($update);
+        $updated = $orderRepo->updateOrder($data);
 
-        $this->assertEquals($update['reference'], $updated->reference);
-        $this->assertEquals($update['discounts'], $updated->discounts);
-        $this->assertEquals($update['total_products'], $updated->total_products);
-        $this->assertEquals($update['total_paid'], $updated->total_paid);
-        $this->assertEquals($update['invoice'], $updated->invoice);
+        $this->assertTrue($updated);
+        $this->assertEquals($data['reference'], $order->reference);
+        $this->assertEquals($data['discounts'], $order->discounts);
+        $this->assertEquals($data['total_products'], $order->total_products);
+        $this->assertEquals($data['total_paid'], $order->total_paid);
+        $this->assertEquals($data['invoice'], $order->invoice);
     }
 
     /** @test */

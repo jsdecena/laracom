@@ -30,10 +30,10 @@ class ProductController extends Controller
      */
     public function search()
     {
-        $list = $this->productRepo->listProducts();
-
         if (request()->has('q') && request()->input('q') != '') {
             $list = $this->productRepo->searchProduct(request()->input('q'));
+        } else {
+            $list = $this->productRepo->listProducts();
         }
 
         $products = $list->where('status', 1)->map(function (Product $item) {

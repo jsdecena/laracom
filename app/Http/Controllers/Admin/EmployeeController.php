@@ -25,6 +25,7 @@ class EmployeeController extends Controller
      * EmployeeController constructor.
      *
      * @param EmployeeRepositoryInterface $employeeRepository
+     * @param RoleRepositoryInterface $roleRepository
      */
     public function __construct(
         EmployeeRepositoryInterface $employeeRepository,
@@ -153,13 +154,15 @@ class EmployeeController extends Controller
      * @param  int $id
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(int $id)
     {
-        $this->employeeRepo->delete($id);
+        $employee = $this->employeeRepo->findEmployeeById($id);
+        $employeeRepo = new EmployeeRepository($employee);
+        $employeeRepo->deleteEmployee();
 
-        request()->session()->flash('message', 'Delete successful');
-        return redirect()->route('admin.employees.index');
+        return redirect()->route('admin.employees.index')->with('message', 'Delete successful');
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 namespace App\Shop\Roles\Repositories;
 
-use App\Shop\Base\BaseRepository;
+use Jsdecena\Baserepo\BaseRepository;
 use App\Shop\Permissions\Permission;
 use App\Shop\Roles\Exceptions\CreateRoleErrorException;
 use App\Shop\Roles\Exceptions\DeleteRoleErrorException;
@@ -70,30 +70,27 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface
 
     /**
      * @param array $data
-     * @param int $id
      *
      * @return bool
      * @throws UpdateRoleErrorException
      */
-    public function updateRole(array $data, int $id) : bool
+    public function updateRole(array $data) : bool
     {
         try {
-            return $this->update($data, $id);
+            return $this->update($data);
         } catch (QueryException $e) {
             throw new UpdateRoleErrorException($e);
         }
     }
 
     /**
-     * @param int $id
-     *
      * @return bool
      * @throws DeleteRoleErrorException
      */
-    public function deleteRoleById(int $id) : bool
+    public function deleteRoleById() : bool
     {
         try {
-            return $this->delete($id);
+            return $this->delete();
         } catch (QueryException $e) {
             throw new DeleteRoleErrorException($e);
         }

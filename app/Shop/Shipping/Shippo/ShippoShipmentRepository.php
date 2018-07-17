@@ -17,12 +17,32 @@ class ShippoShipmentRepository implements ShippingInterface
      */
     protected $customer;
 
-    protected $billingAddress;
+    /**
+     * The address where to pick up the item for delivery
+     *
+     * @var $warehouseAddress
+     */
+    protected $warehouseAddress;
 
+    /**
+     * The address of the customer where the item is to be delivered
+     *
+     * @var $deliveryAddress
+     */
     protected $deliveryAddress;
 
+    /**
+     * The item/s
+     *
+     * @var $parcel
+     */
     protected $parcel;
 
+    /**
+     * Shipment
+     *
+     * @var $shipment
+     */
     protected $shipment;
 
     /**
@@ -32,28 +52,28 @@ class ShippoShipmentRepository implements ShippingInterface
      */
     public function __construct(Customer $customer)
     {
-        Shippo::setApiKey(env('SHIPPO_API_TOKEN'));
+        Shippo::setApiKey(config('shop.shipping_token'));
 
         $this->customer = $customer;
     }
 
     /**
-     * @param Address $address
+     * Address where the shipment will be picked up
      */
-    public function setBillingAddress(Address $address)
+    public function setPickupAddress()
     {
-        $billing = [
-            'name' => $address->alias,
-            'street1' => $address->address_1,
-            'city' => $address->city,
-            'state' => $address->state_code,
-            'zip' => $address->zip,
-            'country' => $address->country->iso,
-            'phone' => '',
-            'email' => $this->customer->email
+        $warehouse = [
+            'name' => config('app.name'),
+            'street1' => config('shop.warehouse.address_1'),
+            'city' => config('shop.warehouse.city'),
+            'state' => config('shop.warehouse.state'),
+            'zip' => config('shop.warehouse.zip'),
+            'country' => config('shop.warehouse.country'),
+            'phone' => config('shop.phone'),
+            'email' => config('shop.email')
         ];
 
-        $this->billingAddress = $billing;
+        $this->warehouseAddress = $warehouse;
     }
 
     /**
@@ -81,7 +101,7 @@ class ShippoShipmentRepository implements ShippingInterface
     public function readyShipment()
     {
         $shipment = Shippo_Shipment::create(array(
-                'address_from'=> $this->billingAddress,
+                'address_from'=> $this->warehouseAddress,
                 'address_to'=> $this->deliveryAddress,
                 'parcels'=> $this->parcel,
                 'async'=> false

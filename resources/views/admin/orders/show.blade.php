@@ -117,23 +117,6 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <h4> <i class="fa fa-truck"></i> Courier</h4>
-                            <table class="table">
-                                <thead>
-                                    <th class="col-md-3">Name</th>
-                                    <th class="col-md-4">Description</th>
-                                    <th class="col-md-5">Link</th>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>{{ $order->courier->name }}</td>
-                                    <td>{{ $order->courier->description }}</td>
-                                    <td>{{ $order->courier->url }}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-md-6">
                             <h4> <i class="fa fa-map-marker"></i> Address</h4>
                             <table class="table">
                                 <thead>
@@ -142,18 +125,22 @@
                                     <th>City</th>
                                     <th>Province</th>
                                     <th>Zip</th>
+                                    <th>Country</th>
+                                    <th>Phone</th>
                                 </thead>
                                 <tbody>
                                 <tr>
                                     <td>{{ $order->address->address_1 }}</td>
                                     <td>{{ $order->address->address_2 }}</td>
-                                    <td>$order->address->city</td>
+                                    <td>{{ $order->address->city }}</td>
                                     <td>
                                         @if(isset($order->address->province))
                                             {{ $order->address->province->name }}
                                         @endif
                                     </td>
                                     <td>{{ $order->address->zip }}</td>
+                                    <td>{{ $order->address->country->name }}</td>
+                                    <td>{{ $order->address->phone }}</td>
                                 </tr>
                                 </tbody>
                             </table>

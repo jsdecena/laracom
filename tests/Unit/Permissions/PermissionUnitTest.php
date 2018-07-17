@@ -43,7 +43,7 @@ class PermissionUnitTest extends TestCase
     {
         $permission = factory(Permission::class)->create();
 
-        $permissionRepo = new PermissionRepository(new Permission);
+        $permissionRepo = new PermissionRepository($permission);
         $deleted = $permissionRepo->deletePermissionById($permission->id);
 
         $this->assertTrue($deleted);
@@ -59,8 +59,8 @@ class PermissionUnitTest extends TestCase
             'display_name' => 'Can View'
         ];
 
-        $permissionRepo = new PermissionRepository(new Permission);
-        $updated = $permissionRepo->updatePermission($data, $permission->id);
+        $permissionRepo = new PermissionRepository($permission);
+        $updated = $permissionRepo->updatePermission($data);
 
         $found = $permissionRepo->findPermissionById($permission->id);
 

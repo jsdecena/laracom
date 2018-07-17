@@ -3,7 +3,7 @@
 namespace App\Shop\Products\Repositories\Interfaces;
 
 use App\Shop\AttributeValues\AttributeValue;
-use App\Shop\Base\Interfaces\BaseRepositoryInterface;
+use Jsdecena\Baserepo\BaseRepositoryInterface;
 use App\Shop\Brands\Brand;
 use App\Shop\ProductAttributes\ProductAttribute;
 use App\Shop\Products\Product;
