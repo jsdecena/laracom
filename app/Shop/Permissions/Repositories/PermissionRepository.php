@@ -2,7 +2,7 @@
 
 namespace App\Shop\Permissions\Repositories;
 
-use App\Shop\Base\BaseRepository;
+use Jsdecena\Baserepo\BaseRepository;
 use App\Shop\Permissions\Exceptions\CreatePermissionErrorException;
 use App\Shop\Permissions\Exceptions\DeletePermissionErrorException;
 use App\Shop\Permissions\Exceptions\PermissionNotFoundErrorException;
@@ -58,30 +58,27 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
 
     /**
      * @param array $data
-     * @param int $id
      *
      * @return bool
      * @throws UpdatePermissionErrorException
      */
-    public function updatePermission(array $data, int $id) : bool
+    public function updatePermission(array $data) : bool
     {
         try {
-            return $this->update($data, $id);
+            return $this->update($data);
         } catch (QueryException $e) {
             throw new UpdatePermissionErrorException($e);
         }
     }
 
     /**
-     * @param int $id
-     *
      * @return bool
      * @throws DeletePermissionErrorException
      */
-    public function deletePermissionById(int $id) : bool
+    public function deletePermissionById() : bool
     {
         try {
-            return $this->delete($id);
+            return $this->delete();
         } catch (QueryException $e) {
             throw new DeletePermissionErrorException($e);
         }

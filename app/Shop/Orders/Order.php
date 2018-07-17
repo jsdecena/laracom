@@ -119,7 +119,7 @@ class Order extends Model
      *
      * @return mixed
      */
-    public function searchOrder(string $term)
+    public function searchForOrder(string $term)
     {
         return self::search($term);
     }

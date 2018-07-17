@@ -82,13 +82,15 @@ class BrandController extends Controller
      * @param $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {
         $brand = $this->brandRepo->findBrandById($id);
+
         $brandRepo = new BrandRepository($brand);
         $brandRepo->dissociateProducts();
-        $this->brandRepo->deleteBrand($id);
+        $brandRepo->deleteBrand();
 
         return redirect()->route('admin.brands.index')->with('message', 'Delete successful!');
     }

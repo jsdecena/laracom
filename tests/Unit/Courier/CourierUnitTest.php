@@ -92,11 +92,12 @@ class CourierUnitTest extends TestCase
 
         $updated = $courierRepo->updateCourier($update);
 
-        $this->assertEquals($update['name'], $updated->name);
-        $this->assertEquals($update['description'], $updated->description);
-        $this->assertEquals($update['url'], $updated->url);
-        $this->assertEquals($update['is_free'], $updated->is_free);
-        $this->assertEquals($update['status'], $updated->status);
+        $this->assertTrue($updated);
+        $this->assertEquals($update['name'], $this->courier->name);
+        $this->assertEquals($update['description'], $this->courier->description);
+        $this->assertEquals($update['url'], $this->courier->url);
+        $this->assertEquals($update['is_free'], $this->courier->is_free);
+        $this->assertEquals($update['status'], $this->courier->status);
     }
     
     /** @test */

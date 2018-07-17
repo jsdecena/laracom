@@ -2,7 +2,7 @@
 
 namespace App\Shop\Employees\Repositories;
 
-use App\Shop\Base\BaseRepository;
+use Jsdecena\Baserepo\BaseRepository;
 use App\Shop\Employees\Employee;
 use App\Shop\Employees\Exceptions\EmployeeNotFoundException;
 use App\Shop\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
@@ -30,7 +30,7 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
      * @param string $order
      * @param string $sort
      *
-     * @return array
+     * @return Collection
      */
     public function listEmployees(string $order = 'id', string $sort = 'desc'): Collection
     {
@@ -116,5 +116,14 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
             $isAuthUser = true;
         }
         return $isAuthUser;
+    }
+
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function deleteEmployee() : bool
+    {
+        return $this->delete();
     }
 }

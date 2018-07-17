@@ -2,7 +2,7 @@
 
 namespace App\Shop\States\Repositories;
 
-use App\Shop\Base\Interfaces\BaseRepositoryInterface;
+use Jsdecena\Baserepo\BaseRepositoryInterface;
 use Illuminate\Support\Collection;
 
 interface StateRepositoryInterface extends BaseRepositoryInterface

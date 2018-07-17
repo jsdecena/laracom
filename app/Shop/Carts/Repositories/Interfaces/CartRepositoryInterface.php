@@ -2,7 +2,7 @@
 
 namespace App\Shop\Carts\Repositories\Interfaces;
 
-use App\Shop\Base\Interfaces\BaseRepositoryInterface;
+use Jsdecena\Baserepo\BaseRepositoryInterface;
 use App\Shop\Couriers\Courier;
 use App\Shop\Customers\Customer;
 use App\Shop\Products\Product;

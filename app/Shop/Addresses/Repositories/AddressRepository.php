@@ -7,7 +7,6 @@ use App\Shop\Addresses\Exceptions\CreateAddressErrorException;
 use App\Shop\Addresses\Exceptions\AddressNotFoundException;
 use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Shop\Addresses\Transformations\AddressTransformable;
-use App\Shop\Base\BaseRepository;
 use App\Shop\Cities\City;
 use App\Shop\Countries\Country;
 use App\Shop\Customers\Customer;
@@ -15,6 +14,7 @@ use App\Shop\Provinces\Province;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
+use Jsdecena\Baserepo\BaseRepository;
 
 class AddressRepository extends BaseRepository implements AddressRepositoryInterface
 {
@@ -64,7 +64,7 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
      */
     public function updateAddress(array $data): bool
     {
-        return $this->update($data, $this->model->id);
+        return $this->update($data);
     }
 
     /**

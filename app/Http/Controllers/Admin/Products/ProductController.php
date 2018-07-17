@@ -250,7 +250,9 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int $id
+     *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy($id)
     {
@@ -264,7 +266,7 @@ class ProductController extends Controller
 
         $productAttr->where('product_id', $product->id)->delete();
 
-        $this->productRepo->delete($id);
+        $product->delete();
 
         return redirect()->route('admin.products.index')->with('message', 'Delete successful');
     }
