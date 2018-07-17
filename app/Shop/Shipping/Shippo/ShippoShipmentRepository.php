@@ -52,7 +52,7 @@ class ShippoShipmentRepository implements ShippingInterface
      */
     public function __construct(Customer $customer)
     {
-        Shippo::setApiKey(env('SHIPPO_API_TOKEN'));
+        Shippo::setApiKey(config('shop.shipping_token'));
 
         $this->customer = $customer;
     }
