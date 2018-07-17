@@ -2,16 +2,6 @@
 
 namespace App\Shop\Carts\Exceptions;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-class ProductInCartNotFoundException extends NotFoundHttpException
+class ProductInCartNotFoundException extends \Exception
 {
-
-    /**
-     * ProductInCartNotFoundException constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct('Product in cart not found.');
-    }
 }

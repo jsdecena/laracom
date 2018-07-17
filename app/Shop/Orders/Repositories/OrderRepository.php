@@ -150,15 +150,11 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
      */
     public function searchOrder(string $text) : Collection
     {
-        return $this->model->searchOrder(
-            $text,
-            [
-                'products.name',
-                'products.description',
-                'customer.name',
-                'reference'
-            ]
-        )->get();
+        if (!empty($text)) {
+            return $this->model->searchOrder($text)->get();
+        } else {
+            return $this->listOrders();
+        }
     }
 
     /**

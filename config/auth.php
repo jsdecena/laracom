@@ -46,9 +46,10 @@ return [
             'provider' => 'users',
         ],
 
-        'admin' => [
+        'employee' => [
             'driver' => 'session',
-            'provider' => 'admin',
+            'provider' => 'employee',
+
         ],
 
         'api' => [
@@ -80,7 +81,7 @@ return [
             'model' => App\Shop\Customers\Customer::class,
         ],
 
-         'admin' => [
+         'employee' => [
              'driver' => 'eloquent',
              'model' => App\Shop\Employees\Employee::class,
          ],
@@ -108,8 +109,8 @@ return [
             'expire' => 60,
         ],
 
-        'admin' => [
-            'provider' => 'admin',
+        'employee' => [
+            'provider' => 'employee',
             'table' => 'password_resets',
             'expire' => 60,
         ],

@@ -11,5 +11,7 @@ interface CityRepositoryInterface extends BaseRepositoryInterface
 
     public function findCityById(int $id) : City;
 
-    public function updateCity(array $params) : City;
+    public function updateCity(array $params) : bool;
+
+    public function findCityByName(string $name) : City;
 }

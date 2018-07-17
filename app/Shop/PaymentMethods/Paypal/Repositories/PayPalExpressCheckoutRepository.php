@@ -5,10 +5,8 @@ namespace App\Shop\PaymentMethods\Paypal\Repositories;
 use App\Shop\Addresses\Address;
 use App\Shop\Addresses\Repositories\AddressRepository;
 use App\Shop\Carts\Repositories\CartRepository;
-use App\Shop\Carts\Requests\PayPalCheckoutExecutionRequest;
 use App\Shop\Carts\ShoppingCart;
 use App\Shop\Checkout\CheckoutRepository;
-use App\Shop\Couriers\Courier;
 use App\Shop\PaymentMethods\Payment;
 use App\Shop\PaymentMethods\Paypal\Exceptions\PaypalRequestError;
 use App\Shop\PaymentMethods\Paypal\PaypalExpress;
@@ -48,11 +46,11 @@ class PayPalExpressCheckoutRepository implements PayPalExpressCheckoutRepository
     }
 
     /**
-     * @param Courier $courier
+     * @param $shippingFee
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function process(Courier $courier, Request $request)
+    public function process($shippingFee, Request $request)
     {
         $cartRepo = new CartRepository(new ShoppingCart());
         $items = $cartRepo->getCartItemsTransformed();
@@ -64,9 +62,9 @@ class PayPalExpressCheckoutRepository implements PayPalExpressCheckoutRepository
         $this->payPal->setOtherFees(
             $cartRepo->getSubTotal(),
             $cartRepo->getTax(),
-            $cartRepo->getShippingFee($courier)
+            $shippingFee
         );
-        $this->payPal->setAmount($cartRepo->getTotal(2, $cartRepo->getShippingFee($courier)));
+        $this->payPal->setAmount($cartRepo->getTotal(2, $shippingFee));
         $this->payPal->setTransactions();
 
         $billingAddress = $addressRepo->findAddressById($request->input('billing_address'));
@@ -79,7 +77,7 @@ class PayPalExpressCheckoutRepository implements PayPalExpressCheckoutRepository
 
         try {
             $response = $this->payPal->createPayment(
-                route('checkout.execute', $request->except('_token')),
+                route('checkout.execute', $request->except('_token', '_method')),
                 route('checkout.cancel')
             );
 
@@ -109,7 +107,7 @@ class PayPalExpressCheckoutRepository implements PayPalExpressCheckoutRepository
             $checkoutRepo = new CheckoutRepository;
             $checkoutRepo->buildCheckoutItems([
                 'reference' => Uuid::uuid4()->toString(),
-                'courier_id' => $request->input('courier'),
+                'courier_id' => 1,
                 'customer_id' => auth()->user()->id,
                 'address_id' => $request->input('billing_address'),
                 'order_status_id' => 1,

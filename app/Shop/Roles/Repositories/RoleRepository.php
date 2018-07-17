@@ -2,7 +2,11 @@
 namespace App\Shop\Roles\Repositories;
 
 use App\Shop\Base\BaseRepository;
+use App\Shop\Permissions\Permission;
 use App\Shop\Roles\Exceptions\CreateRoleErrorException;
+use App\Shop\Roles\Exceptions\DeleteRoleErrorException;
+use App\Shop\Roles\Exceptions\RoleNotFoundErrorException;
+use App\Shop\Roles\Exceptions\UpdateRoleErrorException;
 use App\Shop\Roles\Role;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
@@ -47,5 +51,83 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface
         } catch (QueryException $e) {
             throw new CreateRoleErrorException($e);
         }
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return Role
+     * @throws RoleNotFoundErrorException
+     */
+    public function findRoleById(int $id) : Role
+    {
+        try {
+            return $this->findOneOrFail($id);
+        } catch (QueryException $e) {
+            throw new RoleNotFoundErrorException($e);
+        }
+    }
+
+    /**
+     * @param array $data
+     * @param int $id
+     *
+     * @return bool
+     * @throws UpdateRoleErrorException
+     */
+    public function updateRole(array $data, int $id) : bool
+    {
+        try {
+            return $this->update($data, $id);
+        } catch (QueryException $e) {
+            throw new UpdateRoleErrorException($e);
+        }
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return bool
+     * @throws DeleteRoleErrorException
+     */
+    public function deleteRoleById(int $id) : bool
+    {
+        try {
+            return $this->delete($id);
+        } catch (QueryException $e) {
+            throw new DeleteRoleErrorException($e);
+        }
+    }
+
+    /**
+     * @param Permission $permission
+     */
+    public function attachToPermission(Permission $permission)
+    {
+        $this->model->attachPermission($permission);
+    }
+
+    /**
+     * @param Permission ...$permissions
+     */
+    public function attachToPermissions(... $permissions)
+    {
+        $this->model->attachPermissions($permissions);
+    }
+
+    /**
+     * @param array $ids
+     */
+    public function syncPermissions(array $ids)
+    {
+        $this->model->syncPermissions($ids);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function listPermissions() : Collection
+    {
+        return $this->model->permissions()->get();
     }
 }

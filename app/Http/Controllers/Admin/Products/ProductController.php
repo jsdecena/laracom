@@ -17,6 +17,7 @@ use App\Shop\Products\Transformations\ProductTransformable;
 use App\Shop\Tools\UploadableTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -48,6 +49,9 @@ class ProductController extends Controller
      */
     private $productAttribute;
 
+    /**
+     * @var BrandRepositoryInterface
+     */
     private $brandRepo;
 
     /**
@@ -74,6 +78,11 @@ class ProductController extends Controller
         $this->attributeValueRepository = $attributeValueRepository;
         $this->productAttribute = $productAttribute;
         $this->brandRepo = $brandRepository;
+
+        $this->middleware(['permission:create-product, guard:employee'], ['only' => ['create', 'store']]);
+        $this->middleware(['permission:update-product, guard:employee'], ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:delete-product, guard:employee'], ['only' => ['destroy']]);
+        $this->middleware(['permission:view-product, guard:employee'], ['only' => [ 'index', 'show']]);
     }
 
     /**
@@ -94,7 +103,7 @@ class ProductController extends Controller
         })->all();
 
         return view('admin.products.list', [
-            'products' => $this->productRepo->paginateArrayResults($products, 10)
+            'products' => $this->productRepo->paginateArrayResults($products, 25)
         ]);
     }
 
@@ -109,7 +118,10 @@ class ProductController extends Controller
 
         return view('admin.products.create', [
             'categories' => $categories,
-            'brands' => $this->brandRepo->listBrands()
+            'brands' => $this->brandRepo->listBrands(['*'], 'name', 'asc'),
+            'default_weight' => env('SHOP_WEIGHT'),
+            'weight_units' => Product::MASS_UNIT,
+            'product' => new Product
         ]);
     }
 
@@ -189,7 +201,10 @@ class ProductController extends Controller
             'attributes' => $this->attributeRepo->listAttributes(),
             'productAttributes' => $productAttributes,
             'qty' => $qty,
-            'brands' => $this->brandRepo->listBrands()
+            'brands' => $this->brandRepo->listBrands(['*'], 'name', 'asc'),
+            'weight' => $product->weight,
+            'default_weight' => $product->mass_unit,
+            'weight_units' => Product::MASS_UNIT
         ]);
     }
 
@@ -206,8 +221,8 @@ class ProductController extends Controller
 
         if ($request->has('attributeValue')) {
             $this->saveProductCombinations($request, $product);
-            $request->session()->flash('message', 'Attribute combination created successful');
-            return redirect()->route('admin.products.edit', [$id, 'combination' => 1]);
+            return redirect()->route('admin.products.edit', [$id, 'combination' => 1])
+                ->with('message', 'Attribute combination created successful');
         }
 
         $data = $request->except('categories', '_token', '_method');
@@ -241,11 +256,17 @@ class ProductController extends Controller
     {
         $product = $this->productRepo->findProductById($id);
         $product->categories()->sync([]);
+        $productAttr = $product->attributes();
+
+        $productAttr->each(function ($pa) {
+            DB::table('attribute_value_product_attribute')->where('product_attribute_id', $pa->id)->delete();
+        });
+
+        $productAttr->where('product_id', $product->id)->delete();
 
         $this->productRepo->delete($id);
 
-        request()->session()->flash('message', 'Delete successful');
-        return redirect()->route('admin.products.index');
+        return redirect()->route('admin.products.index')->with('message', 'Delete successful');
     }
 
     /**
@@ -288,7 +309,12 @@ class ProductController extends Controller
      */
     private function saveProductCombinations(Request $request, Product $product)
     {
-        $fields = $request->only('productAttributeQuantity', 'productAttributePrice');
+        $fields = $request->only(
+            'productAttributeQuantity',
+            'productAttributePrice',
+            'sale_price',
+            'default'
+        );
 
         if ($errors = $this->validateFields($fields)) {
             return redirect()->route('admin.products.edit', [$product->id, 'combination' => 1])
@@ -298,19 +324,40 @@ class ProductController extends Controller
         $quantity = $fields['productAttributeQuantity'];
         $price = $fields['productAttributePrice'];
 
+        $sale_price = null;
+        if (isset($fields['sale_price'])) {
+            $sale_price = $fields['sale_price'];
+        }
+
         $attributeValues = $request->input('attributeValue');
         $productRepo = new ProductRepository($product);
-        $productAttribute = $productRepo->saveProductAttributes(new ProductAttribute(compact('quantity', 'price')));
+
+        $hasDefault = $productRepo->listProductAttributes()->where('default', 1)->count();
+
+        $default = 0;
+        if ($request->has('default')) {
+            $default = $fields['default'];
+        }
+
+        if ($default == 1 && $hasDefault > 0) {
+            $default = 0;
+        }
+
+        $productAttribute = $productRepo->saveProductAttributes(
+            new ProductAttribute(compact('quantity', 'price', 'sale_price', 'default'))
+        );
 
         // save the combinations
-        return collect($attributeValues)->each(function ($attributeId) use ($productRepo, $productAttribute) {
-            $attribute = $this->attributeValueRepository->find($attributeId);
+        return collect($attributeValues)->each(function ($attributeValueId) use ($productRepo, $productAttribute) {
+            $attribute = $this->attributeValueRepository->find($attributeValueId);
             return $productRepo->saveCombination($productAttribute, $attribute);
         })->count();
     }
 
     /**
      * @param array $data
+     *
+     * @return
      */
     private function validateFields(array $data)
     {

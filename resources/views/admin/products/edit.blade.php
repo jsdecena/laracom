@@ -119,6 +119,7 @@
                                             <div class="form-group">
                                                 @include('admin.shared.status-select', ['status' => $product->status])
                                             </div>
+                                            @include('admin.shared.attribute-select', [compact('default_weight')])
                                             <!-- /.box-body -->
                                         </div>
                                         <div class="col-md-4">
@@ -191,24 +192,27 @@
             $('#tabcontent > div:last-child').removeClass('active');
         }
         $(document).ready(function () {
-            var checkbox = $('input.attribute');
+            const checkbox = $('input.attribute');
             $(checkbox).on('change', function () {
-                var attributeId = $(this).val();
+                const attributeId = $(this).val();
                 if ($(this).is(':checked')) {
                     $('#attributeValue' + attributeId).attr('disabled', false);
                 } else {
                     $('#attributeValue' + attributeId).attr('disabled', true);
                 }
-                var count = checkbox.filter(':checked').length;
+                const count = checkbox.filter(':checked').length;
                 if (count > 0) {
                     $('#productAttributeQuantity').attr('disabled', false);
                     $('#productAttributePrice').attr('disabled', false);
-                    $('#productAttributePrice').attr('disabled', false);
+                    $('#salePrice').attr('disabled', false);
+                    $('#default').attr('disabled', false);
                     $('#createCombinationBtn').attr('disabled', false);
                     $('#combination').attr('disabled', false);
                 } else {
                     $('#productAttributeQuantity').attr('disabled', true);
                     $('#productAttributePrice').attr('disabled', true);
+                    $('#salePrice').attr('disabled', true);
+                    $('#default').attr('disabled', true);
                     $('#createCombinationBtn').attr('disabled', true);
                     $('#combination').attr('disabled', true);
                 }

@@ -116,10 +116,10 @@ class AddressController extends Controller
         $countries = $this->countryRepo->listCountries();
 
         $country = $countries->filter(function ($country) {
-            return $country == env('COUNTRY_ID', 1);
+            return $country == env('SHOP_COUNTRY_ID', '1');
         })->first();
 
-        $countryRepo = new CountryRepository(new Country());
+        $countryRepo = new CountryRepository(new Country);
         if (!empty($country)) {
             $countryRepo = new CountryRepository($country);
         }

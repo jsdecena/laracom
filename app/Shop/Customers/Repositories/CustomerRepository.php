@@ -131,11 +131,14 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
     }
 
     /**
+     * @param array $columns
+     * @param string $orderBy
+     *
      * @return Collection
      */
-    public function findOrders() : Collection
+    public function findOrders($columns = ['*'], string $orderBy = 'id') : Collection
     {
-        return $this->model->orders()->get();
+        return $this->model->orders()->get($columns)->sortByDesc($orderBy);
     }
 
     /**

@@ -25,11 +25,10 @@
                         <input type="password" name="password" id="password" placeholder="xxxxx" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="role">Role </label>
-                        <select name="role" id="role" class="form-control select2">
-                            <option></option>
+                        <label for="roles">Role </label>
+                        <select name="roles[]" id="roles" class="form-control select2" multiple="multiple">
                             @foreach($roles as $role)
-                                <option @if($roleId == $role->id) selected="selected" @endif value="{{ $role->id }}">{{ ucfirst($role->name) }}</option>
+                                <option @if(in_array($role->id, $selectedIds))selected="selected" @endif value="{{ $role->id }}">{{ $role->display_name }}</option>
                             @endforeach
                         </select>
                     </div>

@@ -28,6 +28,8 @@ use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Shop\Orders\Repositories\OrderRepository;
 use App\Shop\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
 use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
+use App\Shop\Permissions\Repositories\PermissionRepository;
+use App\Shop\Permissions\Repositories\Interfaces\PermissionRepositoryInterface;
 use App\Shop\ProductAttributes\Repositories\ProductAttributeRepository;
 use App\Shop\ProductAttributes\Repositories\ProductAttributeRepositoryInterface;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
@@ -36,12 +38,26 @@ use App\Shop\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
 use App\Shop\Provinces\Repositories\ProvinceRepository;
 use App\Shop\Roles\Repositories\RoleRepository;
 use App\Shop\Roles\Repositories\RoleRepositoryInterface;
+use App\Shop\Shipping\ShippingInterface;
+use App\Shop\Shipping\Shippo\ShippoShipmentRepository;
+use App\Shop\States\Repositories\StateRepository;
+use App\Shop\States\Repositories\StateRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        $this->app->bind(
+            StateRepositoryInterface::class,
+            StateRepository::class
+        );
+
+        $this->app->bind(
+            ShippingInterface::class,
+            ShippoShipmentRepository::class
+        );
+
         $this->app->bind(
             BrandRepositoryInterface::class,
             BrandRepository::class
@@ -125,6 +141,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             RoleRepositoryInterface::class,
             RoleRepository::class
+        );
+
+        $this->app->bind(
+            PermissionRepositoryInterface::class,
+            PermissionRepository::class
         );
     }
 }

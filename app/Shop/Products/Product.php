@@ -9,13 +9,38 @@ use App\Shop\ProductImages\ProductImage;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Sofa\Eloquence\Eloquence;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Product extends Model implements Buyable
 {
-    use Eloquence;
+    use SearchableTrait;
 
-    protected $searchableColumns = ['name', 'description'];
+    public const MASS_UNIT = [
+        'OUNCES' => 'oz',
+        'GRAMS' => 'gms',
+        'POUNDS' => 'lbs'
+    ];
+
+    public const DISTANCE_UNIT = [
+        'CENTIMETER' => 'cm',
+        'METER' => 'mtr',
+        'INCH' => 'in',
+        'MILIMETER' => 'mm',
+        'FOOT' => 'ft',
+        'YARD' => 'yd'
+    ];
+
+    /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    protected $searchable = [
+        'columns' => [
+            'products.name' => 10,
+            'products.description' => 5
+        ]
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -31,6 +56,8 @@ class Product extends Model implements Buyable
         'cover',
         'quantity',
         'price',
+        'weight',
+        'mass_unit',
         'status'
     ];
 
@@ -109,6 +136,6 @@ class Product extends Model implements Buyable
      */
     public function brand()
     {
-        return $this->belongsTo(Brand::class, 'brand_id');
+        return $this->belongsTo(Brand::class);
     }
 }

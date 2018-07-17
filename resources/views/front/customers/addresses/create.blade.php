@@ -25,7 +25,7 @@
                         <label for="country_id">Country </label>
                         <select name="country_id" id="country_id" class="form-control select2">
                             @foreach($countries as $country)
-                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                <option @if(env('SHOP_COUNTRY_ID') == $country->id) selected="selected" @endif value="{{ $country->id }}">{{ $country->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -35,11 +35,15 @@
                         <label for="zip">Zip Code </label>
                         <input type="text" name="zip" id="zip" placeholder="Zip code" class="form-control" value="{{ old('zip') }}">
                     </div>
+                    <div class="form-group">
+                        <label for="phone">Your Phone </label>
+                        <input type="text" name="phone" id="phone" placeholder="Phone number" class="form-control" value="{{ old('phone') }}">
+                    </div>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <div class="btn-group">
-                        <a href="{{ route('customer.address.index', $customer->id) }}" class="btn btn-default">Back</a>
+                        <a href="{{ route('accounts', ['tab' => 'address']) }}" class="btn btn-default">Back</a>
                         <button type="submit" class="btn btn-primary">Create</button>
                     </div>
                 </div>
@@ -65,7 +69,7 @@
                 contentType: 'json',
                 success: function (res) {
                     if (res.data.length > 0) {
-                        var html = '<label for="province_id">Provinces </label>';
+                        let html = '<label for="province_id">Provinces </label>';
                         html += '<select name="province_id" id="province_id" class="form-control select2">';
                         $(res.data).each(function (idx, v) {
                             html += '<option value="'+ v.id+'">'+ v.name +'</option>';
@@ -82,8 +86,8 @@
                             findCity(countryId, provinceId);
                         });
                     } else {
-                        $('#provinces').hide();
-                        $('#cities').hide();
+                        $('#provinces').hide().html('');
+                        $('#cities').hide().html('');
                     }
                 }
             });
@@ -94,7 +98,7 @@
                 url: '/api/v1/country/' + countryId + '/province/' + provinceOrStateId + '/city',
                 contentType: 'json',
                 success: function (data) {
-                    var html = '<label for="city_id">City </label>';
+                    let html = '<label for="city_id">City </label>';
                     html += '<select name="city_id" id="city_id" class="form-control select2">';
                     $(data.data).each(function (idx, v) {
                         html += '<option value="'+ v.id+'">'+ v.name +'</option>';
@@ -109,15 +113,94 @@
                 }
             });
         }
+        
+        function findUsStates() {
+            $.ajax({
+                url : '/country/' + countryId + '/state',
+                contentType: 'json',
+                success: function (res) {
+                    if (res.data.length > 0) {
+                        let html = '<label for="state_code">States </label>';
+                        html += '<select name="state_code" id="state_code" class="form-control select2">';
+                        $(res.data).each(function (idx, v) {
+                            html += '<option value="'+ v.state_code+'">'+ v.state +'</option>';
+                        });
+                        html += '</select>';
 
-        var countryId = null;
+                        $('#provinces').html(html).show();
+                        $('.select2').select2();
+
+                        findUsCities('AK');
+
+                        $('#state_code').change(function () {
+                            let state_code = $(this).val();
+                            findUsCities(state_code);
+                        });
+                    } else {
+                        $('#provinces').hide().html('');
+                        $('#cities').hide().html('');
+                    }
+                }
+            });
+        }
+
+        function findUsCities(state_code) {
+            $.ajax({
+                url : '/state/' + state_code + '/city',
+                contentType: 'json',
+                success: function (res) {
+                    if (res.data.length > 0) {
+                        let html = '<label for="city">City </label>';
+                        html += '<select name="city" id="city" class="form-control select2">';
+                        $(res.data).each(function (idx, v) {
+                            html += '<option value="'+ v.name+'">'+ v.name +'</option>';
+                        });
+                        html += '</select>';
+
+                         $('#cities').html(html).show();
+                         $('.select2').select2();
+
+                        $('#state_code').change(function () {
+                            let state_code = $(this).val();
+                            findUsCities(state_code);
+                        });
+                    } else {
+                        $('#provinces').hide().html('');
+                        $('#cities').hide().html('');
+                    }
+                }
+            });
+        }
+
+        let countryId = +"{{ env('SHOP_COUNTRY_ID') }}";
 
         $(document).ready(function () {
+
+            if (countryId === 226) {
+                findUsStates(countryId);
+            } else {
+                findProvinceOrState(countryId);
+            }
+
             $('#country_id').on('change', function () {
-                countryId = $(this).val();
+                countryId = +$(this).val();
+                if (countryId === 226) {
+                    findUsStates(countryId);
+                } else {
+                    findProvinceOrState(countryId);
+                }
+
+            });
+
+            $('#city_id').on('change', function () {
+                cityId = $(this).val();
                 findProvinceOrState(countryId);
             });
-            $('.select2').select2();
+
+            $('#province_id').on('change', function () {
+                provinceId = $(this).val();
+                findProvinceOrState(countryId);
+            });
         });
     </script>
 @endsection

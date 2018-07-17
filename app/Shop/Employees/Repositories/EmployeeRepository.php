@@ -15,6 +15,7 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
 {
     /**
      * EmployeeRepository constructor.
+     *
      * @param Employee $employee
      */
     public function __construct(Employee $employee)
@@ -28,6 +29,7 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
      *
      * @param string $order
      * @param string $sort
+     *
      * @return array
      */
     public function listEmployees(string $order = 'id', string $sort = 'desc'): Collection
@@ -39,6 +41,7 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
      * Create the employee
      *
      * @param array $data
+     *
      * @return Employee
      */
     public function createEmployee(array $data): Employee
@@ -51,6 +54,7 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
      * Find the employee by id
      *
      * @param int $id
+     *
      * @return Employee
      */
     public function findEmployeeById(int $id): Employee
@@ -66,6 +70,7 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
      * Update employee
      *
      * @param array $params
+     *
      * @return bool
      */
     public function updateEmployee(array $params): bool
@@ -91,6 +96,7 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
 
     /**
      * @param string $roleName
+     *
      * @return bool
      */
     public function hasRole(string $roleName): bool
@@ -100,12 +106,13 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
 
     /**
      * @param Employee $employee
+     *
      * @return bool
      */
     public function isAuthUser(Employee $employee): bool
     {
         $isAuthUser = false;
-        if (Auth::guard('admin')->user()->id == $employee->id) {
+        if (Auth::guard('employee')->user()->id == $employee->id) {
             $isAuthUser = true;
         }
         return $isAuthUser;

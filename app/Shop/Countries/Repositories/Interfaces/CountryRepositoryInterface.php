@@ -4,7 +4,7 @@ namespace App\Shop\Countries\Repositories\Interfaces;
 
 use App\Shop\Base\Interfaces\BaseRepositoryInterface;
 use App\Shop\Countries\Country;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 interface CountryRepositoryInterface extends BaseRepositoryInterface
 {
@@ -17,4 +17,6 @@ interface CountryRepositoryInterface extends BaseRepositoryInterface
     public function findCountryById(int $id) : Country;
 
     public function findProvinces();
+
+    public function listStates() : Collection;
 }

@@ -25,11 +25,7 @@
                         <td>{{ $address->alias }}</td>
                         <td>{{ $address->address_1 }}</td>
                         <td>{{ $address->address_2 }}</td>
-                        <td>
-                            @if(isset($address->city))
-                                {{ $address->city->name }}
-                            @endif
-                        </td>
+                        <td>{{ $address->city }}</td>
                         <td>{{ $address->country->name }}</td>
                         <td>{{ $address->zip }}</td>
                         <td>@include('layouts.status', ['status' => $address->status])</td>

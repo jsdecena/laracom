@@ -2,15 +2,6 @@
 
 namespace App\Shop\OrderStatuses\Exceptions;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-class OrderStatusNotFoundException extends NotFoundHttpException
+class OrderStatusNotFoundException extends \Exception
 {
-    /**
-     * OrderStatusNotFoundException constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct('Order status not found.');
-    }
 }
