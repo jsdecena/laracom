@@ -16,6 +16,7 @@ use App\Shop\Countries\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Shop\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
+use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
@@ -40,17 +41,20 @@ class AddressController extends Controller
         $this->provinceRepo = $provinceRepository;
         $this->cityRepo = $cityRepository;
     }
+
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $list = $this->addressRepo->listAddress('created_at', 'desc');
 
-        if (request()->has('q')) {
-            $list = $this->addressRepo->searchAddress(request()->input('q'));
+        if ($request->has('q')) {
+            $list = $this->addressRepo->searchAddress($request->input('q'));
         }
 
         $addresses = $list->map(function (Address $address) {
