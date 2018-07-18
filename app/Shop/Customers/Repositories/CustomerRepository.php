@@ -145,9 +145,12 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      * @param string $text
      * @return mixed
      */
-    public function searchCustomer(string $text) : Collection
+    public function searchCustomer(string $text = null) : Collection
     {
-        return $this->model->searchCustomer($text, ['name' => 10, 'email' => 5])->get();
+        if (is_null($text)) {
+            return $this->all();
+        }
+        return $this->model->searchCustomer($text)->get();
     }
 
     /**
