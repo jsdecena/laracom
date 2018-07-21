@@ -41,33 +41,91 @@
             @endif
         </td>
         <td>
-            <form action="{{ route('checkout.store') }}" method="post" class="pull-right" id="payPalForm">
+            {{--<form action="{{ route('checkout.store') }}" method="post" class="pull-right" id="payPalForm">--}}
+                {{--{{ csrf_field() }}--}}
+                {{--<input type="hidden" name="payment" value="{{ config('paypal.name') }}">--}}
+                {{--<input type="hidden" class="address_id" name="billing_address" value="">--}}
+                {{--<input type="hidden" class="delivery_address_id" name="delivery_address" value="">--}}
+                {{--<input type="hidden" class="courier_id" name="courier" value="">--}}
+                {{--<input type="hidden" id="shippingFeeC" value="0">--}}
+                {{--<button type="submit" class="btn btn-success pull-right">Pay with PayPal <i class="fa fa-paypal"></i></button>--}}
+            {{--</form>--}}
+        </td>
+    </tr>
+@elseif(isset($payment['name']) && $payment['name'] == 'payu money')
+    <tr>
+        <td>
+            @if(isset($payment['name']))
+                {{ ucwords($payment['name']) }}
+            @else
+                <p class="alert alert-danger">You need to have <strong>name</strong> key in your config</p>
+            @endif
+        </td>
+        <td>
+            @if(isset($payment['description']))
+                {{ $payment['description'] }}
+            @endif
+        </td>
+        <td>
+            {{--<a href="{{ route('payment') }}">--}}
+                {{--<button type="submit" class="btn btn-success pull-right">Pay with PayU Money <i class="fa fa-credit-card"></i></button>--}}
+            {{--</a>--}}
+            <form action="{{ route('payment') }}" method="post" class="pull-right" id="payPalForm">
                 {{ csrf_field() }}
-                <input type="hidden" name="payment" value="{{ config('paypal.name') }}">
+                <input type="hidden" name="payment" value="{{ config('payu.name') }}">
                 <input type="hidden" class="address_id" name="billing_address" value="">
                 <input type="hidden" class="delivery_address_id" name="delivery_address" value="">
                 <input type="hidden" class="courier_id" name="courier" value="">
-                <input type="hidden" id="shippingFeeC" value="0">
-                <button type="submit" class="btn btn-success pull-right">Pay with PayPal <i class="fa fa-paypal"></i></button>
+                <input type="hidden" id="shippingFeeC" name="shippingFeeC" value="0">
+                <button type="submit" class="btn btn-success pull-right">Pay with PayU Money <i class="fa fa-credit-card"></i></button>
             </form>
+        </td>
+    </tr>
+@elseif(isset($payment['name']) && $payment['name'] == 'cash on delivery')
+    <tr>
+        <td>
+            @if(isset($payment['name']))
+                {{ ucwords($payment['name']) }}
+            @else
+                <p class="alert alert-danger">You need to have <strong>name</strong> key in your config</p>
+            @endif
+        </td>
+        <td>
+            @if(isset($payment['description']))
+                {{ $payment['description'] }}
+            @endif
+        </td>
+        <td>
+            <a href="#">
+                <button type="submit" class="btn btn-primary pull-right">Cash on Delivery <i class="fa fa-money"></i></button>
+            </a>
+            {{--<form action="{{ route('payment') }}" method="post" class="pull-right" id="payPalForm">--}}
+            {{--{{ csrf_field() }}--}}
+            {{--<input type="hidden" name="payment" value="{{ config('paypal.name') }}">--}}
+            {{--<input type="hidden" class="address_id" name="billing_address" value="">--}}
+            {{--<input type="hidden" class="delivery_address_id" name="delivery_address" value="">--}}
+            {{--<input type="hidden" class="courier_id" name="courier" value="">--}}
+            {{--<input type="hidden" id="shippingFeeC" value="0">--}}
+            {{--</form>--}}
         </td>
     </tr>
 @endif
 
 @section('js')
 
-    <script src="{{ url('https://checkout.stripe.com/checkout.js') }}"></script>
+    {{--<script src="{{ url('https://checkout.stripe.com/checkout.js') }}"></script>--}}
 
     <script type="text/javascript">
 
         function setTotal(total, shippingCost) {
-            var computed = +shippingCost + parseFloat(total);
+            var originalNumber = total.replace(",", "");
+            var computed = parseFloat(originalNumber) + parseFloat(shippingCost);
             $('#total').html(computed.toFixed(2));
         }
 
         function setShippingFee(cost) {
             el = '#shippingFee';
-            $(el).html(cost);
+            $(el).html(cost)
             $('#shippingFeeC').val(cost);
         }
 

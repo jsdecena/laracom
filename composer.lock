@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0808e85474d12b1853114e0f6a40ac75",
+    "content-hash": "8d7c22adac08240f5c273c7a8ad359c9",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -4034,6 +4034,76 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2017-11-27T11:13:29+00:00"
+        },
+        {
+            "name": "tzsk/payu",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tzsk/payu.git",
+                "reference": "f829611dfa6b136cfce061bfe2dab7a0b049be55"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tzsk/payu/zipball/f829611dfa6b136cfce061bfe2dab7a0b049be55",
+                "reference": "f829611dfa6b136cfce061bfe2dab7a0b049be55",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~6.0",
+                "illuminate/support": "~5.2",
+                "php": ">5.5.9"
+            },
+            "require-dev": {
+                "orchestra/testbench": "3.x"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Tzsk\\Payu\\Provider\\PayuServiceProvider"
+                    ],
+                    "aliases": {
+                        "Payment": "Tzsk\\Payu\\Facade\\Payment"
+                    }
+                },
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Tzsk\\Payu\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kazi Mainuddin Ahmed",
+                    "email": "mailtokmahmed@gmail.com",
+                    "homepage": "https://github.com/tzsk",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PayU India Payment Gateway Integration for Laravel 5.2 and above.",
+            "homepage": "https://github.com/tzsk/payu",
+            "keywords": [
+                "geteway",
+                "laravel 5 payment gateway",
+                "laravel payu",
+                "payment",
+                "payment gateway",
+                "payu",
+                "payu gateway with verification",
+                "payu payment gateway",
+                "payu payment verification laravel",
+                "tzsk",
+                "verification"
+            ],
+            "time": "2018-05-30T16:55:04+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

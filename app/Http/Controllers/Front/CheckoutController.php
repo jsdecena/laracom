@@ -23,6 +23,8 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use PayPal\Exception\PayPalConnectionException;
+use Tzsk\Payu\Facade\Payment;
+use App\Shop\Carts\Requests\PayUCheckoutRequest;
 
 class CheckoutController extends Controller
 {
@@ -196,5 +198,32 @@ class CheckoutController extends Controller
     public function success()
     {
         return view('front.checkout-success');
+    }
+
+    public function chargeThroughPayUMoney(PayUCheckoutRequest $request)
+    {
+        $courier = $this->courierRepo->findCourierById($request->input('courier'));
+        $shippingFee = $this->cartRepo->getShippingFee($courier);
+        $cartItems = $this->cartRepo->getCartItems()->all();
+        $totalAmountToCharge = $this->cartRepo->getTotal(2, $shippingFee);
+
+        $attributes = [
+            'txnid' => strtoupper(str_random(8)), # Transaction ID.
+            'amount' => rand(100, 999), # Amount to be charged.
+            'productinfo' => "Product Information",
+            'firstname' => "John", # Payee Name.
+            'email' => "john@doe.com", # Payee Email Address.
+            'phone' => "9876543210", # Payee Phone Number.
+        ];
+    }
+
+    public function chargeThroughCOD()
+    {
+
+    }
+
+    public function getPayUStatus()
+    {
+
     }
 }

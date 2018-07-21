@@ -84,6 +84,10 @@ Route::namespace('Front')->group(function () {
         Route::get('checkout/success', 'CheckoutController@success')->name('checkout.success');
         Route::resource('customer.address', 'CustomerAddressController');
     });
+    Route::group(['middleware' => ['web']], function(){
+        Route::post('payment', ['as' => 'payment', 'uses' => 'CheckoutController@chargeThroughPayUMoney']);
+        Route::get('payment/status', ['as' => 'payment.status', 'uses' => 'CheckoutController@getPayUStatus']);
+    });
     Route::resource('cart', 'CartController');
     Route::get("category/{slug}", 'CategoryController@getCategory')->name('front.category.slug');
     Route::get("search", 'ProductController@search')->name('search.product');
