@@ -16,11 +16,13 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
 
     public function createProduct(array $data) : Product;
 
-    public function updateProduct(array $params, int $id) : bool;
+    public function updateProduct(array $data) : bool;
 
     public function findProductById(int $id) : Product;
 
     public function deleteProduct(Product $product) : bool;
+
+    public function removeProduct() : bool;
 
     public function detachCategories();
 
@@ -40,7 +42,7 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
 
     public function saveCoverImage(UploadedFile $file) : string;
 
-    public function saveProductImages(Collection $collection, Product $product);
+    public function saveProductImages(Collection $collection);
 
     public function saveProductAttributes(ProductAttribute $productAttribute) : ProductAttribute;
 

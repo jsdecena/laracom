@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Cashier\Billable;
-use Sofa\Eloquence\Eloquence;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Customer extends Authenticatable
 {
-    use Notifiable, SoftDeletes, Eloquence, Billable;
+    use Notifiable, SoftDeletes, SearchableTrait, Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -39,6 +39,18 @@ class Customer extends Authenticatable
     protected $dates = ['deleted_at'];
 
     /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    protected $searchable = [
+        'columns' => [
+            'customers.name' => 10,
+            'customers.email' => 5
+        ]
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function addresses()
@@ -56,12 +68,11 @@ class Customer extends Authenticatable
 
     /**
      * @param $term
-     * @param array $options
      *
      * @return mixed
      */
-    public function searchCustomer($term, array $options)
+    public function searchCustomer($term)
     {
-        return static::search($term, $options);
+        return self::search($term);
     }
 }

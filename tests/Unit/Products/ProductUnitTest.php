@@ -5,8 +5,9 @@ namespace Tests\Unit\Products;
 use App\Shop\Categories\Category;
 use App\Shop\ProductImages\ProductImage;
 use App\Shop\ProductImages\ProductImageRepository;
-use App\Shop\Products\Exceptions\ProductInvalidArgumentException;
+use App\Shop\Products\Exceptions\ProductCreateErrorException;
 use App\Shop\Products\Exceptions\ProductNotFoundException;
+use App\Shop\Products\Exceptions\ProductUpdateErrorException;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\ProductRepository;
 use Illuminate\Http\UploadedFile;
@@ -216,16 +217,16 @@ class ProductUnitTest extends TestCase
     /** @test */
     public function it_errors_updating_the_product_with_required_fields_are_not_passed()
     {
-        $this->expectException(ProductInvalidArgumentException::class);
+        $this->expectException(ProductUpdateErrorException::class);
 
         $product = new ProductRepository($this->product);
-        $product->updateProduct(['name' => null], $this->product->id);
+        $product->updateProduct(['name' => null]);
     }
 
     /** @test */
     public function it_errors_creating_the_product_when_required_fields_are_not_passed()
     {
-        $this->expectException(ProductInvalidArgumentException::class);
+        $this->expectException(ProductCreateErrorException::class);
 
         $product = new ProductRepository(new Product);
         $product->createProduct([]);
@@ -235,7 +236,7 @@ class ProductUnitTest extends TestCase
     public function it_can_delete_a_product()
     {
         $product = factory(Product::class)->create();
-        $productRepo = new ProductRepository(new Product);
+        $productRepo = new ProductRepository($product);
 
         $thumbnails = [
             UploadedFile::fake()->image('file.png', 200, 200),
@@ -243,8 +244,8 @@ class ProductUnitTest extends TestCase
             UploadedFile::fake()->image('file2.png', 200, 200)
         ];
 
-        $productRepo->saveProductImages(collect($thumbnails), $product);
-        $deleted = $productRepo->deleteProduct($product);
+        $productRepo->saveProductImages(collect($thumbnails));
+        $deleted = $productRepo->removeProduct($product);
 
         $this->assertTrue($deleted);
         $this->assertDatabaseMissing('products', ['name' => $product->name]);
@@ -298,7 +299,7 @@ class ProductUnitTest extends TestCase
         $productName = 'apple';
         $cover = UploadedFile::fake()->image('file.png', 600, 600);
 
-        $params = [
+        $data = [
             'sku' => '11111',
             'name' => $productName,
             'slug' => str_slug($productName),
@@ -306,16 +307,11 @@ class ProductUnitTest extends TestCase
             'cover' => $cover,
             'quantity' => 11,
             'price' => 9.95,
-            'status' => 1,
-            'image' => [
-                UploadedFile::fake()->image('file.png', 200, 200),
-                UploadedFile::fake()->image('file1.png', 200, 200),
-                UploadedFile::fake()->image('file2.png', 200, 200)
-            ]
+            'status' => 1
         ];
 
         $productRepo = new ProductRepository($product);
-        $updated = $productRepo->updateProduct($params, $product->id);
+        $updated = $productRepo->updateProduct($data);
 
         $this->assertTrue($updated);
     }

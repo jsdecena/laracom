@@ -217,7 +217,7 @@ class ProductFeatureTest extends TestCase
     {
         $product = 'apple';
 
-        $params = [
+        $data = [
             'sku' => $this->faker->numberBetween(1111111, 999999),
             'name' => $product,
             'slug' => str_slug($product),
@@ -229,8 +229,8 @@ class ProductFeatureTest extends TestCase
         ];
 
         $this->actingAs($this->employee, 'employee')
-            ->put(route('admin.products.update', $this->product->id), $params)
-            ->assertSessionHas(['message'])
+            ->put(route('admin.products.update', $this->product->id), $data)
+            ->assertSessionHas(['message' => 'Update successful'])
             ->assertRedirect(route('admin.products.edit', $this->product->id));
     }
     

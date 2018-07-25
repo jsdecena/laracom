@@ -121,14 +121,12 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
      * @param string $text
      * @return mixed
      */
-    public function searchAddress(string $text) : Collection
+    public function searchAddress(string $text = null) : Collection
     {
-        return $this->model->search($text, [
-            'address_1' => 10,
-            'address_2' => 5,
-            'province.name' => 5,
-            'country.name' => 5
-        ])->get();
+        if (is_null($text)) {
+            return $this->all(['*'], 'address_1', 'asc');
+        }
+        return $this->model->searchAddress($text)->get();
     }
 
     /**
