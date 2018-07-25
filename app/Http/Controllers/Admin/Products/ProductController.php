@@ -152,6 +152,11 @@ class ProductController extends Controller
             $productRepo->saveProductImages(collect($request->file('image')));
         }
 
+        $productRepo = new ProductRepository($product);
+        if ($request->hasFile('image')) {
+            $productRepo->saveProductImages(collect($request->file('image')));
+        }
+
         if ($request->has('categories')) {
             $productRepo->syncCategories($request->input('categories'));
         } else {
@@ -224,52 +229,51 @@ class ProductController extends Controller
      * @param  int $id
      *
      * @return \Illuminate\Http\Response
-     * @throws ProductInvalidArgumentException
+     * @throws \App\Shop\Products\Exceptions\ProductUpdateErrorException
      */
     public function update(UpdateProductRequest $request, int $id)
     {
-        try {
+        $product = $this->productRepo->findProductById($id);
+        $productRepo = new ProductRepository($product);
 
-            $product = $this->productRepo->findProductById($id);
-            $productRepo = new ProductRepository($product);
-
-            if ($request->has('attributeValue')) {
-                $this->saveProductCombinations($request, $product);
-                return redirect()->route('admin.products.edit', [$id, 'combination' => 1])
-                    ->with('message', 'Attribute combination created successful');
-            }
-
-            $data = $request->except('categories', '_token', '_method', 'default', 'image');
-            $data['slug'] = str_slug($request->input('name'));
-
-            if ($request->hasFile('cover')) {
-                $data['cover'] = $this->storeFile($request->file('cover'));
-            }
-
-            if ($request->hasFile('image')) {
-                $productRepo->saveProductImages(collect($request->file('image')));
-            }
-
-            if ($request->has('categories')) {
-                $productRepo->syncCategories($request->input('categories'));
-            } else {
-                $productRepo->detachCategories();
-            }
-
-            $updated = $productRepo->updateProduct($data);
-
-            if (!$updated) {
-                return redirect()->route('admin.products.edit', $id)
-                    ->with('error', 'Ooops, something is wrong. Product is not updated.');
-            }
-
-            return redirect()->route('admin.products.edit', $id)->with('message', 'Update successful');
-
-        } catch (ProductNotFoundException $e) {
-
-            Log::error(json_encode($e->getMessage()));
-            return redirect()->route('admin.products.edit', $id)->with('error', $e->getMessage());
+        if ($request->has('attributeValue')) {
+            $this->saveProductCombinations($request, $product);
+            return redirect()->route('admin.products.edit', [$id, 'combination' => 1])
+                ->with('message', 'Attribute combination created successful');
         }
+
+        $data = $request->except(
+            'categories',
+            '_token',
+            '_method',
+            'default',
+            'image',
+            'productAttributeQuantity',
+            'productAttributePrice',
+            'attributeValue',
+            'combination'
+        );
+
+        $data['slug'] = str_slug($request->input('name'));
+
+        if ($request->hasFile('cover')) {
+            $data['cover'] = $productRepo->saveCoverImage($request->file('cover'));
+        }
+
+        if ($request->hasFile('image')) {
+            $productRepo->saveProductImages(collect($request->file('image')));
+        }
+
+        if ($request->has('categories')) {
+            $productRepo->syncCategories($request->input('categories'));
+        } else {
+            $productRepo->detachCategories();
+        }
+
+        $productRepo->updateProduct($data);
+
+        return redirect()->route('admin.products.edit', $id)
+            ->with('message', 'Update successful');
     }
 
     /**
@@ -292,7 +296,8 @@ class ProductController extends Controller
 
         $productAttr->where('product_id', $product->id)->delete();
 
-        $product->delete();
+        $productRepo = new ProductRepository($product);
+        $productRepo->removeProduct();
 
         return redirect()->route('admin.products.index')->with('message', 'Delete successful');
     }
@@ -305,8 +310,7 @@ class ProductController extends Controller
     public function removeImage(Request $request)
     {
         $this->productRepo->deleteFile($request->only('product', 'image'), 'uploads');
-        request()->session()->flash('message', 'Image delete successful');
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Image delete successful');
     }
 
     /**
@@ -317,14 +321,12 @@ class ProductController extends Controller
     public function removeThumbnail(Request $request)
     {
         $this->productRepo->deleteThumb($request->input('src'));
-        request()->session()->flash('message', 'Image delete successful');
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Image delete successful');
     }
 
     /**
      * @param Request $request
      * @param Product $product
-     *
      * @return boolean
      */
     private function saveProductCombinations(Request $request, Product $product): bool

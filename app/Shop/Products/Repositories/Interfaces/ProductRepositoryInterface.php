@@ -22,6 +22,8 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
 
     public function deleteProduct(Product $product) : bool;
 
+    public function removeProduct() : bool;
+
     public function detachCategories();
 
     public function getCategories() : Collection;

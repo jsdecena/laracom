@@ -107,7 +107,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      */
     public function deleteCustomer() : bool
     {
-        return $this->model->delete();
+        return $this->delete();
     }
 
     /**

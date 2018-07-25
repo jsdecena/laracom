@@ -35,14 +35,11 @@
                                                 <textarea class="form-control ckeditor" name="description" id="description" rows="5" placeholder="Description">{!! $product->description  !!}</textarea>
                                             </div>
                                             <div class="form-group">
-                                                @if(isset($product->cover))
-                                                    <div class="col-md-3">
-                                                        <div class="row">
-                                                            <img src="{{ asset("storage/$product->cover") }}" alt="" class="img-responsive"> <br />
-                                                            <a onclick="return confirm('Are you sure?')" href="{{ route('admin.product.remove.image', ['product' => $product->id, 'image' => substr($product->cover, 9)]) }}" class="btn btn-danger btn-sm btn-block">Remove image?</a><br />
-                                                        </div>
+                                                <div class="col-md-3">
+                                                    <div class="row">
+                                                        <img src="{{ $product->cover }}" alt="" class="img-responsive img-thumbnail">
                                                     </div>
-                                                @endif
+                                                </div>
                                             </div>
                                             <div class="row"></div>
                                             <div class="form-group">
@@ -53,7 +50,7 @@
                                                 @foreach($images as $image)
                                                     <div class="col-md-3">
                                                         <div class="row">
-                                                            <img src="{{ asset("storage/$image->src") }}" alt="" class="img-responsive"> <br />
+                                                            <img src="{{ asset("storage/$image->src") }}" alt="" class="img-responsive img-thumbnail"> <br /> <br>
                                                             <a onclick="return confirm('Are you sure?')" href="{{ route('admin.product.remove.thumb', ['src' => $image->src]) }}" class="btn btn-danger btn-sm btn-block">Remove?</a><br />
                                                         </div>
                                                     </div>
