@@ -23,11 +23,9 @@ $(document).ready(function () {
         $('#'+modalToLoad).modal('show');
     });
 
-    $("#modal-close").click(function(){
+    $(".modal_close").on("click", function(){
+        alert(1);
         $("input[name$='eyewear_options']").prop('checked', false);
-    });
-
-    $("#modal_close_x").click(function(){
-        $("input[name$='eyewear_options']").prop('checked', false);
+        $(".radioToUncheck").prop('checked', false);
     });
 });
