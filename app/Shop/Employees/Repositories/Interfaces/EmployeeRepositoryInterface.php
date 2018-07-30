@@ -14,7 +14,7 @@ interface EmployeeRepositoryInterface extends BaseRepositoryInterface
 
     public function findEmployeeById(int $id) : Employee;
 
-    public function updateEmployee(array $params) : bool;
+    public function updateEmployee(array $params): bool;
 
     public function syncRoles(array $roleIds);
 
