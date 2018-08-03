@@ -39,7 +39,7 @@ class AccountsController extends Controller
 
         return view('front.accounts', [
             'customer' => $customer,
-            'orders' => $this->customerRepo->paginateArrayResults($orders->toArray(), 3),
+            'orders' => $this->customerRepo->paginateArrayResults($orders->toArray()),
             'addresses' => $addresses
         ]);
     }

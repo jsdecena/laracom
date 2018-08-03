@@ -27,7 +27,7 @@
             <td class="bg-warning"></td>
             <td class="bg-warning"></td>
             <td class="bg-warning"></td>
-            <td class="bg-warning">{{config('cart.currency')}} {{ number_format($tax, 2) }}</td>
+            <td class="bg-warning">{{config('cart.currency')}} {{ number_format((int)$tax, 2) }}</td>
         </tr>
         <tr>
             <td class="bg-success">Total</td>

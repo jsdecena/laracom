@@ -17,6 +17,7 @@
         "laravel/framework": "5.6.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
+        "md-adil/shyplite": "dev-master",
         "paypal/rest-api-sdk-php": "*",
         "santigarcor/laratrust": "5.0.*",
         "sofa/eloquence": "^5.5",

@@ -168,6 +168,8 @@ return [
         App\Providers\RepositoryServiceProvider::class,
         Laratrust\LaratrustServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Tzsk\Payu\Provider\PayuServiceProvider::class,
+        Adil\Shyplite\Laravel\ShypliteServiceProvider::class
     ],
 
     /*
@@ -219,7 +221,8 @@ return [
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Payment' => Tzsk\Payu\Facade\Payment::class,
+        'Shyplite' => Adil\Shyplite\Laravel\Facade\Shyplite::class
 
     ],
-
 ];

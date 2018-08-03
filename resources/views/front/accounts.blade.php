@@ -21,10 +21,10 @@
 
                     <!-- Tab panes -->
                     <div class="tab-content customer-order-list">
-                        <div role="tabpanel" class="tab-pane active" id="profile">
+                        <div role="tabpanel" class="tab-pane" id="profile">
                             {{$customer->name}} <br /><small>{{$customer->email}}</small>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="orders">
+                        <div role="tabpanel" class="tab-pane active" id="orders">
                             <table class="table">
                                 <tbody>
                                 <tr>

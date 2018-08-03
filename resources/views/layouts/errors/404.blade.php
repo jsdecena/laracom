@@ -48,7 +48,8 @@
 <div class="flex-center position-ref full-height">
     <div class="content">
         <div class="title error404">
-            Ooops, we cannot find what you are looking for. Please try again.
+            {{$error ?? 'Ooops, we cannot find what you are looking for. Please try again.'}}
+
         </div>
         <a href="{{ route('home') }}" class="btn btn-default">Go back</a>
     </div>

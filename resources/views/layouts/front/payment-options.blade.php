@@ -70,7 +70,7 @@
             {{--<a href="{{ route('payment') }}">--}}
                 {{--<button type="submit" class="btn btn-success pull-right">Pay with PayU Money <i class="fa fa-credit-card"></i></button>--}}
             {{--</a>--}}
-            <form action="{{ route('payment') }}" method="post" class="pull-right" id="payPalForm">
+            <form  method="post" class="pull-right" id="payPalForm">
                 {{ csrf_field() }}
                 <input type="hidden" name="payment" value="{{ config('payu.name') }}">
                 <input type="hidden" class="address_id" name="billing_address" value="">
