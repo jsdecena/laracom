@@ -75,10 +75,10 @@
                                 <span class="checkround"></span>
                             </label>
                                 <div class="modal fade" id="{{$key}}" role="dialog">
-                                    <div class="modal-dialog modal-sm vertical-align-center">
+                                    <div class="modal-dialog modal-sm vertical-align-center" >
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <button type="button" class="close" id="modal_close_x" data-dismiss="modal">&times;</button>
+                                                <button type="button" class="close modal_close" id="modal_close_x" data-dismiss="modal">&times;</button>
                                                 <h4 class="modal-title"> Select the appropriate lenses for {{$value['name']}}</h4>
                                             </div>
                                             <div class="modal-body">
@@ -86,13 +86,13 @@
                                                     @foreach($value['options'] as $option)
                                                         <div class="col-eyewear-details">
                                                             <label class="radio">{{$option['name']}}
-                                                            <input type="radio" name="sub-option" required value="{{$option['name']}}-{{$option['price']}}">
+                                                            <input type="radio" class = "radioToUncheck" name="sub-option" required value="{{$option['name']}}-{{$option['price']}}">
                                                             <span class="checkround"></span>
                                                             </label><br>
                                                             <label class="radio">Price : {{ config('cart.currency') }} {{$option['price']}}</label>
                                                             <br>
                                                             <span>
-                                                                {{$option['description']}}
+                                                                {{$option['description'] ?? ''}}
                                                             </span>
                                                         </div>
                                                     @endforeach
@@ -102,7 +102,7 @@
                                                 <button type="submit" class="btn btn-warning"><i
                                                             class="fa fa-cart-plus"></i> Add to cart
                                                 </button>
-                                                <button type="button" data-dismiss="modal" class="btn btn-default" id="modal-close">Close</button>
+                                                <button type="button" data-dismiss="modal" class="btn btn-default modal_close" id="modal-close">Close</button>
                                             </div>
                                         </div>
                                     </div>
