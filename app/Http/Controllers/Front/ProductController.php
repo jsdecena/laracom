@@ -60,13 +60,23 @@ class ProductController extends Controller
         $images = $product->images()->get();
         $category = $product->categories()->first();
         $productAttributes = $product->attributes;
+        $combinations = $combinationElements = [];
+        foreach($productAttributes as $productAttribute) {
+            foreach($productAttribute->attributesValues as $value) {
+                $combinations[$value->attribute->name][] = $value->value;
+            }
+        }
+        foreach($combinations as $key => $value) {
+            $combinationElements[$key] = array_unique($value);
+        }
 
         return view('front.products.product', compact(
             'product',
             'images',
             'productAttributes',
             'category',
-            'combos'
+            'combos',
+            'combinationElements'
         ));
     }
 }

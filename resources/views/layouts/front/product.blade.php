@@ -4,25 +4,25 @@
             <li>
                 <a href="javascript: void(0)">
                     @if(isset($product->cover))
-                    <img class="img-responsive img-thumbnail"
-                         src="{{ asset("storage/$product->cover") }}"
-                         alt="{{ $product->name }}" />
+                        <img class="img-responsive img-thumbnail"
+                             src="{{ asset("storage/$product->cover") }}"
+                             alt="{{ $product->name }}"/>
                     @else
-                    <img class="img-responsive img-thumbnail"
-                         src="{{ asset("https://placehold.it/180x180") }}"
-                         alt="{{ $product->name }}" />
+                        <img class="img-responsive img-thumbnail"
+                             src="{{ asset("https://placehold.it/180x180") }}"
+                             alt="{{ $product->name }}"/>
                     @endif
                 </a>
             </li>
             @if(isset($images) && !$images->isEmpty())
                 @foreach($images as $image)
-                <li>
-                    <a href="javascript: void(0)">
-                    <img class="img-responsive img-thumbnail"
-                         src="{{ asset("storage/$image->src") }}"
-                         alt="{{ $product->name }}" />
-                    </a>
-                </li>
+                    <li>
+                        <a href="javascript: void(0)">
+                            <img class="img-responsive img-thumbnail"
+                                 src="{{ asset("storage/$image->src") }}"
+                                 alt="{{ $product->name }}"/>
+                        </a>
+                    </li>
                 @endforeach
             @endif
         </ul>
@@ -51,9 +51,24 @@
                     @include('layouts.errors-and-messages')
                     <form action="{{ route('cart.store') }}" class="form-inline" method="post">
                         {{ csrf_field() }}
+                        @if(!empty($combinationElements))
+                            <label for="">Choose Combination</label> <br/>
+                            @foreach($combinationElements as $attributeName => $attributeValue)
+                                @if($attributeName == 'color')
+                                    <div class="custom-radios">
+                                        @foreach($attributeValue as $colorValues)
+                                        <div>
+                                            <input type="radio" id="{{ $colorValues }}" name="{{ $attributeName }}-{{ $colorValues }}" value="{{ $colorValues }}">
+                                            <label for="{{ $colorValues }}"><span style="background-color: {{ $colorValues }}"></span></label>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endif
                         @if(isset($productAttributes) && !$productAttributes->isEmpty())
                             <div class="form-group">
-                                <label for="productAttribute">Choose Combination</label> <br />
+                                <label for="productAttribute">Choose Combination</label> <br/>
                                 <select name="productAttribute" id="productAttribute" class="form-control select2">
                                     @foreach($productAttributes as $productAttribute)
                                         <option value="{{ $productAttribute->id }}">
@@ -66,30 +81,37 @@
                                         </option>
                                     @endforeach
                                 </select>
-                            </div><hr>
+                            </div>
+                            <hr>
                         @endif
                         @if(isset($category) && $category->slug == 'eyewear')
-                        @foreach(config('eyewear_options') as $key => $value)
-                            <label class="radio">{{$value['name']}}
-                                <input type="radio" name="eyewear_options" required value="{{$key}}">
-                                <span class="checkround"></span>
-                            </label>
+                            @foreach(config('eyewear_options') as $key => $value)
+                                <label class="radio">{{$value['name']}}
+                                    <input type="radio" name="eyewear_options" required value="{{$key}}">
+                                    <span class="checkround"></span>
+                                </label>
                                 <div class="modal fade" id="{{$key}}" role="dialog">
-                                    <div class="modal-dialog modal-sm vertical-align-center" >
+                                    <div class="modal-dialog modal-sm vertical-align-center">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <button type="button" class="close modal_close" id="modal_close_x" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title"> Select the appropriate lenses for {{$value['name']}}</h4>
+                                                <button type="button" class="close modal_close" id="modal_close_x"
+                                                        data-dismiss="modal">&times;
+                                                </button>
+                                                <h4 class="modal-title"> Select the appropriate lenses
+                                                    for {{$value['name']}}</h4>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="col-container-eyewear-options">
                                                     @foreach($value['options'] as $option)
                                                         <div class="col-eyewear-details">
                                                             <label class="radio">{{$option['name']}}
-                                                            <input type="radio" class = "radioToUncheck" name="sub-option" required value="{{$option['name']}}-{{$option['price']}}">
-                                                            <span class="checkround"></span>
+                                                                <input type="radio" class="radioToUncheck"
+                                                                       name="sub-option" required
+                                                                       value="{{$option['name']}}-{{$option['price']}}">
+                                                                <span class="checkround"></span>
                                                             </label><br>
-                                                            <label class="radio">Price : {{ config('cart.currency') }} {{$option['price']}}</label>
+                                                            <label class="radio">Price
+                                                                : {{ config('cart.currency') }} {{$option['price']}}</label>
                                                             <br>
                                                             <span>
                                                                 {{$option['description'] ?? ''}}
@@ -102,7 +124,9 @@
                                                 <button type="submit" class="btn btn-warning"><i
                                                             class="fa fa-cart-plus"></i> Add to cart
                                                 </button>
-                                                <button type="button" data-dismiss="modal" class="btn btn-default modal_close" id="modal-close">Close</button>
+                                                <button type="button" data-dismiss="modal"
+                                                        class="btn btn-default modal_close" id="modal-close">Close
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -110,8 +134,8 @@
                             @endforeach
                         @endif
                         <br><br>
-                        <input type="hidden" name="quantity" id="quantity" value="1" />
-                        <input type="hidden" name="product" value="{{ $product->id }}" />
+                        <input type="hidden" name="quantity" id="quantity" value="1"/>
+                        <input type="hidden" name="product" value="{{ $product->id }}"/>
                         <button type="submit" class="btn btn-warning"><i
                                     class="fa fa-cart-plus"></i> Add to cart
                         </button>
