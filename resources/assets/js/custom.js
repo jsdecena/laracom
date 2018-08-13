@@ -24,7 +24,7 @@ $(document).ready(function () {
     });
 
     $(".modal_close").on("click", function(){
-        alert(1);
+        // alert(1);
         $("input[name$='eyewear_options']").prop('checked', false);
         $(".radioToUncheck").prop('checked', false);
     });

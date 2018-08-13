@@ -23,7 +23,7 @@ return [
     | The account to be used for Payment
     |
     */
-    'default' => 'payubiz',
+    'default' => 'payumoney',
 
     /*
     |--------------------------------------------------------------------------
@@ -49,17 +49,17 @@ return [
         |
         */
         'payubiz' => [
-            'key' => 'WEkycg1k',
-            'salt' => 'dVW3dtRB2Z',
+            'key' => 'O10QJCrI',
+            'salt' => 'M3o1puusBg',
             'money' => false,
             'auth' => null
         ],
 
         'payumoney' => [
-            'key' => 'WEkycg1k',
-            'salt' => 'dVW3dtRB2Z',
+            'key' => 'O10QJCrI',
+            'salt' => 'M3o1puusBg',
             'money' => true,
-            'auth' => 'ikA8vfqK53+CTxdV8wgSO6T8Y43R646mho5NwAe8Ijg='
+            'auth' => 'G7H5f7zsF+p6Kie9ve4Mv9+qnXqkJ1DyacDcPRIX1ZQ='
 
         ],
     ],

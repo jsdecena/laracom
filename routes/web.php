@@ -14,6 +14,10 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+Route::group(['middleware' => ['web']], function () {
+    Route::get('pay', ['as' => 'pay', 'uses' => 'PaymentController@pay']);
+    Route::get('payment/status/page','Front\CheckoutController@status');
+});
 /**
  * Admin routes
  */
@@ -22,7 +26,7 @@ Route::namespace('Admin')->group(function () {
     Route::post('admin/login', 'LoginController@login')->name('admin.login');
     Route::get('admin/logout', 'LoginController@logout')->name('admin.logout');
 });
-Route::group(['prefix' => 'admin', 'middleware' => ['admin'], 'as' => 'admin.' ], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['admin'], 'as' => 'admin.'], function () {
     Route::namespace('Admin')->group(function () {
         Route::get('/', 'DashboardController@index')->name('dashboard');
         Route::group(['middleware' => ['role:admin,guard:admin']], function () {
@@ -41,6 +45,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin'], 'as' => 'admin.' ]
             });
             Route::namespace('Orders')->group(function () {
                 Route::resource('orders', 'OrderController');
+                Route::resource('getOrders', 'OrderController@index');
                 Route::resource('order-statuses', 'OrderStatusController');
                 Route::get('orders/{id}/invoice', 'OrderController@generateInvoice')->name('orders.invoice.generate');
             });
@@ -68,8 +73,8 @@ Route::namespace('Auth')->group(function () {
     Route::post('cart/login', 'CartLoginController@login')->name('cart.login');
     Route::get('logout', 'LoginController@logout');
     //Social Links
-    Route::get( '/login/{social}', 'LoginController@getSocialRedirect' )->middleware('guest');
-    Route::get( '/login/{social}/callback', 'LoginController@getSocialCallback' )->middleware('guest');
+    Route::get('/login/{social}', 'LoginController@getSocialRedirect')->middleware('guest');
+    Route::get('/login/{social}/callback', 'LoginController@getSocialCallback')->middleware('guest');
 });
 
 Route::namespace('Front')->group(function () {
@@ -84,7 +89,7 @@ Route::namespace('Front')->group(function () {
         Route::get('checkout/success', 'CheckoutController@success')->name('checkout.success');
         Route::resource('customer.address', 'CustomerAddressController');
     });
-    Route::group(['middleware' => ['web']], function(){
+    Route::group(['middleware' => ['web']], function () {
         Route::post('payment', ['as' => 'payment', 'uses' => 'CheckoutController@chargeThroughPayUMoney']);
         Route::get('payment/status', ['as' => 'payment.status', 'uses' => 'CheckoutController@getPayUStatus']);
     });
