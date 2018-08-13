@@ -51,36 +51,44 @@
                     @include('layouts.errors-and-messages')
                     <form action="{{ route('cart.store') }}" class="form-inline" method="post">
                         {{ csrf_field() }}
+                        <div class="form-group">
                         @if(!empty($combinationElements))
                             <label for="">Choose Combination</label> <br/>
                             @foreach($combinationElements as $attributeName => $attributeValue)
                                 @if($attributeName == 'color')
-                                    <div class="custom-radios">
+                                        <b>{{ucwords($attributeName)}} : </b><br>
+                                        <div class="dlk-radio btn-group">
                                         @foreach($attributeValue as $colorValues)
-                                        <div>
-                                            <input type="radio" id="{{ $colorValues }}" name="{{ $attributeName }}-{{ $colorValues }}" value="{{ $colorValues }}">
-                                            <label for="{{ $colorValues }}"><span style="background-color: {{ $colorValues }}"></span></label>
-                                        </div>
+                                        <label class="btn" style="background-color: {{ $colorValues }}">
+                                            <input name="color" class="form-control" type="radio" value="{{ $colorValues }}" required>
+                                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                                        </label>
                                         @endforeach
-                                    </div>
+                                    </div><br><br>
+                                @else
+                                    @foreach($attributeValue as $values)
+                                    <label class="radio">{{ $values }}
+                                        <input type="radio" name="{{ $attributeName }}" required value="{{$values}}">
+                                        <span class="checkround"></span>
+                                    </label>
+                                    @endforeach
                                 @endif
                             @endforeach
                         @endif
                         @if(isset($productAttributes) && !$productAttributes->isEmpty())
-                            <div class="form-group">
-                                <label for="productAttribute">Choose Combination</label> <br/>
-                                <select name="productAttribute" id="productAttribute" class="form-control select2">
-                                    @foreach($productAttributes as $productAttribute)
-                                        <option value="{{ $productAttribute->id }}">
-                                            @foreach($productAttribute->attributesValues as $value)
-                                                {{ $value->attribute->name }} : {{ ucwords($value->value) }}
-                                            @endforeach
-                                            @if(!is_null($productAttribute->price))
-                                                ( {{ config('cart.currency') }} {{ $productAttribute->price }})
-                                            @endif
-                                        </option>
-                                    @endforeach
-                                </select>
+                                {{--<label for="productAttribute">Choose Combination</label> <br/>--}}
+                                {{--<select name="productAttribute" id="productAttribute" class="form-control select2">--}}
+                                    {{--@foreach($productAttributes as $productAttribute)--}}
+                                        {{--<option value="{{ $productAttribute->id }}">--}}
+                                            {{--@foreach($productAttribute->attributesValues as $value)--}}
+                                                {{--{{ $value->attribute->name }} : {{ ucwords($value->value) }}--}}
+                                            {{--@endforeach--}}
+                                            {{--@if(!is_null($productAttribute->price))--}}
+                                                {{--( {{ config('cart.currency') }} {{ $productAttribute->price }})--}}
+                                            {{--@endif--}}
+                                        {{--</option>--}}
+                                    {{--@endforeach--}}
+                                {{--</select>--}}
                             </div>
                             <hr>
                         @endif

@@ -28,4 +28,11 @@ $(document).ready(function () {
         $("input[name$='eyewear_options']").prop('checked', false);
         $(".radioToUncheck").prop('checked', false);
     });
+
+    // $('.color-choose input').on('click', function () {
+    //     var ravi_color = $(this).attr('data-image');
+    //     $('.current').removeClass('current');
+    //     $('.left_img img[data-image = ' + ravi_color + ']').addClass('current');
+    //     $(this).addClass('current');
+    // });
 });
