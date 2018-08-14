@@ -40,7 +40,10 @@
     <div class="col-md-6">
         <div class="product-description">
             <h1>{{ $product->name }}
-                <small>{{ config('cart.currency') }} {{ $product->price }}</small>
+                @php
+                    $price = isset($comboPriceRange) && !is_null($comboPriceRange) ? $comboPriceRange : $product->price;
+                @endphp
+                <small>{{ config('cart.currency') }} {{ $price }}</small>
             </h1>
             <div class="description">{!! $product->description !!}</div>
             <div class="excerpt">
@@ -60,18 +63,21 @@
                                         <div class="dlk-radio btn-group">
                                         @foreach($attributeValue as $colorValues)
                                         <label class="btn" style="background-color: {{ $colorValues }}">
-                                            <input name="color" class="form-control" type="radio" value="{{ $colorValues }}" required>
+                                            <input name="color-attr" class="form-control" type="radio" value="{{ $colorValues }}" required>
                                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                                         </label>
                                         @endforeach
                                     </div><br><br>
                                 @else
+                                    <div>
+                                        <b>{{ucwords($attributeName)}} : </b><br>
                                     @foreach($attributeValue as $values)
                                     <label class="radio">{{ $values }}
-                                        <input type="radio" name="{{ $attributeName }}" required value="{{$values}}">
+                                        <input type="radio" name="{{ $attributeName }}-attr" required value="{{$values}}">
                                         <span class="checkround"></span>
                                     </label>
                                     @endforeach
+                                    </div><br>
                                 @endif
                             @endforeach
                         @endif
@@ -89,9 +95,9 @@
                                         {{--</option>--}}
                                     {{--@endforeach--}}
                                 {{--</select>--}}
-                            </div>
-                            <hr>
                         @endif
+                        </div>
+                        <hr>
                         @if(isset($category) && $category->slug == 'eyewear')
                             @foreach(config('eyewear_options') as $key => $value)
                                 <label class="radio">{{$value['name']}}
@@ -144,6 +150,9 @@
                         <br><br>
                         <input type="hidden" name="quantity" id="quantity" value="1"/>
                         <input type="hidden" name="product" value="{{ $product->id }}"/>
+                        @if(isset($allCombinations) && !is_null($allCombinations))
+                            <input type="hidden" name="allCombinations" value="{{ $allCombinations }}"/>
+                        @endif
                         <button type="submit" class="btn btn-warning"><i
                                     class="fa fa-cart-plus"></i> Add to cart
                         </button>

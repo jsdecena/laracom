@@ -84,20 +84,37 @@ class CartController extends Controller
      */
     public function store(AddToCartRequest $request)
     {
+        $options = [];
+
         $product = $this->productRepo->findProductById($request->input('product'));
 
-        $options = [];
-        if ($request->has('productAttribute')) {
-            $pa = $request->input('productAttribute');
-            $productAttribute = $this->productAttributeRepo->findProductAttributeById($pa);
+        if(!is_null($request->input('allCombinations'))) {
+            $allCombinations = json_decode($request->input('allCombinations'), true);
 
-            $productRepo = new ProductRepository($product);
-            $combination = $productRepo->findProductCombination($productAttribute);
+            $currentCombination = [];
+            foreach($request->all() as $key => $value) {
+                if (strpos($key, '-attr') !== false) {
+                    $newKey = str_replace('-attr', '', $key);
+                    $currentCombination[$newKey] = $value;
+                }
+            }
 
-            $options = $combination->all();
+            $isVariationAvailable = $this->checkIfCombinationExists($allCombinations, $currentCombination);
 
-            if (!is_null($productAttribute->price)) {
-                $product->price = $productAttribute->price;
+            if(is_array($isVariationAvailable)) {
+                $pa = $isVariationAvailable['productAttributeId'];
+                $productAttribute = $this->productAttributeRepo->findProductAttributeById($pa);
+
+                $productRepo = new ProductRepository($product);
+                $combination = $productRepo->findProductCombination($productAttribute);
+
+                $options = $combination->all();
+
+                if (!is_null($productAttribute->price)) {
+                    $product->price = $productAttribute->price;
+                }
+            } else {
+                return \Redirect::back()->withErrors('Sorry the selected combination is not available, please try a different combination.');
             }
         }
 
@@ -139,5 +156,24 @@ class CartController extends Controller
 
         request()->session()->flash('message', 'Removed to cart successful');
         return redirect()->route('cart.index');
+    }
+
+    /**
+     * @param $allCombinations
+     * @param $currentCombination
+     * @return mixed
+     */
+    protected function checkIfCombinationExists($allCombinations, $currentCombination)
+    {
+        foreach ($allCombinations as $key => $value) {
+            $comboDiff = array_diff($currentCombination, $value);
+            if (empty($comboDiff)) {
+                return [
+                    'productAttributeId' => $key,
+                ];
+            }
+        }
+
+        return false;
     }
 }

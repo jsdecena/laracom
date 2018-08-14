@@ -60,23 +60,36 @@ class ProductController extends Controller
         $images = $product->images()->get();
         $category = $product->categories()->first();
         $productAttributes = $product->attributes;
-        $combinations = $combinationElements = [];
+        $combinations = $combinationElements = $priceRange = $allPossibleCombinations = [];
         foreach($productAttributes as $productAttribute) {
+            $priceRange[$productAttribute->id][] = $productAttribute->price;
             foreach($productAttribute->attributesValues as $value) {
                 $combinations[$value->attribute->name][] = $value->value;
+                $allPossibleCombinations[$productAttribute->id][$value->attribute->name] = $value->value;
             }
+        }
+        $allCombinations = null;
+        if(!empty($allPossibleCombinations)) {
+            $allCombinations = json_encode($allPossibleCombinations);
         }
         foreach($combinations as $key => $value) {
             $combinationElements[$key] = array_unique($value);
         }
-
+        $comboPriceRange = null;
+        if(!empty($priceRange)) {
+            $highPrice = number_format(max($priceRange)[0]);
+            $lowestPrice = number_format(min($priceRange)[0]);
+            $comboPriceRange = $lowestPrice." - ".$highPrice;
+        }
         return view('front.products.product', compact(
             'product',
             'images',
             'productAttributes',
             'category',
             'combos',
-            'combinationElements'
+            'combinationElements',
+            'comboPriceRange',
+            'allCombinations'
         ));
     }
 }
