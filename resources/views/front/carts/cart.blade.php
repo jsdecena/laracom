@@ -29,7 +29,7 @@
                                 <td class="bg-warning"></td>
                                 <td class="bg-warning"></td>
                                 <td class="bg-warning"></td>
-                                <td class="bg-warning">{{config('cart.currency')}} {{ $subtotal }}</td>
+                                <td class="bg-warning">{{config('cart.currency')}} {{ number_format($subtotal, 2, '.', ',') }}</td>
                             </tr>
                             @if(isset($shippingFee) && $shippingFee != 0)
                             <tr>
@@ -52,7 +52,7 @@
                                 <td class="bg-success"></td>
                                 <td class="bg-success"></td>
                                 <td class="bg-success"></td>
-                                <td class="bg-success">{{config('cart.currency')}} {{ $total }}</td>
+                                <td class="bg-success">{{config('cart.currency')}} {{ number_format($total, 2, '.', ',') }}</td>
                             </tr>
                             </tfoot>
                             <tbody>
