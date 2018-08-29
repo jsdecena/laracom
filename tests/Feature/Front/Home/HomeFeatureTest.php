@@ -45,7 +45,7 @@ class HomeFeatureTest extends TestCase
     }
 
     /** @test */
-    public function 替换方法isNotEmpty()
+    public function change_method_is_not_empty()
     {
         $cat1 = factory(Category::class)->create([
             'name' => 'New Arrivals',
