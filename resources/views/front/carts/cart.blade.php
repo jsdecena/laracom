@@ -61,7 +61,7 @@
                                     <td>
                                         <a href="{{ route('front.get.product', [$cartItem->product->slug]) }}" class="hover-border">
                                             @if(isset($cartItem->cover))
-                                                <img src="{{ asset("storage/$cartItem->cover") }}" alt="{{ $cartItem->name }}" class="img-responsive img-thumbnail">
+                                                <img src="{{$cartItem->cover}}" alt="{{ $cartItem->name }}" class="img-responsive img-thumbnail">
                                             @else
                                                 <img src="https://placehold.it/120x120" alt="" class="img-responsive img-thumbnail">
                                             @endif
