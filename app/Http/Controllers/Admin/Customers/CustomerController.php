@@ -110,9 +110,9 @@ class CustomerController extends Controller
      */
     public function update(UpdateCustomerRequest $request, $id)
     {
-        $employee = $this->customerRepo->findCustomerById($id);
+        $customer = $this->customerRepo->findCustomerById($id);
 
-        $update = new CustomerRepository($employee);
+        $update = new CustomerRepository($customer);
         $data = $request->except('_method', '_token', 'password');
 
         if ($request->has('password')) {
