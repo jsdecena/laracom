@@ -184,21 +184,16 @@ class EmployeeController extends Controller
      */
     public function updateProfile(UpdateEmployeeRequest $request, $id)
     {
-        $this->updateEmployee($request, $id);
-
-        $request->session()->flash('message', 'Update successful');
-        return redirect()->route('admin.employee.profile', $id);
-    }
-
-    /**
-     * @param UpdateEmployeeRequest $request
-     * @param $id
-     */
-    private function updateEmployee(UpdateEmployeeRequest $request, $id)
-    {
         $employee = $this->employeeRepo->findEmployeeById($id);
 
         $update = new EmployeeRepository($employee);
-        $update->updateEmployee($request->except('_token', '_method'));
+        $update->updateEmployee($request->except('_token', '_method', 'password'));
+
+        if ($request->has('password') && $request->input('password') != '') {
+            $update->updateEmployee($request->only('password'));
+        }
+
+        return redirect()->route('admin.employee.profile', $id)
+            ->with('message', 'Update successful');
     }
 }

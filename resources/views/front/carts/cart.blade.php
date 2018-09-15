@@ -29,7 +29,7 @@
                                 <td class="bg-warning"></td>
                                 <td class="bg-warning"></td>
                                 <td class="bg-warning"></td>
-                                <td class="bg-warning">{{config('cart.currency')}} {{ $subtotal }}</td>
+                                <td class="bg-warning">{{config('cart.currency')}} {{ number_format($subtotal, 2, '.', ',') }}</td>
                             </tr>
                             @if(isset($shippingFee) && $shippingFee != 0)
                             <tr>
@@ -52,7 +52,7 @@
                                 <td class="bg-success"></td>
                                 <td class="bg-success"></td>
                                 <td class="bg-success"></td>
-                                <td class="bg-success">{{config('cart.currency')}} {{ $total }}</td>
+                                <td class="bg-success">{{config('cart.currency')}} {{ number_format($total, 2, '.', ',') }}</td>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -61,7 +61,7 @@
                                     <td>
                                         <a href="{{ route('front.get.product', [$cartItem->product->slug]) }}" class="hover-border">
                                             @if(isset($cartItem->cover))
-                                                <img src="{{ asset("storage/$cartItem->cover") }}" alt="{{ $cartItem->name }}" class="img-responsive img-thumbnail">
+                                                <img src="{{$cartItem->cover}}" alt="{{ $cartItem->name }}" class="img-responsive img-thumbnail">
                                             @else
                                                 <img src="https://placehold.it/120x120" alt="" class="img-responsive img-thumbnail">
                                             @endif

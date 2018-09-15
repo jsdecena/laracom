@@ -77,7 +77,7 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
      */
     public function getSubTotal(int $decimals = 2)
     {
-        return $this->model->subtotal(2);
+        return $this->model->subtotal($decimals, '.', '');
     }
 
     /**
@@ -89,7 +89,7 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
      */
     public function getTotal(int $decimals = 2, $shipping = 0.00)
     {
-        return $this->model->total($decimals, null, null, $shipping);
+        return $this->model->total($decimals, '.', '', $shipping);
     }
 
     /**
