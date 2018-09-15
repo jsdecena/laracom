@@ -73,6 +73,8 @@
 
 # BUILD AND COMPILE ASSETS
 
+## [IMPORTANT] You need to compile the assets so that the styles (CSS) are properly referenced
+
 - Run: `npm install`
 
 - Then: `npm run dev` for dev environment and `npm run production` for live. Wait for it to be compiled and refresh the page. 
