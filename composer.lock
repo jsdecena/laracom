@@ -1943,16 +1943,16 @@
         },
         {
             "name": "nicolaslopezj/searchable",
-            "version": "1.10.1",
+            "version": "1.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nicolaslopezj/searchable.git",
-                "reference": "813a860244eff7a5031b597f46d971890305dfe5"
+                "reference": "cfd888bbe7b57fa52d81037bb73ef3d689683b22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nicolaslopezj/searchable/zipball/813a860244eff7a5031b597f46d971890305dfe5",
-                "reference": "813a860244eff7a5031b597f46d971890305dfe5",
+                "url": "https://api.github.com/repos/nicolaslopezj/searchable/zipball/cfd888bbe7b57fa52d81037bb73ef3d689683b22",
+                "reference": "cfd888bbe7b57fa52d81037bb73ef3d689683b22",
                 "shasum": ""
             },
             "require": {
@@ -1985,7 +1985,7 @@
                 "search",
                 "searchable"
             ],
-            "time": "2018-06-21T15:42:27+00:00"
+            "time": "2018-08-10T16:07:36+00:00"
         },
         {
             "name": "nikic/php-parser",
