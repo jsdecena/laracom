@@ -1171,16 +1171,16 @@
         },
         {
             "name": "jsdecena/baserepo",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jsdecena/baserepo.git",
-                "reference": "14acb55be5990a36c4a9e2f3bd4b7aa29d40a200"
+                "reference": "f0886c535d36779d3c80f6c2459622ff145e58d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jsdecena/baserepo/zipball/14acb55be5990a36c4a9e2f3bd4b7aa29d40a200",
-                "reference": "14acb55be5990a36c4a9e2f3bd4b7aa29d40a200",
+                "url": "https://api.github.com/repos/jsdecena/baserepo/zipball/f0886c535d36779d3c80f6c2459622ff145e58d6",
+                "reference": "f0886c535d36779d3c80f6c2459622ff145e58d6",
                 "shasum": ""
             },
             "require": {
@@ -1214,7 +1214,7 @@
                 }
             ],
             "description": "Base repository",
-            "time": "2018-07-16T08:47:03+00:00"
+            "time": "2018-07-18T01:25:22+00:00"
         },
         {
             "name": "jsdecena/mailchimp",
