@@ -19,7 +19,7 @@
     "vue": "^2.5.13"
   },
   "dependencies": {
-    "admin-lte": "^2.3.8",
+    "admin-lte": "^2.4.8",
     "bootstrap": "^3.3.7",
     "datatables": "^1.10.13",
     "font-awesome": "^4.7.0",
