@@ -66,6 +66,7 @@
 - Employees
     - Add / edit employees that will manage your store
     - Set employee as admin and manage the shop
+    - Get the admin credentials [here](https://github.com/Laracommerce/laracom/wiki/Installation#admin-dashboard-login-credentials)
     
 - Mobile
     - Mobile responsive design for the admin and front store
@@ -73,7 +74,7 @@
 
 # BUILD AND COMPILE ASSETS
 
-## [IMPORTANT] You need to compile the assets so that the styles (CSS) are properly referenced
+#### [IMPORTANT] You need to compile the assets so that the styles (CSS) are properly referenced
 
 - Run: `npm install`
 
