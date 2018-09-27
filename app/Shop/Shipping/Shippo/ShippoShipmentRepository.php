@@ -96,7 +96,7 @@ class ShippoShipmentRepository implements ShippingInterface
     }
 
     /**
-     * @return Shippo_Shipment
+     * @return \Shippo_Shipment
      */
     public function readyShipment()
     {
@@ -115,7 +115,7 @@ class ShippoShipmentRepository implements ShippingInterface
      * @param string $id
      * @param string $currency
      *
-     * @return \Shippo_Get_Shipping_Rates
+     * @return \Shippo_Shipment
      */
     public function getRates(string $id, string $currency = 'USD')
     {
