@@ -5,10 +5,12 @@ Laracome is the project base on Laravel application, so everything are the same 
 ---
 
 - [Requirements](#requirements)
-- [Admin Credentials](#admin-credentials)
 - [Buils and compile](#build-compile)
 - [Native PHP Server](#native-php-server)
 - [Configure Laracom](#configure-laracom)
+- [Other Settings](#other-setting)
+- [Admin Credentials](#admin-credentials)
+- [Production installation](#production-installation)
 
 <a name="Requirements"></a>
 ### Requirements
@@ -67,6 +69,7 @@ vagrant up --provision
 
 > **OPTIONAL** You can also set the IP and name to `/etc/hosts` like this `192.168.10.10 homestead.app` so you can go to [http://homestead.app](http://homestead.app)
 
+<a name="native-php-server"></a>
 ### Native PHP server
 
 If you prefer using `php artisan` command, You just need to run 
@@ -94,6 +97,7 @@ Then you can compile your assets (currently, only admin assets are being compile
 npm run dev
 ```
 
+<a name="configure-laracom"></a>
 ### How to configure Laracom
 
 Go to Homestead directory via the terminal: 
@@ -138,7 +142,8 @@ php artisan storage:link
 
 If you run your app with `php artisan serve` connect to your installed db connection
 
-## Other settings
+<a name="other-setting"></a>
+### Other settings
 
 By default, Paypal (Express Checkout) is the default payment gateway. You must configure the credentials in the payment methods admin:
 
@@ -185,3 +190,12 @@ john@doe.com / secret (role:superadmin)
 admin@doe.com / secret (role:admin)
 clerk@doe.com / secret (role:user)
 ```
+
+<a name="production-installation"></a>
+### Production installation
+
+There are many ways to install it on your server. If you need help, you can message me for *my service*. Thanks!
+
+That should be it! 🎉  If anything else for clarification, you can email ✉️  or message me. 😄 
+
+If you find this app useful, with a kind heart, consider a [donation](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KAKJ8ZTEC6YY6&lc=US&item_name=jsdecena%2flaracom&no_note=0&cn=Add%20special%20instructions%20to%20the%20seller%3a&no_shipping=1&rm=1&return=https%3a%2f%2flaracom%2enet%2f&cancel_return=https%3a%2f%2flaracom%2enet%2f&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) or by me a [coffee](https://ko-fi.com/G2G0ADEK)
