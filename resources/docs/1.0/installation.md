@@ -174,3 +174,14 @@ SHIPPING_COST=0
 TAX_RATE=10
 DEFAULT_CURRENCY=USD
 ```
+
+<a name="admin-credentials"></a>
+### Admin dashboard login credentials:
+
+!!! Email and Passwords !!!
+
+```php
+john@doe.com / secret (role:superadmin)
+admin@doe.com / secret (role:admin)
+clerk@doe.com / secret (role:user)
+```
