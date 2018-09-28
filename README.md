@@ -8,7 +8,7 @@
 
 # Laravel FREE E-Commerce Software
 
-- See full documentation at [https://shop.laravel.com/docs]
+- See full [documentation](https://shop.laracom.net/docs)
 
 # Author
 
