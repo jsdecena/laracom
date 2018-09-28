@@ -2,7 +2,7 @@
 
 Laracom is based on Laravel application, so everything are the same with Laravel base project.
 
-##### Sign-up with [DigitalOcean](https://m.do.co/c/bce94237de96) and get **$10** discount!
+> {success} Sign-up with [Digital Ocean](https://m.do.co/c/bce94237de96) and get **$10** discount!
 
 ---
 
@@ -22,11 +22,11 @@ Laracom is based on Laravel application, so everything are the same with Laravel
   - Laravel 5.6 or higher
   - Composer
 
-> {primary} There are many ways to install a Laravel app but we suggest using Homestead.
+> {info} There are many ways to install a Laravel app but we suggest using **Homestead**.
 
 #### Homestead
 
-Install Laravel [Homestead](https://laravel.com/docs/5.7/homestead#installation-and-setup). Just follow the instruction on the site
+Install [Laravel Homestead](https://laravel.com/docs/5.7/homestead#installation-and-setup). Just follow the instruction on the site.
 
 > {primary} Protip: Create your own folder in your home directory like `Code` to segregate your coding projects
 

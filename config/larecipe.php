@@ -32,9 +32,9 @@ return [
     */
 
     'versions'      => [
-        'default'   => '1.0',
+        'default'   => '1.4.6',
         'published' => [
-            '1.0'
+            '1.4.6'
         ]
     ],
 
@@ -69,7 +69,7 @@ return [
     */
 
     'cache'       => [
-        'enabled' => false,
+        'enabled' => true,
         'period'  => 5
     ],
 
@@ -111,7 +111,7 @@ return [
 
     'repository'   => [
         'provider' => 'github',
-        'url'      => 'https://github.com/saleem-hadad/larecipe'
+        'url'      => 'https://github.com/Laracommerce/laracom'
     ],
 
     /*
