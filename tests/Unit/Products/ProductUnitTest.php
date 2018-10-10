@@ -177,8 +177,6 @@ class ProductUnitTest extends TestCase
     /** @test */
     public function it_can_search_the_product()
     {
-        $this->markTestSkipped('nor returning results???');
-
         $product = factory(Product::class)->create();
 
         $name = str_limit($product->name, 2, '');
