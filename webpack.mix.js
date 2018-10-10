@@ -60,3 +60,22 @@ mix
     .copyDirectory('resources/assets/images', 'public/images')
     .copy('resources/assets/js/scripts.js', 'public/js/scripts.js')
     .copy('resources/assets/js/custom.js', 'public/js/custom.js');
+
+/*
+|-----------------------------------------------------------------------
+| BrowserSync
+|-----------------------------------------------------------------------
+|
+| BrowserSync refreshes the Browser if file changes (js, sass, blade.php) are
+| detected.
+| Proxy specifies the location from where the app is served.
+| For more information: https://browsersync.io/docs
+*/
+mix.browserSync({
+  proxy: 'http://localhost:8000',
+  host: 'localhost',
+  open: true,
+  watchOptions: {
+    usePolling: false
+  }
+});
