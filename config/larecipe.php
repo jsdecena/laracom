@@ -69,7 +69,7 @@ return [
     */
 
     'cache'       => [
-        'enabled' => true,
+        'enabled' => env('LARECIPE_DOCS_CACHED', true),
         'period'  => 5
     ],
 
