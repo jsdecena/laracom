@@ -77,5 +77,12 @@ mix.browserSync({
   open: true,
   watchOptions: {
     usePolling: false
-  }
+  },
+  files: [
+    'app/**/*.php',
+    'resources/views/**/*.php',
+    'public/js/**/*.js',
+    'public/css/**/*.css',
+    'resources/docs/**/*.md'
+  ]
 });
