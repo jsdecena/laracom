@@ -11,7 +11,7 @@ Laracom is based on Laravel application, so everything are the same with Laravel
 - [Build and compile](#build-compile)
 - [Configure Laracom](#configure-laracom)
 - [Other Settings](#other-setting)
-- [Admin Credentials](#admin-credentials)
+- [Admin Dashboard](#admin-dashboard)
 - [Production installation](#production-installation)
 
 <a name="requirements"></a>
@@ -207,8 +207,13 @@ MAIL_USERNAME=
 MAIL_PASSWORD=
 ```
 
-<a name="admin-credentials"></a>
-### Admin dashboard login credentials:
+<a name="admin-dashboard"></a>
+### Admin dashboard
+In order to enter the administration dashboard, you have to hit the `/admin` route. 
+E.g enter http://localhost/admin or in general http://your-domain/admin in your browser.
+
+If you're not already logged in, you are redirected to the admin login screen.
+There you can use one of the following credentials to access the admin dashboard.
 
 **Email and Passwords**
 
