@@ -25,16 +25,6 @@ mix
         ],
         'public/css/admin.min.css'
     )
-    .styles(
-        [
-            'node_modules/bootstrap/dist/css/bootstrap.css',
-            'node_modules/font-awesome/css/font-awesome.css',
-            'node_modules/select2/dist/css/select2.css',
-            'resources/assets/css/drift-basic.min.css',
-            'resources/assets/css/front.css'
-        ],
-        'public/css/style.min.css'
-    )
     .scripts(
         [
             'resources/assets/js/jquery-2.2.3.min.js',
@@ -44,6 +34,16 @@ mix
             'resources/assets/admin-lte/js/app.js'
         ],
         'public/js/admin.min.js'
+    )
+    .styles(
+        [
+            'node_modules/bootstrap/dist/css/bootstrap.css',
+            'node_modules/font-awesome/css/font-awesome.css',
+            'node_modules/select2/dist/css/select2.css',
+            'resources/assets/css/drift-basic.min.css',
+            'resources/assets/css/front.css'
+        ],
+        'public/css/style.min.css'
     )
     .scripts(
         [
