@@ -142,8 +142,9 @@ class CheckoutController extends Controller
      * @param CartCheckoutRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
-     * @codeCoverageIgnore
+     * @throws \App\Shop\Addresses\Exceptions\AddressNotFoundException
      * @throws \App\Shop\Customers\Exceptions\CustomerPaymentChargingErrorException
+     * @codeCoverageIgnore
      */
     public function store(CartCheckoutRequest $request)
     {
