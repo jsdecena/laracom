@@ -3,10 +3,14 @@
 namespace App\Shop\Categories;
 
 use App\Shop\Products\Product;
+use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\Model;
+
 
 class Category extends Model
 {
+    use NodeTrait;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -15,9 +19,10 @@ class Category extends Model
     protected $fillable = [
         'name',
         'slug',
-        'description',
         'cover',
-        'status'
+        'status',
+        'parent_id',
+        'description',
     ];
 
     /**
@@ -30,15 +35,5 @@ class Category extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class);
-    }
-
-    public function parent()
-    {
-        return $this->belongsTo(static::class, 'parent_id');
-    }
-
-    public function children()
-    {
-        return $this->hasMany(static::class, 'parent_id');
     }
 }
