@@ -2,18 +2,18 @@
 
 namespace App\Shop\Addresses;
 
-use App\Shop\Customers\Customer;
 use App\Shop\Orders\Order;
+use App\Shop\Cities\City;
+use Sofa\Eloquence\Eloquence;
+use App\Shop\Countries\Country;
+use App\Shop\Customers\Customer;
 use App\Shop\Provinces\Province;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Shop\Cities\City;
-use App\Shop\Countries\Country;
-use Sofa\Eloquence\Eloquence;
 
 class Address extends Model
 {
-    use SoftDeletes, Eloquence;
+    use Eloquence, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

@@ -11,6 +11,8 @@ interface CategoryRepositoryInterface extends BaseRepositoryInterface
 {
     public function listCategories(string $order = 'id', string $sort = 'desc', $except = []) : Collection;
 
+    public function rootCategories(string $order = 'id', string $sort = 'desc', $except = []) : Collection;
+
     public function createCategory(array $params) : Category;
 
     public function updateCategory(array $params) : Category;
