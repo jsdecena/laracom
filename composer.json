@@ -11,6 +11,7 @@
         "binarytorch/larecipe": "^1.2",
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~4.0",
+        "kalnoy/nestedset": "^4.3",
         "gloudemans/shoppingcart": "^2.5",
         "guzzlehttp/guzzle": "^6.3",
         "jsdecena/baserepo": "^1.0",
