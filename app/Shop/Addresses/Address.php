@@ -100,6 +100,6 @@ class Address extends Model
      */
     public function searchAddress($term)
     {
-        return self::search($term);
+        return static::search($term);
     }
 }

@@ -55,7 +55,7 @@ class Customer extends Authenticatable
      */
     public function addresses()
     {
-        return $this->hasMany(Address::class)->where('status', 1);
+        return $this->hasMany(Address::class)->whereStatus(true);
     }
 
     /**

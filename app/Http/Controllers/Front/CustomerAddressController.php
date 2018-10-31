@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Shop\Addresses\Repositories\AddressRepository;
-use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
+use App\Http\Controllers\Controller;
 use App\Shop\Addresses\Requests\CreateAddressRequest;
 use App\Shop\Addresses\Requests\UpdateAddressRequest;
+use App\Shop\Addresses\Repositories\AddressRepository;
 use App\Shop\Cities\Repositories\Interfaces\CityRepositoryInterface;
+use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Shop\Countries\Repositories\Interfaces\CountryRepositoryInterface;
-use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Shop\Provinces\Repositories\Interfaces\ProvinceRepositoryInterface;
-use App\Http\Controllers\Controller;
 
 class CustomerAddressController extends Controller
 {
@@ -18,11 +17,6 @@ class CustomerAddressController extends Controller
      * @var AddressRepositoryInterface
      */
     private $addressRepo;
-
-    /**
-     * @var CustomerRepositoryInterface
-     */
-    private $customerRepo;
 
     /**
      * @var CountryRepositoryInterface
@@ -39,27 +33,31 @@ class CustomerAddressController extends Controller
      */
     private $provinceRepo;
 
+
+    /**
+     * @param AddressRepositoryInterface  $addressRepository 
+     * @param CountryRepositoryInterface  $countryRepository 
+     * @param CityRepositoryInterface     $cityRepository    
+     * @param ProvinceRepositoryInterface $provinceRepository
+     */
     public function __construct(
         AddressRepositoryInterface $addressRepository,
-        CustomerRepositoryInterface $customerRepository,
         CountryRepositoryInterface $countryRepository,
         CityRepositoryInterface $cityRepository,
         ProvinceRepositoryInterface $provinceRepository
     ) {
         $this->addressRepo = $addressRepository;
-        $this->customerRepo = $customerRepository;
         $this->countryRepo = $countryRepository;
-        $this->cityRepo = $cityRepository;
         $this->provinceRepo = $provinceRepository;
+        $this->cityRepo = $cityRepository;
     }
 
     /**
-     * @param int $customerId
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index($customerId)
+    public function index()
     {
-        $customer = $this->customerRepo->findCustomerById($customerId);
+        $customer = auth()->user();
 
         return view('front.customers.addresses.list', [
             'customer' => $customer,
@@ -68,16 +66,16 @@ class CustomerAddressController extends Controller
     }
 
     /**
-     * @param int $customerId
+     * @param  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create($customerId)
+    public function create()
     {
-        $countries = $this->countryRepo->listCountries();
+        $customer = auth()->user();
 
         return view('front.customers.addresses.create', [
-            'customer' => $this->customerRepo->findCustomerById($customerId),
-            'countries' => $countries,
+            'customer' => $customer,
+            'countries' => $this->countryRepo->listCountries(),
             'cities' => $this->cityRepo->listCities(),
             'provinces' => $this->provinceRepo->listProvinces()
         ]);
@@ -85,12 +83,12 @@ class CustomerAddressController extends Controller
 
     /**
      * @param CreateAddressRequest $request
-     * @param int $customerId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(CreateAddressRequest $request, $customerId)
+    public function store(CreateAddressRequest $request)
     {
-        $request['customer_id'] = $request->user()->id;
+        $request['customer_id'] = auth()->user()->id;
+
         $this->addressRepo->createAddress($request->except('_token', '_method'));
 
         return redirect()->route('accounts', ['tab' => 'address'])
@@ -98,18 +96,19 @@ class CustomerAddressController extends Controller
     }
 
     /**
-     * @param $customerId
      * @param $addressId
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($customerId, $addressId)
+    public function edit($addressId)
     {
         $countries = $this->countryRepo->listCountries();
 
+        $address = $this->addressRepo->findCustomerAddressById($addressId, auth()->user());
+
         return view('front.customers.addresses.edit', [
-            'customer' => $this->customerRepo->findCustomerById($customerId),
-            'address' => $this->addressRepo->findAddressById($addressId),
+            'customer' => auth()->user(),
+            'address' => $address,
             'countries' => $countries,
             'cities' => $this->cityRepo->listCities(),
             'provinces' => $this->provinceRepo->listProvinces()
@@ -118,33 +117,34 @@ class CustomerAddressController extends Controller
 
     /**
      * @param UpdateAddressRequest $request
-     * @param $customerId
      * @param $addressId
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateAddressRequest $request, $customerId, $addressId)
+    public function update(UpdateAddressRequest $request, $addressId)
     {
-        $address = $this->addressRepo->findAddressById($addressId);
+        $address = $this->addressRepo->findCustomerAddressById($addressId, auth()->user());
+
+        $request = $request->except('_token', '_method');
+        $request['customer_id'] = auth()->user()->id;
 
         $addressRepo = new AddressRepository($address);
-        $request['customer'] = $customerId;
-        $addressRepo->updateAddress($request->except('_token', '_method'));
+        $addressRepo->updateAddress($request);
 
         return redirect()->route('accounts', ['tab' => 'address'])
             ->with('message', 'Address update successful');
     }
 
     /**
-     * @param $customerId
      * @param $addressId
      *
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy($customerId, $addressId)
+    public function destroy($addressId)
     {
-        $address = $this->addressRepo->findAddressById($addressId);
+        $address = $this->addressRepo->findCustomerAddressById($addressId, auth()->user());
+
         $address->delete();
 
         return redirect()->route('customer.address.index', $customerId)
