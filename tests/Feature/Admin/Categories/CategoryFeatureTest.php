@@ -5,7 +5,6 @@ namespace Tests\Feature\Admin\Categories;
 use Tests\TestCase;
 use App\Shop\Categories\Category;
 use Illuminate\Http\UploadedFile;
-use App\Shop\Categories\Repositories\CategoryRepository;
 
 class CategoryFeatureTest extends TestCase
 {

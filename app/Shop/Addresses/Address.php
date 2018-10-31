@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Address extends Model
 {
-    use Eloquence, SoftDeletes;
+    use SoftDeletes, Eloquence;
 
     /**
      * The attributes that are mass assignable.
