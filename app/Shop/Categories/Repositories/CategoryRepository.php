@@ -43,6 +43,22 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     }
 
     /**
+     * List all root categories
+     * 
+     * @param  string $order 
+     * @param  string $sort  
+     * @param  array  $except
+     * @return \Illuminate\Support\Collection  
+     */
+    public function rootCategories(string $order = 'id', string $sort = 'desc', $except = []) : Collection
+    {
+        return $this->model->whereIsRoot()
+                        ->orderBy($order, $sort)
+                        ->get()
+                        ->except($except);
+    }
+
+    /**
      * Create the category
      *
      * @param array $params
