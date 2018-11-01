@@ -44,10 +44,12 @@ class CustomerAddressFeatureTest extends TestCase
         ]);
 
         $data = [
+            'status' => 1,
             'alias' => 'home',
             'address_1' => $this->faker->address,
             'city_id' => $city->id,
             'province_id' => $province->id,
+            'customer_id' => $this->customer->id,
             'country_id' => $country->id
         ];
 

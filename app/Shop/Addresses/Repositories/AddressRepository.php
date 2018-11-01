@@ -108,6 +108,29 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
     }
 
     /**
+     * Return the address
+     *
+     * @param int $id
+     *
+     * @return Address
+     * @throws AddressNotFoundException
+     */
+    public function findCustomerAddressById(int $id, Customer $customer) : Address
+    {
+        try 
+        {
+            return $customer
+                        ->addresses()
+                        ->whereId($id)
+                        ->firstOrFail();
+        } 
+        catch (ModelNotFoundException $e) 
+        {
+            throw new AddressNotFoundException('Address not found.');
+        }
+    }
+
+    /**
      * Return the customer owner of the address
      *
      * @return Customer

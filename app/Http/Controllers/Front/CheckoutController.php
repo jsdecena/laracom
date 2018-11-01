@@ -86,9 +86,7 @@ class CheckoutController extends Controller
         $this->customerRepo = $customerRepository;
         $this->productRepo = $productRepository;
         $this->orderRepo = $orderRepository;
-
-        $payPalRepo = new PayPalExpressCheckoutRepository;
-        $this->payPal = $payPalRepo;
+        $this->payPal = new PayPalExpressCheckoutRepository;
         $this->shippingRepo = $shipping;
     }
 
