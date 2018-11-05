@@ -187,7 +187,11 @@ class OrderUnitTest extends TestCase
         $this->expectsEvents(OrderCreateEvent::class);
 
         $orderRepo = new OrderRepository(new Order);
-        $orderRepo->createOrder($data);
+        $order = $orderRepo->createOrder($data);
+
+        $orderRepo = new OrderRepository($order);
+        $product = factory(Product::class)->create();
+        $orderRepo->associateProduct($product);
 
         $lists = $orderRepo->listOrders();
 

@@ -35,12 +35,12 @@ class StateFeatureTest extends TestCase
     public function it_can_list_all_the_states()
     {
         $country = factory(Country::class)->create([
-            'name' => 'United States of America',
+            'name' => $this->faker->country,
             'iso' => 'US'
         ]);
 
         $usState = factory(State::class)->create([
-            'country_id' => $country->id
+            'country_id' => $country->id,
         ]);
 
         $this->actingAs($this->customer)
