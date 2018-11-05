@@ -96,6 +96,8 @@ class PayPalExpressCheckoutRepository implements PayPalExpressCheckoutRepository
 
     /**
      * @param Request $request
+     *
+     * @throws \Exception
      */
     public function execute(Request $request)
     {
@@ -111,7 +113,7 @@ class PayPalExpressCheckoutRepository implements PayPalExpressCheckoutRepository
             $checkoutRepo->buildCheckoutItems([
                 'reference' => Uuid::uuid4()->toString(),
                 'courier_id' => 1,
-                'customer_id' => auth()->user()->id,
+                'customer_id' => $request->user()->id,
                 'address_id' => $request->input('billing_address'),
                 'order_status_id' => 1,
                 'payment' => $request->input('payment'),

@@ -46,8 +46,6 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         try {
             $order = $this->create($params);
 
-            event(new OrderCreateEvent($order));
-
             return $order;
         } catch (QueryException $e) {
             throw new OrderInvalidArgumentException($e->getMessage(), 500, $e);
@@ -121,6 +119,8 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         ]);
         $product->quantity = ($product->quantity - $quantity);
         $product->save();
+
+        event(new OrderCreateEvent($this->model));
     }
 
     /**

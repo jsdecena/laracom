@@ -110,7 +110,12 @@ class OrderUnitTest extends TestCase
         ];
 
         $orderRepo = new OrderRepository(new Order);
-        $orderRepo->createOrder($data);
+        $order = $orderRepo->createOrder($data);
+
+        $orderRepo = new OrderRepository($order);
+
+        $product = factory(Product::class)->create();
+        $orderRepo->associateProduct($product);
 
         Mail::assertSent(SendOrderToCustomerMailable::class);
         Mail::assertSent(sendEmailNotificationToAdminMailable::class);
