@@ -115,6 +115,7 @@ class BankTransferController extends Controller
             'discounts' => 0,
             'total_products' => $this->cartRepo->getSubTotal(),
             'total' => $this->cartRepo->getTotal(2, $this->shippingFee),
+            'total_shipping' => $this->shippingFee,
             'total_paid' => 0,
             'tax' => $this->cartRepo->getTax()
         ]);

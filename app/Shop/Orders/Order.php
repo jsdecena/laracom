@@ -57,7 +57,8 @@ class Order extends Model
         'total_paid',
         'invoice',
         'label_url',
-        'tracking_number'
+        'tracking_number',
+        'total_shipping'
     ];
 
     /**

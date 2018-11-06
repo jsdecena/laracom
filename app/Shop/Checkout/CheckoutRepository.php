@@ -30,6 +30,7 @@ class CheckoutRepository
             'total_products' => $data['total_products'],
             'total' => $data['total'],
             'total_paid' => $data['total_paid'],
+            'total_shipping' => $data['total_shipping'],
             'tax' => $data['tax']
         ]);
 
