@@ -15,7 +15,6 @@ class AddBrandIdInProductsTable extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->unsignedInteger('brand_id')->nullable()->after('id');
-            $table->foreign('brand_id')->references('id')->on('brands');
         });
     }
 
@@ -27,7 +26,6 @@ class AddBrandIdInProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropForeign('products_brand_id_foreign');
             $table->dropColumn(['brand_id']);
         });
     }

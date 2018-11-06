@@ -12,18 +12,18 @@
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~4.0",
         "kalnoy/nestedset": "^4.3",
-        "gloudemans/shoppingcart": "^2.5",
         "guzzlehttp/guzzle": "^6.3",
         "jsdecena/baserepo": "^1.0",
         "jsdecena/mailchimp": "~7.0",
         "jsdecena/mcpro": "1.1.*",
         "laravel/cashier": "~7.0",
-        "laravel/framework": "5.6.*",
+        "laravel/framework": "5.7.*",
         "laravel/tinker": "~1.0",
         "nicolaslopezj/searchable": "^1.10",
         "paypal/rest-api-sdk-php": "*",
         "santigarcor/laratrust": "5.0.*",
-        "shippo/shippo-php": "^1.4"
+        "shippo/shippo-php": "^1.4",
+        "gloudemans/shoppingcart": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -67,5 +67,11 @@
         "optimize-autoloader": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Laracommerce/LaravelShoppingcart"
+        }
+    ]
 }
