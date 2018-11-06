@@ -2,6 +2,9 @@
 
 namespace App\Shop\Orders\Repositories;
 
+use App\Shop\Carts\Repositories\CartRepository;
+use App\Shop\Carts\ShoppingCart;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Jsdecena\Baserepo\BaseRepository;
 use App\Shop\Employees\Employee;
 use App\Shop\Employees\Repositories\EmployeeRepository;
@@ -44,7 +47,13 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     public function createOrder(array $params) : Order
     {
         try {
+
             $order = $this->create($params);
+
+            $orderRepo = new OrderRepository($order);
+            $orderRepo->buildOrderDetails(Cart::content());
+
+            event(new OrderCreateEvent($order));
 
             return $order;
         } catch (QueryException $e) {
@@ -121,8 +130,6 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         ]);
         $product->quantity = ($product->quantity - $quantity);
         $product->save();
-
-        event(new OrderCreateEvent($this->model));
     }
 
     /**

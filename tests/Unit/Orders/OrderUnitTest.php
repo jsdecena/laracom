@@ -14,6 +14,7 @@ use App\Shop\Orders\Order;
 use App\Shop\Orders\Repositories\OrderRepository;
 use App\Shop\OrderStatuses\OrderStatus;
 use App\Shop\Products\Product;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
@@ -87,12 +88,15 @@ class OrderUnitTest extends TestCase
     /** @test */
     public function it_can_send_email_to_customer()
     {
-        // Mail::fake();
+        Mail::fake();
 
         $customer = factory(Customer::class)->create();
         $courier = factory(Courier::class)->create();
         $address = factory(Address::class)->create();
         $orderStatus = factory(OrderStatus::class)->create();
+
+        $product = factory(Product::class)->create();
+        Cart::add($product, 1);
 
         $data = [
             'reference' => $this->faker->uuid,
@@ -110,15 +114,10 @@ class OrderUnitTest extends TestCase
         ];
 
         $orderRepo = new OrderRepository(new Order);
-        $order = $orderRepo->createOrder($data);
+        $orderRepo->createOrder($data);
 
-        $orderRepo = new OrderRepository($order);
-
-        $product = factory(Product::class)->create();
-        $orderRepo->associateProduct($product);
-
-        // Mail::assertSent(SendOrderToCustomerMailable::class);
-        // Mail::assertSent(sendEmailNotificationToAdminMailable::class);
+        Mail::assertSent(SendOrderToCustomerMailable::class);
+        Mail::assertSent(sendEmailNotificationToAdminMailable::class);
     }
 
     /** @test */
