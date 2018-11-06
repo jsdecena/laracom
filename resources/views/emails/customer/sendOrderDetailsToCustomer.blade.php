@@ -34,7 +34,15 @@
                 <tr>
                     <td>{{$product->sku}}</td>
                     <td>{{$product->name}}</td>
-                    <td>{{$product->description}}</td>
+                    <td>
+                        {{$product->description}}
+                        @php($pattr = \App\Shop\ProductAttributes\ProductAttribute::find($product->pivot->product_attribute_id))
+                        @if(!is_null($pattr))<br>
+                        @foreach($pattr->attributesValues as $it)
+                            <p class="label label-primary">{{ $it->attribute->name }} : {{ $it->value }}</p>
+                        @endforeach
+                        @endif
+                    </td>
                     <td>{{$product->pivot->quantity}}</td>
                     <td class="text-right">{{config('cart.currency')}} {{number_format($product->price * $product->pivot->quantity, 2)}}</td>
                 </tr>
