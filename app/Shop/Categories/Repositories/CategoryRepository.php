@@ -70,6 +70,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     public function createCategory(array $params) : Category
     {
         try {
+
             $collection = collect($params);
             if (isset($params['name'])) {
                 $slug = str_slug($params['name']);

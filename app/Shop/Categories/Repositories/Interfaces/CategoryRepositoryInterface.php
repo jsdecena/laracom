@@ -30,4 +30,6 @@ interface CategoryRepositoryInterface extends BaseRepositoryInterface
     public function deleteFile(array $file, $disk = null) : bool;
 
     public function findCategoryBySlug(array $slug) : Category;
+
+    public function rootCategories(string $string, string $string1);
 }

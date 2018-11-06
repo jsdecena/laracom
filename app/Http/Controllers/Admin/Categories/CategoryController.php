@@ -11,8 +11,16 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    /**
+     * @var CategoryRepositoryInterface
+     */
     private $categoryRepo;
 
+    /**
+     * CategoryController constructor.
+     *
+     * @param CategoryRepositoryInterface $categoryRepository
+     */
     public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
         $this->categoryRepo = $categoryRepository;
@@ -54,8 +62,7 @@ class CategoryController extends Controller
     {
         $this->categoryRepo->createCategory($request->except('_token', '_method'));
 
-        $request->session()->flash('message', 'Category created');
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index')->with('message', 'Category created');
     }
 
     /**
