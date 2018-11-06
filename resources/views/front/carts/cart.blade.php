@@ -69,9 +69,9 @@
                                     </td>
                                     <td>
                                         <h3>{{ $cartItem->name }}</h3>
-                                        @if(isset($cartItem->options))
-                                            @foreach($cartItem->options as $key => $option)
-                                                <span class="label label-primary">{{ $key }} : {{ $option }}</span>
+                                        @if($cartItem->options->has('combination'))
+                                            @foreach($cartItem->options->combination as $option)
+                                                <small class="label label-primary">{{$option['value']}}</small>
                                             @endforeach
                                         @endif
                                         <div class="product-description">

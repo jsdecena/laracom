@@ -50,12 +50,15 @@
                     </a>
                 </td>
                 <td>
-                    <h3>{{ $cartItem->name }}</h3>
-                    @if(isset($cartItem->options))
-                        @foreach($cartItem->options as $key => $option)
-                            <span class="label label-primary">{{ $key }} : {{ $option }}</span>
-                        @endforeach
-                    @endif
+                    <p>
+                        <strong>{{ $cartItem->name }}</strong> <br />
+                        @if($cartItem->options->has('combination'))
+                            @foreach($cartItem->options->combination as $option)
+                                <small class="label label-primary">{{$option['value']}}</small>
+                            @endforeach
+                        @endif
+                    </p>
+                    <hr>
                     <div class="product-description">
                         {!! $cartItem->product->description !!}
                     </div>

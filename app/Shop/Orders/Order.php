@@ -78,7 +78,8 @@ class Order extends Model
                         'product_name',
                         'product_sku',
                         'product_description',
-                        'product_price'
+                        'product_price',
+                        'product_attribute_id'
                     ]);
     }
 

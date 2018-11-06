@@ -19,7 +19,7 @@ interface OrderRepositoryInterface extends BaseRepositoryInterface
 
     public function findProducts(Order $order) : Collection;
 
-    public function associateProduct(Product $product, int $quantity);
+    public function associateProduct(Product $product, int $quantity = 1, array $data = []);
 
     public function searchOrder(string $text) : Collection;
 

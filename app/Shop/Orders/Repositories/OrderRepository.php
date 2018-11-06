@@ -107,15 +107,17 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     /**
      * @param Product $product
      * @param int $quantity
+     * @param array $data
      */
-    public function associateProduct(Product $product, int $quantity = 1)
+    public function associateProduct(Product $product, int $quantity = 1, array $data = [])
     {
         $this->model->products()->attach($product, [
             'quantity' => $quantity,
             'product_name' => $product->name,
             'product_sku' => $product->sku,
             'product_description' => $product->description,
-            'product_price' => $product->price
+            'product_price' => $product->price,
+            'product_attribute_id' => isset($data['product_attribute_id']) ? $data['product_attribute_id']: null,
         ]);
         $product->quantity = ($product->quantity - $quantity);
         $product->save();
@@ -176,6 +178,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
             $product->description = $product->pivot->product_description;
             $product->price = $product->pivot->product_price;
             $product->quantity = $product->pivot->quantity;
+            $product->product_attribute_id = $product->pivot->product_attribute_id;
             return $product;
         });
     }
@@ -188,7 +191,13 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         $items->each(function ($item) {
             $productRepo = new ProductRepository(new Product);
             $product = $productRepo->find($item->id);
-            $this->associateProduct($product, $item->qty);
+            if ($item->options->has('product_attribute_id')) {
+                $this->associateProduct($product, $item->qty, [
+                    'product_attribute_id' => $item->options->product_attribute_id
+                ]);
+            } else {
+                $this->associateProduct($product, $item->qty);
+            }
         });
     }
 }

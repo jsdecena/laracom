@@ -37,7 +37,7 @@ class CheckoutUnitTest extends TestCase
         $cartRepo->saveCart($this->customer);
 
         $checkoutRepo = new CheckoutRepository;
-        $checkoutRepo->buildCheckoutItems($data, $cartRepo->getCartItems());
+        $checkoutRepo->buildCheckoutItems($data);
 
         $orderRepo = new OrderRepository(new Order);
         $orders = $orderRepo->listOrders();

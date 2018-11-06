@@ -98,12 +98,17 @@ class CartController extends Controller
             }
         }
 
+        $options = [];
         if ($request->has('productAttribute')) {
+
             $attr = $this->productAttributeRepo->findProductAttributeById($request->input('productAttribute'));
             $product->price = $attr->price;
+
+            $options['product_attribute_id'] = $request->input('productAttribute');
+            $options['combination'] = $attr->attributesValues->toArray();
         }
 
-        $this->cartRepo->addToCart($product, $request->input('quantity'));
+        $this->cartRepo->addToCart($product, $request->input('quantity'), $options);
 
         return redirect()->route('cart.index')
             ->with('message', 'Add to cart successful');

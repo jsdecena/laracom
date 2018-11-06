@@ -17,9 +17,9 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li class="header">HOME</li>
-            <li><a href="{{ route('admin.dashboard') }}"> <i class="fa fa-home"></i> Dashboard</a></li>
+            <li><a href="{{ route('admin.dashboard') }}"> <i class="fa fa-home"></i> Home</a></li>
             <li class="header">SELL</li>
-            <li class="treeview @if(request()->segment(2) == 'products' || request()->segment(2) == 'categories' || request()->segment(2) == 'attributes' || request()->segment(2) == 'brands') active @endif">
+            <li class="treeview @if(request()->segment(2) == 'products' || request()->segment(2) == 'attributes' || request()->segment(2) == 'brands') active @endif">
                 <a href="#">
                     <i class="fa fa-gift"></i> <span>Products</span>
                     <span class="pull-right-container">
@@ -29,18 +29,6 @@
                 <ul class="treeview-menu">
                     @if($user->hasPermission('view-product'))<li><a href="{{ route('admin.products.index') }}"><i class="fa fa-circle-o"></i> List products</a></li>@endif
                     @if($user->hasPermission('create-product'))<li><a href="{{ route('admin.products.create') }}"><i class="fa fa-plus"></i> Create product</a></li>@endif
-                    <li class="@if(request()->segment(2) == 'categories') active @endif">
-                    <a href="#">
-                        <i class="fa fa-folder"></i> <span>Categories</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ route('admin.categories.index') }}"><i class="fa fa-circle-o"></i> List categories</a></li>
-                        <li><a href="{{ route('admin.categories.create') }}"><i class="fa fa-plus"></i> Create category</a></li>
-                    </ul>
-                    </li>
                     <li class="@if(request()->segment(2) == 'attributes') active @endif">
                     <a href="#">
                         <i class="fa fa-gear"></i> <span>Attributes</span>
@@ -65,6 +53,18 @@
                         <li><a href="{{ route('admin.brands.create') }}"><i class="fa fa-plus"></i> Create brand</a></li>
                     </ul>
                     </li>
+                </ul>
+            </li>
+            <li class="treeview @if(request()->segment(2) == 'categories') active @endif">
+                <a href="#">
+                    <i class="fa fa-folder"></i> <span>Categories</span>
+                    <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ route('admin.categories.index') }}"><i class="fa fa-circle-o"></i> List categories</a></li>
+                    <li><a href="{{ route('admin.categories.create') }}"><i class="fa fa-plus"></i> Create category</a></li>
                 </ul>
             </li>
             <li class="treeview @if(request()->segment(2) == 'customers' || request()->segment(2) == 'addresses') active @endif">

@@ -16,7 +16,7 @@ class DashboardFeatureTest extends TestCase
             ->actingAs($this->employee, 'employee')
             ->get(route('admin.dashboard'))
             ->assertStatus(200)
-            ->assertSee('Dashboard')
+            ->assertSee('Home')
             ->assertSee('List products')
             ->assertSee('Create product')
             ->assertSee('List categories')
@@ -38,6 +38,6 @@ class DashboardFeatureTest extends TestCase
             ->actingAs($employee, 'employee')
             ->get(route('admin.dashboard'))
             ->assertStatus(200)
-            ->assertSee('Dashboard');
+            ->assertSee('Home');
     }
 }
