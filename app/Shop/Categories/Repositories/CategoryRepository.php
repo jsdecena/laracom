@@ -115,12 +115,20 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         }
 
         $merge = $collection->merge(compact('slug', 'cover'));
-        if (isset($params['parent'])) {
+
+        // If parent category is not set on update
+        // just make current category as root
+        // else we need to find the parent
+        // and associate it as child
+        if ((int)$params['parent'] == 0) {
+            $category->saveAsRoot();
+        } else {
             $parent = $this->findCategoryById($params['parent']);
             $category->parent()->associate($parent);
         }
 
         $category->update($merge->all());
+        
         return $category;
     }
 
