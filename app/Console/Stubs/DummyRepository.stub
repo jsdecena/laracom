@@ -1,0 +1,92 @@
+<?php
+
+namespace App\Shop\Dummies\Repositories;
+
+use App\Shop\Dummies\Dummy;
+use Illuminate\Support\Collection;
+use Jsdecena\Baserepo\BaseRepository;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Shop\Dummies\Repositories\Interfaces\DummyRepositoryInterface;
+
+class DummyRepository extends BaseRepository implements DummyRepositoryInterface
+{
+	/**
+     * DummyRepository constructor.
+     * 
+     * @param Dummy $dummy
+     */
+    public function __construct(Dummy $dummy)
+    {
+        parent::__construct($dummy);
+        $this->model = $dummy;
+    }
+
+    /**
+     * List all the Dummies
+     *
+     * @param string $order
+     * @param string $sort
+     * @param array $except
+     * @return \Illuminate\Support\Collection
+     */
+    public function listDummies(string $order = 'id', string $sort = 'desc', $except = []) : Collection
+    {
+        return $this->model->orderBy($order, $sort)->get()->except($except);
+    }
+
+    /**
+     * Create Dummy
+     *
+     * @param array $params
+     *
+     * @return Dummy
+     * @throws InvalidArgumentException
+     */
+    public function createDummy(array $params) : Dummy
+    {
+        try {
+        	return Dummy::create($params);
+        } catch (QueryException $e) {
+            throw new InvalidArgumentException($e->getMessage());
+        }
+    }
+
+    /**
+     * Update the dummy
+     *
+     * @param array $params
+     * @return Dummy
+     */
+    public function updateDummy(array $params) : Dummy
+    {
+        $dummy = $this->findDummyById($this->model->id);
+        $dummy->update($params);
+        return $dummy;
+    }
+
+    /**
+     * @param int $id
+     * 
+     * @return Dummy
+     * @throws ModelNotFoundException
+     */
+    public function findDummyById(int $id) : Dummy
+    {
+        try {
+            return $this->findOneOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            throw new ModelNotFoundException($e->getMessage());
+        }
+    }
+
+    /**
+     * Delete a dummy
+     *
+     * @return bool
+     */
+    public function deleteDummy() : bool
+    {
+        return $this->model->delete();
+    }
+}
