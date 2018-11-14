@@ -11,6 +11,7 @@
                     <div class="form-group">
                         <label for="parent">Parent Category</label>
                         <select name="parent" id="parent" class="form-control select2">
+                            <option value="">-- Select --</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
