@@ -7,6 +7,7 @@ class USCitiesTableSeeder extends Seeder
 {
     public function run()
     {
+        DB::beginTransaction();
         DB::unprepared("
 INSERT INTO `cities` VALUES ('Aaronsburg', 'PA', null);
 INSERT INTO `cities` VALUES ('Abbeville', 'AL', null);
@@ -29745,7 +29746,8 @@ INSERT INTO `cities` VALUES ('Zuni', 'NM', null);
 INSERT INTO `cities` VALUES ('Zuni', 'VA', null);
 INSERT INTO `cities` VALUES ('Zurich', 'MT', null);
 INSERT INTO `cities` VALUES ('Zwingle', 'IA', null);
-INSERT INTO `cities` VALUES ('Zwolle', 'LA', null);        
+INSERT INTO `cities` VALUES ('Zwolle', 'LA', null);
         ");
+        DB::commit();
     }
 }
