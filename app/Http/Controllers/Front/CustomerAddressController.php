@@ -100,7 +100,7 @@ class CustomerAddressController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($addressId)
+    public function edit($customerId, $addressId)
     {
         $countries = $this->countryRepo->listCountries();
 
@@ -141,7 +141,7 @@ class CustomerAddressController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy($addressId)
+    public function destroy($customerId, $addressId)
     {
         $address = $this->addressRepo->findCustomerAddressById($addressId, auth()->user());
 
