@@ -1,4 +1,4 @@
-<ul class="list-unstyled">
+<ul class="checkbox-list">
     @foreach($categories as $category)
         <li>
             <div class="checkbox">
@@ -13,7 +13,7 @@
             </div>
         </li>
         @if($category->children->count() >= 1)
-            @include('admin.shared.category-children', ['categories' => $category->children, 'selectedIds' => $selectedIds])
+            @include('admin.shared.categories', ['categories' => $category->children, 'selectedIds' => $selectedIds])
         @endif
     @endforeach
 </ul>

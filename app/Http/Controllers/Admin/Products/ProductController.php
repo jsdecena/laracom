@@ -204,9 +204,8 @@ class ProductController extends Controller
             return redirect()->route('admin.products.edit', [$product->id, 'combination' => 1]);
         }
 
-        $categories = $this->categoryRepo->listCategories('name', 'asc')
-            ->where('parent_id', 1);
-
+        $categories = $this->categoryRepo->listCategories('name', 'asc')->toTree();
+	
         return view('admin.products.edit', [
             'product' => $product,
             'images' => $product->images()->get(['src']),
