@@ -22,3 +22,13 @@ table.dataTable.no-footer,
 table.dataTable thead th {
     border-bottom: none;
 }
+
+.checkbox-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.checkbox-list ul {
+    list-style-type: none;
+    padding-left: 25px;
+}
