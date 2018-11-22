@@ -93,7 +93,7 @@ class OrderController extends Controller
     {
         $order = $this->orderRepo->findOrderById($orderId);
         $order->courier = $this->courierRepo->findCourierById($order->courier_id);
-        $order->address = $this->addressRepo->findAddressById($order->address_id);
+        $order->address = $this->addressRepo->findAddressById($order->address_id, true);
 
         $orderRepo = new OrderRepository($order);
 
@@ -118,7 +118,7 @@ class OrderController extends Controller
     {
         $order = $this->orderRepo->findOrderById($orderId);
         $order->courier = $this->courierRepo->findCourierById($order->courier_id);
-        $order->address = $this->addressRepo->findAddressById($order->address_id);
+        $order->address = $this->addressRepo->findAddressById($order->address_id, true);
 
         $orderRepo = new OrderRepository($order);
 
