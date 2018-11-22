@@ -94,13 +94,17 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
      * Return the address
      *
      * @param int $id
+     * @param bool $withSoftDeletes
      *
      * @return Address
      * @throws AddressNotFoundException
      */
-    public function findAddressById(int $id) : Address
+    public function findAddressById(int $id, bool $withSoftDeletes = false) : Address
     {
         try {
+            if(isset($withSoftDeletes)) {
+                return Address::withTrashed()->where('id', $id)->firstOrFail();
+            }
             return $this->findOneOrFail($id);
         } catch (ModelNotFoundException $e) {
             throw new AddressNotFoundException('Address not found.');
