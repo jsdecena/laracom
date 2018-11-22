@@ -22,7 +22,7 @@ interface AddressRepositoryInterface extends BaseRepositoryInterface
 
     public function listAddress(string $order = 'id', string $sort = 'desc', array $columns = ['*']) : Collection;
 
-    public function findAddressById(int $id) : Address;
+    public function findAddressById(int $id, bool $withSoftDeletes) : Address;
 
     public function findCustomer() : Customer;
 
