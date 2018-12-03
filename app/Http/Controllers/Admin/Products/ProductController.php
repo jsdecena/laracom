@@ -152,11 +152,6 @@ class ProductController extends Controller
             $productRepo->saveProductImages(collect($request->file('image')));
         }
 
-        $productRepo = new ProductRepository($product);
-        if ($request->hasFile('image')) {
-            $productRepo->saveProductImages(collect($request->file('image')));
-        }
-
         if ($request->has('categories')) {
             $productRepo->syncCategories($request->input('categories'));
         } else {
