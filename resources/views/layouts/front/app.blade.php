@@ -57,7 +57,7 @@
     </p>
 </noscript>
 <section>
-    <div class="row hidden-xs">
+    <div class="hidden-xs">
         <div class="container">
             <div class="clearfix"></div>
             <div class="pull-right">
