@@ -38,6 +38,32 @@ class GlobalTemplateServiceProvider extends ServiceProvider
             $view->with('cartCount', $this->getCartCount());
         });
 
+        /**
+         * breadcumb
+         */
+        view()->composer([
+            "layouts.admin.app"
+        ], function ($view) {
+            $breadcumb = [
+                ["name" => "Dashboard", "url" => route("admin.dashboard"), "icon" => "fa fa-dashboard"],
+            ];
+            $paths = request()->segments();
+            if (count($paths) > 1) {
+                foreach ($paths as $key => $pah) {
+                    if ($key == 1)
+                        $breadcumb[] = ["name" => ucfirst($pah), "url" => request()->getBaseUrl() . "/" . $paths[0] . "/" . $paths[$key], 'icon' => config("module.admin." . $pah . ".icon")];
+                    elseif ($key == 2)
+                        $breadcumb[] = ["name" => ucfirst($pah), "url" => request()->getBaseUrl() . "/" . $paths[0] . "/" . $paths[1] . "/" . $paths[$key], 'icon' => config("module.admin." . $pah . ".icon")];
+                }
+            }
+            $view->with(
+                [
+                    "breadcumbs" => $breadcumb
+                ]
+            );
+        });
+
+
         view()->composer(['layouts.front.category-nav'], function ($view) {
             $view->with('categories', $this->getCategories());
         });
