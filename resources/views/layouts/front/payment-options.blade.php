@@ -5,5 +5,7 @@
         @include('front.payments.paypal')
     @elseif($payment['name'] == config('bank-transfer.name'))
         @include('front.payments.bank-transfer')
+    @elseif($payment['name'] == config('cash-on-delivery.name'))
+        @include('front.payments.cash-on-delivery')
     @endif
 @endif
