@@ -4,7 +4,7 @@ namespace App\Shop\Carts\Requests;
 
 use App\Shop\Base\BaseFormRequest;
 
-class AddToCartRequest extends BaseFormRequest
+class UpdateCartRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,7 +14,6 @@ class AddToCartRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'product' => ['required', 'integer'],
             'quantity' => ['required', 'integer']
         ];
     }
