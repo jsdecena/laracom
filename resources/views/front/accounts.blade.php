@@ -1,13 +1,5 @@
 @extends('layouts.front.app')
-@php
-// dd ($orders); die;
-  // foreach ($orders as $ord) {
-  //   echo 'order n. ', $ord['id'];
-  //   foreach ($ord['products'] as $prod) {
-  //     echo 'prod id  ', $prod['id'], ' ';
-  //   }
-  // }
-@endphp
+
 @section('content')
     <!-- Main content -->
     <section class="container content">
@@ -82,7 +74,7 @@
                                                                 </tbody>
                                                             </table>
                                                             <hr>
-                                                            Order details: {{$order['id']}}
+                                                            <p>Order details:</p>
                                                             <table class="table">
                                                               <thead>
                                                                   <th>Name</th>
@@ -93,30 +85,14 @@
                                                               <tbody>
                                                               @foreach ($order['products'] as $product)
                                                                   <tr>
-                                                                      {{-- <td><a href="{{ route('front.get.product', str_slug($product['slug'])) }}"></i>{{$product['name']}}</a></td> --}}
-                                                                      {{-- <td><a data-toggle="modal" href="#myModal_{{ $product['id'] }}"> {{ $product['name'] }}</a></td> --}}
-                                                                      {{-- <td><a href = "#"> {{$product['name']}}</a></td> --}}
                                                                       <td>{{$product['name']}}</td>
                                                                       <td>{{$product['pivot']['quantity']}}</td>
                                                                       <td>{{$product['price']}}</td>
-                                                                      @php
-                                                                      $aaa = $product['cover'];
-                                                                      dd ($aaa);
-                                                                      exit;
-                                                                      @endphp
-                                                                      {{-- <td><img src="{{ asset("storage/$product['cover']") }}" alt="{{ $product['name'] }}" class="img-bordered img-responsive"></td> --}}
-                                                                          {{-- <img src="{{ asset("storage/$product->cover") }}" alt="{{ $product->name }}" class="img-bordered img-responsive"> --}}
+                                                                      <td><img src="{{ asset("storage/".$product['cover']) }}" width=50px height=50px alt="{{ $product['name'] }}" class="img-orderDetail"></td>
                                                                   </tr>
                                                               @endforeach
                                                               </tbody>
                                                             </table>
-                                                            <div class="modal fade" id="myModal_{{ $product['id'] }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                                                <div class="modal-dialog" role="document">
-                                                                    <div class="modal-content">
-                                                                        <p> Ciao </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
