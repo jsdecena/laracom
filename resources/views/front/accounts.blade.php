@@ -73,6 +73,26 @@
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
+                                                            <hr>
+                                                            <p>Order details:</p>
+                                                            <table class="table">
+                                                              <thead>
+                                                                  <th>Name</th>
+                                                                  <th>Quantity</th>
+                                                                  <th>Price</th>
+                                                                  <th>Cover</th>
+                                                              </thead>
+                                                              <tbody>
+                                                              @foreach ($order['products'] as $product)
+                                                                  <tr>
+                                                                      <td>{{$product['name']}}</td>
+                                                                      <td>{{$product['pivot']['quantity']}}</td>
+                                                                      <td>{{$product['price']}}</td>
+                                                                      <td><img src="{{ asset("storage/".$product['cover']) }}" width=50px height=50px alt="{{ $product['name'] }}" class="img-orderDetail"></td>
+                                                                  </tr>
+                                                              @endforeach
+                                                              </tbody>
+                                                            </table>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -48,6 +48,8 @@ class AccountsController extends Controller
             return $this->transformOrder($order);
         });
 
+        $orders->load('products');
+
         $addresses = $customerRepo->findAddresses();
 
         return view('front.accounts', [
