@@ -35,9 +35,9 @@ class CustomerAddressController extends Controller
 
 
     /**
-     * @param AddressRepositoryInterface  $addressRepository 
-     * @param CountryRepositoryInterface  $countryRepository 
-     * @param CityRepositoryInterface     $cityRepository    
+     * @param AddressRepositoryInterface  $addressRepository
+     * @param CountryRepositoryInterface  $countryRepository
+     * @param CityRepositoryInterface     $cityRepository
      * @param ProvinceRepositoryInterface $provinceRepository
      */
     public function __construct(
@@ -121,7 +121,7 @@ class CustomerAddressController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateAddressRequest $request, $addressId)
+    public function update(UpdateAddressRequest $request, $customerId, $addressId)
     {
         $address = $this->addressRepo->findCustomerAddressById($addressId, auth()->user());
 
