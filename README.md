@@ -10,7 +10,7 @@
 
 - See full [documentation](https://shop.laracom.net/docs)
 
-## Setup
+# Setup
 * `php artisan migrate --seed`
 * `npm run dev`
 * `php artisan storage:link`
@@ -18,3 +18,5 @@
 # Author
 
 [Jeff Simons Decena](https://jsdecena.me)
+
+Sign-up with [Digital Ocean and get $10 discount](https://m.do.co/c/bce94237de96)!
