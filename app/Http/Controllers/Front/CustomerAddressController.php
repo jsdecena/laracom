@@ -145,7 +145,8 @@ class CustomerAddressController extends Controller
     {
         $address = $this->addressRepo->findCustomerAddressById($addressId, auth()->user());
 
-        $address->delete();
+        $address->status=0;
+        $address->save();
 
         return redirect()->route('customer.address.index', $customerId)
             ->with('message', 'Address delete successful');
