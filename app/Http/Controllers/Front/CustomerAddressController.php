@@ -57,12 +57,8 @@ class CustomerAddressController extends Controller
      */
     public function index()
     {
-        $customer = auth()->user();
 
-        return view('front.customers.addresses.list', [
-            'customer' => $customer,
-            'addresses' => $customer->addresses
-        ]);
+        return redirect()->route('accounts', ['tab' => 'address']);
     }
 
     /**
@@ -153,7 +149,7 @@ class CustomerAddressController extends Controller
              $address->delete();
        }
 
-        return redirect()->route('customer.address.index', $customerId)
+        return redirect()->route('accounts', ['tab' => 'address'])
             ->with('message', 'Address delete successful');
     }
 }
