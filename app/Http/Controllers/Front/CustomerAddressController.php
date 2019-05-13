@@ -53,7 +53,7 @@ class CustomerAddressController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
@@ -141,13 +141,13 @@ class CustomerAddressController extends Controller
     {
         $address = $this->addressRepo->findCustomerAddressById($addressId, auth()->user());
 
-       if ($address->orders()->exists()) {
+        if ($address->orders()->exists()) {
              $address->status=0;
              $address->save();
-       }
-       else {
+        }
+        else {
              $address->delete();
-       }
+        }
 
         return redirect()->route('accounts', ['tab' => 'address'])
             ->with('message', 'Address delete successful');

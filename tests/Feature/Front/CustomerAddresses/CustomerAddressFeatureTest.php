@@ -22,12 +22,8 @@ class CustomerAddressFeatureTest extends TestCase
         $this
             ->actingAs($this->customer, 'web')
             ->get(route('customer.address.index', $this->customer->id))
-            ->assertStatus(200)
-            ->assertSee('Alias')
-            ->assertSee('Address 1')
-            ->assertSee('Country')
-            ->assertSee('City')
-            ->assertSee('Zip Code');
+            ->assertStatus(302)
+            ->assertRedirect(route('accounts', ['tab' => 'address']));
     }
 
     /** @test */
