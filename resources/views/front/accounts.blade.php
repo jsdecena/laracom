@@ -139,7 +139,7 @@
                                         <tr>
                                             <td>{{$address->alias}}</td>
                                             <td>{{$address->address_1}}</td>
-                                            <td>{{$address->address_1}}</td>
+                                            <td>{{$address->address_2}}</td>
                                             <td>{{$address->city}}</td>
                                             @if(isset($address->province))
                                             <td>{{$address->province->name}}</td>

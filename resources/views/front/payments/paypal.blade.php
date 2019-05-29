@@ -24,8 +24,13 @@
 </tr>
 <script type="text/javascript">
     $(document).ready(function () {
-        let billingAddressId = $('input[name="billing_address"]').val();
+        let billingAddressId = $('input[name="billing_address"]:checked').val();
         $('.billing_address').val(billingAddressId);
+
+        $('input[name="billing_address"]').on('change', function () {
+          billingAddressId = $('input[name="billing_address"]:checked').val();
+          $('.billing_address').val(billingAddressId);
+        });
 
         let courierRadioBtn = $('input[name="rate"]');
         courierRadioBtn.click(function () {
