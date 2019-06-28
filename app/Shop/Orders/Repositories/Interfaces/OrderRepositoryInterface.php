@@ -3,6 +3,8 @@
 namespace App\Shop\Orders\Repositories\Interfaces;
 
 use Jsdecena\Baserepo\BaseRepositoryInterface;
+use App\Shop\Addresses\Address;
+use App\Shop\Couriers\Courier;
 use App\Shop\Orders\Order;
 use App\Shop\Products\Product;
 use Illuminate\Support\Collection;
@@ -26,4 +28,8 @@ interface OrderRepositoryInterface extends BaseRepositoryInterface
     public function listOrderedProducts() : Collection;
 
     public function buildOrderDetails(Collection $items);
+
+    public function getAddress() : Address;
+
+    public function getCourier() : Courier;
 }
