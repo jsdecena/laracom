@@ -13,6 +13,8 @@ use App\Mail\sendEmailNotificationToAdminMailable;
 use App\Mail\SendOrderToCustomerMailable;
 use App\Shop\Orders\Exceptions\OrderInvalidArgumentException;
 use App\Shop\Orders\Exceptions\OrderNotFoundException;
+use App\Shop\Addresses\Address;
+use App\Shop\Couriers\Courier;
 use App\Shop\Orders\Order;
 use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Shop\Orders\Transformers\OrderTransformable;
@@ -206,5 +208,21 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
                 $this->associateProduct($product, $item->qty);
             }
         });
+    }
+
+    /**
+     * @return Collection $addresses
+     */
+    public function getAddresses() : Collection
+    {
+        return $this->model->address()->get();
+    }
+
+    /**
+     * @return Collection $couriers
+     */
+    public function getCouriers() : Collection
+    {
+        return $this->model->courier()->get();
     }
 }
