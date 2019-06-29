@@ -26,4 +26,8 @@ interface OrderRepositoryInterface extends BaseRepositoryInterface
     public function listOrderedProducts() : Collection;
 
     public function buildOrderDetails(Collection $items);
+
+    public function getAddresses() : Collection;
+
+    public function getCouriers() : Collection;
 }

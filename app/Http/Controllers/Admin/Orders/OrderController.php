@@ -35,11 +35,6 @@ class OrderController extends Controller
     private $courierRepo;
 
     /**
-     * @var AddressRepositoryInterface
-     */
-    private $addressRepo;
-
-    /**
      * @var CustomerRepositoryInterface
      */
     private $customerRepo;
@@ -52,13 +47,11 @@ class OrderController extends Controller
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         CourierRepositoryInterface $courierRepository,
-        AddressRepositoryInterface $addressRepository,
         CustomerRepositoryInterface $customerRepository,
         OrderStatusRepositoryInterface $orderStatusRepository
     ) {
         $this->orderRepo = $orderRepository;
         $this->courierRepo = $courierRepository;
-        $this->addressRepo = $addressRepository;
         $this->customerRepo = $customerRepository;
         $this->orderStatusRepo = $orderStatusRepository;
 
@@ -92,11 +85,10 @@ class OrderController extends Controller
     public function show($orderId)
     {
         $order = $this->orderRepo->findOrderById($orderId);
-        $order->courier = $this->courierRepo->findCourierById($order->courier_id);
-        $order->address = $this->addressRepo->findAddressById($order->address_id);
 
         $orderRepo = new OrderRepository($order);
-
+        $order->courier = $orderRepo->getCouriers()->first();
+        $order->address = $orderRepo->getAddresses()->first();
         $items = $orderRepo->listOrderedProducts();
 
         return view('admin.orders.show', [
@@ -117,11 +109,10 @@ class OrderController extends Controller
     public function edit($orderId)
     {
         $order = $this->orderRepo->findOrderById($orderId);
-        $order->courier = $this->courierRepo->findCourierById($order->courier_id);
-        $order->address = $this->addressRepo->findAddressById($order->address_id);
 
         $orderRepo = new OrderRepository($order);
-
+        $order->courier = $orderRepo->getCouriers()->first();
+        $order->address = $orderRepo->getAddresses()->first();
         $items = $orderRepo->listOrderedProducts();
 
         return view('admin.orders.edit', [
