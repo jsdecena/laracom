@@ -144,4 +144,9 @@ class Product extends Model implements Buyable
     {
         return $this->belongsTo(Brand::class);
     }
+
+    public function hasAvailableQuantity($quantity = 1)
+    {
+        return $this->quantity >= $quantity;
+    }
 }
