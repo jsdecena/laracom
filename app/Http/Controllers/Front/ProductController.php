@@ -62,8 +62,7 @@ class ProductController extends Controller
             'product',
             'images',
             'productAttributes',
-            'category',
-            'combos'
+            'category'
         ));
     }
 }
