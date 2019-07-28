@@ -121,7 +121,7 @@
                                         </thead>
                                         <tbody>
                                         @foreach($payments as $payment)
-                                            @include('layouts.front.payment-options', compact('payment', 'total', 'shipment'))
+                                            @include('layouts.front.payment-options', compact('payment', 'total', 'shipment_object_id'))
                                         @endforeach
                                         </tbody>
                                     </table>
