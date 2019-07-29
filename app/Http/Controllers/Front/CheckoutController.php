@@ -101,10 +101,6 @@ class CheckoutController extends Controller
     {
         $products = $this->cartRepo->getCartItems();
 
-        /*foreach ($products as $product) {
-            $product->attribute()
-        }*/
-
         $customer = $request->user();
         $rates = null;
         $shipment_object_id = null;
