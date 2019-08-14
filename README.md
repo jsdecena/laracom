@@ -16,10 +16,12 @@
 * `npm run dev`
 * `php artisan storage:link`
 
-# Author
+# Contributors
+[Jeff Simons Decena](https://jsdecena.me) - Author
 
-[Jeff Simons Decena](https://jsdecena.me)
+[Contributors](https://github.com/Laracommerce/laracom/graphs/contributors)
 
+# Get discount on Digital Ocean
 Sign-up with [Digital Ocean and get $10 discount](https://m.do.co/c/bce94237de96)!
 
 
