@@ -69,7 +69,8 @@
                             </div><hr>
                         @endif
                         <div class="form-group">
-                            <input type="text"
+                            <input type="number"
+                                   min="1"
                                    class="form-control"
                                    name="quantity"
                                    id="quantity"

@@ -11,7 +11,7 @@
                                         <li>
                                             <form action="{{ route('cart.store') }}" class="form-inline" method="post">
                                                 {{ csrf_field() }}
-                                                <input type="hidden" name="quantity" value="1" />
+                                                <input type="number" name="quantity" min="1" value="1" />
                                                 <input type="hidden" name="product" value="{{ $product->id }}">
                                                 <button id="add-to-cart-btn" type="submit" class="btn btn-warning" data-toggle="modal" data-target="#cart-modal"> <i class="fa fa-cart-plus"></i> Add to cart</button>
                                             </form>
