@@ -1,4 +1,14 @@
-### updated the readme.md (HEAD -> feature/docker)
+### removed app.conf from docker folder (this is only for appache approach) (HEAD -> feature/docker)
+>Wed, 18 Dec 2019 17:14:03 +0400
+
+>Author: Fabio William Conceição (fabio@viame.ae)
+
+>Commiter: Fabio William Conceição (fabio@viame.ae)
+
+
+
+
+### updated the readme.md (origin/feature/docker)
 >Wed, 18 Dec 2019 16:52:52 +0400
 
 >Author: Fabio William Conceição (fabio@viame.ae)
@@ -8,7 +18,7 @@
 
 
 
-### created pre commit file (origin/feature/docker)
+### created pre commit file
 >Wed, 18 Dec 2019 16:50:23 +0400
 
 >Author: Fabio William Conceição (fabio@viame.ae)
