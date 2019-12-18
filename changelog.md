@@ -1,4 +1,24 @@
-### added changelog (HEAD -> feature/docker, origin/feature/docker)
+### updated the readme.md (HEAD -> feature/docker)
+>Wed, 18 Dec 2019 16:52:52 +0400
+
+>Author: Fabio William Conceição (fabio@viame.ae)
+
+>Commiter: Fabio William Conceição (fabio@viame.ae)
+
+
+
+
+### created pre commit file (origin/feature/docker)
+>Wed, 18 Dec 2019 16:50:23 +0400
+
+>Author: Fabio William Conceição (fabio@viame.ae)
+
+>Commiter: Fabio William Conceição (fabio@viame.ae)
+
+
+
+
+### added changelog
 >Wed, 18 Dec 2019 16:49:09 +0400
 
 >Author: Fabio William Conceição (fabio@viame.ae)
