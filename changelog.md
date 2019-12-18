@@ -1,4 +1,14 @@
-### created changelog file (HEAD -> feature/docker)
+### added changelog (HEAD -> feature/docker)
+>Wed, 18 Dec 2019 16:49:09 +0400
+
+>Author: Fabio William Conceição (fabio@viame.ae)
+
+>Commiter: Fabio William Conceição (fabio@viame.ae)
+
+
+
+
+### created changelog file
 >Wed, 18 Dec 2019 16:48:30 +0400
 
 >Author: Fabio William Conceição (fabio@viame.ae)
