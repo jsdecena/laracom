@@ -1,0 +1,58 @@
+version: '3.4'
+
+services:
+  web:
+    container_name: web_laracom
+    restart: always
+    image: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/code
+      - ./host.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/my-site.com.crt:/etc/nginx/my-site.com.crt # SSL certificate
+      - ./docker/nginx/my-site.com.key:/etc/nginx/my-site.com.key # SSL Key
+    links:
+      - php:php
+
+  php:
+    container_name: php_laracom
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./docker/php/Dockerfile
+    volumes:
+      - ./:/code
+    links:
+      - database
+      - redis
+
+  composer:
+    container_name: composer_laracom
+    image: composer:latest
+#    command: install -vvv
+    command: composer install --ignore-platform-reqs # run the installation inside the context container
+    volumes:
+      - ./:/app
+
+  # pulling the database.
+  database:
+    container_name: database
+    image: mysql:latest
+    volumes:
+      - /var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_USER=docker
+      - MYSQL_DATABASE=docker
+      - MYSQL_ROOT_PASSWORD=docker
+      - MYSQL_PASSWORD=docker
+    security_opt:
+      - seccomp:unconfined
+
+
+  redis:
+    container_name: redis_laracom
+    image: redis:latest
