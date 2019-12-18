@@ -110,7 +110,3 @@ open the terminal context (like a normal linux machine).
 # Author
 
 [Jeff Simons Decena](https://jsdecena.me)
-
-# Contributor
-
-[Fabio William Conceição](https://www.linkedin.com/in/fabio-william-conceicao/)
