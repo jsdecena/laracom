@@ -31,5 +31,5 @@
         </div>
     @endif
     <hr />
-    @include('mailchimp::mailchimp')
+{{--    @include('mailchimp::mailchimp')--}}
 @endsection

@@ -90,7 +90,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="col-lg-1 col-md-1 col-sm-8 col-xs-4"> 
+                                        <div class="col-lg-1 col-md-1 col-sm-8 col-xs-4">
                                             <form action="{{ route('cart.destroy', $cartItem->rowId) }}" method="post">
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="_method" value="delete">
@@ -107,7 +107,7 @@
                                         </div>
 
                                     </div>
-                                </div>                       
+                                </div>
                                 
                             </div>
                             <br>
@@ -143,7 +143,7 @@
                                     <td class="bg-warning"></td>
                                     <td class="bg-warning"></td>
                                     <td class="bg-warning"></td>
-                                    <td class="bg-warning">{{config('cart.currency')}} {{ number_format($tax, 2) }}</td>
+                                    <td class="bg-warning">{{config('cart.currency')}} {{ $tax }}</td>
                                 </tr>
                                 <tr>
                                     <td class="bg-success">Total</td>

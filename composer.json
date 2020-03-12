@@ -1,35 +1,59 @@
 {
     "name": "jsdecena/laracom",
     "description": "Laravel powered e-commerce",
-    "keywords": ["e-commerce", "ecommerce", "shopping-cart", "laravel", "laracom", "laravel-ecommerce", "shop", "laravel5", "framework", "package"],
+    "keywords": [
+        "e-commerce",
+        "ecommerce",
+        "shopping-cart",
+        "laravel",
+        "laracom",
+        "laravel-ecommerce",
+        "shop",
+        "laravel5",
+        "framework",
+        "package"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.1.3",
+        "php": "^7.2",
         "ext-json": "*",
         "barryvdh/laravel-dompdf": "^0.8.2",
-        "binarytorch/larecipe": "^1.2",
+        "binarytorch/larecipe": "^2.3",
         "doctrine/dbal": "^2.5",
-        "fideloper/proxy": "~4.0",
-        "kalnoy/nestedset": "^4.3",
+        "fideloper/proxy": "^4.0",
+        "gloudemans/shoppingcart": "dev-master",
         "guzzlehttp/guzzle": "^6.3",
-        "jsdecena/baserepo": "^1.0",
-        "jsdecena/mailchimp": "~7.0",
+        "jsdecena/baserepo": "dev-master",
         "jsdecena/mcpro": "1.1.*",
-        "laravel/cashier": "~7.0",
-        "laravel/framework": "5.7.*",
-        "laravel/tinker": "~1.0",
+        "kalnoy/nestedset": "^5.0",
+        "laravel/cashier": "^9.0.1",
+        "laravel/framework": "^6.0",
+        "laravel/helpers": "^1.2",
+        "laravel/tinker": "^1.0",
         "nicolaslopezj/searchable": "^1.10",
-        "paypal/rest-api-sdk-php": "*",
-        "santigarcor/laratrust": "5.0.*",
-        "shippo/shippo-php": "^1.4",
-        "gloudemans/shoppingcart": "dev-master"
+        "paypal/rest-api-sdk-php": "1.14.*",
+        "santigarcor/laratrust": "^5.2",
+        "shippo/shippo-php": "^1.4"
     },
     "require-dev": {
-        "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "~1.0",
-        "phpunit/phpunit": "~7.0",
-        "filp/whoops": "~2.0"
+        "beyondcode/laravel-dump-server": "^1.0",
+        "filp/whoops": "^2.0",
+        "fzaninotto/faker": "^1.4",
+        "mockery/mockery": "^1.0",
+        "nunomaduro/collision": "^3.0",
+        "phpunit/phpunit": "^7.5"
+    
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
     },
     "autoload": {
         "files": [
@@ -47,28 +71,28 @@
             "Tests\\": "tests/"
         }
     },
-    "extra": {
-        "laravel": {
-            "dont-discover": []
-        }
-    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "scripts": {
-        "post-root-package-install": [
-            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "php artisan key:generate"
-        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover"
+            "@php artisan package:discover --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
         ]
     },
-    "config": {
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "optimize-autoloader": true
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Faks/LaravelShoppingcart"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Faks/baserepo"
+        }
+    ]
 }
