@@ -8,7 +8,7 @@
                 @include('layouts.errors-and-messages')
             </div>
             <div class="col-md-12">
-                <h2> <i class="fa fa-home"></i> My Account</h2>
+                <h2> <i class="fa fa-home"></i> Minha Conta</h2>
                 <hr>
             </div>
         </div>
@@ -17,9 +17,9 @@
                 <div>
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" @if(request()->input('tab') == 'profile') class="active" @endif><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-                        <li role="presentation" @if(request()->input('tab') == 'orders') class="active" @endif><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab">Orders</a></li>
-                        <li role="presentation" @if(request()->input('tab') == 'address') class="active" @endif><a href="#address" aria-controls="address" role="tab" data-toggle="tab">Addresses</a></li>
+                        <li role="presentation" @if(request()->input('tab') == 'profile') class="active" @endif><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Perfil</a></li>
+                        <li role="presentation" @if(request()->input('tab') == 'orders') class="active" @endif><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab">Pedidos</a></li>
+                        <li role="presentation" @if(request()->input('tab') == 'address') class="active" @endif><a href="#address" aria-controls="address" role="tab" data-toggle="tab">Endereços</a></li>
                     </ul>
 
                     <!-- Tab panes -->

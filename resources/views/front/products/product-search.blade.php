@@ -15,6 +15,7 @@
         <div class="col-md-9">
             <div class="row">
                 @include('front.products.product-list', ['products' => $products])
+
             </div>
         </div>
     </div>
