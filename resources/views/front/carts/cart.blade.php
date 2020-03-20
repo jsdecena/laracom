@@ -54,7 +54,7 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                                             <a href="{{ route('front.get.product', [$cartItem->product->slug]) }}" class="hover-border">
                                                 @if(isset($cartItem->cover))
-                                                    <img src="{{$cartItem->cover}}" alt="{{ $cartItem->name }}" class="img-responsive img-thumbnail">
+                                                    <img src="{{asset("storage/$cartItem->cover")}}" alt="{{ $cartItem->name }}" class="img-responsive img-thumbnail">
                                                 @else
                                                     <img src="https://placehold.it/120x120" alt="" class="img-responsive img-thumbnail">
                                                 @endif
@@ -158,8 +158,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="btn-group pull-right">
-                                    <a href="{{ route('home') }}" class="btn btn-default">Continue shopping</a>
-                                    <a href="{{ route('checkout.index') }}" class="btn btn-primary">Go to checkout</a>
+                                    <a href="{{ route('home') }}" class="btn btn-default">Continuar Comprando</a>
+                                    <a href="{{ route('checkout.index') }}" class="btn btn-primary">Finalizar Carrinho</a>
                                 </div>
                             </div>
                         </div>
@@ -168,7 +168,7 @@
             @else
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="alert alert-warning">No products in cart yet. <a href="{{ route('home') }}">Shop now!</a></p>
+                        <p class="alert alert-warning">Não há produtos no carrinho <a href="{{ route('home') }}">Compre Agora</a></p>
                     </div>
                 </div>
             @endif

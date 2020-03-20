@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'name' => 'Bank Transfer',
-    'description' => 'Online / Offline Bank fund transfer',
-    'bank_name' => env('BANK_TRANSFER_NAME', 'Bank of Mars'),
-    'account_type' => env('BANK_TRANSFER_ACCOUNT_TYPE', 'Savings Account (SA)'),
+    'name' => 'Transferência Bancária',
+    'description' => 'Transferência Bancária',
+    'bank_name' => env('BANK_TRANSFER_NAME', 'Banco do Brasil'),
+    'account_type' => env('BANK_TRANSFER_ACCOUNT_TYPE', 'Conta Corrente'),
     'account_name' => env('BANK_TRANSFER_ACCOUNT_NAME', 'John Doe'),
     'account_number' => env('BANK_TRANSFER_ACCOUNT_NUMBER', '99999-999-99999'),
     'bank_swift_code' => env('BANK_TRANSFER_SWIFT_CODE', 'ABC-123'),

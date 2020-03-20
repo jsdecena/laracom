@@ -16,7 +16,7 @@
             <input type="hidden" class="billing_address" name="billing_address" value="">
             <input type="hidden" class="rate" name="rate" value="">
             <input type="hidden" name="shipment_obj_id" value="{{ $shipment_object_id }}">
-            <button type="submit" class="btn btn-primary pull-right">{{ ucwords($payment['name']) }} <i class="fa fa-bank"></i></button>
+            <button type="submit" class="btn btn-danger pull-right">{{ ucwords($payment['name']) }} <i class="fa fa-money"></i></button>
         </form>
     </td>
 
