@@ -13,3 +13,6 @@
         {{--</div>--}}
     {{--</div>--}}
 {{--</section>--}}
+{{--<marquee>--}}
+    {{--Organicos da Associação Agroecológica de Teresópolis--}}
+{{--</marquee>--}}
