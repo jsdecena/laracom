@@ -10,3 +10,4 @@ return [
     'bank_swift_code' => env('BANK_TRANSFER_SWIFT_CODE', 'ABC-123'),
     'note' => env('BANK_TRANSFER_SWIFT_NOTE', 'Choosing this option may delay the shipment of the item.')
 ];
+

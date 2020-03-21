@@ -17,24 +17,23 @@
                         <hr>
                         <ul class="list-unstyled">
                             <li>Items: {{ config('cart.currency_symbol') }} {{ $subtotal }}</li>
-                            <li>Tax: {{ config('cart.currency_symbol') }} {{ $tax }}</li>
-                            <li>Shipping Fee: {{ config('cart.currency_symbol') }} {{ $shipping }}</li>
+                            <li>Entrega: {{ config('cart.currency_symbol') }} {{ $shipping }}</li>
                             <li>Total: {{ config('cart.currency_symbol') }} {{ $total }}</li>
                         </ul>
                     </div>
                     <div class="col-md-6">
                         <div class="box-body">
-                            <h3>{{ config('bank-transfer.bank_name') }}</h3>
+                            <h3>Banco: {{ config('bank-transfer.bank_name') }}</h3>
                             <hr>
-                            <p>{{ config('bank-transfer.account_type') }}</p>
-                            <p>{{ config('bank-transfer.account_name') }}</p>
-                            <p>{{ config('bank-transfer.account_number') }}</p>
-                            <p>{{ config('bank-transfer.bank_swift_code') }}</p>
+                            <p>Tipo de Conta:{{ config('bank-transfer.account_type') }}</p>
+                            <p>Beneficiário: {{ config('bank-transfer.account_name') }}</p>
+                            <p>Agência: {{ config('bank-transfer.bank_swift_code') }}</p>
+                            <p>Número da Conta:{{ config('bank-transfer.account_number') }}</p>
                             <p><small class="text-warning text">* {{ config('bank-transfer.note') }}</small></p>
                             <hr>
                             <div class="btn-group">
                                 <a href="{{ route('checkout.index') }}" class="btn btn-default">Back</a>
-                                <button onclick="return confirm('Are you sure?')" class="btn btn-primary">Pay now with Bank Transfer</button>
+                                <button onclick="return confirm('Are you sure?')" class="btn btn-primary">Depositarei na conta informada</button>
                                 <input type="hidden" id="billing_address" name="billing_address" value="{{ $billingAddress }}">
                                 <input type="hidden" name="shipment_obj_id" value="{{ $shipmentObjId }}">
                                 <input type="hidden" name="rate" value="{{ $rateObjectId }}">

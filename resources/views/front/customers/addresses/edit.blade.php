@@ -15,19 +15,19 @@
                 <div class="box-body">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="alias">Alias <span class="text-danger">*</span></label>
+                        <label for="alias">Tipo de Endereço <span class="text-danger">*</span></label>
                         <input type="text" name="alias" id="alias" placeholder="Home or Office" class="form-control" value="{{ old('alias') ?? $address->alias }}">
                     </div>
                     <div class="form-group">
-                        <label for="address_1">Address 1 <span class="text-danger">*</span></label>
+                        <label for="address_1">Endereço<span class="text-danger">*</span></label>
                         <input type="text" name="address_1" id="address_1" placeholder="Address 1" class="form-control" value="{{ old('address_1') ?? $address->address_1 }}">
                     </div>
                     <div class="form-group">
-                        <label for="address_2">Address 2 </label>
+                        <label for="address_2">Complemento</label>
                         <input type="text" name="address_2" id="address_2" placeholder="Address 2" class="form-control" value="{{ old('address_2') ?? $address->address_2 }}">
                     </div>
                     <div class="form-group">
-                        <label for="country_id">Country </label>
+                        <label for="country_id">País </label>
                         <select name="country_id" id="country_id" class="form-control select2">
                             @foreach($countries as $country)
                                 <option @if($address->country_id == $country->id) selected="selected" @endif value="{{ $country->id }}">{{ $country->name }}</option>
@@ -37,11 +37,11 @@
                     <div id="provinces" class="form-group" style="display: none;"></div>
                     <div id="cities" class="form-group" style="display: none;"></div>
                     <div class="form-group">
-                        <label for="zip">Zip Code </label>
+                        <label for="zip">CEP </label>
                         <input type="text" name="zip" id="zip" placeholder="Zip code" class="form-control" value="{{ old('zip') ?? $address->zip }}">
                     </div>
                     <div class="form-group">
-                        <label for="phone">Your Phone </label>
+                        <label for="phone">Telefone para contato </label>
                         <input type="text" name="phone" id="phone" placeholder="Phone number" class="form-control" value="{{ old('phone') ?? $address->phone }}">
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                 <div class="box-footer">
                     <div class="btn-group">
                         <a href="{{ route('accounts', ['tab' => 'address']) }}" class="btn btn-default">Back</a>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-primary">Atualizar</button>
                     </div>
                 </div>
             </form>
