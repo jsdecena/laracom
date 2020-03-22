@@ -57,7 +57,7 @@
             </li>
             <li class="treeview @if(request()->segment(2) == 'categories') active @endif">
                 <a href="#">
-                    <i class="fa fa-folder"></i> <span>Categories</span>
+                    <i class="fa fa-folder"></i> <span>Categorias</span>
                     <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -69,13 +69,13 @@
             </li>
             <li class="treeview @if(request()->segment(2) == 'customers' || request()->segment(2) == 'addresses') active @endif">
                 <a href="#">
-                    <i class="fa fa-user"></i> <span>Customers</span>
+                    <i class="fa fa-user"></i> <span>Clientes</span>
                     <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('admin.customers.index') }}"><i class="fa fa-circle-o"></i> Listaa de Clientes</a></li>
+                    <li><a href="{{ route('admin.customers.index') }}"><i class="fa fa-circle-o"></i> Listas de Clientes</a></li>
                     <li><a href="{{ route('admin.customers.create') }}"><i class="fa fa-plus"></i> Criar Cliente</a></li>
                     <li class="@if(request()->segment(2) == 'addresses') active @endif">
                         <a href="#"><i class="fa fa-map-marker"></i> Addresses
