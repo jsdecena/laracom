@@ -112,7 +112,7 @@ class CartController extends Controller
         $this->cartRepo->addToCart($product, $request->input('quantity'), $options);
 
         return redirect()->route('cart.index')
-            ->with('message', 'Add to cart successful');
+            ->with('message', 'Ítem adicionado ao carrinho');
     }
 
     /**
