@@ -17,7 +17,7 @@ class RedirectIfNotEmployee
     public function handle($request, Closure $next, $guard = 'employee')
     {
         if (!auth()->guard($guard)->check()) {
-            $request->session()->flash('error', 'You must be an employee to see this page');
+            $request->session()->flash('error', 'Você precisa ser Produtor ou Administrador para logar nessa área');
             return redirect(route('admin.login'));
         }
 
