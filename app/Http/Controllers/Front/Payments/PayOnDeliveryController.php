@@ -103,7 +103,7 @@ class PayOnDeliveryController extends Controller
     {
         $checkoutRepo = new CheckoutRepository;
         $orderStatusRepo = new OrderStatusRepository(new OrderStatus);
-        $os = $orderStatusRepo->findByName('ordered');
+        $os = $orderStatusRepo->findByName('Pedido Feito');
 
         $order = $checkoutRepo->buildCheckoutItems([
             'reference' => Uuid::uuid4()->toString(),

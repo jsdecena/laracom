@@ -54,7 +54,7 @@
                         </div>
                         @endif
                         @include('admin.shared.status-select', ['status' => 0])
-                        @include('admin.shared.attribute-select', [compact('default_weight')])
+                        {{--@include('admin.shared.attribute-select', [compact('default_weight')])--}}
                     </div>
                     <div class="col-md-4">
                         <h2>Categoria</h2>
@@ -64,7 +64,7 @@
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <div class="btn-group">
-                        <a href="{{ route('admin.products.index') }}" class="btn btn-default">Back</a>
+                        <a href="{{ route('admin.products.index') }}" class="btn btn-default">Voltar</a>
                         <button type="submit" class="btn btn-primary">Criar</button>
                     </div>
                 </div>
