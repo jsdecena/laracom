@@ -12,7 +12,7 @@
                         <h2>Protudo</h2>
                         <div class="form-group">
                             <label for="sku">Código <span class="text-danger">*</span></label>
-                            <input type="text" name="sku" id="sku" placeholder="xxxxx" class="form-control" value="{{ old('sku') }}">
+                            <input type="text" name="sku" id="sku" placeholder="xxxxx" class="form-control" value="{{ $nextSKU }}">
                         </div>
                         <div class="form-group">
                             <label for="name">Nome <span class="text-danger">*</span></label>
