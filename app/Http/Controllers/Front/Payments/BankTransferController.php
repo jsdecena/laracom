@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front\Payments;
 
 use App\Http\Controllers\Controller;
 use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
+use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
 use App\Shop\Checkout\CheckoutRepository;
 use App\Shop\Orders\Repositories\OrderRepository;
 use App\Shop\OrderStatuses\OrderStatus;
@@ -22,6 +23,11 @@ class BankTransferController extends Controller
      * @var CartRepositoryInterface
      */
     private $cartRepo;
+
+    /**
+     * @var CourierRepositoryInterface
+     */
+    private $courierRepo;
 
     /**
      * @var int $shipping
@@ -46,11 +52,12 @@ class BankTransferController extends Controller
     public function __construct(
         Request $request,
         CartRepositoryInterface $cartRepository,
+        CourierRepositoryInterface $courierRepository,
         ShippingInterface $shippingRepo
     )
     {
         $this->cartRepo = $cartRepository;
-        $fee = 0;
+        $this->courierRepo = $courierRepository;
         $rateObjId = null;
         $shipmentObjId = null;
         $billingAddress = $request->input('billing_address');
@@ -71,7 +78,7 @@ class BankTransferController extends Controller
             }
         }
 
-        $this->shippingFee = $fee;
+        $this->shippingFee = 0;
         $this->rateObjectId = $rateObjId;
         $this->shipmentObjId = $shipmentObjId;
         $this->billingAddress = $billingAddress;
@@ -82,6 +89,8 @@ class BankTransferController extends Controller
      */
     public function index()
     {
+        $courier = $this->courierRepo->findCourierById(request()->session()->get('courierId', 1));
+        $this->shippingFee = $this->cartRepo->getShippingFee($courier);
         return view('front.bank-transfer-redirect', [
             'subtotal' => $this->cartRepo->getSubTotal(),
             'shipping' => $this->shippingFee,

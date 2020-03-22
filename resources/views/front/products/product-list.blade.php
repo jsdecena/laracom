@@ -1,4 +1,8 @@
 @if(!empty($products) && !collect($products)->isEmpty())
+    <p class="alert alert-success alert-dismissible">
+        {{ session()->get('message') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </p>
     <ul class="row text-center list-unstyled">
         @foreach($products as $product)
             <li class="col-md-3 col-sm-6 col-xs-12 product-list">

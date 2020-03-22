@@ -13,7 +13,7 @@ interface ShippingInterface
 
     public function readyParcel(Collection $collection);
 
-    public function getRates(string $shipmentObjId, string $currency = 'USD');
+    public function getRates(string $shipmentObjId, string $currency = 'R$');
 
     public function readyShipment();
 }

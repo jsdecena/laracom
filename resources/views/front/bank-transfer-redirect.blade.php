@@ -26,7 +26,7 @@
                             <h3>Banco: {{ config('bank-transfer.bank_name') }}</h3>
                             <hr>
                             <p>Tipo de Conta:{{ config('bank-transfer.account_type') }}</p>
-                            <p>Beneficiário: {{ config('bank-transfer.account_name') }}</p>
+                            <p>Beneficiário: {{ config('bank-Endereço de Cobrançatransfer.account_name') }}</p>
                             <p>Agência: {{ config('bank-transfer.bank_swift_code') }}</p>
                             <p>Número da Conta:{{ config('bank-transfer.account_number') }}</p>
                             <p><strong><small class="text-danger text">* {{ config('bank-transfer.note') }}</small></strong></p>
