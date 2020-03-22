@@ -54,8 +54,8 @@
                                                         <div class="modal-body">
                                                             <table class="table">
                                                                 <thead>
-                                                                    <th>Address</th>
-                                                                    <th>Payment Method</th>
+                                                                    <th>Endereço</th>
+                                                                    <th>Forma de Pagamento</th>
                                                                     <th>Total</th>
                                                                     <th>Status</th>
                                                                 </thead>

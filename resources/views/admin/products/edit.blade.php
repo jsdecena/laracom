@@ -63,7 +63,7 @@
                                                 <span class="text-warning">You can use ctr (cmd) to select multiple images</span>
                                             </div>
                                             <div class="form-group">
-                                                <label for="quantity">Quantity <span class="text-danger">*</span></label>
+                                                <label for="quantity">Quantidade <span class="text-danger">*</span></label>
                                                 @if($productAttributes->isEmpty())
                                                     <input
                                                             type="text"

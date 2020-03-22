@@ -5,16 +5,16 @@
         <div class="row hidden-xs hidden-sm" style="height: 40px;">
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><b>Cover</b></div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><b>Foto</b></div>
                 </div>
             </div>
 
             <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
                 <div class="row">
-                    <div class="col-lg-5 col-md-5"><b>Name</b></div>
-                    <div class="col-lg-2 col-md-2"><b>Quantity</b></div>
-                    <div class="col-lg-1 col-md-1"><b>Remove</b></div>
-                    <div class="col-lg-2 col-md-2"><b>Price</b></div>
+                    <div class="col-lg-5 col-md-5"><b>Nome</b></div>
+                    <div class="col-lg-2 col-md-2"><b>Quantidade</b></div>
+                    <div class="col-lg-1 col-md-1"><b>Remover</b></div>
+                    <div class="col-lg-2 col-md-2"><b>Preço</b></div>
                     <div class="col-lg-2 col-md-2"><b>Total</b></div>
                 </div>
             </div>
@@ -67,13 +67,10 @@
                                 <button onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
                             </form>
                         </div>
+
                         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                            <span class="hidden-lg hidden-md"><small>Tax: </span>
-                            {{config('cart.currency')}} {{ number_format(($cartItem->qty*$cartItem->tax), 2) }}</small>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                            <span class="hidden-lg hidden-md"><small>Subtotal: </span>
-                            {{config('cart.currency')}} {{ number_format($cartItem->price, 2) }}</small>
+                            <span class="hidden-lg hidden-md"><small>Subtotal: </small></span>
+                            <small>{{config('cart.currency')}} {{ number_format($cartItem->price, 2) }}</small>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                             <span class="hidden-lg hidden-md"><small>Total: </span>

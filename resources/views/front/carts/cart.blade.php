@@ -122,13 +122,13 @@
                     <div class="col-md-12 content">
                         <table class="table table-striped">
                             <tfoot>
-                                {{--<tr>--}}
-                                    {{--<td class="bg-warning">Subtotal</td>--}}
-                                    {{--<td class="bg-warning"></td>--}}
-                                    {{--<td class="bg-warning"></td>--}}
-                                    {{--<td class="bg-warning"></td>--}}
-                                    {{--<td class="bg-warning">{{config('cart.currency')}} {{ number_format($subtotal, 2, '.', ',') }}</td>--}}
-                                {{--</tr>--}}
+                                <tr>
+                                    <td class="bg-warning">Subtotal</td>
+                                    <td class="bg-warning"></td>
+                                    <td class="bg-warning"></td>
+                                    <td class="bg-warning"></td>
+                                    <td class="bg-warning">{{config('cart.currency')}} {{ number_format($subtotal, 2, '.', ',') }}</td>
+                                </tr>
                                 @if(isset($shippingFee) && $shippingFee != 0)
                                 <tr>
                                     <td class="bg-warning">Frete</td>

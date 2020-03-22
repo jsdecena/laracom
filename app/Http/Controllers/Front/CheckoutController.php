@@ -119,6 +119,9 @@ class CheckoutController extends Controller
 
         $billingAddress = $customer->addresses()->first();
 
+        $courier = $this->courierRepo->findCourierById(request()->session()->get('courierId', 1));
+        $shippingFee = $this->cartRepo->getShippingFee($courier);
+
         return view('front.checkout', [
             'customer' => $customer,
             'billingAddress' => $billingAddress,
@@ -130,7 +133,8 @@ class CheckoutController extends Controller
             'payments' => $paymentGateways,
             'cartItems' => $this->cartRepo->getCartItemsTransformed(),
             'shipment_object_id' => $shipment_object_id,
-            'rates' => $rates
+            'rates' => $rates,
+            'shippingFee'=>$shippingFee
         ]);
     }
 
