@@ -109,13 +109,13 @@
                             </table>
                                 {{ $orders->links() }}
                             @else
-                                <p class="alert alert-warning">No orders yet. <a href="{{ route('home') }}">Shop now!</a></p>
+                                <p class="alert alert-warning">Nenhum pedido encontrado <a href="{{ route('home') }}">Comece a comprar agora</a></p>
                             @endif
                         </div>
                         <div role="tabpanel" class="tab-pane @if(request()->input('tab') == 'address')active @endif" id="address">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <a href="{{ route('customer.address.create', auth()->user()->id) }}" class="btn btn-primary">Create your address</a>
+                                    <a href="{{ route('customer.address.create', auth()->user()->id) }}" class="btn btn-primary">Cadastrar Endereço</a>
                                 </div>
                             </div>
                             @if(!$addresses->isEmpty())
@@ -163,7 +163,7 @@
                                 </tbody>
                             </table>
                             @else
-                                <br /> <p class="alert alert-warning">No address created yet.</p>
+                                <br /> <p class="alert alert-warning">Nenhum Endereço cadastrado</p>
                             @endif
                         </div>
                     </div>
