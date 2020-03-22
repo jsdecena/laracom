@@ -23,13 +23,13 @@
                         @if(isset($addresses))
                             <div class="row">
                                 <div class="col-md-12">
-                                    <legend><i class="fa fa-home"></i> Addresses</legend>
+                                    <legend><i class="fa fa-home"></i> Endereços</legend>
                                     <table class="table table-striped">
                                         <thead>
-                                            <th>Alias</th>
-                                            <th>Address</th>
-                                            <th>Billing Address</th>
-                                            <th>Delivery Address</th>
+                                            <th>Apelido</th>
+                                            <th>Endereço</th>
+                                            <th>Endereço de Cobrança</th>
+                                            <th>Endereço de Entrega</th>
                                         </thead>
                                         <tbody>
                                             @foreach($addresses as $key => $address)
@@ -55,7 +55,7 @@
                                                     <td>
                                                         @if($billingAddress->id == $address->id)
                                                             <label for="sameDeliveryAddress">
-                                                                <input type="checkbox" id="sameDeliveryAddress" checked="checked"> Same as billing
+                                                                <input type="checkbox" id="sameDeliveryAddress" checked="checked"> Igual ao Endereço de Cobrança
                                                             </label>
                                                         @endif
                                                     </td>
@@ -111,14 +111,14 @@
                         @endif
                         <div class="row">
                             <div class="col-md-12">
-                                <legend><i class="fa fa-credit-card"></i> Payment</legend>
+                                <legend><i class="fa fa-credit-card"></i> Pagamento</legend>
 
                                 @if(isset($payments) && !empty($payments))
                                     <table class="table table-striped">
                                         <thead>
-                                        <th class="col-md-4">Name</th>
-                                        <th class="col-md-4">Description</th>
-                                        <th class="col-md-4 text-right">Choose payment</th>
+                                        <th class="col-md-4">Nome</th>
+                                        <th class="col-md-4">Descrição</th>
+                                        <th class="col-md-4 text-right">Escolha o método de Pagamento</th>
                                         </thead>
                                         <tbody>
                                         @foreach($payments as $payment)

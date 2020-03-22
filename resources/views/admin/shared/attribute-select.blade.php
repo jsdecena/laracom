@@ -1,5 +1,5 @@
 <div class="form-group"><br />
-    <label for="weight">Weight </label>
+    <label for="weight">Peso </label>
     <div class="form-inline">
         <input type="text" class="form-control col-md-8" id="weight" name="weight" placeholder="0" value="{{ number_format($product->weight, 2) }}">
         <label for="mass_unit" class="sr-only">Mass unit</label>
