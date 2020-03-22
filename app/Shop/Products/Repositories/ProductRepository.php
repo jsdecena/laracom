@@ -326,4 +326,8 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         return $this->model->brand;
     }
+
+    public function countProducts(){
+        return Product::count();
+    }
 }

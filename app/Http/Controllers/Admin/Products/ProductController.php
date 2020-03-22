@@ -118,13 +118,16 @@ class ProductController extends Controller
     public function create()
     {
         $categories = $this->categoryRepo->listCategories('name', 'asc');
+        $nextSKU = $this->productRepo->countProducts() + 1;
+
 
         return view('admin.products.create', [
             'categories' => $categories,
             'brands' => $this->brandRepo->listBrands(['*'], 'name', 'asc'),
             'default_weight' => env('SHOP_WEIGHT'),
             'weight_units' => Product::MASS_UNIT,
-            'product' => new Product
+            'product' => new Product,
+            'nextSKU' => $nextSKU
         ]);
     }
 
