@@ -17,7 +17,7 @@
                         <div class="box-body">
                             @include('layouts.errors-and-messages')
                         </div>
-                        <h3><i class="fa fa-cart-plus"></i> Shopping Cart</h3>
+                        <h3><i class="fa fa-cart-plus"></i> Carrinho de Compras</h3>
                     </div>
                 </div>
 
@@ -29,16 +29,16 @@
                             
                             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
                                 <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><b>Cover</b></div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><b>Foto</b></div>
                                 </div>
                             </div>
 
                             <div class="col-lg-10 col-md-10 col-sm-8 col-xs-8">
                                 <div class="row">
-                                    <div class="col-lg-5 col-md-5"><b>Name</b></div>
-                                    <div class="col-lg-2 col-md-2"><b>Quantity</b></div>
-                                    <div class="col-lg-1 col-md-1"><b>Remove</b></div>
-                                    <div class="col-lg-2 col-md-2"><b>Price</b></div>
+                                    <div class="col-lg-5 col-md-5"><b>Produto</b></div>
+                                    <div class="col-lg-2 col-md-2"><b>Quantidade</b></div>
+                                    <div class="col-lg-1 col-md-1"><b>Remover</b></div>
+                                    <div class="col-lg-2 col-md-2"><b>Preço</b></div>
                                     <div class="col-lg-2 col-md-2"><b>Total</b></div>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                                                 <input type="hidden" name="_method" value="put">
                                                 <div class="input-group">
                                                     <input type="text" name="quantity" value="{{ $cartItem->qty }}" class="form-control input-sm" />
-                                                    <span class="input-group-btn"><button class="btn btn-default btn-sm">Update</button></span>
+                                                    <span class="input-group-btn"><button class="btn btn-default btn-sm">Atualizar</button></span>
                                                 </div>
                                             </form>
                                         </div>
@@ -131,7 +131,7 @@
                                 {{--</tr>--}}
                                 @if(isset($shippingFee) && $shippingFee != 0)
                                 <tr>
-                                    <td class="bg-warning">Shipping</td>
+                                    <td class="bg-warning">Frete</td>
                                     <td class="bg-warning"></td>
                                     <td class="bg-warning"></td>
                                     <td class="bg-warning"></td>
