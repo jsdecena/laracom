@@ -116,7 +116,7 @@
                                             <div class="form-group">
                                                 @include('admin.shared.status-select', ['status' => $product->status])
                                             </div>
-                                            @include('admin.shared.attribute-select', [compact('default_weight')])
+                                            {{--@include('admin.shared.attribute-select', [compact('default_weight')])--}}
                                             <!-- /.box-body -->
                                         </div>
                                         <div class="col-md-4">
@@ -127,8 +127,8 @@
                                     <div class="row">
                                         <div class="box-footer">
                                             <div class="btn-group">
-                                                <a href="{{ route('admin.products.index') }}" class="btn btn-default btn-sm">Back</a>
-                                                <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                                <a href="{{ route('admin.products.index') }}" class="btn btn-default btn-sm">Voltar</a>
+                                                <button type="submit" class="btn btn-primary btn-sm">Atualizar</button>
                                             </div>
                                         </div>
                                     </div>
