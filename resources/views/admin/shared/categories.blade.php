@@ -1,10 +1,10 @@
 <ul class="checkbox-list">
     @foreach($categories as $category)
         <li>
-            <div class="checkbox">
+            <div class="radio">
                 <label>
                     <input
-                            type="checkbox"
+                            type="radio"
                             @if(isset($selectedIds) && in_array($category->id, $selectedIds))checked="checked" @endif
                             name="categories[]"
                             value="{{ $category->id }}">

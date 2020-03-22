@@ -81,6 +81,9 @@ Route::namespace('Front')->group(function () {
         Route::namespace('Payments')->group(function () {
             Route::get('bank-transfer', 'BankTransferController@index')->name('bank-transfer.index');
             Route::post('bank-transfer', 'BankTransferController@store')->name('bank-transfer.store');
+
+            Route::get('pay-on-delivery', 'PayOnDeliveryController@index')->name('pay-on-delivery.index');
+            Route::post('bank-transfer', 'BankTransferController@store')->name('pay-on-delivery.store');
         });
 
         Route::namespace('Addresses')->group(function () {
