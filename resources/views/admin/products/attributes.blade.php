@@ -6,12 +6,12 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Sale Price</th>
-                    <th>Attributes</th>
-                    <th>Is default?</th>
-                    <th>Remove</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+                    <th>Preço de Venda</th>
+                    <th>Atributos</th>
+                    <th>É padrão?</th>
+                    <th>Remover</th>
                 </tr>
                 </thead>
                 <tbody>
