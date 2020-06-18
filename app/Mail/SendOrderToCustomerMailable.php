@@ -18,6 +18,7 @@ class SendOrderToCustomerMailable extends Mailable
     /**
      * Create a new message instance.
      *
+     * @param Order $order
      */
     public function __construct(Order $order)
     {

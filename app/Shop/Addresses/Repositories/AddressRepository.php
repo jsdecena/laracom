@@ -3,19 +3,18 @@
 namespace App\Shop\Addresses\Repositories;
 
 use App\Shop\Addresses\Address;
-use App\Shop\Addresses\Exceptions\AddressInvalidArgumentException;
+use App\Shop\Addresses\Exceptions\CreateAddressErrorException;
 use App\Shop\Addresses\Exceptions\AddressNotFoundException;
 use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
 use App\Shop\Addresses\Transformations\AddressTransformable;
-use App\Shop\Base\BaseRepository;
 use App\Shop\Cities\City;
 use App\Shop\Countries\Country;
 use App\Shop\Customers\Customer;
-use App\Shop\Customers\Transformations\CustomerTransformable;
 use App\Shop\Provinces\Province;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
+use Jsdecena\Baserepo\BaseRepository;
 
 class AddressRepository extends BaseRepository implements AddressRepositoryInterface
 {
@@ -34,21 +33,17 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
     /**
      * Create the address
      *
-     * @param array $params
+     * @param array $data
+     *
      * @return Address
+     * @throws CreateAddressErrorException
      */
-    public function createAddress(array $params) : Address
+    public function createAddress(array $data) : Address
     {
         try {
-            $address = new Address($params);
-            if (isset($params['customer'])) {
-                $address->customer()->associate($params['customer']);
-            }
-            $address->save();
-
-            return $address;
+            return $this->create($data);
         } catch (QueryException $e) {
-            throw new AddressInvalidArgumentException('Address creation error', 500, $e);
+            throw new CreateAddressErrorException('Address creation error');
         }
     }
 
@@ -64,12 +59,12 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
     }
 
     /**
-     * @param array $update
+     * @param array $data
      * @return bool
      */
-    public function updateAddress(array $update): bool
+    public function updateAddress(array $data): bool
     {
-        return $this->model->update($update);
+        return $this->update($data);
     }
 
     /**
@@ -99,14 +94,39 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
      * Return the address
      *
      * @param int $id
+     *
      * @return Address
+     * @throws AddressNotFoundException
      */
     public function findAddressById(int $id) : Address
     {
         try {
             return $this->findOneOrFail($id);
         } catch (ModelNotFoundException $e) {
-            throw new AddressNotFoundException($e->getMessage());
+            throw new AddressNotFoundException('Address not found.');
+        }
+    }
+
+    /**
+     * Return the address
+     *
+     * @param int $id
+     *
+     * @return Address
+     * @throws AddressNotFoundException
+     */
+    public function findCustomerAddressById(int $id, Customer $customer) : Address
+    {
+        try 
+        {
+            return $customer
+                        ->addresses()
+                        ->whereId($id)
+                        ->firstOrFail();
+        } 
+        catch (ModelNotFoundException $e) 
+        {
+            throw new AddressNotFoundException('Address not found.');
         }
     }
 
@@ -124,15 +144,12 @@ class AddressRepository extends BaseRepository implements AddressRepositoryInter
      * @param string $text
      * @return mixed
      */
-    public function searchAddress(string $text) : Collection
+    public function searchAddress(string $text = null) : Collection
     {
-        return $this->model->search($text, [
-            'address_1' => 10,
-            'address_2' => 5,
-            'province.name' => 5,
-            'city.name' => 5,
-            'country.name' => 5
-        ])->get();
+        if (is_null($text)) {
+            return $this->all(['*'], 'address_1', 'asc');
+        }
+        return $this->model->searchAddress($text)->get();
     }
 
     /**

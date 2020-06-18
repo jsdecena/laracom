@@ -3,12 +3,12 @@
 namespace App\Shop\Addresses\Repositories\Interfaces;
 
 use App\Shop\Addresses\Address;
-use App\Shop\Base\Interfaces\BaseRepositoryInterface;
 use App\Shop\Cities\City;
 use App\Shop\Countries\Country;
 use App\Shop\Customers\Customer;
 use App\Shop\Provinces\Province;
 use Illuminate\Support\Collection;
+use Jsdecena\Baserepo\BaseRepositoryInterface;
 
 interface AddressRepositoryInterface extends BaseRepositoryInterface
 {

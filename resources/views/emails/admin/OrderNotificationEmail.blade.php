@@ -7,30 +7,24 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Order Invoice</title>
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css')}}">
     <style type="text/css">
         table { border-collapse: collapse;}
     </style>
 </head>
 <body>
-<section class="row">
-    <div class="pull-left">
-        Hi {{config('app.name')}}! <br />
-        An order has been created!
-    </div>
-</section>
-<section class="row">
+<section class="container">
     <div class="col-md-12">
-        <h2>Here are the details of the order</h2>
+        <h2>Hi {{config('app.name')}}! <br />An order has been created! </h2>
+        <p>Here are the details of the order below: </p>
         <table class="table table-striped" width="100%" border="0" cellspacing="0" cellpadding="0">
             <thead>
             <tr>
-                <th>SKU</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th></th>
+                <th class="col-md-2">SKU</th>
+                <th class="col-md-2">Name</th>
+                <th class="col-md-3">Description</th>
+                <th class="col-md-1">Quantity</th>
+                <th class="col-md-4 text-right">Price</th>
             </tr>
             </thead>
             <tbody>
@@ -38,10 +32,17 @@
                 <tr>
                     <td>{{$product->sku}}</td>
                     <td>{{$product->name}}</td>
-                    <td>{{$product->description}}</td>
+                    <td>
+                        {{$product->description}}
+                        @php($pattr = \App\Shop\ProductAttributes\ProductAttribute::find($product->pivot->product_attribute_id))
+                        @if(!is_null($pattr))<br>
+                        @foreach($pattr->attributesValues as $it)
+                            <p class="label label-primary">{{ $it->attribute->name }} : {{ $it->value }}</p>
+                        @endforeach
+                        @endif
+                    </td>
                     <td>{{$product->pivot->quantity}}</td>
-                    <td>{{$product->price}}</td>
-                    <td>{{number_format($product->price * $product->pivot->quantity, 2)}}</td>
+                    <td class="text-right">{{config('cart.currency')}} {{number_format($product->price * $product->pivot->quantity, 2)}}</td>
                 </tr>
             @endforeach
             </tbody>
@@ -50,33 +51,36 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
                 <td>Subtotal:</td>
-                <td>{{$order->total_products}}</td>
+                <td class="text-right">{{config('cart.currency')}} {{number_format($order->total_products, 2)}}</td>
             </tr>
             <tr>
                 <td></td>
+                <td></td>
+                <td></td>
+                <td>Shipping:</td>
+                <td class="text-right">{{config('cart.currency')}} {{number_format($order->total_shipping, 2)}}</td>
+            </tr>
+            <tr>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td>Discounts:</td>
-                <td>{{$order->discounts}}</td>
+                <td class="text-right">({{config('cart.currency')}} {{number_format($order->discounts, 2)}})</td>
             </tr>
             <tr>
-                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td>Tax:</td>
-                <td>{{$order->tax}}</td>
+                <td class="text-right">{{config('cart.currency')}} {{number_format($order->tax, 2)}}</td>
             </tr>
-            <tr>
-                <td></td>
+            <tr class="bg-warning">
                 <td></td>
                 <td></td>
                 <td></td>
                 <td><strong>Total:</strong></td>
-                <td><strong>{{$order->total}}</strong></td>
+                <td class="text-right"><strong>{{config('cart.currency')}} {{number_format($order->total, 2)}}</strong></td>
             </tr>
             </tfoot>
         </table>

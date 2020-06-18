@@ -2,14 +2,14 @@
 
 namespace App\Shop\Countries\Repositories;
 
-use App\Shop\Base\BaseRepository;
+use Jsdecena\Baserepo\BaseRepository;
 use App\Shop\Countries\Exceptions\CountryInvalidArgumentException;
 use App\Shop\Countries\Exceptions\CountryNotFoundException;
 use App\Shop\Countries\Repositories\Interfaces\CountryRepositoryInterface;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use App\Shop\Countries\Country;
+use Illuminate\Support\Collection;
 
 class CountryRepository extends BaseRepository implements CountryRepositoryInterface
 {
@@ -56,7 +56,7 @@ class CountryRepository extends BaseRepository implements CountryRepositoryInter
         try {
             return $this->findOneOrFail($id);
         } catch (ModelNotFoundException $e) {
-            throw new CountryNotFoundException($e->getMessage());
+            throw new CountryNotFoundException('Country not found.');
         }
     }
 
@@ -74,7 +74,9 @@ class CountryRepository extends BaseRepository implements CountryRepositoryInter
      * Update the country
      *
      * @param array $params
+     *
      * @return Country
+     * @throws CountryNotFoundException
      */
     public function updateCountry(array $params) : Country
     {
@@ -84,5 +86,14 @@ class CountryRepository extends BaseRepository implements CountryRepositoryInter
         } catch (QueryException $e) {
             throw new CountryInvalidArgumentException($e->getMessage());
         }
+    }
+
+    /**
+     *
+     * @return Collection
+     */
+    public function listStates() : Collection
+    {
+        return $this->model->states()->get();
     }
 }

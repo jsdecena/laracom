@@ -9,17 +9,21 @@
             <div class="box">
                 <div class="box-body">
                     <h2>Addresses</h2>
-                    <table class="table">
+                    @if(!$addresses->isEmpty())
+                        <table class="table">
                         <tbody>
                         <tr>
-                            <td class="col-md-1">Alias</td>
-                            <td class="col-md-2">Address 1</td>
-                            <td class="col-md-1">Country</td>
-                            <td class="col-md-2">Province</td>
-                            <td class="col-md-1">City</td>
-                            <td class="col-md-1">Zip Code</td>
-                            <td class="col-md-1">Status</td>
-                            <td class="col-md-3">Actions</td>
+                            <td>Alias</td>
+                            <td>Address 1</td>
+                            @if(isset($address->province))
+                            <td>Province</td>
+                            @endif
+                            <td>State</td>
+                            <td>City</td>
+                            <td>Zip Code</td>
+                            <td>Country</td>
+                            <td>Status</td>
+                            <td>Actions</td>
                         </tr>
                         </tbody>
                         <tbody>
@@ -27,18 +31,13 @@
                             <tr>
                                 <td><a href="{{ route('admin.customers.show', $customer->id) }}">{{ $address->alias }}</a></td>
                                 <td>{{ $address->address_1 }}</td>
-                                <td>{{ $address->country->name }}</td>
-                                <td>
-                                    @if(isset($address->province))
-                                        {{ $address->province->name }}
-                                    @endif
-                                </td>
-                                <td>
-                                    @if(isset($address->city))
-                                        {{ $address->city->name }}
-                                    @endif
-                                </td>
+                                @if(isset($address->province))
+                                <td>{{ $address->province->name }}</td>
+                                @endif
+                                <td>{{ $address->state_code }}</td>
+                                <td>{{ $address->city }}</td>
                                 <td>{{ $address->zip }}</td>
+                                <td>{{ $address->country->name }}</td>
                                 <td>@include('layouts.status', ['status' => $address->status])</td>
                                 <td>
                                     <form action="{{ route('admin.addresses.destroy', $address->id) }}" method="post" class="form-horizontal">
@@ -54,6 +53,10 @@
                         @endforeach
                         </tbody>
                     </table>
+                        <a href="{{ route('accounts', ['tab' => 'profile']) }}" class="btn btn-default">Back to My Account</a>
+                    @else
+                        <p class="alert alert-warning">No address created yet. <a href="{{ route('customer.address.create', auth()->id()) }}">Create</a></p>
+                    @endif
                 </div>
                 <!-- /.box-body -->
             </div>

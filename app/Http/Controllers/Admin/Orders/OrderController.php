@@ -17,31 +17,45 @@ use App\Shop\OrderStatuses\OrderStatus;
 use App\Shop\OrderStatuses\Repositories\Interfaces\OrderStatusRepositoryInterface;
 use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
 use App\Http\Controllers\Controller;
-use App\Shop\Products\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class OrderController extends Controller
 {
     use AddressTransformable;
 
+    /**
+     * @var OrderRepositoryInterface
+     */
     private $orderRepo;
+
+    /**
+     * @var CourierRepositoryInterface
+     */
     private $courierRepo;
-    private $addressRepo;
+
+    /**
+     * @var CustomerRepositoryInterface
+     */
     private $customerRepo;
+
+    /**
+     * @var OrderStatusRepositoryInterface
+     */
     private $orderStatusRepo;
 
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         CourierRepositoryInterface $courierRepository,
-        AddressRepositoryInterface $addressRepository,
         CustomerRepositoryInterface $customerRepository,
         OrderStatusRepositoryInterface $orderStatusRepository
     ) {
         $this->orderRepo = $orderRepository;
         $this->courierRepo = $courierRepository;
-        $this->addressRepo = $addressRepository;
         $this->customerRepo = $customerRepository;
         $this->orderStatusRepo = $orderStatusRepository;
+
+        $this->middleware(['permission:update-order, guard:employee'], ['only' => ['edit', 'update']]);
     }
 
     /**
@@ -65,17 +79,16 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $orderId
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id)
+    public function show($orderId)
     {
-        $order = $this->orderRepo->findOrderById($id);
-        $order->courier = $this->courierRepo->findCourierById($order->courier_id);
-        $order->address = $this->addressRepo->findAddressById($order->address_id);
+        $order = $this->orderRepo->findOrderById($orderId);
 
         $orderRepo = new OrderRepository($order);
-
+        $order->courier = $orderRepo->getCouriers()->first();
+        $order->address = $orderRepo->getAddresses()->first();
         $items = $orderRepo->listOrderedProducts();
 
         return view('admin.orders.show', [
@@ -83,8 +96,56 @@ class OrderController extends Controller
             'items' => $items,
             'customer' => $this->customerRepo->findCustomerById($order->customer_id),
             'currentStatus' => $this->orderStatusRepo->findOrderStatusById($order->order_status_id),
-            'payment' => $order->payment
+            'payment' => $order->payment,
+            'user' => auth()->guard('employee')->user()
         ]);
+    }
+
+    /**
+     * @param $orderId
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($orderId)
+    {
+        $order = $this->orderRepo->findOrderById($orderId);
+
+        $orderRepo = new OrderRepository($order);
+        $order->courier = $orderRepo->getCouriers()->first();
+        $order->address = $orderRepo->getAddresses()->first();
+        $items = $orderRepo->listOrderedProducts();
+
+        return view('admin.orders.edit', [
+            'statuses' => $this->orderStatusRepo->listOrderStatuses(),
+            'order' => $order,
+            'items' => $items,
+            'customer' => $this->customerRepo->findCustomerById($order->customer_id),
+            'currentStatus' => $this->orderStatusRepo->findOrderStatusById($order->order_status_id),
+            'payment' => $order->payment,
+            'user' => auth()->guard('employee')->user()
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param $orderId
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, $orderId)
+    {
+        $order = $this->orderRepo->findOrderById($orderId);
+        $orderRepo = new OrderRepository($order);
+
+        if ($request->has('total_paid') && $request->input('total_paid') != null) {
+            $orderData = $request->except('_method', '_token');
+        } else {
+            $orderData = $request->except('_method', '_token', 'total_paid');
+        }
+
+        $orderRepo->updateOrder($orderData);
+
+        return redirect()->route('admin.orders.edit', $orderId);
     }
 
     /**

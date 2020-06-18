@@ -2,6 +2,7 @@
 
 namespace App\Shop\Checkout;
 
+use App\Events\OrderCreateEvent;
 use App\Shop\Carts\Repositories\CartRepository;
 use App\Shop\Carts\ShoppingCart;
 use App\Shop\Orders\Order;
@@ -17,9 +18,8 @@ class CheckoutRepository
     public function buildCheckoutItems(array $data) : Order
     {
         $orderRepo = new OrderRepository(new Order);
-        $cartRepo = new CartRepository(new ShoppingCart);
 
-        $order = $orderRepo->create([
+        $order = $orderRepo->createOrder([
             'reference' => $data['reference'],
             'courier_id' => $data['courier_id'],
             'customer_id' => $data['customer_id'],
@@ -30,11 +30,9 @@ class CheckoutRepository
             'total_products' => $data['total_products'],
             'total' => $data['total'],
             'total_paid' => $data['total_paid'],
+            'total_shipping' => isset($data['total_shipping']) ? $data['total_shipping'] : 0,
             'tax' => $data['tax']
         ]);
-
-        $orderRepo = new OrderRepository($order);
-        $orderRepo->buildOrderDetails($cartRepo->getCartItems());
 
         return $order;
     }

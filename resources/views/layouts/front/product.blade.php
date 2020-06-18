@@ -61,7 +61,7 @@
                                                 {{ $value->attribute->name }} : {{ ucwords($value->value) }}
                                             @endforeach
                                             @if(!is_null($productAttribute->price))
-                                                ( {{ config('cart.currency') }} {{ $productAttribute->price }})
+                                                ( {{ config('cart.currency_symbol') }} {{ $productAttribute->price }})
                                             @endif
                                         </option>
                                     @endforeach

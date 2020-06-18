@@ -35,14 +35,11 @@
                                                 <textarea class="form-control ckeditor" name="description" id="description" rows="5" placeholder="Description">{!! $product->description  !!}</textarea>
                                             </div>
                                             <div class="form-group">
-                                                @if(isset($product->cover))
-                                                    <div class="col-md-3">
-                                                        <div class="row">
-                                                            <img src="{{ asset("storage/$product->cover") }}" alt="" class="img-responsive"> <br />
-                                                            <a onclick="return confirm('Are you sure?')" href="{{ route('admin.product.remove.image', ['product' => $product->id, 'image' => substr($product->cover, 9)]) }}" class="btn btn-danger btn-sm btn-block">Remove image?</a><br />
-                                                        </div>
+                                                <div class="col-md-3">
+                                                    <div class="row">
+                                                        <img src="{{ $product->cover }}" alt="" class="img-responsive img-thumbnail">
                                                     </div>
-                                                @endif
+                                                </div>
                                             </div>
                                             <div class="row"></div>
                                             <div class="form-group">
@@ -53,7 +50,7 @@
                                                 @foreach($images as $image)
                                                     <div class="col-md-3">
                                                         <div class="row">
-                                                            <img src="{{ asset("storage/$image->src") }}" alt="" class="img-responsive"> <br />
+                                                            <img src="{{ asset("storage/$image->src") }}" alt="" class="img-responsive img-thumbnail"> <br /> <br>
                                                             <a onclick="return confirm('Are you sure?')" href="{{ route('admin.product.remove.thumb', ['src' => $image->src]) }}" class="btn btn-danger btn-sm btn-block">Remove?</a><br />
                                                         </div>
                                                     </div>
@@ -111,7 +108,7 @@
                                                     <select name="brand_id" id="brand_id" class="form-control select2">
                                                         <option value=""></option>
                                                         @foreach($brands as $brand)
-                                                            <option @if(!is_null($product->brand_id) && $brand->id == $product->brand_id) selected="selected" @endif value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                            <option @if($brand->id == $product->brand_id) selected="selected" @endif value="{{ $brand->id }}">{{ $brand->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -119,6 +116,7 @@
                                             <div class="form-group">
                                                 @include('admin.shared.status-select', ['status' => $product->status])
                                             </div>
+                                            @include('admin.shared.attribute-select', [compact('default_weight')])
                                             <!-- /.box-body -->
                                         </div>
                                         <div class="col-md-4">
@@ -191,24 +189,27 @@
             $('#tabcontent > div:last-child').removeClass('active');
         }
         $(document).ready(function () {
-            var checkbox = $('input.attribute');
+            const checkbox = $('input.attribute');
             $(checkbox).on('change', function () {
-                var attributeId = $(this).val();
+                const attributeId = $(this).val();
                 if ($(this).is(':checked')) {
                     $('#attributeValue' + attributeId).attr('disabled', false);
                 } else {
                     $('#attributeValue' + attributeId).attr('disabled', true);
                 }
-                var count = checkbox.filter(':checked').length;
+                const count = checkbox.filter(':checked').length;
                 if (count > 0) {
                     $('#productAttributeQuantity').attr('disabled', false);
                     $('#productAttributePrice').attr('disabled', false);
-                    $('#productAttributePrice').attr('disabled', false);
+                    $('#salePrice').attr('disabled', false);
+                    $('#default').attr('disabled', false);
                     $('#createCombinationBtn').attr('disabled', false);
                     $('#combination').attr('disabled', false);
                 } else {
                     $('#productAttributeQuantity').attr('disabled', true);
                     $('#productAttributePrice').attr('disabled', true);
+                    $('#salePrice').attr('disabled', true);
+                    $('#default').attr('disabled', true);
                     $('#createCombinationBtn').attr('disabled', true);
                     $('#combination').attr('disabled', true);
                 }

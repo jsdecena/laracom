@@ -110,9 +110,9 @@ class CustomerController extends Controller
      */
     public function update(UpdateCustomerRequest $request, $id)
     {
-        $employee = $this->customerRepo->findCustomerById($id);
+        $customer = $this->customerRepo->findCustomerById($id);
 
-        $update = new CustomerRepository($employee);
+        $update = new CustomerRepository($customer);
         $data = $request->except('_method', '_token', 'password');
 
         if ($request->has('password')) {
@@ -129,13 +129,17 @@ class CustomerController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int $id
+     *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy($id)
     {
-        $this->customerRepo->delete($id);
+        $customer = $this->customerRepo->findCustomerById($id);
 
-        request()->session()->flash('message', 'Delete successful');
-        return redirect()->route('admin.customers.index');
+        $customerRepo = new CustomerRepository($customer);
+        $customerRepo->deleteCustomer();
+
+        return redirect()->route('admin.customers.index')->with('message', 'Delete successful');
     }
 }

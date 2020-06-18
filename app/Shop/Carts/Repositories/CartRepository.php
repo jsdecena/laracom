@@ -2,7 +2,7 @@
 
 namespace App\Shop\Carts\Repositories;
 
-use App\Shop\Base\BaseRepository;
+use Jsdecena\Baserepo\BaseRepository;
 use App\Shop\Carts\Exceptions\ProductInCartNotFoundException;
 use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
 use App\Shop\Carts\ShoppingCart;
@@ -47,13 +47,15 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
 
     /**
      * @param string $rowId
+     *
+     * @throws ProductInCartNotFoundException
      */
     public function removeToCart(string $rowId)
     {
         try {
             $this->model->remove($rowId);
         } catch (InvalidRowIDException $e) {
-            throw new ProductInCartNotFoundException($e->getMessage());
+            throw new ProductInCartNotFoundException('Product in cart not found.');
         }
     }
 
@@ -75,7 +77,7 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
      */
     public function getSubTotal(int $decimals = 2)
     {
-        return $this->model->subtotal(2);
+        return $this->model->subtotal($decimals, '.', '');
     }
 
     /**
@@ -87,7 +89,7 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
      */
     public function getTotal(int $decimals = 2, $shipping = 0.00)
     {
-        return $this->model->total($decimals, null, null, $shipping);
+        return $this->model->total($decimals, '.', '', $shipping);
     }
 
     /**
@@ -155,7 +157,8 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
      */
     public function openCart(Customer $customer, $instance = 'default')
     {
-        return $this->model->instance($instance)->restore($customer->email);
+        $this->model->instance($instance)->restore($customer->email);
+        return $this->model;
     }
 
     /**
@@ -163,7 +166,7 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
      */
     public function getCartItemsTransformed() : Collection
     {
-        return $this->getCartItems()->map(function (CartItem $item) {
+        return $this->getCartItems()->map(function ($item) {
             $productRepo = new ProductRepository(new Product());
             $product = $productRepo->findProductById($item->id);
             $item->product = $product;

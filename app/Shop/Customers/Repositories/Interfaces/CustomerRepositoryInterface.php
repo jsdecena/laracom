@@ -3,7 +3,7 @@
 namespace App\Shop\Customers\Repositories\Interfaces;
 
 use App\Shop\Addresses\Address;
-use App\Shop\Base\Interfaces\BaseRepositoryInterface;
+use Jsdecena\Baserepo\BaseRepositoryInterface;
 use App\Shop\Customers\Customer;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as Support;

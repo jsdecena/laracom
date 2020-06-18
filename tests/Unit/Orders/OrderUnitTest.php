@@ -14,6 +14,7 @@ use App\Shop\Orders\Order;
 use App\Shop\Orders\Repositories\OrderRepository;
 use App\Shop\OrderStatuses\OrderStatus;
 use App\Shop\Products\Product;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
@@ -51,7 +52,11 @@ class OrderUnitTest extends TestCase
     public function it_can_search_for_order()
     {
         $customer = factory(Customer::class)->create(['name' => 'Test Customer']);
-        $order = factory(Order::class)->create(['customer_id' => $customer->id]);
+        $order = factory(Order::class)->create([
+            'customer_id' => $customer->id,
+            'reference' => 'testing-12345'
+        ]);
+
         factory(Order::class)->create();
 
         $repo = new OrderRepository($order);
@@ -89,6 +94,9 @@ class OrderUnitTest extends TestCase
         $courier = factory(Courier::class)->create();
         $address = factory(Address::class)->create();
         $orderStatus = factory(OrderStatus::class)->create();
+
+        $product = factory(Product::class)->create();
+        Cart::add($product, 1);
 
         $data = [
             'reference' => $this->faker->uuid,
@@ -178,7 +186,11 @@ class OrderUnitTest extends TestCase
         $this->expectsEvents(OrderCreateEvent::class);
 
         $orderRepo = new OrderRepository(new Order);
-        $orderRepo->createOrder($data);
+        $order = $orderRepo->createOrder($data);
+
+        $orderRepo = new OrderRepository($order);
+        $product = factory(Product::class)->create();
+        $orderRepo->associateProduct($product);
 
         $lists = $orderRepo->listOrders();
 
@@ -247,7 +259,7 @@ class OrderUnitTest extends TestCase
         $address = factory(Address::class)->create();
         $orderStatus = factory(OrderStatus::class)->create();
 
-        $update = [
+        $data = [
             'reference' => $this->faker->uuid,
             'courier_id' => $courier->id,
             'customer_id' => $customer->id,
@@ -262,13 +274,14 @@ class OrderUnitTest extends TestCase
             'invoice' => null,
         ];
 
-        $updated = $orderRepo->updateOrder($update);
+        $updated = $orderRepo->updateOrder($data);
 
-        $this->assertEquals($update['reference'], $updated->reference);
-        $this->assertEquals($update['discounts'], $updated->discounts);
-        $this->assertEquals($update['total_products'], $updated->total_products);
-        $this->assertEquals($update['total_paid'], $updated->total_paid);
-        $this->assertEquals($update['invoice'], $updated->invoice);
+        $this->assertTrue($updated);
+        $this->assertEquals($data['reference'], $order->reference);
+        $this->assertEquals($data['discounts'], $order->discounts);
+        $this->assertEquals($data['total_products'], $order->total_products);
+        $this->assertEquals($data['total_paid'], $order->total_paid);
+        $this->assertEquals($data['invoice'], $order->invoice);
     }
 
     /** @test */

@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/accounts';
+    protected $redirectTo = '/accounts?tab=profile';
 
     /**
      * Create a new controller instance.
@@ -46,7 +46,9 @@ class LoginController extends Controller
      * Login the admin
      *
      * @param LoginRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function login(LoginRequest $request)
     {

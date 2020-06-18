@@ -9,8 +9,16 @@ use App\Http\Controllers\Controller;
 
 class CityController extends Controller
 {
+    /**
+     * @var CityRepositoryInterface
+     */
     private $cityRepo;
 
+    /**
+     * CityController constructor.
+     *
+     * @param CityRepositoryInterface $cityRepository
+     */
     public function __construct(CityRepositoryInterface $cityRepository)
     {
         $this->cityRepo = $cityRepository;
@@ -21,12 +29,12 @@ class CityController extends Controller
      *
      * @param int $countryId
      * @param int $provinceId
-     * @param int $cityId
+     * @param string $city
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(int $countryId, int $provinceId, int $cityId)
+    public function edit($countryId, $provinceId, $city)
     {
-        $city = $this->cityRepo->findCityById($cityId);
+        $city = $this->cityRepo->findCityByName($city);
 
         return view('admin.cities.edit', [
             'countryId' => $countryId,
@@ -41,17 +49,18 @@ class CityController extends Controller
      * @param UpdateCityRequest $request
      * @param int $countryId
      * @param int $provinceId
-     * @param int $cityId
+     * @param $city
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateCityRequest $request, int $countryId, int $provinceId, int $cityId)
+    public function update(UpdateCityRequest $request, $countryId, $provinceId, $city)
     {
-        $city = $this->cityRepo->findCityById($cityId);
+        $city = $this->cityRepo->findCityByName($city);
 
         $update = new CityRepository($city);
         $update->updateCity($request->only('name'));
 
-        $request->session()->flash('message', 'Update successful');
-        return redirect()->route('admin.countries.provinces.cities.edit', [$countryId, $provinceId, $cityId]);
+        return redirect()
+            ->route('admin.countries.provinces.cities.edit', [$countryId, $provinceId, $city])
+            ->with('message', 'Update successful');
     }
 }

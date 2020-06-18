@@ -8,6 +8,7 @@ use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
 use App\Shop\Carts\Requests\PayPalCheckoutExecutionRequest;
 use App\Shop\Carts\Requests\StripeExecutionRequest;
 use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
+use App\Shop\Customers\Customer;
 use App\Shop\Customers\Repositories\CustomerRepository;
 use App\Shop\Customers\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
@@ -17,10 +18,12 @@ use App\Shop\PaymentMethods\Stripe\Exceptions\StripeChargingErrorException;
 use App\Shop\PaymentMethods\Stripe\StripeRepository;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Transformations\ProductTransformable;
+use App\Shop\Shipping\ShippingInterface;
 use Exception;
 use App\Http\Controllers\Controller;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use PayPal\Exception\PayPalConnectionException;
 
@@ -28,14 +31,45 @@ class CheckoutController extends Controller
 {
     use ProductTransformable;
 
+    /**
+     * @var CartRepositoryInterface
+     */
     private $cartRepo;
+
+    /**
+     * @var CourierRepositoryInterface
+     */
     private $courierRepo;
+
+    /**
+     * @var AddressRepositoryInterface
+     */
     private $addressRepo;
+
+    /**
+     * @var CustomerRepositoryInterface
+     */
     private $customerRepo;
+
+    /**
+     * @var ProductRepositoryInterface
+     */
     private $productRepo;
+
+    /**
+     * @var OrderRepositoryInterface
+     */
     private $orderRepo;
-    private $courierId;
+
+    /**
+     * @var PayPalExpressCheckoutRepository
+     */
     private $payPal;
+
+    /**
+     * @var ShippingInterface
+     */
+    private $shippingRepo;
 
     public function __construct(
         CartRepositoryInterface $cartRepository,
@@ -43,7 +77,8 @@ class CheckoutController extends Controller
         AddressRepositoryInterface $addressRepository,
         CustomerRepositoryInterface $customerRepository,
         ProductRepositoryInterface $productRepository,
-        OrderRepositoryInterface $orderRepository
+        OrderRepositoryInterface $orderRepository,
+        ShippingInterface $shipping
     ) {
         $this->cartRepo = $cartRepository;
         $this->courierRepo = $courierRepository;
@@ -51,54 +86,51 @@ class CheckoutController extends Controller
         $this->customerRepo = $customerRepository;
         $this->productRepo = $productRepository;
         $this->orderRepo = $orderRepository;
-
-        $payPalRepo = new PayPalExpressCheckoutRepository();
-        $this->payPal = $payPalRepo;
+        $this->payPal = new PayPalExpressCheckoutRepository;
+        $this->shippingRepo = $shipping;
     }
 
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customer = $this->customerRepo->findCustomerById($this->loggedUser()->id);
+        $products = $this->cartRepo->getCartItems();
+        $customer = $request->user();
+        $rates = null;
+        $shipment_object_id = null;
 
-        $this->courierId = request()->session()->get('courierId', 1);
-        $courier = $this->courierRepo->findCourierById($this->courierId);
+        if (env('ACTIVATE_SHIPPING') == 1) {
+            $shipment = $this->createShippingProcess($customer, $products);
+            if (!is_null($shipment)) {
+                $shipment_object_id = $shipment->object_id;
+                $rates = $shipment->rates;
+            }
+        }
 
-        $shippingCost = $this->cartRepo->getShippingFee($courier);
-
-        $addressId = request()->session()->get('addressId', 1);
-        $paymentId = request()->session()->get('paymentName', 'paypal');
-
-        // Get payees
-        $paymentMethods = config('payees.name');
-        $payees = explode(',', $paymentMethods);
-
-        $paymentGateways = collect($payees)->transform(function ($name) {
+        // Get payment gateways
+        $paymentGateways = collect(explode(',', config('payees.name')))->transform(function ($name) {
             return config($name);
-        })->filter()->all();
+        })->all();
 
-        $courier = $this->courierRepo->findCourierById(1);
-        $shippingFee = $this->cartRepo->getShippingFee($courier);
+        $billingAddress = $customer->addresses()->first();
 
         return view('front.checkout', [
             'customer' => $customer,
+            'billingAddress' => $billingAddress,
             'addresses' => $customer->addresses()->get(),
             'products' => $this->cartRepo->getCartItems(),
             'subtotal' => $this->cartRepo->getSubTotal(),
-            'shipping' => $shippingCost,
             'tax' => $this->cartRepo->getTax(),
-            'total' => $this->cartRepo->getTotal(2, $shippingCost),
-            'couriers' => $this->courierRepo->listCouriers(),
-            'selectedCourier' => $this->courierId,
-            'selectedAddress' => $addressId,
-            'selectedPayment' => $paymentId,
+            'total' => $this->cartRepo->getTotal(2),
             'payments' => $paymentGateways,
             'cartItems' => $this->cartRepo->getCartItemsTransformed(),
-            'shippingFee' => $shippingFee
+            'shipment_object_id' => $shipment_object_id,
+            'rates' => $rates
         ]);
     }
 
@@ -108,17 +140,17 @@ class CheckoutController extends Controller
      * @param CartCheckoutRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
-     * @codeCoverageIgnore
+     * @throws \App\Shop\Addresses\Exceptions\AddressNotFoundException
      * @throws \App\Shop\Customers\Exceptions\CustomerPaymentChargingErrorException
+     * @codeCoverageIgnore
      */
     public function store(CartCheckoutRequest $request)
     {
-        $courier = $this->courierRepo->findCourierById($request->input('courier'));
-        $shippingFee = $this->cartRepo->getShippingFee($courier);
+        $shippingFee = 0;
 
         switch ($request->input('payment')) {
             case 'paypal':
-                return $this->payPal->process($courier, $request);
+                return $this->payPal->process($shippingFee, $request);
                 break;
             case 'stripe':
 
@@ -196,5 +228,26 @@ class CheckoutController extends Controller
     public function success()
     {
         return view('front.checkout-success');
+    }
+
+    /**
+     * @param Customer $customer
+     * @param Collection $products
+     *
+     * @return mixed
+     */
+    private function createShippingProcess(Customer $customer, Collection $products)
+    {
+        $customerRepo = new CustomerRepository($customer);
+
+        if ($customerRepo->findAddresses()->count() > 0 && $products->count() > 0) {
+
+            $this->shippingRepo->setPickupAddress();
+            $deliveryAddress = $customerRepo->findAddresses()->first();
+            $this->shippingRepo->setDeliveryAddress($deliveryAddress);
+            $this->shippingRepo->readyParcel($this->cartRepo->getCartItems());
+
+            return $this->shippingRepo->readyShipment();
+        }
     }
 }

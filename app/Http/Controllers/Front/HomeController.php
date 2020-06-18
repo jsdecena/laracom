@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\Front;
 
 use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
-use App\Http\Controllers\Controller;
-use App\Shop\Products\Transformations\ProductTransformable;
 
-class HomeController extends Controller
+class HomeController
 {
-    use ProductTransformable;
-
     /**
      * @var CategoryRepositoryInterface
      */
@@ -29,8 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $cat1 = $this->categoryRepo->findCategoryById(1);
-        $cat2 = $this->categoryRepo->findCategoryById(2);
+        $cat1 = $this->categoryRepo->findCategoryById(2);
+        $cat2 = $this->categoryRepo->findCategoryById(3);
 
         return view('front.index', compact('cat1', 'cat2'));
     }

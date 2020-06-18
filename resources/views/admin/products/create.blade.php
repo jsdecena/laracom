@@ -29,7 +29,7 @@
                         <div class="form-group">
                             <label for="image">Images</label>
                             <input type="file" name="image[]" id="image" class="form-control" multiple>
-                            <span class="text-warning">You can use ctr (cmd) to select multiple images</span>
+                            <small class="text-warning">You can use ctr (cmd) to select multiple images</small>
                         </div>
                         <div class="form-group">
                             <label for="quantity">Quantity <span class="text-danger">*</span></label>
@@ -54,6 +54,7 @@
                         </div>
                         @endif
                         @include('admin.shared.status-select', ['status' => 0])
+                        @include('admin.shared.attribute-select', [compact('default_weight')])
                     </div>
                     <div class="col-md-4">
                         <h2>Categories</h2>

@@ -2,7 +2,7 @@
 
 namespace App\Shop\Categories\Repositories;
 
-use App\Shop\Base\BaseRepository;
+use Jsdecena\Baserepo\BaseRepository;
 use App\Shop\Categories\Category;
 use App\Shop\Categories\Exceptions\CategoryInvalidArgumentException;
 use App\Shop\Categories\Exceptions\CategoryNotFoundException;
@@ -43,6 +43,22 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     }
 
     /**
+     * List all root categories
+     * 
+     * @param  string $order 
+     * @param  string $sort  
+     * @param  array  $except
+     * @return \Illuminate\Support\Collection  
+     */
+    public function rootCategories(string $order = 'id', string $sort = 'desc', $except = []) : Collection
+    {
+        return $this->model->whereIsRoot()
+                        ->orderBy($order, $sort)
+                        ->get()
+                        ->except($except);
+    }
+
+    /**
      * Create the category
      *
      * @param array $params
@@ -54,6 +70,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     public function createCategory(array $params) : Category
     {
         try {
+
             $collection = collect($params);
             if (isset($params['name'])) {
                 $slug = str_slug($params['name']);
@@ -98,12 +115,23 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         }
 
         $merge = $collection->merge(compact('slug', 'cover'));
-        if (isset($params['parent'])) {
+
+        // set parent attribute default value if not set
+        $params['parent'] = $params['parent'] ?? 0;
+
+        // If parent category is not set on update
+        // just make current category as root
+        // else we need to find the parent
+        // and associate it as child
+        if ( (int)$params['parent'] == 0) {
+            $category->saveAsRoot();
+        } else {
             $parent = $this->findCategoryById($params['parent']);
             $category->parent()->associate($parent);
         }
 
         $category->update($merge->all());
+        
         return $category;
     }
 

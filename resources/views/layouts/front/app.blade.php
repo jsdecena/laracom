@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-9325492-23"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('GOOGLE_ANALYTICS') }}"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -57,13 +57,13 @@
     </p>
 </noscript>
 <section>
-    <div class="row hidden-xs">
+    <div class="hidden-xs">
         <div class="container">
             <div class="clearfix"></div>
             <div class="pull-right">
                 <ul class="nav navbar-nav navbar-right">
                     @if(auth()->check())
-                        <li><a href="{{ route('accounts') }}"><i class="fa fa-home"></i> My Account</a></li>
+                        <li><a href="{{ route('accounts', ['tab' => 'profile']) }}"><i class="fa fa-home"></i> My Account</a></li>
                         <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
                     @else
                         <li><a href="{{ route('login') }}"> <i class="fa fa-lock"></i> Login</a></li>

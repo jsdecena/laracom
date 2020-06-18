@@ -108,7 +108,6 @@ class CategoryUnitTest extends TestCase
         }
     }
 
-
     /** @test */
     public function it_errors_creating_the_category_when_required_fields_are_not_passed()
     {
@@ -217,5 +216,56 @@ class CategoryUnitTest extends TestCase
         $this->assertEquals($params['status'], $created->status);
         $this->assertEquals($params['parent'], $created->parent_id);
         $this->assertEquals($params['cover'], $cover);
+    }
+
+    /** @test */
+    public function it_can_create_root_category()
+    {
+        $params = [
+            'name' => 'Boys',
+            'slug' => 'boys',
+            'description' => $this->faker->paragraph,
+            'status' => 1
+        ];
+
+        $category = new CategoryRepository(new Category);
+        $created = $category->createCategory($params);
+
+        $this->assertTrue($created->isRoot());
+    }
+
+    /** @test */
+    public function it_can_update_child_category_to_root_category()
+    {
+        // suppose to have a child category
+        [$child, $parent] = factory(Category::class, 2)->create();
+        $child->parent()->associate($parent)->save();
+
+        // send params without parent
+        $category = new CategoryRepository($child);
+        $updated = $category->updateCategory([
+            'name' => 'Boys',
+            'slug' => 'boys'
+        ]);
+
+        // check if updated category is root
+        $this->assertTrue($updated->isRoot());
+    }
+
+    /** @test */
+    public function it_can_update_root_category_to_child()
+    {
+        [$child, $parent] = factory(Category::class, 2)->create();
+
+        // set parent category via repository
+        $category = new CategoryRepository($child);
+        $updated = $category->updateCategory([
+            'name' => 'Boys',
+            'slug' => 'boys',
+            'parent' => $parent->id
+        ]);
+
+        // check if updated category is root
+        $this->assertTrue( $updated->parent->is($parent) );
     }
 }

@@ -133,7 +133,6 @@ class CartFeatureTest extends TestCase
             ->actingAs($this->customer, 'checkout')
             ->get(route('checkout.index'))
             ->assertStatus(200)
-            ->assertSee('Choose courier')
             ->assertSee('Billing Address')
             ->assertSee('Delivery Address')
             ->assertSee('Choose payment')

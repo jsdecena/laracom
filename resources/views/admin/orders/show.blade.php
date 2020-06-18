@@ -105,7 +105,15 @@
                                 <tr>
                                     <td>{{ $item->sku }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{!! $item->description !!}</td>
+                                    <td>
+                                        {!! $item->description !!}
+                                        @php($pattr = \App\Shop\ProductAttributes\ProductAttribute::find($item->product_attribute_id))
+                                        @if(!is_null($pattr))<br>
+                                            @foreach($pattr->attributesValues as $it)
+                                                <p class="label label-primary">{{ $it->attribute->name }} : {{ $it->value }}</p>
+                                            @endforeach
+                                        @endif
+                                    </td>
                                     <td>{{ $item->pivot->quantity }}</td>
                                     <td>{{ $item->price }}</td>
                                 </tr>
@@ -117,23 +125,6 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <h4> <i class="fa fa-truck"></i> Courier</h4>
-                            <table class="table">
-                                <thead>
-                                    <th class="col-md-3">Name</th>
-                                    <th class="col-md-4">Description</th>
-                                    <th class="col-md-5">Link</th>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>{{ $order->courier->name }}</td>
-                                    <td>{{ $order->courier->description }}</td>
-                                    <td>{{ $order->courier->url }}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-md-6">
                             <h4> <i class="fa fa-map-marker"></i> Address</h4>
                             <table class="table">
                                 <thead>
@@ -142,14 +133,22 @@
                                     <th>City</th>
                                     <th>Province</th>
                                     <th>Zip</th>
+                                    <th>Country</th>
+                                    <th>Phone</th>
                                 </thead>
                                 <tbody>
                                 <tr>
                                     <td>{{ $order->address->address_1 }}</td>
                                     <td>{{ $order->address->address_2 }}</td>
-                                    <td>{{ $order->address->city->name }}</td>
-                                    <td>{{ $order->address->province->name }}</td>
+                                    <td>{{ $order->address->city }}</td>
+                                    <td>
+                                        @if(isset($order->address->province))
+                                            {{ $order->address->province->name }}
+                                        @endif
+                                    </td>
                                     <td>{{ $order->address->zip }}</td>
+                                    <td>{{ $order->address->country->name }}</td>
+                                    <td>{{ $order->address->phone }}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -159,7 +158,10 @@
             </div>
             <!-- /.box -->
             <div class="box-footer">
-                <a href="{{ route('admin.orders.index') }}" class="btn btn-default">Back</a>
+                <div class="btn-group">
+                    <a href="{{ route('admin.orders.index') }}" class="btn btn-default">Back</a>
+                    @if($user->hasPermission('update-order'))<a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-primary">Edit</a>@endif
+                </div>
             </div>
         @endif
 

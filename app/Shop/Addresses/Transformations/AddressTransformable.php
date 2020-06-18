@@ -18,7 +18,11 @@ trait AddressTransformable
      * Transform the address
      *
      * @param Address $address
+     *
      * @return Address
+     * @throws \App\Shop\Cities\Exceptions\CityNotFoundException
+     * @throws \App\Shop\Countries\Exceptions\CountryNotFoundException
+     * @throws \App\Shop\Customers\Exceptions\CustomerNotFoundException
      */
     public function transformAddress(Address $address)
     {
@@ -28,12 +32,7 @@ trait AddressTransformable
         $obj->address_1 = $address->address_1;
         $obj->address_2 = $address->address_2;
         $obj->zip = $address->zip;
-
-        if (isset($address->city_id)) {
-            $cityRepo = new CityRepository(new City);
-            $city = $cityRepo->findCityById($address->city_id);
-            $obj->city = $city->name;
-        }
+        $obj->city = $address->city;
 
         if (isset($address->province_id)) {
             $provinceRepo = new ProvinceRepository(new Province);

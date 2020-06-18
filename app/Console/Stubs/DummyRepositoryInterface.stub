@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Shop\Dummies\Repositories\Interfaces;
+
+use App\Shop\Dummies\Dummy;
+use Illuminate\Support\Collection;
+use Jsdecena\Baserepo\BaseRepositoryInterface;
+
+interface DummyRepositoryInterface extends BaseRepositoryInterface
+{
+    public function listDummies(string $order = 'id', string $sort = 'desc', $except = []) : Collection;
+
+    public function createDummy(array $params) : Dummy;
+
+    public function updateDummy(array $params) : Dummy;
+
+    public function findDummyById(int $id) : Dummy;
+    
+    public function deleteDummy() : bool;
+}

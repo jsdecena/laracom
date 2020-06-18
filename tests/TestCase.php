@@ -4,6 +4,7 @@ namespace Tests;
 
 use App\Shop\Addresses\Address;
 use App\Shop\Categories\Category;
+use App\Shop\Countries\Country;
 use App\Shop\Couriers\Courier;
 use App\Shop\Couriers\Repositories\CourierRepository;
 use App\Shop\Employees\Employee;
@@ -11,6 +12,7 @@ use App\Shop\Customers\Customer;
 use App\Shop\Employees\Repositories\EmployeeRepository;
 use App\Shop\OrderStatuses\OrderStatus;
 use App\Shop\OrderStatuses\Repositories\OrderStatusRepository;
+use App\Shop\Permissions\Permission;
 use App\Shop\Products\Product;
 use App\Shop\Roles\Repositories\RoleRepository;
 use App\Shop\Roles\Role;
@@ -54,12 +56,40 @@ abstract class TestCase extends BaseTestCase
         $admin = $roleRepo->createRole($adminData);
         $this->role = $admin;
 
+        $createProductPerm = factory(Permission::class)->create([
+            'name' => 'create-product',
+            'display_name' => 'Create product'
+        ]);
+
+        $viewProductPerm = factory(Permission::class)->create([
+            'name' => 'view-product',
+            'display_name' => 'View product'
+        ]);
+
+        $updateProductPerm = factory(Permission::class)->create([
+            'name' => 'update-product',
+            'display_name' => 'Update product'
+        ]);
+
+        $deleteProductPerm = factory(Permission::class)->create([
+            'name' => 'delete-product',
+            'display_name' => 'Delete product'
+        ]);
+
+        $roleSuperRepo = new RoleRepository($admin);
+        $roleSuperRepo->attachToPermission($createProductPerm);
+        $roleSuperRepo->attachToPermission($viewProductPerm);
+        $roleSuperRepo->attachToPermission($updateProductPerm);
+        $roleSuperRepo->attachToPermission($deleteProductPerm);
+
         $employeeRepo = new EmployeeRepository($this->employee);
         $employeeRepo->syncRoles([$admin->id]);
 
         $this->product = factory(Product::class)->create();
         $this->category = factory(Category::class)->create();
         $this->customer = factory(Customer::class)->create();
+
+        $this->country = factory(Country::class)->create();
 
         $this->address = factory(Address::class)->create();
 

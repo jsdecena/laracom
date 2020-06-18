@@ -36,12 +36,13 @@
 </noscript>
 <!-- Site wrapper -->
 <div class="wrapper">
-    @include('layouts.admin.header', ['user' => $user])
+    @include('layouts.admin.header', ['user' => $admin])
 
-    @include('layouts.admin.sidebar', ['user' => $user])
+    @include('layouts.admin.sidebar', ['user' => $admin])
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+        @include("layouts.admin.breadcumb")
         @yield('content')
     </div>
     <!-- /.content-wrapper -->

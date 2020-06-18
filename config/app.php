@@ -150,11 +150,12 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Jsdecena\MCPro\McproServiceProvider::class,
         Jsdecena\MailChimp\MailChimpServiceProvider::class,
         Laravel\Cashier\CashierServiceProvider::class,
+        Jsdecena\Baserepo\BaseRepositoryProvider::class,
+        \Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
 
         /*
          * Application Service Providers...

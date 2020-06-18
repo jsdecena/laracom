@@ -37,7 +37,7 @@ class PaypalExpress
     private $itemList;
     private $others;
 
-    public function __construct($clientId, $clientSecret, $mode, $url)
+    public function __construct($clientId, $clientSecret, $mode)
     {
         $apiContext = new ApiContext(
             new OAuthTokenCredential($clientId, $clientSecret)
@@ -97,6 +97,11 @@ class PaypalExpress
         $this->itemList = $itemList;
     }
 
+    /**
+     * @param $subtotal
+     * @param int $tax
+     * @param $shipping
+     */
     public function setOtherFees($subtotal, $tax = 0, $shipping)
     {
         $details = new Details();
@@ -107,6 +112,9 @@ class PaypalExpress
         $this->others = $details;
     }
 
+    /**
+     * @param $amt
+     */
     public function setAmount($amt)
     {
         $amount = new Amount();
@@ -131,6 +139,7 @@ class PaypalExpress
     /**
      * @param string $returnUrl
      * @param string $cancelUrl
+     *
      * @return Payment
      */
     public function createPayment(string $returnUrl, string $cancelUrl)
@@ -174,12 +183,8 @@ class PaypalExpress
         $billingAddress = new InvoiceAddress();
         $billingAddress->line1 = $address->address_1;
         $billingAddress->line2 = $address->address_2;
-        if (!is_null($address->city)) {
-            $billingAddress->city = $address->city->name;
-        }
-        if (!is_null($address->province)) {
-            $billingAddress->state = $address->province->name;
-        }
+        $billingAddress->city = $address->city;
+        $billingAddress->state = $address->state_code;
         $billingAddress->postal_code = $address->zip;
         $billingAddress->country_code = $address->country->iso;
 
@@ -195,12 +200,8 @@ class PaypalExpress
         $shipping = new ShippingAddress();
         $shipping->line1 = $address->address_1;
         $shipping->line2 = $address->address_2;
-        if (!is_null($address->city)) {
-            $shipping->city = $address->city->name;
-        }
-        if (!is_null($address->province)) {
-            $shipping->state = $address->province->name;
-        }
+        $shipping->city = $address->city;
+        $shipping->state = $address->state_code;
         $shipping->postal_code = $address->zip;
         $shipping->country_code = $address->country->iso;
 

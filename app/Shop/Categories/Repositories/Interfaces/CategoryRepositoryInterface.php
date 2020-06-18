@@ -2,7 +2,7 @@
 
 namespace App\Shop\Categories\Repositories\Interfaces;
 
-use App\Shop\Base\Interfaces\BaseRepositoryInterface;
+use Jsdecena\Baserepo\BaseRepositoryInterface;
 use App\Shop\Categories\Category;
 use App\Shop\Products\Product;
 use Illuminate\Support\Collection;
@@ -30,4 +30,6 @@ interface CategoryRepositoryInterface extends BaseRepositoryInterface
     public function deleteFile(array $file, $disk = null) : bool;
 
     public function findCategoryBySlug(array $slug) : Category;
+
+    public function rootCategories(string $string, string $string1);
 }

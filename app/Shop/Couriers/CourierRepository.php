@@ -2,8 +2,7 @@
 
 namespace App\Shop\Couriers\Repositories;
 
-use App\Shop\Base\BaseRepository;
-use App\Shop\Countries\Exceptions\CountryNotFoundException;
+use Jsdecena\Baserepo\BaseRepository;
 use App\Shop\Couriers\Courier;
 use App\Shop\Couriers\Exceptions\CourierInvalidArgumentException;
 use App\Shop\Couriers\Exceptions\CourierNotFoundException;
@@ -44,14 +43,14 @@ class CourierRepository extends BaseRepository implements CourierRepositoryInter
      * Update the courier
      *
      * @param array $params
-     * @return Courier
+     *
+     * @return bool
      * @throws CourierInvalidArgumentException
      */
-    public function updateCourier(array $params) : Courier
+    public function updateCourier(array $params) : bool
     {
         try {
-            $this->update($params, $this->model->id);
-            return $this->find($this->model->id);
+            return $this->update($params);
         } catch (QueryException $e) {
             throw new CourierInvalidArgumentException($e->getMessage());
         }
@@ -61,15 +60,16 @@ class CourierRepository extends BaseRepository implements CourierRepositoryInter
      * Return the courier
      *
      * @param int $id
+     *
      * @return Courier
-     * @throws CountryNotFoundException
+     * @throws CourierNotFoundException
      */
     public function findCourierById(int $id) : Courier
     {
         try {
             return $this->findOneOrFail($id);
         } catch (ModelNotFoundException $e) {
-            throw new CourierNotFoundException($e->getMessage());
+            throw new CourierNotFoundException('Courier not found.');
         }
     }
 
@@ -82,6 +82,15 @@ class CourierRepository extends BaseRepository implements CourierRepositoryInter
      */
     public function listCouriers(string $order = 'id', string $sort = 'desc') : Collection
     {
-        return $this->model->where('status', 1)->orderBy($order, $sort)->get();
+        return $this->all(['*'], $order, $sort);
+    }
+
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function deleteCourier()
+    {
+        return $this->delete();
     }
 }

@@ -31,6 +31,20 @@
         <input type="text" name="productAttributePrice" id="productAttributePrice" class="form-control" placeholder="Price" disabled>
     </div>
 </div>
+<div class="form-group">
+    <label for="salePrice">Sale Price</label>
+    <div class="input-group">
+        <span class="input-group-addon">{{ config('cart.currency') }}</span>
+        <input type="text" name="salePrice" id="salePrice" class="form-control" placeholder="Sale Price" disabled>
+    </div>
+</div>
+<div class="form-group">
+    <label for="default">Show as default price?</label> <br />
+    <select name="default" id="default" class="form-control select2">
+        <option value="0" selected="selected">No</option>
+        <option value="1">Yes</option>
+    </select>
+</div>
 <div class="box-footer">
     <div class="btn-group">
         <button type="button" class="btn btn-sm btn-default" onclick="backToInfoTab()">Back</button>

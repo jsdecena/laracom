@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Shop\Carts\Requests\AddToCartRequest;
+use App\Shop\Carts\Requests\UpdateCartRequest;
 use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
 use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
 use App\Shop\ProductAttributes\Repositories\ProductAttributeRepositoryInterface;
@@ -86,25 +87,32 @@ class CartController extends Controller
     {
         $product = $this->productRepo->findProductById($request->input('product'));
 
+        if ($product->attributes()->count() > 0) {
+            $productAttr = $product->attributes()->where('default', 1)->first();
+
+            if (isset($productAttr->sale_price)) {
+                $product->price = $productAttr->price;
+
+                if (!is_null($productAttr->sale_price)) {
+                    $product->price = $productAttr->sale_price;
+                }
+            }
+        }
+
         $options = [];
         if ($request->has('productAttribute')) {
-            $pa = $request->input('productAttribute');
-            $productAttribute = $this->productAttributeRepo->findProductAttributeById($pa);
 
-            $productRepo = new ProductRepository($product);
-            $combination = $productRepo->findProductCombination($productAttribute);
+            $attr = $this->productAttributeRepo->findProductAttributeById($request->input('productAttribute'));
+            $product->price = $attr->price;
 
-            $options = $combination->all();
-
-            if (!is_null($productAttribute->price)) {
-                $product->price = $productAttribute->price;
-            }
+            $options['product_attribute_id'] = $request->input('productAttribute');
+            $options['combination'] = $attr->attributesValues->toArray();
         }
 
         $this->cartRepo->addToCart($product, $request->input('quantity'), $options);
 
-        $request->session()->flash('message', 'Add to cart successful');
-        return redirect()->route('cart.index');
+        return redirect()->route('cart.index')
+            ->with('message', 'Add to cart successful');
     }
 
     /**
@@ -114,7 +122,7 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCartRequest $request, $id)
     {
         $this->cartRepo->updateQuantityInCart($id, $request->input('quantity'));
 

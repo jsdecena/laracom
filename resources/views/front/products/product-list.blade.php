@@ -31,7 +31,19 @@
 
                     <div class="product-text">
                         <h4>{{ $product->name }}</h4>
-                        <p>{{ config('cart.currency') }} {{ number_format($product->price, 2) }}</p>
+                        <p>
+                            {{ config('cart.currency') }}
+                            @if(!is_null($product->attributes->where('default', 1)->first()))
+                                @if(!is_null($product->attributes->where('default', 1)->first()->sale_price))
+                                    {{ number_format($product->attributes->where('default', 1)->first()->sale_price, 2) }}
+                                    <p class="text text-danger">Sale!</p>
+                                @else
+                                    {{ number_format($product->attributes->where('default', 1)->first()->price, 2) }}
+                                @endif
+                            @else
+                                {{ number_format($product->price, 2) }}
+                            @endif
+                        </p>
                     </div>
                     <!-- Modal -->
                     <div class="modal fade" id="myModal_{{ $product->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

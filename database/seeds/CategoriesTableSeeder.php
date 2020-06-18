@@ -7,10 +7,6 @@ class CategoriesTableSeeder extends Seeder
 {
     public function run()
     {
-        factory(Category::class)->create([
-            'name' => 'Uncategorized',
-            'slug' => 'uncategorized',
-            'parent_id' => 0
-        ]);
+        factory(Category::class)->create();
     }
 }

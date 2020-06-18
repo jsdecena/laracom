@@ -25,6 +25,7 @@ class EmployeeController extends Controller
      * EmployeeController constructor.
      *
      * @param EmployeeRepositoryInterface $employeeRepository
+     * @param RoleRepositoryInterface $roleRepository
      */
     public function __construct(
         EmployeeRepositoryInterface $employeeRepository,
@@ -105,12 +106,13 @@ class EmployeeController extends Controller
         $roles = $this->roleRepo->listRoles('created_at', 'desc');
         $isCurrentUser = $this->employeeRepo->isAuthUser($employee);
 
-        return view('admin.employees.edit', [
+        return view(
+            'admin.employees.edit',
+            [
                 'employee' => $employee,
                 'roles' => $roles,
                 'isCurrentUser' => $isCurrentUser,
-                'selectedIds' => $employee->roles()->pluck('role_id')->all(),
-                'roleId' => $employee->roles()->first()->id
+                'selectedIds' => $employee->roles()->pluck('role_id')->all()
             ]
         );
     }
@@ -136,10 +138,10 @@ class EmployeeController extends Controller
             $employee->save();
         }
 
-        if ($request->has('role') and !$isCurrentUser) {
-            $employee->roles()->sync($request->input('role'));
+        if ($request->has('roles') and !$isCurrentUser) {
+            $employee->roles()->sync($request->input('roles'));
         } elseif (!$isCurrentUser) {
-            $employee->roles()->detach($request->input('role'));
+            $employee->roles()->detach();
         }
 
         return redirect()->route('admin.employees.edit', $id)
@@ -152,13 +154,15 @@ class EmployeeController extends Controller
      * @param  int $id
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(int $id)
     {
-        $this->employeeRepo->delete($id);
+        $employee = $this->employeeRepo->findEmployeeById($id);
+        $employeeRepo = new EmployeeRepository($employee);
+        $employeeRepo->deleteEmployee();
 
-        request()->session()->flash('message', 'Delete successful');
-        return redirect()->route('admin.employees.index');
+        return redirect()->route('admin.employees.index')->with('message', 'Delete successful');
     }
 
     /**
@@ -180,21 +184,16 @@ class EmployeeController extends Controller
      */
     public function updateProfile(UpdateEmployeeRequest $request, $id)
     {
-        $this->updateEmployee($request, $id);
-
-        $request->session()->flash('message', 'Update successful');
-        return redirect()->route('admin.employee.profile', $id);
-    }
-
-    /**
-     * @param UpdateEmployeeRequest $request
-     * @param $id
-     */
-    private function updateEmployee(UpdateEmployeeRequest $request, $id)
-    {
         $employee = $this->employeeRepo->findEmployeeById($id);
 
         $update = new EmployeeRepository($employee);
-        $update->updateEmployee($request->except('_token', '_method'));
+        $update->updateEmployee($request->except('_token', '_method', 'password'));
+
+        if ($request->has('password') && $request->input('password') != '') {
+            $update->updateEmployee($request->only('password'));
+        }
+
+        return redirect()->route('admin.employee.profile', $id)
+            ->with('message', 'Update successful');
     }
 }
