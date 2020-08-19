@@ -9,7 +9,19 @@
 
 # Laravel FREE E-Commerce Software
 
-- See full [documentation](https://shop.laracom.net/docs)
+Features Provided
+- Products
+- Cart
+- Checkout
+- Categories
+- Customers
+- Orders
+- Payment
+- Couriers
+- Employees
+
+- To view more details of the features 
+See full [documentation](https://shop.laracom.net/docs)
 
 # Setup
 * `composer install`
