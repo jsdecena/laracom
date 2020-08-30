@@ -17,7 +17,7 @@
         "jsdecena/mailchimp": "~7.0",
         "jsdecena/mcpro": "1.1.*",
         "laravel/cashier": "~7.0",
-        "laravel/framework": "5.7.*",
+        "laravel/framework": "5.7.*|^6.0|^7.0|^8.0",
         "laravel/tinker": "~1.0",
         "nicolaslopezj/searchable": "^1.10",
         "paypal/rest-api-sdk-php": "*",
