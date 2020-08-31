@@ -1,48 +1,34 @@
-# Simplified dockerized php application
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjsdecena%2Fdocker-php-lemp.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjsdecena%2Fdocker-php-lemp?ref=badge_shield)
+[![Build Status](https://travis-ci.org/jsdecena/laracom.svg?branch=master)](https://travis-ci.org/jsdecena/laracom)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Laracommerce/laracom/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Laracommerce/laracom/?branch=master)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/Laracommerce/laracom/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+[![codecov](https://codecov.io/gh/jsdecena/laracom/branch/master/graph/badge.svg)](https://codecov.io/gh/jsdecena/laracom)
+[![Fork Status](https://img.shields.io/github/forks/jsdecena/laracom.svg)](https://github.com/jsdecena/laracom)
+[![Star Status](https://img.shields.io/github/stars/jsdecena/laracom.svg)](https://github.com/jsdecena/laracom)
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/larac0m/Lobby)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FLaracommerce%2Flaracom.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FLaracommerce%2Flaracom?ref=badge_shield)
 
+# Laravel FREE E-Commerce Software
 
-## How to Install
+- See full [documentation](https://shop.laracom.net/docs)
 
-- Download and install docker in your system. [Download here](https://www.docker.com/get-started)
+# Simplified DOCKER setup
 
-- Install composer [here](https://getcomposer.org/doc/00-intro.md) if you haven't
+- RENAME `project/.env.example` to `.env`
+- RUN `docker-compose up -d`
+- RUN `docker exec -it app bash` and run inside the container `php artisan migrate --seed`
+- OPEN [http://localhost:8000](http://localhost:8000)
 
-- Clone your app inside the `project` folder. It must have `/public` folder since the webserver looks for the index here
-
-  - A new laravel / lumen application can be installed with:
-
-```php
-composer create-project --prefer-dist laravel/laravel .
-```
-
-OR
-
-```php
-composer create-project --prefer-dist laravel/lumen .
-```
-
-- Move to the root folder and run `docker-compose up -d`
-
-- Open your browser and go to [http://localhost:8000](http://localhost:8000)
-
-- Enjoy!
-
-## FAQ
-
-- Why port 81?
-  - Sometimes you want your backend and frontend separated. You can have your frontend runs in the default `:80` and the API to be in port `:81`
-  
-- Can we change this port?
-  - Yes. You can change the port in the webserver block of the `docker-compose.yml` file
-  
-- Is everything customizable?
-  - Yes. You can fiddle the `docker-compose.yml` file and make your own customization. Be sure you know what you are doing.
-  
-  
-  
 # Author
+
 [Jeff Simons Decena](https://jsdecena.me)
 
+# Contributors
+
+[Contributors](https://github.com/Laracommerce/laracom/graphs/contributors)
+
+# Get discount on Digital Ocean
+Sign-up with [Digital Ocean and get $10 discount](https://m.do.co/c/bce94237de96)!
+
+
 ## License
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjsdecena%2Fdocker-php-lemp.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjsdecena%2Fdocker-php-lemp?ref=badge_large)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FLaracommerce%2Flaracom.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FLaracommerce%2Flaracom?ref=badge_large)
