@@ -42,7 +42,7 @@ if (!function_exists("populate_breadcrumb")) {
             ], function ($view) use ($data) {
                 $view->with(
                     [
-                        "breadcumbs" => $data
+                        "breadcrumbs" => $data
                     ]
                 );
             });
