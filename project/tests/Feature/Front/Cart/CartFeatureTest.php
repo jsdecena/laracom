@@ -274,4 +274,88 @@ class CartFeatureTest extends TestCase
             ->assertSessionHas('message', 'Add to cart successful')
             ->assertRedirect(route('cart.index'));
     }
+
+    /** @test */
+    public function it_errors_when_adding_a_product_to_cart_in_case_quantity_is_string()
+    {
+        $product = factory(Product::class)->create();
+
+        $data = [
+            'product' => $product->id,
+            'quantity' => 'character string'
+        ];
+
+        $this
+            ->post(route('cart.store', $data))
+            ->assertStatus(302)
+            ->assertSessionHasErrors(['quantity' => 'The quantity must be an integer.']);
+    }
+
+    /** @test */
+    public function it_errors_when_adding_a_product_to_cart_in_case_quantity_is_less_than_1()
+    {
+        $product = factory(Product::class)->create();
+
+        $data = [
+            'product' => $product->id,
+            'quantity' => 0
+        ];
+
+        $this
+            ->post(route('cart.store', $data))
+            ->assertStatus(302)
+            ->assertSessionHasErrors(['quantity' => 'The quantity must be at least 1.']);
+    }
+
+    /** @test */
+    public function it_errors_when_update_the_cart_in_case_quantity_is_string()
+    {
+        $product = factory(Product::class)->create();
+
+        $data = [
+            'product' => $product->id,
+            'quantity' => 1
+        ];
+
+        $this
+            ->actingAs($this->customer, 'web')
+            ->post(route('cart.store', $data));
+
+        $cartRepo = new CartRepository(new ShoppingCart());
+        $items = $cartRepo->getCartItems();
+
+        $items->each(function ($item) {
+            $this
+                ->actingAs($this->customer, 'web')
+                ->put(route('cart.update', $item->rowId), ['quantity' => 'character string'])
+                ->assertStatus(302)
+                ->assertSessionHasErrors(['quantity' => 'The quantity must be an integer.']);
+        });
+    }
+
+    /** @test */
+    public function it_errors_when_update_the_cart_in_case_quantity_is_less_than_1()
+    {
+        $product = factory(Product::class)->create();
+
+        $data = [
+            'product' => $product->id,
+            'quantity' => 1
+        ];
+
+        $this
+            ->actingAs($this->customer, 'web')
+            ->post(route('cart.store', $data));
+
+        $cartRepo = new CartRepository(new ShoppingCart());
+        $items = $cartRepo->getCartItems();
+
+        $items->each(function ($item) {
+            $this
+                ->actingAs($this->customer, 'web')
+                ->put(route('cart.update', $item->rowId), ['quantity' => 0])
+                ->assertStatus(302)
+                ->assertSessionHasErrors(['quantity' => 'The quantity must be at least 1.']);
+        });
+    }
 }
