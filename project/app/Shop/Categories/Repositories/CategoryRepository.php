@@ -72,13 +72,10 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         try {
 
             $collection = collect($params);
-            if (isset($params['name'])) {
-                $slug = str_slug($params['name']);
-            }
+            $slug = (isset($params['name'])) ? str_slug($params['name']) : '';
 
-            if (isset($params['cover']) && ($params['cover'] instanceof UploadedFile)) {
-                $cover = $this->uploadOne($params['cover'], 'categories');
-            }
+            $cover = (isset($params['cover']) && ($params['cover'] instanceof UploadedFile)) ?
+                $this->uploadOne($params['cover'], 'categories') : '';
 
             $merge = $collection->merge(compact('slug', 'cover'));
 
@@ -109,6 +106,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         $category = $this->findCategoryById($this->model->id);
         $collection = collect($params)->except('_token');
         $slug = str_slug($collection->get('name'));
+        $cover = '';
 
         if (isset($params['cover']) && ($params['cover'] instanceof UploadedFile)) {
             $cover = $this->uploadOne($params['cover'], 'categories');
