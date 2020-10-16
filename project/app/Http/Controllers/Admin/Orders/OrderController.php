@@ -128,12 +128,11 @@ class OrderController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param UpdateOrderRequest $request
      * @param $orderId
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    // public function update(Request $request, $orderId)
     public function update(UpdateOrderRequest $request, $orderId)
     {
         $order = $this->orderRepo->findOrderById($orderId);
