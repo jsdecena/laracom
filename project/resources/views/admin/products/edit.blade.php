@@ -43,7 +43,7 @@
                                             </div>
                                             <div class="row"></div>
                                             <div class="form-group">
-                                                <label for="cover">Cover </label>
+                                                <label for="cover">Cover <span class="text-danger">*</span></label>
                                                 <input type="file" name="cover" id="cover" class="form-control">
                                             </div>
                                             <div class="form-group">

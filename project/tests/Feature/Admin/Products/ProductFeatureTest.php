@@ -263,4 +263,138 @@ class ProductFeatureTest extends TestCase
             ->assertRedirect(route('admin.products.edit', $this->product->id))
             ->assertSessionHas('message', 'Update successful');
     }
+
+    /** @test */
+    public function it_errors_when_create_a_product_in_case_quantity_is_string()
+    {
+        $product = 'apple';
+
+        $params = [
+            'sku' => $this->faker->numberBetween(1111111, 999999),
+            'name' => $product,
+            'slug' => str_slug($product),
+            'description' => $this->faker->paragraph,
+            'cover' => UploadedFile::fake()->image('file.png', 200, 200),
+            'quantity' => 'character string',
+            'price' => 9.95,
+            'status' => 1,
+        ];
+
+        $this->actingAs($this->employee, 'employee')
+            ->put(route('admin.products.update', $this->product->id), $params)
+            ->assertStatus(302)
+            ->assertSessionHasErrors(['quantity' => 'The quantity must be an integer.']);
+    }
+
+    /** @test */
+    public function it_errors_when_create_a_product_in_case_quantity_is_less_than_0()
+    {
+        $product = 'apple';
+
+        $params = [
+            'sku' => $this->faker->numberBetween(1111111, 999999),
+            'name' => $product,
+            'slug' => str_slug($product),
+            'description' => $this->faker->paragraph,
+            'cover' => UploadedFile::fake()->image('file.png', 200, 200),
+            'quantity' => -1,
+            'price' => 9.95,
+            'status' => 1,
+        ];
+
+        $this->actingAs($this->employee, 'employee')
+            ->put(route('admin.products.update', $this->product->id), $params)
+            ->assertStatus(302)
+            ->assertSessionHasErrors(['quantity' => 'The quantity must be at least 0.']);
+    }
+
+    /** @test */
+    public function it_errors_when_create_a_product_in_case_price_is_string()
+    {
+        $product = 'apple';
+
+        $params = [
+            'sku' => $this->faker->numberBetween(1111111, 999999),
+            'name' => $product,
+            'slug' => str_slug($product),
+            'description' => $this->faker->paragraph,
+            'cover' => UploadedFile::fake()->image('file.png', 200, 200),
+            'quantity' => 10,
+            'price' => 'character string',
+            'status' => 1,
+        ];
+
+        $this->actingAs($this->employee, 'employee')
+            ->put(route('admin.products.update', $this->product->id), $params)
+            ->assertStatus(302)
+            ->assertSessionHasErrors(['price' => 'The price must be a number.']);
+    }
+
+    /** @test */
+    public function it_errors_when_create_a_product_in_case_price_is_less_than_0()
+    {
+        $product = 'apple';
+
+        $params = [
+            'sku' => $this->faker->numberBetween(1111111, 999999),
+            'name' => $product,
+            'slug' => str_slug($product),
+            'description' => $this->faker->paragraph,
+            'cover' => UploadedFile::fake()->image('file.png', 200, 200),
+            'quantity' => 10,
+            'price' => -12.23,
+            'status' => 1,
+        ];
+
+        $this->actingAs($this->employee, 'employee')
+            ->put(route('admin.products.update', $this->product->id), $params)
+            ->assertStatus(302)
+            ->assertSessionHasErrors(['price' => 'The price must be at least 0.']);
+    }
+
+    /** @test */
+    public function it_errors_when_create_a_product_in_case_weight_is_string()
+    {
+        $product = 'apple';
+
+        $params = [
+            'sku' => $this->faker->numberBetween(1111111, 999999),
+            'name' => $product,
+            'slug' => str_slug($product),
+            'description' => $this->faker->paragraph,
+            'cover' => UploadedFile::fake()->image('file.png', 200, 200),
+            'quantity' => 10,
+            'price' => 12.23,
+            'status' => 1,
+            'weight' => 'character string'
+        ];
+
+        $this->actingAs($this->employee, 'employee')
+            ->put(route('admin.products.update', $this->product->id), $params)
+            ->assertStatus(302)
+            ->assertSessionHasErrors(['weight' => 'The weight must be a number.']);
+    }
+
+    /** @test */
+    public function it_errors_when_create_a_product_in_case_weight_is_less_than_0()
+    {
+        $product = 'apple';
+
+        $params = [
+            'sku' => $this->faker->numberBetween(1111111, 999999),
+            'name' => $product,
+            'slug' => str_slug($product),
+            'description' => $this->faker->paragraph,
+            'cover' => UploadedFile::fake()->image('file.png', 200, 200),
+            'quantity' => 10,
+            'price' => 12.23,
+            'status' => 1,
+            'weight' => -12.23
+        ];
+
+        $this->actingAs($this->employee, 'employee')
+            ->put(route('admin.products.update', $this->product->id), $params)
+            ->assertStatus(302)
+            ->assertSessionHasErrors(['weight' => 'The weight must be at least 0.']);
+    }
 }

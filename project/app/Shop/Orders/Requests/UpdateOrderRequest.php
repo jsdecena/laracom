@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Shop\Carts\Requests;
+namespace App\Shop\Orders\Requests;
 
 use App\Shop\Base\BaseFormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdateCartRequest extends BaseFormRequest
+class UpdateOrderRequest extends BaseFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,7 +15,8 @@ class UpdateCartRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'quantity' => ['required', 'integer', 'min:1']
+            'order_status_id' => ['required'],
+            'total_paid' => ['nullable', 'numeric']
         ];
     }
 }
