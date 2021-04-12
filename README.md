@@ -27,7 +27,9 @@ See full [documentation](https://shop.laracom.net/docs)
 
 - RENAME `project/.env.example` to `.env`
 - RUN `docker-compose up -d`
-- RUN `docker exec -it app bash` and run inside the container `php artisan migrate --seed`
+- RUN `docker exec -it app bash`, then inside the container:
+    - `composer install`
+    - `php artisan migrate --seed`
 - OPEN [http://localhost:8000](http://localhost:8000)
 
 # Author
