@@ -30,6 +30,9 @@ See full [documentation](https://shop.laracom.net/docs)
 - RUN `docker exec -it app bash`, then inside the container:
     - `composer install`
     - `php artisan migrate --seed`
+    - `chmod -R 777 storage bootstrap/cache`
+- RUN `npm install && npm run prod` OR if you are still doing development
+- RUN `npm install && npm run dev`
 - OPEN [http://localhost:8000](http://localhost:8000)
 
 # Author
