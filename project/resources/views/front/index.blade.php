@@ -30,6 +30,4 @@
             <div id="browse-all-btn"> <a class="btn btn-default browse-all-btn" href="{{ route('front.category.slug', $cat2->slug) }}" role="button">browse all items</a></div>
         </div>
     @endif
-    <hr />
-    @include('mailchimp::mailchimp')
 @endsection

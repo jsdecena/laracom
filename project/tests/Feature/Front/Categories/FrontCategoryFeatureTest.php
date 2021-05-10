@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Front;
+namespace Tests\Feature\Front\Categories;
 
 use App\Shop\Categories\Category;
 use App\Shop\Products\Product;

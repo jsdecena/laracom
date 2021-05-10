@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Admin\Cities;
 
 use App\Shop\Cities\City;
 use App\Shop\Countries\Country;

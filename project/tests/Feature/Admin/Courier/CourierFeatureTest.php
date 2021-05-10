@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Admin\Courier;
 
 use App\Shop\Couriers\Courier;
 use Tests\TestCase;

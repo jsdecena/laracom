@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Admin\Products;
 
 use App\Shop\Employees\Employee;
 use App\Shop\Employees\Repositories\EmployeeRepository;
