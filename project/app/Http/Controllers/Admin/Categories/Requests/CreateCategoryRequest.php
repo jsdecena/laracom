@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Shop\Categories\Requests;
+namespace App\Http\Controllers\Admin\Categories\Requests;
 
 use App\Shop\Base\BaseFormRequest;
 
