@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Countries;
 
 use App\Shop\Countries\Repositories\CountryRepository;
 use App\Shop\Countries\Repositories\Interfaces\CountryRepositoryInterface;
-use App\Shop\Countries\Requests\UpdateCountryRequest;
+use App\Http\Controllers\Admin\Countries\Requests\UpdateCountryRequest;
 use App\Http\Controllers\Controller;
 
 class CountryController extends Controller
