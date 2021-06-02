@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Shop\Admins\Requests\CreateEmployeeRequest;
-use App\Shop\Admins\Requests\UpdateEmployeeRequest;
+use App\Shop\Employees\Requests\CreateEmployeeRequest;
+use App\Shop\Employees\Requests\UpdateEmployeeRequest;
 use App\Shop\Employees\Repositories\EmployeeRepository;
 use App\Shop\Employees\Repositories\Interfaces\EmployeeRepositoryInterface;
 use App\Shop\Roles\Repositories\RoleRepositoryInterface;
