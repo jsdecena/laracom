@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Shop\Countries\Requests;
+namespace App\Http\Controllers\Admin\Countries\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
