@@ -55,7 +55,9 @@
                                             @foreach($productAttribute->attributesValues as $value)
                                                 {{ $value->attribute->name }} : {{ ucwords($value->value) }}
                                             @endforeach
-                                            @if(!is_null($productAttribute->price))
+                                            @if(!is_null($productAttribute->sale_price))
+                                                ( {{ config('cart.currency_symbol') }} {{ $productAttribute->sale_price }})
+                                            @elseif(!is_null($productAttribute->price))
                                                 ( {{ config('cart.currency_symbol') }} {{ $productAttribute->price }})
                                             @endif
                                         </option>
