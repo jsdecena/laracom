@@ -328,7 +328,7 @@ class ProductController extends Controller
         $fields = $request->only(
             'productAttributeQuantity',
             'productAttributePrice',
-            'sale_price',
+            'salePrice',
             'default'
         );
 
@@ -341,8 +341,8 @@ class ProductController extends Controller
         $price = $fields['productAttributePrice'];
 
         $sale_price = null;
-        if (isset($fields['sale_price'])) {
-            $sale_price = $fields['sale_price'];
+        if (isset($fields['salePrice'])) {
+            $sale_price = $fields['salePrice'];
         }
 
         $attributeValues = $request->input('attributeValue');
