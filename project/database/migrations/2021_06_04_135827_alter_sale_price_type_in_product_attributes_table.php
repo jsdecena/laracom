@@ -13,7 +13,7 @@ class AlterSalePriceTypeInProductAttributesTable extends Migration
      */
     public function up()
     {
-        DB::statement('ALTER TABLE product_attributes CHANGE sale_price sale_price NUMERIC(8, 2) DEFAULT NULL');
+        DB::raw('ALTER TABLE product_attributes MODIFY sale_price NUMERIC(8, 2) DEFAULT NULL');
     }
 
     /**
