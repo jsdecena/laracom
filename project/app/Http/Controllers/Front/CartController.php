@@ -103,7 +103,8 @@ class CartController extends Controller
         if ($request->has('productAttribute')) {
 
             $attr = $this->productAttributeRepo->findProductAttributeById($request->input('productAttribute'));
-            $product->price = $attr->price;
+
+            $product->price = $attr->sale_price ?? $attr->price;
 
             $options['product_attribute_id'] = $request->input('productAttribute');
             $options['combination'] = $attr->attributesValues->toArray();

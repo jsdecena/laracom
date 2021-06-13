@@ -18,6 +18,7 @@ use App\Shop\Couriers\Courier;
 use App\Shop\Orders\Order;
 use App\Shop\Orders\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Shop\Orders\Transformers\OrderTransformable;
+use App\Shop\ProductAttributes\Repositories\ProductAttributeRepositoryInterface;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\ProductRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -122,6 +123,11 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
      */
     public function associateProduct(Product $product, int $quantity = 1, array $data = [])
     {
+        if (isset($data['product_attribute_id'])) {
+            $attr = resolve(ProductAttributeRepositoryInterface::class)->findProductAttributeById($data['product_attribute_id']);
+            $product->price = $attr->sale_price ?? $attr->price;
+        }
+
         $this->model->products()->attach($product, [
             'quantity' => $quantity,
             'product_name' => $product->name,
