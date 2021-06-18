@@ -5,6 +5,7 @@ namespace Tests\Feature\Front\Categories;
 use App\Shop\Categories\Category;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\ProductRepository;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class FrontCategoryFeatureTest extends TestCase
@@ -19,7 +20,7 @@ class FrontCategoryFeatureTest extends TestCase
         $productRepo->syncCategories([$category->id]);
 
         $this
-            ->get(route('front.category.slug', str_slug($category->name)))
+            ->get(route('front.category.slug', Str::slug($category->name)))
             ->assertStatus(200)
             ->assertSee($category->name)
             ->assertSee($product->name)

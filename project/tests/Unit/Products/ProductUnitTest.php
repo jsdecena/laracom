@@ -12,6 +12,7 @@ use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\ProductRepository;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class ProductUnitTest extends TestCase
@@ -114,7 +115,7 @@ class ProductUnitTest extends TestCase
         $params = [
             'sku' => $this->faker->numberBetween(1111111, 999999),
             'name' => $product,
-            'slug' => str_slug($product),
+            'slug' => Str::slug($product),
             'description' => $this->faker->paragraph,
             'cover' => $cover,
             'quantity' => 10,
@@ -153,7 +154,7 @@ class ProductUnitTest extends TestCase
         $params = [
             'sku' => $this->faker->numberBetween(1111111, 999999),
             'name' => $product,
-            'slug' => str_slug($product),
+            'slug' => Str::slug($product),
             'description' => $this->faker->paragraph,
             'cover' => $cover,
             'quantity' => 10,
@@ -179,7 +180,7 @@ class ProductUnitTest extends TestCase
     {
         $product = factory(Product::class)->create();
 
-        $name = str_limit($product->name, 2, '');
+        $name = Str::limit($product->name, 2, '');
 
         $productRepo = new ProductRepository($product);
         $results = $productRepo->searchProduct($name);
@@ -300,7 +301,7 @@ class ProductUnitTest extends TestCase
         $data = [
             'sku' => '11111',
             'name' => $productName,
-            'slug' => str_slug($productName),
+            'slug' => Str::slug($productName),
             'description' => $this->faker->paragraph,
             'cover' => $cover,
             'quantity' => 11,
@@ -323,7 +324,7 @@ class ProductUnitTest extends TestCase
         $params = [
             'sku' => $this->faker->numberBetween(1111111, 999999),
             'name' => $product,
-            'slug' => str_slug($product),
+            'slug' => Str::slug($product),
             'description' => $this->faker->paragraph,
             'cover' => $cover,
             'quantity' => 10,

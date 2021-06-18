@@ -14,6 +14,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\Shop\Categories\Category;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 
 $factory->define(Category::class, function (Faker\Generator $faker) {
     $name = $faker->unique()->randomElement([
@@ -33,7 +34,7 @@ $factory->define(Category::class, function (Faker\Generator $faker) {
 
     return [
         'name' => $name,
-        'slug' => str_slug($name),
+        'slug' => Str::slug($name),
         'description' => $faker->paragraph,
         'cover' => $file->store('categories', ['disk' => 'public']),
         'status' => 1

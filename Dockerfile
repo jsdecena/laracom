@@ -3,6 +3,8 @@ FROM jsdecena/php74-fpm
 ENV NODE_VERSION=12.6.0
 RUN apt update && apt install -y curl
 
+RUN docker-php-ext-install mysqli pdo_mysql gd
+
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 ENV NVM_DIR=/root/.nvm
 

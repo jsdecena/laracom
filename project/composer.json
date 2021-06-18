@@ -18,6 +18,7 @@
         "jsdecena/mcpro": "1.1.*",
         "kalnoy/nestedset": "^5.0",
         "laravel/framework": "^8.0",
+        "laravel/legacy-factories": "^1.1",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "nicolaslopezj/searchable": "^1.10",

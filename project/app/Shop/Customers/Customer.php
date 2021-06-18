@@ -7,12 +7,11 @@ use App\Shop\Orders\Order;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Cashier\Billable;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Customer extends Authenticatable
 {
-    use Notifiable, SoftDeletes, SearchableTrait, Billable;
+    use Notifiable, SoftDeletes, SearchableTrait;
 
     /**
      * The attributes that are mass assignable.

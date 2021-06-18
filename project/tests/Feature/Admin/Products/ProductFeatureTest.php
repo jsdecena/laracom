@@ -6,6 +6,7 @@ use App\Shop\Categories\Category;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\ProductRepository;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class ProductFeatureTest extends TestCase
@@ -43,7 +44,7 @@ class ProductFeatureTest extends TestCase
         $params = [
             'sku' => $this->faker->numberBetween(1111111, 999999),
             'name' => $product,
-            'slug' => str_slug($product),
+            'slug' => Str::slug($product),
             'description' => $this->faker->paragraph,
             'cover' => $cover,
             'quantity' => 10,
@@ -150,7 +151,7 @@ class ProductFeatureTest extends TestCase
         $params = [
             'sku' => $this->faker->numberBetween(1111111, 999999),
             'name' => $product,
-            'slug' => str_slug($product),
+            'slug' => Str::slug($product),
             'description' => $this->faker->paragraph,
             'cover' => $cover,
             'quantity' => 10,
@@ -183,7 +184,7 @@ class ProductFeatureTest extends TestCase
         $params = [
             'sku' => $this->faker->numberBetween(1111111, 999999),
             'name' => $product,
-            'slug' => str_slug($product),
+            'slug' => Str::slug($product),
             'description' => $this->faker->paragraph,
             'cover' => $cover,
             'quantity' => 10,
@@ -218,7 +219,7 @@ class ProductFeatureTest extends TestCase
         $data = [
             'sku' => $this->faker->numberBetween(1111111, 999999),
             'name' => $product,
-            'slug' => str_slug($product),
+            'slug' => Str::slug($product),
             'description' => $this->faker->paragraph,
             'cover' => UploadedFile::fake()->image('file.png', 200, 200),
             'quantity' => 10,
@@ -248,7 +249,7 @@ class ProductFeatureTest extends TestCase
         $params = [
             'sku' => $this->faker->numberBetween(1111111, 999999),
             'name' => $product,
-            'slug' => str_slug($product),
+            'slug' => Str::slug($product),
             'description' => $this->faker->paragraph,
             'cover' => UploadedFile::fake()->image('file.png', 200, 200),
             'quantity' => 10,
@@ -272,7 +273,7 @@ class ProductFeatureTest extends TestCase
         $params = [
             'sku' => $this->faker->numberBetween(1111111, 999999),
             'name' => $product,
-            'slug' => str_slug($product),
+            'slug' => Str::slug($product),
             'description' => $this->faker->paragraph,
             'cover' => UploadedFile::fake()->image('file.png', 200, 200),
             'quantity' => 'character string',
@@ -294,7 +295,7 @@ class ProductFeatureTest extends TestCase
         $params = [
             'sku' => $this->faker->numberBetween(1111111, 999999),
             'name' => $product,
-            'slug' => str_slug($product),
+            'slug' => Str::slug($product),
             'description' => $this->faker->paragraph,
             'cover' => UploadedFile::fake()->image('file.png', 200, 200),
             'quantity' => -1,
@@ -316,7 +317,7 @@ class ProductFeatureTest extends TestCase
         $params = [
             'sku' => $this->faker->numberBetween(1111111, 999999),
             'name' => $product,
-            'slug' => str_slug($product),
+            'slug' => Str::slug($product),
             'description' => $this->faker->paragraph,
             'cover' => UploadedFile::fake()->image('file.png', 200, 200),
             'quantity' => 10,
@@ -338,7 +339,7 @@ class ProductFeatureTest extends TestCase
         $params = [
             'sku' => $this->faker->numberBetween(1111111, 999999),
             'name' => $product,
-            'slug' => str_slug($product),
+            'slug' => Str::slug($product),
             'description' => $this->faker->paragraph,
             'cover' => UploadedFile::fake()->image('file.png', 200, 200),
             'quantity' => 10,
@@ -360,7 +361,7 @@ class ProductFeatureTest extends TestCase
         $params = [
             'sku' => $this->faker->numberBetween(1111111, 999999),
             'name' => $product,
-            'slug' => str_slug($product),
+            'slug' => Str::slug($product),
             'description' => $this->faker->paragraph,
             'cover' => UploadedFile::fake()->image('file.png', 200, 200),
             'quantity' => 10,
@@ -383,7 +384,7 @@ class ProductFeatureTest extends TestCase
         $params = [
             'sku' => $this->faker->numberBetween(1111111, 999999),
             'name' => $product,
-            'slug' => str_slug($product),
+            'slug' => Str::slug($product),
             'description' => $this->faker->paragraph,
             'cover' => UploadedFile::fake()->image('file.png', 200, 200),
             'quantity' => 10,

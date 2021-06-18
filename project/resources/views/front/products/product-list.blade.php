@@ -17,7 +17,7 @@
                                             </form>
                                         </li>
                                         <li>  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal_{{ $product->id }}"> <i class="fa fa-eye"></i> Quick View</button>
-                                        <li>  <a class="btn btn-default product-btn" href="{{ route('front.get.product', str_slug($product->slug)) }}"> <i class="fa fa-link"></i> Go to product</a> </li>
+                                        <li>  <a class="btn btn-default product-btn" href="{{ route('front.get.product', $product->slug) }}"> <i class="fa fa-link"></i> Go to product</a> </li>
                                     </ul>
                                 </div>
                             </div>

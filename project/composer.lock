@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cca00f97fce1f27d883af0d25e7e2a99",
+    "content-hash": "a00e7bbe93f355cc4adcd21a13062abe",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1656,16 +1656,16 @@
         },
         {
             "name": "jsdecena/baserepo",
-            "version": "v1.0.10",
+            "version": "v1.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jsdecena/baserepo.git",
-                "reference": "ffc88b035ef3d39770d6296083866ffe6e206e44"
+                "reference": "12a2617f101a08e208511e23ee1a3e815f399efb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jsdecena/baserepo/zipball/ffc88b035ef3d39770d6296083866ffe6e206e44",
-                "reference": "ffc88b035ef3d39770d6296083866ffe6e206e44",
+                "url": "https://api.github.com/repos/jsdecena/baserepo/zipball/12a2617f101a08e208511e23ee1a3e815f399efb",
+                "reference": "12a2617f101a08e208511e23ee1a3e815f399efb",
                 "shasum": ""
             },
             "require": {
@@ -1708,9 +1708,9 @@
             "description": "Base repository",
             "support": {
                 "issues": "https://github.com/jsdecena/baserepo/issues",
-                "source": "https://github.com/jsdecena/baserepo/tree/v1.0.10"
+                "source": "https://github.com/jsdecena/baserepo/tree/v1.0.11"
             },
-            "time": "2020-08-30T04:01:50+00:00"
+            "time": "2021-06-20T19:52:42+00:00"
         },
         {
             "name": "jsdecena/mcpro",
@@ -2029,6 +2029,62 @@
                 "source": "https://github.com/laravel/framework"
             },
             "time": "2021-05-19T13:03:18+00:00"
+        },
+        {
+            "name": "laravel/legacy-factories",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/legacy-factories.git",
+                "reference": "5e3fe2fd5fda64e20ea5c74c831a7346294e902a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/legacy-factories/zipball/5e3fe2fd5fda64e20ea5c74c831a7346294e902a",
+                "reference": "5e3fe2fd5fda64e20ea5c74c831a7346294e902a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/macroable": "^8.0",
+                "php": "^7.3|^8.0",
+                "symfony/finder": "^3.4|^4.0|^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Illuminate\\Database\\Eloquent\\LegacyFactoryServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "helpers.php"
+                ],
+                "psr-4": {
+                    "Illuminate\\Database\\Eloquent\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "The legacy version of the Laravel Eloquent factories.",
+            "homepage": "http://laravel.com",
+            "support": {
+                "issues": "https://github.com/laravel/framework/issues",
+                "source": "https://github.com/laravel/framework"
+            },
+            "time": "2020-10-27T14:25:32+00:00"
         },
         {
             "name": "laravel/tinker",

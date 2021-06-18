@@ -43,7 +43,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Set up the test
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -117,7 +117,7 @@ abstract class TestCase extends BaseTestCase
         $this->cart = new Cart($session, $events);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->artisan('migrate:reset');
         parent::tearDown();

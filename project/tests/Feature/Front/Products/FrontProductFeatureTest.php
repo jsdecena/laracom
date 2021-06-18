@@ -3,6 +3,7 @@
 namespace Tests\Feature\Front\Products;
 
 use App\Shop\Products\Product;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class FrontProductFeatureTest extends TestCase
@@ -13,7 +14,7 @@ class FrontProductFeatureTest extends TestCase
         $product = factory(Product::class)->create();
 
         $this
-            ->get(route('front.get.product', str_slug($product->name)))
+            ->get(route('front.get.product', Str::slug($product->name)))
             ->assertStatus(200)
             ->assertSee($product->name)
             ->assertSee($product->description)

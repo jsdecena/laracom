@@ -8,6 +8,7 @@ use App\Shop\Countries\Country;
 use App\Shop\Customers\Customer;
 use App\Shop\Customers\Repositories\CustomerRepository;
 use App\Shop\Provinces\Province;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class CustomersFeatureTest extends TestCase
@@ -83,7 +84,7 @@ class CustomersFeatureTest extends TestCase
     {
         $customer = factory(Customer::class)->create();
 
-        $param = ['q' => str_slug($customer->name, 5)];
+        $param = ['q' => Str::slug($customer->name, 5)];
 
         $this
             ->actingAs($this->employee, 'employee')
