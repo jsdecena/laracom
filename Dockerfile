@@ -1,4 +1,4 @@
-FROM jsdecena/php72-fpm
+FROM jsdecena/php74-fpm
 
 ENV NODE_VERSION=12.6.0
 RUN apt update && apt install -y curl

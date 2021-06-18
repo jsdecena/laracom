@@ -2,6 +2,7 @@
 
 namespace App\Shop\Categories\Repositories;
 
+use Illuminate\Support\Str;
 use Jsdecena\Baserepo\BaseRepository;
 use App\Shop\Categories\Category;
 use App\Shop\Categories\Exceptions\CategoryInvalidArgumentException;
@@ -72,7 +73,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         try {
 
             $collection = collect($params);
-            $slug = (isset($params['name'])) ? str_slug($params['name']) : '';
+            $slug = (isset($params['name'])) ? Str::slug($params['name']) : '';
 
             $cover = (isset($params['cover']) && ($params['cover'] instanceof UploadedFile)) ?
                 $this->uploadOne($params['cover'], 'categories') : '';
@@ -105,7 +106,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     {
         $category = $this->findCategoryById($this->model->id);
         $collection = collect($params)->except('_token');
-        $slug = str_slug($collection->get('name'));
+        $slug = Str::slug($collection->get('name'));
         $cover = '';
 
         if (isset($params['cover']) && ($params['cover'] instanceof UploadedFile)) {
@@ -198,13 +199,13 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     }
 
     /**
-     * @param $file
+     * @param array $file
      * @param null $disk
      * @return bool
      */
     public function deleteFile(array $file, $disk = null) : bool
     {
-        return $this->update(['cover' => null], $file['category']);
+        return $this->update(['cover' => null]);
     }
 
     /**

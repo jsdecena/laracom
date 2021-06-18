@@ -153,7 +153,7 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         Jsdecena\MCPro\McproServiceProvider::class,
         // Jsdecena\MailChimp\MailChimpServiceProvider::class,
-        Laravel\Cashier\CashierServiceProvider::class,
+        // Laravel\Cashier\CashierServiceProvider::class,
         Jsdecena\Baserepo\BaseRepositoryProvider::class,
         \Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
 
