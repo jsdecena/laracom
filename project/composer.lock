@@ -1294,12 +1294,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jsdecena/LaravelShoppingcart.git",
-                "reference": "361c4cdd3eb1594d08daf93f4e3c35e02aff4442"
+                "reference": "d80fbabfbb451b9124d776f0c0bdfb2c7efe89c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jsdecena/LaravelShoppingcart/zipball/361c4cdd3eb1594d08daf93f4e3c35e02aff4442",
-                "reference": "361c4cdd3eb1594d08daf93f4e3c35e02aff4442",
+                "url": "https://api.github.com/repos/jsdecena/LaravelShoppingcart/zipball/d80fbabfbb451b9124d776f0c0bdfb2c7efe89c9",
+                "reference": "d80fbabfbb451b9124d776f0c0bdfb2c7efe89c9",
                 "shasum": ""
             },
             "require": {
@@ -1353,7 +1353,7 @@
             "support": {
                 "source": "https://github.com/jsdecena/LaravelShoppingcart/tree/laravel-8"
             },
-            "time": "2021-06-18T00:24:44+00:00"
+            "time": "2021-06-20T20:09:59+00:00"
         },
         {
             "name": "graham-campbell/result-type",

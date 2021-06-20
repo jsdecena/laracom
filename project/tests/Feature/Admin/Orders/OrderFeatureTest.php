@@ -6,6 +6,7 @@ use App\Shop\Customers\Customer;
 use App\Shop\Orders\Order;
 use App\Shop\Orders\Repositories\OrderRepository;
 use App\Shop\Products\Product;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class OrderFeatureTest extends TestCase
@@ -20,7 +21,7 @@ class OrderFeatureTest extends TestCase
 
         $this
             ->actingAs($this->employee, 'employee')
-            ->get(route('admin.orders.index', ['q' => str_limit($customer->name, 5, '')]))
+            ->get(route('admin.orders.index', ['q' => Str::limit($customer->name, 5, '')]))
             ->assertStatus(200)
             ->assertSee($customer->name);
     }

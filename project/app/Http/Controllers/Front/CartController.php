@@ -7,12 +7,8 @@ use App\Shop\Carts\Requests\UpdateCartRequest;
 use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
 use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
 use App\Shop\ProductAttributes\Repositories\ProductAttributeRepositoryInterface;
-use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Shop\Products\Repositories\ProductRepository;
 use App\Shop\Products\Transformations\ProductTransformable;
-use Gloudemans\Shoppingcart\CartItem;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CartController extends Controller

@@ -13,11 +13,12 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\Shop\Countries\Country;
+use Illuminate\Support\Str;
 
 $factory->define(Country::class, function (Faker\Generator $faker) {
 
     return [
-        'name' => $faker->unique()->country,
+        'name' => Str::random(),
         'iso' => $faker->unique()->countryISOAlpha3,
         'iso3' => $faker->unique()->countryISOAlpha3,
         'numcode' => $faker->randomDigit,

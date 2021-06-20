@@ -10,6 +10,7 @@ use App\Shop\Products\Exceptions\ProductNotFoundException;
 use App\Shop\Products\Exceptions\ProductUpdateErrorException;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\ProductRepository;
+use Exception;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -21,16 +22,16 @@ class ProductUnitTest extends TestCase
     public function it_can_return_the_product_of_the_cover_image()
     {
         $thumbnails = [
-            UploadedFile::fake()->image('cover.jpg', 600, 600),
-            UploadedFile::fake()->image('cover.jpg', 600, 600),
-            UploadedFile::fake()->image('cover.jpg', 600, 600)
+            UploadedFile::fake()->image('cover.png', 600, 600),
+            UploadedFile::fake()->image('cover.png', 600, 600),
+            UploadedFile::fake()->image('cover.png', 600, 600)
         ];
 
         $collection = collect($thumbnails);
 
         $product = factory(Product::class)->create();
         $productRepo = new ProductRepository($product);
-        $productRepo->saveProductImages($collection, $product);
+        $productRepo->saveProductImages($collection);
 
         $images = $productRepo->findProductImages();
 
@@ -52,9 +53,9 @@ class ProductUnitTest extends TestCase
     public function it_can_save_the_thumbnails_properly_in_the_file_storage()
     {
         $thumbnails = [
-            UploadedFile::fake()->image('cover.jpg', 600, 600),
-            UploadedFile::fake()->image('cover.jpg', 600, 600),
-            UploadedFile::fake()->image('cover.jpg', 600, 600)
+            UploadedFile::fake()->image('cover.png', 600, 600),
+            UploadedFile::fake()->image('cover.png', 600, 600),
+            UploadedFile::fake()->image('cover.png', 600, 600)
         ];
 
         $collection = collect($thumbnails);
@@ -74,7 +75,7 @@ class ProductUnitTest extends TestCase
     /** @test */
     public function it_can_save_the_cover_image_properly_in_file_storage()
     {
-        $cover = UploadedFile::fake()->image('cover.jpg', 600, 600);
+        $cover = UploadedFile::fake()->image('cover.png', 600, 600);
 
         $product = factory(Product::class)->create();
         $productRepo = new ProductRepository($product);
@@ -106,7 +107,9 @@ class ProductUnitTest extends TestCase
         $this->assertCount(0, $productRepo->getCategories());
     }
 
-    /** @test */
+    /** @test
+     * @throws ProductCreateErrorException
+     */
     public function it_can_delete_a_thumbnail_image()
     {
         $product = 'apple';
@@ -132,7 +135,7 @@ class ProductUnitTest extends TestCase
         $created = $productRepo->createProduct($params);
 
         $repo = new ProductRepository($created);
-        $repo->saveProductImages(collect($params['image']), $created);
+        $repo->saveProductImages(collect($params['image']));
         $thumbnails = $repo->findProductImages();
 
         $this->assertCount(3, $repo->findProductImages());
@@ -171,7 +174,7 @@ class ProductUnitTest extends TestCase
         $created = $productRepo->createProduct($params);
 
         $repo = new ProductRepository($created);
-        $repo->saveProductImages(collect($params['image']), $created);
+        $repo->saveProductImages(collect($params['image']));
         $this->assertCount(3, $repo->findProductImages());
     }
 
@@ -231,7 +234,9 @@ class ProductUnitTest extends TestCase
         $product->createProduct([]);
     }
 
-    /** @test */
+    /** @test
+     * @throws Exception
+     */
     public function it_can_delete_a_product()
     {
         $product = factory(Product::class)->create();
@@ -275,7 +280,9 @@ class ProductUnitTest extends TestCase
         $product->findProductById(999);
     }
 
-    /** @test */
+    /** @test
+     * @throws ProductNotFoundException
+     */
     public function it_can_find_the_product()
     {
         $product = new ProductRepository(new Product);
@@ -315,7 +322,9 @@ class ProductUnitTest extends TestCase
         $this->assertTrue($updated);
     }
 
-    /** @test */
+    /** @test
+     * @throws ProductCreateErrorException
+     */
     public function it_can_create_a_product()
     {
         $product = 'apple';

@@ -10,6 +10,7 @@ use App\Shop\Customers\Exceptions\UpdateCustomerInvalidArgumentException;
 use App\Shop\Customers\Repositories\CustomerRepository;
 use App\Shop\Customers\Transformations\CustomerTransformable;
 use App\Shop\Orders\Order;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -129,8 +130,10 @@ class CustomerUnitTest extends TestCase
         $this->assertEquals($address->alias, $attachedAddress->alias);
         $this->assertEquals($address->address_1, $attachedAddress->address_1);
     }
-    
-    /** @test */
+
+    /** @test
+     * @throws Exception
+     */
     public function it_can_soft_delete_a_customer()
     {
         $customer = factory(Customer::class)->create();
@@ -140,7 +143,7 @@ class CustomerUnitTest extends TestCase
 
         $this->assertTrue($delete);
 
-        $this->assertDatabaseHas('customers', $customer->toArray());
+        $this->assertDatabaseHas('customers', ['name' => $customer->name]);
     }
 
     /** @test */

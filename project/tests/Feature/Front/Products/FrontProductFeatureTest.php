@@ -40,7 +40,7 @@ class FrontProductFeatureTest extends TestCase
         $product = factory(Product::class)->create();
 
         $this
-            ->get(route('search.product', ['q' => str_limit($product->name, 4, '')]))
+            ->get(route('search.product', ['q' => Str::limit($product->name, 4, '')]))
             ->assertStatus(200)
             ->assertSee($product->name)
             ->assertSee("$product->quantity")

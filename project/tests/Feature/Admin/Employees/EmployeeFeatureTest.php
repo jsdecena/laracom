@@ -189,7 +189,7 @@ class EmployeeFeatureTest extends TestCase
             ->assertStatus(302)
             ->assertRedirect(route('admin.employees.index'));
 
-        $this->assertDatabaseHas('employees', $employee->toArray());
+        $this->assertDatabaseHas('employees', ['name' => $employee->name]);
     }
 
     /** @test */

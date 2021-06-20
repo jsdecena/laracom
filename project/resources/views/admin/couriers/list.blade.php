@@ -26,7 +26,7 @@
                         @foreach ($couriers as $courier)
                             <tr>
                                 <td>{{ $courier->name }}</td>
-                                <td>{{ str_limit($courier->description, 100, ' ...') }}</td>
+                                <td>{{ $courier->description }}</td>
                                 <td>{{ $courier->url }}</td>
                                 <td>
                                     @include('layouts.status', ['status' => $courier->is_free])

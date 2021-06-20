@@ -114,7 +114,7 @@ class ProvincesUnitTest extends TestCase
         $provinces = $provinceRepo->listProvinces();
 
         foreach ($provinces as $province) {
-            $this->assertDatabaseHas('provinces', $province->toArray());
+            $this->assertDatabaseHas('provinces', ['name' => $province->name]);
         }
     }
 }

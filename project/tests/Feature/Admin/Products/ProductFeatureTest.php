@@ -30,7 +30,7 @@ class ProductFeatureTest extends TestCase
 
         $this
             ->actingAs($this->employee, 'employee')
-            ->get(route('admin.products.index', ['q' => str_limit($product->name, 5, '')]))
+            ->get(route('admin.products.index', ['q' => Str::limit($product->name, 5, '')]))
             ->assertStatus(200)
             ->assertSee($product->name);
     }
@@ -60,7 +60,7 @@ class ProductFeatureTest extends TestCase
         $productRepo = new ProductRepository(new Product());
         $created = $productRepo->createProduct($params);
         $repo = new ProductRepository($created);
-        $repo->saveProductImages(collect($params['image']), $created);
+        $repo->saveProductImages(collect($params['image']));
         $image = $repo->findProductImages()->first();
 
         $this
@@ -137,9 +137,9 @@ class ProductFeatureTest extends TestCase
         $cover = UploadedFile::fake()->image('file.png', 600, 600);
 
         $thumbnails = [
-            UploadedFile::fake()->image('cover.jpg', 600, 600),
-            UploadedFile::fake()->image('cover.jpg', 600, 600),
-            UploadedFile::fake()->image('cover.jpg', 600, 600)
+            UploadedFile::fake()->image('cover.png', 600, 600),
+            UploadedFile::fake()->image('cover.png', 600, 600),
+            UploadedFile::fake()->image('cover.png', 600, 600)
         ];
 
         $categories = factory(Category::class, 2)->create();
@@ -176,9 +176,9 @@ class ProductFeatureTest extends TestCase
         $cover = UploadedFile::fake()->image('file.png', 600, 600);
 
         $thumbnails = [
-            UploadedFile::fake()->image('cover.jpg', 600, 600),
-            UploadedFile::fake()->image('cover.jpg', 600, 600),
-            UploadedFile::fake()->image('cover.jpg', 600, 600)
+            UploadedFile::fake()->image('cover.png', 600, 600),
+            UploadedFile::fake()->image('cover.png', 600, 600),
+            UploadedFile::fake()->image('cover.png', 600, 600)
         ];
 
         $params = [
@@ -238,7 +238,7 @@ class ProductFeatureTest extends TestCase
     {
         $categories = [];
 
-        $cats = factory(Category::class)->create();
+        $cats = factory(Category::class, 2)->create();
 
         foreach ($cats as $cat) {
             $categories[] = $cat['id'];

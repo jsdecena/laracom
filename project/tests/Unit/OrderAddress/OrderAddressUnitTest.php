@@ -21,7 +21,7 @@ class OrderAddressUnitTest extends TestCase
         $order = factory(Order::class)->create();
 
         $orderRepo = new OrderRepository($order);
-        $orderRepo->buildOrderDetails($cartRepo->getCartItems(), $qty);
+        $orderRepo->buildOrderDetails($cartRepo->getCartItems());
 
         $orderRepo->listOrderedProducts()->each(function ($product) {
             $this->assertEquals($this->product->name, $product->name);
