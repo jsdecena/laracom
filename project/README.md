@@ -9,17 +9,32 @@
 
 # Laravel FREE E-Commerce Software
 
-- See full [documentation](https://shop.laracom.net/docs)
+Features Provided
+- Products
+- Cart
+- Checkout
+- Categories
+- Customers
+- Orders
+- Payment
+- Couriers
+- Employees
 
-# Setup
-* `composer install`
-* `php artisan migrate --seed`
-* `npm install`
-* `npm run dev`
-* `php artisan storage:link`
+- To view more details of the features 
+See full [documentation](https://shop.laracom.net/docs)
+
+# Simplified DOCKER setup
+### In your teminal, issue these commands
+
+- RUN `docker-compose up -d --build`
+- RUN `cd project && make install`
+- OPEN [http://localhost:8000](http://localhost:8000)
+
+# Author
+
+[Jeff Simons Decena](https://jsdecena.me)
 
 # Contributors
-[Jeff Simons Decena](https://jsdecena.me) - Author
 
 [Contributors](https://github.com/Laracommerce/laracom/graphs/contributors)
 
