@@ -24,15 +24,10 @@ Features Provided
 See full [documentation](https://shop.laracom.net/docs)
 
 # Simplified DOCKER setup
+### In your teminal, issue these commands
 
-- RENAME `project/.env.example` to `.env`
-- RUN `docker-compose up -d`
-- RUN `docker exec -it app bash`, then inside the container:
-    - `composer install`
-    - `php artisan migrate --seed`
-    - `chmod -R 777 storage bootstrap/cache`
-- RUN `npm install && npm run prod` OR if you are still doing development
-- RUN `npm install && npm run dev`
+- RUN `docker-compose up -d --build`
+- RUN `cd project && make install`
 - OPEN [http://localhost:8000](http://localhost:8000)
 
 # Author

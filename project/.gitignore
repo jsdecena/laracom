@@ -1,6 +1,5 @@
 /node_modules/
 /public/hot
-/public/storage
 /public/fonts
 /public/img
 /public/images
@@ -8,10 +7,9 @@
 /public/css/app.css
 /public/js/app.js
 /storage/*.key
-/storage
 /vendor
-/.idea
-/.vagrant
+.idea/
+.vagrant/
 Homestead.json
 Homestead.yaml
 npm-debug.log
@@ -24,7 +22,6 @@ package-lock.json
 /build
 Envoy.blade.php
 /coverage
-storage/app/public/storage
 \.php_cs\.cache
 public/css
 public/js
