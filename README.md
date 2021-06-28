@@ -34,12 +34,12 @@ See full [documentation](https://shop.laracom.net/docs)
 
 [Jeff Simons Decena](https://jsdecena.me)
 
-# Contributors
-
-[Contributors](https://github.com/Laracommerce/laracom/graphs/contributors)
-
 # Get discount on Digital Ocean
 Sign-up with [Digital Ocean and get $10 discount](https://m.do.co/c/bce94237de96)!
+
+# Contributors
+
+<a href="https://github.com/jsdecena/laracom/graphs/contributors"><img src="https://opencollective.com/laracom/contributors.svg?width=890" title="contributors" alt="contributors" /></a>
 
 
 ## License
