@@ -7,6 +7,8 @@ RUN docker-php-ext-install mysqli pdo_mysql gd
 
 COPY project ./
 
+COPY project/.env.example ./.env
+
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 ENV NVM_DIR=/root/.nvm
 

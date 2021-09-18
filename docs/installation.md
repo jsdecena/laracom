@@ -2,7 +2,7 @@
 
 Laracom is based on Laravel application, so everything are the same with Laravel base project.
 
-> {success} Sign-up with [Digital Ocean](https://m.do.co/c/bce94237de96) and get **$10** discount!
+> Sign-up with [Digital Ocean](https://m.do.co/c/bce94237de96) and get **$10** discount!
 
 ---
 
@@ -22,13 +22,22 @@ Laracom is based on Laravel application, so everything are the same with Laravel
   - Laravel 5.6 or higher
   - Composer
 
-> {info} There are many ways to install a Laravel app but we suggest using **Homestead**.
+> There are many ways to install a **Laravel** app but we suggest using DOCKER or VAGRANT HOMESTEAD for your local environment.
 
-#### Homestead
+### DOCKER
+
+- RUN `docker-compose up -d --build`
+- RUN `docker exec -it app bash`
+- Inside the container, run `composer install && chmod -R 777 storage/ bootstrap/cache/`
+- Inside the container, run `php artisan migrate --seed`
+- While inside the container, compile the assets with `npm i && npm run dev`
+- OPEN [http://localhost:8000](http://localhost:8000)
+- Enjoy!
+#### HOMESTEAD
 
 Install [Laravel Homestead](https://laravel.com/docs/5.7/homestead#installation-and-setup). Just follow the instruction on the site.
 
-> {primary} Protip: Create your own folder in your home directory like `Code` to segregate your coding projects
+> Protip: Create your own folder in your home directory like `Code` to segregate your coding projects
 
 Go to your preferred workspace location and create the project with 
 
