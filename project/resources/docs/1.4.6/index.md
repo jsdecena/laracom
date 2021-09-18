@@ -1,4 +1,0 @@
-- ## Get Started
-     - [Overview](/docs/{{version}}/overview)
-     - [Installation](/docs/{{version}}/installation)
-     - [Screenshots](/docs/{{version}}/ss)
