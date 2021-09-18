@@ -26,13 +26,15 @@ Laracom is based on Laravel application, so everything are the same with Laravel
 
 ### DOCKER
 
-- RUN `docker-compose up -d --build`
-- RUN `docker exec -it app bash`
+- Clone the repo `git clone git@github.com:jsdecena/laracom.git && cd laracom`
+- Inside the LARACOM folder, RUN `docker-compose up -d --build`
+- Then `docker exec -it app bash`
 - Inside the container, run `composer install && chmod -R 777 storage/ bootstrap/cache/`
-- Inside the container, run `php artisan migrate --seed`
+- Again in the container, run `php artisan migrate --seed`
 - While inside the container, compile the assets with `npm i && npm run dev`
 - OPEN [http://localhost:8000](http://localhost:8000)
 - Enjoy!
+
 #### HOMESTEAD
 
 Install [Laravel Homestead](https://laravel.com/docs/5.7/homestead#installation-and-setup). Just follow the instruction on the site.
