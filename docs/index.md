@@ -13,8 +13,8 @@ Test-driven development (TDD) made app. Start your online business using a moder
 ---
 
 - ## Get Started
-- [Installation](/docs/installation)
-- [Screenshots](/docs/ss)
+- [Installation](installation)
+- [Screenshots](ss)
 
 
 ## Overview
