@@ -2,7 +2,7 @@
 
 Test-driven development (TDD) made app. Start your online business using a modern framework.
 
-[Website](https://laracom.net/) | [Admin Screenshots](https://github.com/jsdecena/laracom/wiki/Admin-Features) | [Shop Screenshots](https://github.com/jsdecena/laracom/wiki/Frontend-Features) | [Demo](https://shop.laracom.net)
+[Admin Screenshots](https://github.com/jsdecena/laracom/wiki/Admin-Features) | [Shop Screenshots](https://github.com/jsdecena/laracom/wiki/Frontend-Features)
 
 [![Build Status](https://travis-ci.org/Laracommerce/laracom.svg?branch=master)](https://travis-ci.org/Laracommerce/laracom)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Laracommerce/laracom/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Laracommerce/laracom/?branch=master)
@@ -15,8 +15,8 @@ Test-driven development (TDD) made app. Start your online business using a moder
 ---
 
 - ## Get Started
-- [Installation](docs/installation)
-- [Screenshots](docs/ss)
+- [Installation](/docs/installation)
+- [Screenshots](/docs/ss)
 
 
 ## Overview

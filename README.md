@@ -7,6 +7,9 @@
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/larac0m/Lobby)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FLaracommerce%2Flaracom.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FLaracommerce%2Flaracom?ref=badge_shield)
 
+# Get discount on Digital Ocean
+Sign-up with [Digital Ocean and get $10 discount](https://m.do.co/c/bce94237de96)!
+
 # Laravel FREE E-Commerce Software
 
 Features Provided
@@ -21,7 +24,7 @@ Features Provided
 - Employees
 
 - To view more details of the features 
-See full [documentation](https://shop.laracom.net/docs)
+See full [documentation](https://jsdecena.github.io/laracom)
 
 # Simplified DOCKER setup
 ### In your teminal, issue these commands
@@ -33,9 +36,6 @@ See full [documentation](https://shop.laracom.net/docs)
 # Author
 
 [Jeff Simons Decena](https://jsdecena.me)
-
-# Get discount on Digital Ocean
-Sign-up with [Digital Ocean and get $10 discount](https://m.do.co/c/bce94237de96)!
 
 # Contributors
 
