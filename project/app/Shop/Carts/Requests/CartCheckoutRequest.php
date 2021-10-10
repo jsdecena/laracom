@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Shop\Cart\Requests;
+namespace App\Shop\Carts\Requests;
 
 use App\Shop\Base\BaseFormRequest;
 
