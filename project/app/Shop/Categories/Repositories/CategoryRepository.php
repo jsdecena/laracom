@@ -2,6 +2,7 @@
 
 namespace App\Shop\Categories\Repositories;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Jsdecena\Baserepo\BaseRepository;
 use App\Shop\Categories\Category;
@@ -202,9 +203,15 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
      * @param array $file
      * @param null $disk
      * @return bool
+     * @throws CategoryNotFoundException
      */
     public function deleteFile(array $file, $disk = null) : bool
     {
+        $category = $this->findCategoryById($file['category']);
+
+        // Remove the physical uploaded file
+        unlink(storage_path("app/public/$category->cover"));
+
         return $this->update(['cover' => null]);
     }
 
