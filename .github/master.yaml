@@ -1,0 +1,25 @@
+name: Master
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  develop:
+    runs-on: ubuntu-18.04
+    container:
+      image: jsdecena/php8-fpm:8.0.13
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: cd project && composer install --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader --ignore-platform-reqs
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.testing', '.env');"
+      - name: Execute tests
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: ":memory:"
+        run: vendor/bin/phpunit --coverage-text
