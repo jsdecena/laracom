@@ -16,7 +16,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "jsdecena/baserepo": "^1.0",
         "jsdecena/mcpro": "1.1.*",
-        "kalnoy/nestedset": "^5.0",
+        "kalnoy/nestedset": "^6.0",
         "laravel/framework": "8.75.0",
         "laravel/legacy-factories": "^1.1",
         "laravel/tinker": "^2.5",
