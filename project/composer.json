@@ -7,7 +7,7 @@
     "require": {
         "php": "^7.2|^8.0",
         "ext-json": "*",
-        "barryvdh/laravel-dompdf": "^0.8.2",
+        "barryvdh/laravel-dompdf": "^1.0",
         "binarytorch/larecipe": "^2.4",
         "doctrine/dbal": "^3.1",
         "fideloper/proxy": "^4.4",
