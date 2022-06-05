@@ -195,7 +195,7 @@ class ProductUnitTest extends TestCase
     public function it_can_delete_the_file_only_by_updating_the_database()
     {
         $product = new ProductRepository($this->product);
-        $this->assertTrue($product->deleteFile(['product' => $this->product->id]));
+        $this->assertTrue($product->deleteCover());
     }
 
     /** @test */

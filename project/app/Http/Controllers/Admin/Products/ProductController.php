@@ -7,8 +7,7 @@ use App\Shop\AttributeValues\Repositories\AttributeValueRepositoryInterface;
 use App\Shop\Brands\Repositories\BrandRepositoryInterface;
 use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Shop\ProductAttributes\ProductAttribute;
-use App\Shop\Products\Exceptions\ProductInvalidArgumentException;
-use App\Shop\Products\Exceptions\ProductNotFoundException;
+use App\Shop\Products\Exceptions\ProductUpdateErrorException;
 use App\Shop\Products\Product;
 use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Repositories\ProductRepository;
@@ -17,10 +16,12 @@ use App\Shop\Products\Requests\UpdateProductRequest;
 use App\Http\Controllers\Controller;
 use App\Shop\Products\Transformations\ProductTransformable;
 use App\Shop\Tools\UploadableTrait;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -92,7 +93,6 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -114,7 +114,6 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -132,9 +131,8 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  CreateProductRequest $request
-     *
-     * @return \Illuminate\Http\Response
+     * @param CreateProductRequest $request
+     * @return RedirectResponse
      */
     public function store(CreateProductRequest $request)
     {
@@ -165,9 +163,8 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show(int $id)
     {
@@ -178,9 +175,8 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|RedirectResponse
      */
     public function edit(int $id)
     {
@@ -220,11 +216,11 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateProductRequest $request
-     * @param  int $id
+     * @param UpdateProductRequest $request
+     * @param int $id
      *
-     * @return \Illuminate\Http\Response
-     * @throws \App\Shop\Products\Exceptions\ProductUpdateErrorException
+     * @return RedirectResponse
+     * @throws ProductUpdateErrorException
      */
     public function update(UpdateProductRequest $request, int $id)
     {
@@ -276,10 +272,9 @@ class ProductController extends Controller
      *
      * @param  int $id
      *
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
+     * @throws Exception
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $product = $this->productRepo->findProductById($id);
         $product->categories()->sync([]);
@@ -300,18 +295,21 @@ class ProductController extends Controller
     /**
      * @param Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function removeImage(Request $request)
     {
-        $this->productRepo->deleteFile($request->only('product', 'image'), 'uploads');
+        $product = $this->productRepo->findOneOrFail($request->input('product_id'));
+        $product->cover = null;
+        $product->save();
+
         return redirect()->back()->with('message', 'Image delete successful');
     }
 
     /**
      * @param Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function removeThumbnail(Request $request)
     {
@@ -322,7 +320,7 @@ class ProductController extends Controller
     /**
      * @param Request $request
      * @param Product $product
-     * @return boolean
+     * @return RedirectResponse|bool
      */
     private function saveProductCombinations(Request $request, Product $product): bool
     {
@@ -374,7 +372,7 @@ class ProductController extends Controller
     /**
      * @param array $data
      *
-     * @return
+     * @return \Illuminate\Contracts\Validation\Validator|void
      */
     private function validateFields(array $data)
     {

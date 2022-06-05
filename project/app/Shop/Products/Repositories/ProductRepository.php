@@ -154,13 +154,21 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     }
 
     /**
-     * @param $file
+     * @param array $file
      * @param null $disk
      * @return bool
      */
     public function deleteFile(array $file, $disk = null) : bool
     {
         return $this->update(['cover' => null], $file['product']);
+    }
+
+    /**
+     * @return bool
+     */
+    public function deleteCover(): bool
+    {
+        return $this->model->update(['cover' => null]);
     }
 
     /**

@@ -29,6 +29,7 @@ $factory->define(Product::class, function (Faker\Generator $faker) {
         'price' => 5.00,
         'status' => 1,
         'weight' => 5,
+        'cover' => $file->getFilename() . '.'. $file->getClientOriginalExtension(),
         'mass_unit' => config('shop.weight', 'gms')
     ];
 });

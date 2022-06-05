@@ -6,6 +6,7 @@
         @include('layouts.errors-and-messages')
         <div class="box">
             <form action="{{ route('admin.products.update', $product->id) }}" method="post" class="form" enctype="multipart/form-data">
+                @method('put')
                 <div class="box-body">
                     <div class="row">
                         {{ csrf_field() }}

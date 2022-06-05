@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Categories;
 
+use App\Shop\Categories\Exceptions\CategoryNotFoundException;
 use App\Shop\Categories\Repositories\CategoryRepository;
 use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Http\Controllers\Admin\Categories\Requests\CreateCategoryRequest;
 use App\Http\Controllers\Admin\Categories\Requests\UpdateCategoryRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -101,11 +103,12 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateCategoryRequest $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateCategoryRequest $request
+     * @param int $id
+     * @return RedirectResponse
+     * @throws CategoryNotFoundException
      */
-    public function update(UpdateCategoryRequest $request, $id)
+    public function update(UpdateCategoryRequest $request, $id): RedirectResponse
     {
         $category = $this->categoryRepo->findCategoryById($id);
 
@@ -119,10 +122,10 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function destroy(int $id)
+    public function destroy(int $id): RedirectResponse
     {
         $category = $this->categoryRepo->findCategoryById($id);
         $category->products()->sync([]);
@@ -134,9 +137,9 @@ class CategoryController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function removeImage(Request $request)
+    public function removeImage(Request $request): RedirectResponse
     {
         $this->categoryRepo->deleteFile($request->only('category'));
         request()->session()->flash('message', 'Image delete successful');
