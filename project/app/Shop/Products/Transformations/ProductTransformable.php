@@ -21,7 +21,7 @@ trait ProductTransformable
         $prod->sku = $product->sku;
         $prod->slug = $product->slug;
         $prod->description = $product->description;
-        $prod->cover = asset("storage/$product->cover");
+        $prod->cover = $product->cover ? asset("storage/$product->cover") : null;
         $prod->quantity = $product->quantity;
         $prod->price = $product->price;
         $prod->status = $product->status;

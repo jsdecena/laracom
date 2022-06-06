@@ -35,13 +35,16 @@
                                                 <label for="description">Description </label>
                                                 <textarea class="form-control ckeditor" name="description" id="description" rows="5" placeholder="Description">{!! $product->description  !!}</textarea>
                                             </div>
+                                            @if(!is_null($product->cover))
                                             <div class="form-group">
                                                 <div class="col-md-3">
                                                     <div class="row">
                                                         <img src="{{ $product->cover }}" alt="" class="img-responsive img-thumbnail">
+                                                        <a onclick="return confirm('Are you sure?')" href="{{ route('admin.product.remove.image', ['product_id' => $product->id]) }}" class="btn btn-danger btn-sm btn-block">Remove?</a><br />
                                                     </div>
                                                 </div>
                                             </div>
+                                            @endif
                                             <div class="row"></div>
                                             <div class="form-group">
                                                 <label for="cover">Cover <span class="text-danger">*</span></label>

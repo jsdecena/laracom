@@ -25,7 +25,7 @@ class Product extends Model implements Buyable
         'CENTIMETER' => 'cm',
         'METER' => 'mtr',
         'INCH' => 'in',
-        'MILIMETER' => 'mm',
+        'MILLIMETER' => 'mm',
         'FOOT' => 'ft',
         'YARD' => 'yd'
     ];
