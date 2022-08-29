@@ -3,7 +3,6 @@
 namespace App\Shop\OrderStatuses\Requests;
 
 use App\Shop\Base\BaseFormRequest;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 
 class UpdateOrderStatusRequest extends BaseFormRequest
