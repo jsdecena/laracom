@@ -33,6 +33,7 @@ class HomeController
         $cat1->products = $cat1->products->map(function (Product $item) {
             return $this->transformProduct($item);
         });
+
         $cat2 = $this->categoryRepo->findCategoryById(3);
         $cat2->products = $cat2->products->map(function (Product $item) {
             return $this->transformProduct($item);
