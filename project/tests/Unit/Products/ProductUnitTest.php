@@ -15,9 +15,12 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Tests\TestCase;
+use App\Shop\Products\Transformations\ProductTransformable;
 
 class ProductUnitTest extends TestCase
 {
+    use ProductTransformable;
+
     /** @test */
     public function it_can_return_the_product_of_the_cover_image()
     {
@@ -353,5 +356,23 @@ class ProductUnitTest extends TestCase
         $this->assertEquals($params['quantity'], $created->quantity);
         $this->assertEquals($params['price'], $created->price);
         $this->assertEquals($params['status'], $created->status);
+    }
+
+    /** @test */
+    public function it_imagepath_null_return_null()
+    {
+        $imagePath = null;
+        $act = $this->rewriteExitsImagePath($imagePath);
+        $exp = null;
+        $this->assertEquals($act, $exp);
+    }
+
+    /** @test */
+    public function it_imagepath_when_not_exists()
+    {
+        $imagePath = "hoge.png";
+        $act = $this->rewriteExitsImagePath($imagePath);
+        $exp = asset("images/NoData.png");
+        $this->assertEquals($act, $exp);
     }
 }
