@@ -50,6 +50,7 @@ class ProductController extends Controller
     public function show(string $slug)
     {
         $product = $this->productRepo->findProductBySlug(['slug' => $slug]);
+        $product = $this->transformProduct($product);
         $images = $product->images()->get();
         $category = $product->categories()->first();
         $productAttributes = $product->attributes;

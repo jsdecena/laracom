@@ -3,7 +3,6 @@
 namespace App\Shop\Products\Transformations;
 
 use App\Shop\Products\Product;
-use Illuminate\Support\Facades\Storage;
 
 trait ProductTransformable
 {
@@ -21,7 +20,7 @@ trait ProductTransformable
         $prod->sku = $product->sku;
         $prod->slug = $product->slug;
         $prod->description = $product->description;
-        $prod->cover = $product->cover ? asset("storage/$product->cover") : null;
+        $prod->cover = $this->rewriteExitsImagePath($product->cover);
         $prod->quantity = $product->quantity;
         $prod->price = $product->price;
         $prod->status = $product->status;
@@ -31,5 +30,24 @@ trait ProductTransformable
         $prod->brand_id = (int) $product->brand_id;
 
         return $prod;
+    }
+
+    /**
+     * it checks the image path which registered to DB and it exists whether on storage. 
+     * if exist, return original path add asset. 
+     * if not exist, return path for No Data.png
+     * 
+     * @param string $path
+     * @return string $existsPath
+     */
+    private function rewriteExitsImagePath($path)
+    {
+        if ($path == null) {
+            return $path;
+        }
+        if (file_exists("/var/www/storage/app/public/" . $path)) {
+            return asset("storage/$path");
+        }
+        return asset("images/NoData.png");
     }
 }

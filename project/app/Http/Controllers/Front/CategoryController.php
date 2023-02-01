@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Front;
 use App\Shop\Categories\Repositories\CategoryRepository;
 use App\Shop\Categories\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Http\Controllers\Controller;
+use App\Shop\Products\Transformations\ProductTransformable;
 
 class CategoryController extends Controller
 {
+    use ProductTransformable;
+
     /**
      * @var CategoryRepositoryInterface
      */
@@ -36,10 +39,16 @@ class CategoryController extends Controller
         $repo = new CategoryRepository($category);
 
         $products = $repo->findProducts()->where('status', 1)->all();
+        $pathValiableProducts = array();
+        foreach ($products as $product) {
+            $item = $product;
+            $item->cover = $this->rewriteExitsImagePath($item->cover);
+            $pathValiableProducts[] = $this->transformProduct($item);
+        }
 
         return view('front.categories.category', [
             'category' => $category,
-            'products' => $repo->paginateArrayResults($products, 20)
+            'products' => $repo->paginateArrayResults($pathValiableProducts, 20)
         ]);
     }
 }

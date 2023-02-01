@@ -4,8 +4,7 @@
             <ul id="thumbnails" class="col-md-4 list-unstyled">
                 <li>
                     <a href="javascript: void(0)">
-                        <img class="img-responsive img-thumbnail" src="{{ asset("storage/$product->cover") }}"
-                            alt="{{ $product->name }}" />
+                        <img class="img-responsive img-thumbnail" src="{{ $product->cover }}" alt="{{ $product->name }}" />
                     </a>
                 </li>
                 @if (isset($images) && !$images->isEmpty())
@@ -20,13 +19,13 @@
                 @endif
             </ul>
             <figure class="text-center product-cover-wrap col-md-8">
-                <img id="main-image" class="product-cover img-responsive"
-                    src="{{ asset("storage/$product->cover") }}?w=400"
-                    data-zoom="{{ asset("storage/$product->cover") }}?w=1200">
+                <img id="main-image" class="product-cover img-responsive" src="{{ $product->cover }}?w=400"
+                    data-zoom="{{ $product->cover }}?w=1200">
             </figure>
         @else
             <figure>
-                <p class="alert alert-warning text-center">No cover image</p>
+                <img src="{{ asset('images/NoData.png') }}" alt="{{ $product->name }}"
+                    class="img-bordered img-responsive">
             </figure>
         @endif
     </div>

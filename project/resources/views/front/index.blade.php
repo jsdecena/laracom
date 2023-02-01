@@ -12,7 +12,7 @@
     @if ($cat1->products->isNotEmpty())
         <section class="new-product t100 home">
             <div class="container">
-                <div class="section-title b50">
+                <div class="section-title b100">
                     <h2>{{ $cat1->name }}</h2>
                 </div>
                 @include('front.products.product-list', [

@@ -32,7 +32,8 @@
                             <img src="{{ $product->cover }}" alt="{{ $product->name }}"
                                 class="img-bordered img-responsive">
                         @else
-                            <p class="alert alert-warning text-center">Upload cover image.</p>
+                            <img src="{{ asset('images/NoData.png') }}" alt="{{ $product->name }}"
+                                class="img-bordered img-responsive">
                         @endif
                     </div>
 
