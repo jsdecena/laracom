@@ -43,7 +43,7 @@ class CategoryController extends Controller
         foreach ($products as $product) {
             $item = $product;
             $item->cover = $this->rewriteExitsImagePath($item->cover);
-            $pathValiableProducts[] = $this->transformProduct($item);
+            $pathValiableProducts[] = $item;
         }
 
         return view('front.categories.category', [
