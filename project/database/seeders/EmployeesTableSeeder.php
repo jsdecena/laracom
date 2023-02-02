@@ -1,5 +1,5 @@
 <?php
-
+namespace Database\Seeders;
 use App\Shop\Employees\Employee;
 use App\Shop\Permissions\Permission;
 use App\Shop\Roles\Repositories\RoleRepository;

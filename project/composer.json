@@ -33,10 +33,10 @@
         }
     ],
     "require-dev": {
-        "fzaninotto/faker": "~1.4",
+        "fakerphp/faker": "^1.21",
+        "filp/whoops": "~2.0",
         "mockery/mockery": "~1.0",
-        "phpunit/phpunit": "~7.0",
-        "filp/whoops": "~2.0"
+        "phpunit/phpunit": "~7.0|~8.0"
     },
     "autoload": {
         "files": [
@@ -46,12 +46,17 @@
             "database"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
         }
     },
     "extra": {
