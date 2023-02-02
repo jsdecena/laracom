@@ -1,5 +1,5 @@
 <?php
-
+namespace Database\Seeders;
 use App\Shop\OrderStatuses\OrderStatus;
 use Illuminate\Database\Seeder;
 
