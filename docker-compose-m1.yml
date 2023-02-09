@@ -45,7 +45,7 @@ services:
     networks:
       - app-network
   mailhog:
-    build: ./mailhog
+    image: mailhog:mailhog
     container_name: mailhog
     tty: true
     ports:
