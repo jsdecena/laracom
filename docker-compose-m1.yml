@@ -44,6 +44,20 @@ services:
       - ./dbdata:/var/lib/mysql
     networks:
       - app-network
+  mailhog:
+    build: ./mailhog
+    container_name: mailhog
+    tty: true
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+    environment:
+      MH_STORAGE: maildir
+      MH_MAILDIR_PATH: /home/mailhog/mails
+    volumes:
+      - ./mails:/home/mailhog/mails
+    networks:
+      - app-network
 networks:
   app-network:
     driver: bridge
