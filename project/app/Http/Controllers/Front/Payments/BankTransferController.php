@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Front\Payments;
 
 use App\Http\Controllers\Controller;
+use App\Shop\Addresses\Address;
+use App\Shop\Addresses\Repositories\AddressRepository;
 use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
 use App\Shop\Checkout\CheckoutRepository;
 use App\Shop\Orders\Repositories\OrderRepository;
@@ -105,11 +107,14 @@ class BankTransferController extends Controller
         $orderStatusRepo = new OrderStatusRepository(new OrderStatus);
         $os = $orderStatusRepo->findByName('ordered');
 
+        $addressRepo = new AddressRepository(new Address);
+        $billingAddress = $addressRepo->findCustomerAddressById((int) $request->input('billing_address'), $request->user());
+
         $order = $checkoutRepo->buildCheckoutItems([
             'reference' => Uuid::uuid4()->toString(),
             'courier_id' => 1, // @deprecated
             'customer_id' => $request->user()->id,
-            'address_id' => $request->input('billing_address'),
+            'address_id' => $billingAddress->id,
             'order_status_id' => $os->id,
             'payment' => strtolower(config('bank-transfer.name')),
             'discounts' => 0,
